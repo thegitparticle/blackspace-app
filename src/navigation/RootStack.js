@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {NetInfo} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import {showMessage} from 'react-native-flash-message';
 import {NavigationContainer} from '@react-navigation/native';
 import Welcome1Screen from '../buckets/welcome/screens/Welcome1Screen';
