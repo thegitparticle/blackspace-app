@@ -8,10 +8,19 @@
 
 import type {Node} from 'react';
 import React from 'react';
-import Welcome1Screen from './src/buckets/welcome/screens/Welcome1Screen';
+import RootStack from './src/navigation/RootStack';
+import {Provider} from 'react-redux';
+import {storehere, persistor} from './src/redux/store';
+import {PersistGate} from 'redux-persist/integration/react';
 
 const App: () => Node = () => {
-  return <Welcome1Screen />;
+  return (
+    <Provider store={storehere}>
+      <PersistGate loading={null} persistor={persistor}>
+        <RootStack />
+      </PersistGate>
+    </Provider>
+  );
 };
 
 export default App;
