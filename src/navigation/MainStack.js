@@ -1,12 +1,8 @@
 import React from 'react';
-import {
-  createStackNavigator,
-  TransitionSpecs,
-  CardStyleInterpolators,
-} from '@react-navigation/stack';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
 
-const StackMain = createStackNavigator();
+const StackMain = createNativeStackNavigator();
 
 function MainStack() {
   return (
@@ -16,11 +12,6 @@ function MainStack() {
         component={HomeLandingScreen}
         options={{
           gestureEnabled: true,
-          transitionSpec: {
-            open: TransitionSpecs.TransitionIOSSpec,
-            close: TransitionSpecs.TransitionIOSSpec,
-          },
-          cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
         }}
       />
     </StackMain.Navigator>

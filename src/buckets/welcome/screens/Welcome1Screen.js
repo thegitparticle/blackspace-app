@@ -27,7 +27,7 @@ function Welcome1Screen({dispatch}) {
           dispatch({type: LOGIN});
           // AsyncStorage.clear();
         }}>
-        <Text>log out</Text>
+        <Text>log in</Text>
       </TouchableOpacity>
     </View>
   );
