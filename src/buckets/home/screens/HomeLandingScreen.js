@@ -31,6 +31,9 @@ function HomeLandingScreen({dispatch}) {
           AsyncStorage.clear();
         }}>
         <Text>log out</Text>
+        <Text style={{fontFamily: 'GothamRounded-Bold'}}>
+          this is the custom font
+        </Text>
         <Button
           icon={<Icon name="arrow-right" size={15} color="white" />}
           title="Button with icon component"
