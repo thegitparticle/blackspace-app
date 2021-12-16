@@ -11,6 +11,7 @@ import {LOGOUT} from '../../../redux/types';
 import {connect} from 'react-redux';
 import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -34,6 +35,7 @@ function HomeLandingScreen({dispatch}) {
           icon={<Icon name="arrow-right" size={15} color="white" />}
           title="Button with icon component"
         />
+        <Iconly name="ChevronLeftBroken" color="#000" size={25} />
       </TouchableOpacity>
     </View>
   );
