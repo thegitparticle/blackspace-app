@@ -14,6 +14,7 @@ import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {ButterThemeLight, ButterThemeDark} from '../../../theme/ButterTheme';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -36,9 +37,18 @@ function HomeLandingScreen({dispatch}) {
           AsyncStorage.clear();
         }}>
         <Text>log out</Text>
+        <FastImage
+          style={{width: 200, height: 200}}
+          source={{
+            uri: 'https://unsplash.it/400/400?image=1',
+            headers: {Authorization: 'someAuthToken'},
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
         <Text
           style={{
-            fontFamily: 'GothamRounded-Bold',
+            ...themeHere.text.title_3,
             color: themeHere.colors.you_prime,
           }}>
           this is the custom font
