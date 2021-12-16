@@ -5,6 +5,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
+  Appearance,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LOGOUT} from '../../../redux/types';
@@ -12,9 +13,13 @@ import {connect} from 'react-redux';
 import {Button} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {ButterThemeLight, ButterThemeDark} from '../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
+const colorScheme = Appearance.getColorScheme();
+
+const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function HomeLandingScreen({dispatch}) {
   return (
@@ -31,7 +36,11 @@ function HomeLandingScreen({dispatch}) {
           AsyncStorage.clear();
         }}>
         <Text>log out</Text>
-        <Text style={{fontFamily: 'GothamRounded-Bold'}}>
+        <Text
+          style={{
+            fontFamily: 'GothamRounded-Bold',
+            color: themeHere.colors.you_prime,
+          }}>
           this is the custom font
         </Text>
         <Button
