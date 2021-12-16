@@ -9,6 +9,8 @@ import {
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LOGOUT} from '../../../redux/types';
 import {connect} from 'react-redux';
+import {Button} from 'react-native-elements';
+import Icon from 'react-native-vector-icons/FontAwesome';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,6 +30,10 @@ function HomeLandingScreen({dispatch}) {
           AsyncStorage.clear();
         }}>
         <Text>log out</Text>
+        <Button
+          icon={<Icon name="arrow-right" size={15} color="white" />}
+          title="Button with icon component"
+        />
       </TouchableOpacity>
     </View>
   );
