@@ -15,6 +15,7 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {ButterThemeLight, ButterThemeDark} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
+import LottieView from 'lottie-react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,6 +38,12 @@ function HomeLandingScreen({dispatch}) {
           AsyncStorage.clear();
         }}>
         <Text>log out</Text>
+        <LottieView
+          source={require('../../../../assets/loading_ping_pong_cup.json')}
+          style={{width: 200, height: 200}}
+          autoPlay
+          loop
+        />
         <FastImage
           style={{width: 200, height: 200}}
           source={{
