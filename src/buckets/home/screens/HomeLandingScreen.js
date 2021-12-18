@@ -18,6 +18,7 @@ import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
 import BottomSheet from 'reanimated-bottom-sheet';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -103,9 +104,24 @@ function HomeLandingScreen({dispatch}) {
       />
       <Button
         title="Open Bottom Sheet"
-        onPress={() => sheetRef.current.snapTo(0)}
+        onPress={() => {
+          sheetRef.current.snapTo(0);
+          ReactNativeHapticFeedback.trigger('impactLight', {
+            enableVibrateFallback: true,
+            ignoreAndroidSystemSettings: false,
+          });
+        }}
       />
-      <Button title="Open Dialog" onPress={() => setShowPopup(true)} />
+      <Button
+        title="Open Dialog"
+        onPress={() => {
+          setShowPopup(true);
+          ReactNativeHapticFeedback.trigger('impactLight', {
+            enableVibrateFallback: true,
+            ignoreAndroidSystemSettings: false,
+          });
+        }}
+      />
       <Iconly name="ChevronLeftBroken" color="#000" size={25} />
       <BottomSheet
         ref={sheetRef}
