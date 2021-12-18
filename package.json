@@ -29,6 +29,7 @@
     "react-native-ui-lib": "^6.6.1",
     "react-native-vector-icons": "^9.0.0",
     "react-redux": "^7.2.6",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1"
