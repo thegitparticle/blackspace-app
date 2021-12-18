@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -16,8 +16,8 @@ import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {ButterThemeLight, ButterThemeDark} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
 import LottieView from 'lottie-react-native';
-import Animated from 'react-native-reanimated';
 import BottomSheet from 'reanimated-bottom-sheet';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -26,6 +26,8 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function HomeLandingScreen({dispatch}) {
+  const [showPopup, setShowPopup] = useState(false);
+
   const renderHeader = () => (
     <View
       style={{
@@ -55,15 +57,6 @@ function HomeLandingScreen({dispatch}) {
       </Text>
     </View>
   );
-
-  const springConfig = {
-    damping: 500,
-    stiffness: 1000,
-    mass: 3,
-    overshootClamping: true,
-    restDisplacementThreshold: 10,
-    restSpeedThreshold: 10,
-  };
 
   const sheetRef = React.useRef(null);
 
@@ -112,6 +105,7 @@ function HomeLandingScreen({dispatch}) {
         title="Open Bottom Sheet"
         onPress={() => sheetRef.current.snapTo(0)}
       />
+      <Button title="Open Dialog" onPress={() => setShowPopup(true)} />
       <Iconly name="ChevronLeftBroken" color="#000" size={25} />
       <BottomSheet
         ref={sheetRef}
@@ -126,6 +120,28 @@ function HomeLandingScreen({dispatch}) {
         }}
         overdragResistanceFactor={2}
       />
+      <Modal
+        visible={showPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowPopup(false);
+        }}>
+        <ModalContent>
+          <View
+            style={{
+              backgroundColor: 'brown',
+              height: 450,
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}>
+            <Text style={{...themeHere.text.subhead_medium, color: 'white'}}>
+              this is the pop up
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }
