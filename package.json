@@ -22,8 +22,11 @@
     "react-native-elements": "^3.4.2",
     "react-native-fast-image": "^8.5.11",
     "react-native-flash-message": "^0.2.0",
+    "react-native-gesture-handler": "^2.1.0",
+    "react-native-reanimated": "^2.3.1",
     "react-native-safe-area-context": "^3.3.2",
     "react-native-screens": "^3.10.1",
+    "react-native-ui-lib": "^6.6.1",
     "react-native-vector-icons": "^9.0.0",
     "react-redux": "^7.2.6",
     "redux": "^4.1.2",
@@ -38,6 +41,7 @@
     "eslint": "7.14.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.2",
+    "react-native-bundle-visualizer": "^3.1.1",
     "react-test-renderer": "17.0.2"
   },
   "jest": {
