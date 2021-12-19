@@ -36,9 +36,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
+	<key>CodePushDeploymentKey</key>
+	<string>HxWSsAcvBVilgArAjd0I5tupPvTseiv_BL5UN</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
 		<string>armv7</string>
@@ -71,13 +73,13 @@
 		<string>Zocial.ttf</string>
 		<string>icomoon.ttf</string>
 		<string>GothamRounded-Bold.otf</string>
-        <string>GothamRounded-BoldItalic.otf</string>
-        <string>GothamRounded-Book.otf</string>
-        <string>GothamRounded-BookItalic.otf</string>
-       	<string>GothamRounded-Light.otf</string>
-        <string>GothamRounded-LightItalic.otf</string>
-        <string>GothamRounded-Medium.otf</string>
-        <string>GothamRounded-MediumItalic.otf</string>
+		<string>GothamRounded-BoldItalic.otf</string>
+		<string>GothamRounded-Book.otf</string>
+		<string>GothamRounded-BookItalic.otf</string>
+		<string>GothamRounded-Light.otf</string>
+		<string>GothamRounded-LightItalic.otf</string>
+		<string>GothamRounded-Medium.otf</string>
+		<string>GothamRounded-MediumItalic.otf</string>
 	</array>
 </dict>
 </plist>

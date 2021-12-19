@@ -13,6 +13,7 @@ import {Provider} from 'react-redux';
 import {storehere, persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {ModalPortal} from 'react-native-modals';
+import codePush from 'react-native-code-push';
 
 const App: () => Node = () => {
   return (
@@ -25,4 +26,4 @@ const App: () => Node = () => {
   );
 };
 
-export default App;
+export default codePush(App);
