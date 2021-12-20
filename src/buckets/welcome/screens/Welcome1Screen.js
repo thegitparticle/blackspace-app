@@ -5,6 +5,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  StatusBar,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {LOGIN, LOGOUT} from '../../../redux/types';
@@ -13,21 +14,25 @@ import {connect} from 'react-redux';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
-function Welcome1Screen({dispatch}) {
+function Welcome1Screen({dispatch, navigation}) {
   return (
     <View style={styles.screen_view}>
-      <Text>superblack</Text>
+      <StatusBar barStyle="light-content" />
+      <Text style={{color: 'white'}}>superblack</Text>
       <TouchableOpacity
         style={{
           alignItems: 'center',
           justifyContent: 'center',
           marginVertical: windowHeight * 0.015,
+          backgroundColor: '#FFFFFF50',
+          width: 200,
+          height: 50,
+          borderRadius: 10,
         }}
         onPress={() => {
-          dispatch({type: LOGIN});
-          // AsyncStorage.clear();
+          navigation.navigate('WalletSetupOptionsScreen');
         }}>
-        <Text>log in</Text>
+        <Text style={{color: 'white'}}>gm</Text>
       </TouchableOpacity>
     </View>
   );
@@ -48,5 +53,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: 'tomato',
   },
 });
