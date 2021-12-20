@@ -21,7 +21,7 @@ function ImportWalletScreen({dispatch, navigation}) {
         style={{
           alignItems: 'center',
           justifyContent: 'center',
-          height: windowHeight * 0.5,
+          height: windowHeight,
           width: windowWidth,
           backgroundColor: '#333',
         }}>
@@ -60,5 +60,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: '#333',
   },
 });

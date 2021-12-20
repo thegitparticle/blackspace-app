@@ -10,12 +10,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ethersproject/shims": "^5.5.0",
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-native-community/netinfo": "^7.1.6",
     "@react-native-masked-view/masked-view": "^0.2.6",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",
+    "ethers": "^5.5.2",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
     "react": "17.0.2",
@@ -26,6 +28,7 @@
     "react-native-fast-image": "^8.5.11",
     "react-native-flash-message": "^0.2.0",
     "react-native-gesture-handler": "^2.1.0",
+    "react-native-get-random-values": "^1.7.1",
     "react-native-haptic-feedback": "^1.13.0",
     "react-native-modals": "^0.22.3",
     "react-native-reanimated": "^2.3.1",
