@@ -1,2 +1,6 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
+export const ADD_WDEETS = 'ADD_WDEETS';
+export const GET_WDEETS = 'GET_WDEETS';
+export const ADD_MYPROFILEDETAILS = 'ADD_MYPROFILEDETAILS';
+export const GET_MYPROFILEDETAILS = 'GET_MYPROFILEDETAILS';
