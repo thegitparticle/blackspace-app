@@ -57,6 +57,7 @@ function ImportWalletScreen({dispatch, navigation}) {
     console.log(walletCreated.mnemonic);
     setWalletDetails(wallet);
     setWalletCreated(true);
+    navigation.navigate('UserDetailsInputScreen');
   }
 
   return (

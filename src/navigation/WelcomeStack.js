@@ -4,6 +4,7 @@ import Welcome1Screen from '../buckets/welcome/screens/Welcome1Screen';
 import WalletSetupOptionsScreen from '../buckets/walletsetup/screens/WalletSetupOptionsScreen';
 import ImportWalletScreen from '../buckets/importwallet/screens/ImportWalletScreen';
 import MakeWalletScreen from '../buckets/makewallet/screens/MakeWalletScreen';
+import UserDetailsInputScreen from '../buckets/userdetailsinput/screens/UserDetailsInputScreen';
 
 const StackMain = createStackNavigator();
 
@@ -37,6 +38,14 @@ function WelcomeStack() {
       <StackMain.Screen
         name="ImportWalletScreen"
         component={ImportWalletScreen}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+      <StackMain.Screen
+        name="UserDetailsInputScreen"
+        component={UserDetailsInputScreen}
         options={{
           gestureEnabled: true,
           headerShown: false,
