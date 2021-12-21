@@ -1,6 +1,7 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
+import TransactionScreen from '../buckets/test/TransactionScreen';
 
 const StackMain = createNativeStackNavigator();
 
@@ -10,6 +11,13 @@ function MainStack() {
       <StackMain.Screen
         name="HomeLandingScreen"
         component={HomeLandingScreen}
+        options={{
+          gestureEnabled: true,
+        }}
+      />
+      <StackMain.Screen
+        name="TransactionScreen"
+        component={TransactionScreen}
         options={{
           gestureEnabled: true,
         }}
