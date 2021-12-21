@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width;
 let state_here = {};
 
 function TransactionScreen({dispatch, navigation}) {
-  const [amountToSend, setAmountToSend] = useState(0);
+  const [amountToSend, setAmountToSend] = useState('');
 
   console.log(state_here.WDeetsReducer.wdeets.wallet_address);
 

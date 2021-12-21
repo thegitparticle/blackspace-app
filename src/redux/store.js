@@ -24,8 +24,8 @@ export const persistConfigMyProfile = {
 
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
-  MyProfileReducer: persistReducer(persistConfigAuth, MyProfileReducer),
-  WDeetsReducer: persistReducer(persistConfigAuth, WDeetsReducer),
+  MyProfileReducer: persistReducer(persistConfigWDeets, MyProfileReducer),
+  WDeetsReducer: persistReducer(persistConfigMyProfile, WDeetsReducer),
 });
 
 export const storehere = createStore(rootReducer, applyMiddleware(thunk));
