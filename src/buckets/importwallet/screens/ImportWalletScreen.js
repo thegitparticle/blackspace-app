@@ -8,10 +8,11 @@ import {
   StatusBar,
   TextInput,
 } from 'react-native';
-import {LOGIN} from '../../../redux/types';
+import {ADD_WDEETS, LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
 import '@ethersproject/shims';
 import {ethers} from 'ethers/src.ts/index';
+import {AddWDeets} from '../../../redux/WDeetsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -57,6 +58,7 @@ function ImportWalletScreen({dispatch, navigation}) {
     console.log(walletCreated.mnemonic);
     setWalletDetails(wallet);
     setWalletCreated(true);
+    dispatch(AddWDeets(wallet));
     navigation.navigate('UserDetailsInputScreen');
   }
 
@@ -113,8 +115,8 @@ function ImportWalletScreen({dispatch, navigation}) {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onLogInClick: () => {
-      dispatch({type: LOGIN});
+    onImportWalletClick: () => {
+      dispatch({type: ADD_WDEETS});
     },
   };
 };

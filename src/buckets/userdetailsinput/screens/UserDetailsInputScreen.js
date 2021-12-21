@@ -10,12 +10,15 @@ import {
 } from 'react-native';
 import {LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
+import {AddMyProfileDetails} from '../../../redux/MyProfileActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 function UserDetailsInputScreen({dispatch, navigation}) {
   const [username, setUsername] = useState('');
+
+  const myProfileDetails = {username: ''};
 
   return (
     <View style={styles.screen_view}>
@@ -57,7 +60,11 @@ function UserDetailsInputScreen({dispatch, navigation}) {
             height: 50,
             borderRadius: 10,
           }}
-          onPress={() => {}}>
+          onPress={() => {
+            myProfileDetails.username = username;
+            dispatch(AddMyProfileDetails(myProfileDetails));
+            dispatch({type: LOGIN});
+          }}>
           <Text style={{color: 'white'}}>create new wallet</Text>
         </TouchableOpacity>
       </View>

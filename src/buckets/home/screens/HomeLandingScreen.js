@@ -26,6 +26,8 @@ const colorScheme = Appearance.getColorScheme();
 
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
+var state_here = {};
+
 function HomeLandingScreen({dispatch}) {
   const [showPopup, setShowPopup] = useState(false);
 
@@ -64,6 +66,7 @@ function HomeLandingScreen({dispatch}) {
   return (
     <View style={styles.screen_view}>
       <Text>superblack inside bro</Text>
+      <Text>{state_here.MyProfileReducer.myProfileDetails.username}</Text>
       <TouchableOpacity
         style={{
           alignItems: 'center',
@@ -162,15 +165,12 @@ function HomeLandingScreen({dispatch}) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogInClick: () => {
-      dispatch({type: LOGOUT});
-    },
-  };
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
 };
 
-export default connect(mapDispatchToProps)(HomeLandingScreen);
+export default connect(mapStateToProps)(HomeLandingScreen);
 
 const styles = StyleSheet.create({
   screen_view: {
