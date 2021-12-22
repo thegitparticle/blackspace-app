@@ -9,7 +9,7 @@ import {
   TextInput,
 } from 'react-native';
 import {connect} from 'react-redux';
-import {API_URL} from '@env';
+// import {API_URL} from '@env';
 // import {createAlchemyWeb3} from '@alch/alchemy-web3';
 // import {ethers} from 'ethers/src.ts/index';
 
