@@ -14,7 +14,6 @@ import {storehere, persistor} from './src/redux/store';
 import {PersistGate} from 'redux-persist/integration/react';
 import {ModalPortal} from 'react-native-modals';
 import codePush from 'react-native-code-push';
-import './shim.js';
 import crypto from 'crypto';
 
 const App: () => Node = () => {

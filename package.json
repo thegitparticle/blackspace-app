@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "nodeify": "rn-nodeify --hack --install process,crypto,events,constant,console,stream,url,util",
+    "postinstall": "yarn nodeify"
   },
   "dependencies": {
     "@alch/alchemy-web3": "^1.1.9",
@@ -33,6 +35,7 @@
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
     "path-browserify": "^0.0.0",
+    "process": "^0.11.10",
     "punycode": "^1.4.1",
     "querystring-es3": "^0.2.1",
     "react": "17.0.2",
