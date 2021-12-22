@@ -9,6 +9,9 @@ import {
   TextInput,
 } from 'react-native';
 import {connect} from 'react-redux';
+import {API_URL} from '@env';
+// import {createAlchemyWeb3} from '@alch/alchemy-web3';
+// import {ethers} from 'ethers/src.ts/index';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,6 +22,54 @@ function TransactionScreen({dispatch, navigation}) {
   const [amountToSend, setAmountToSend] = useState('');
 
   console.log(state_here.WDeetsReducer.wdeets.wallet_address);
+
+  // async function doTheTransaction() {
+  //   const web3 = createAlchemyWeb3(API_URL);
+  //   const myAddress = state_here.WDeetsReducer.wdeets.wallet_address;
+  //
+  //   const nonce = await web3.eth.getTransactionCount(myAddress, 'latest'); // nonce starts counting from 0
+  //
+  //   const transaction = {
+  //     to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469', // faucet address to return eth
+  //     value: 100,
+  //     gas: 30000,
+  //     maxFeePerGas: 1000000108,
+  //     nonce: nonce,
+  //     // optional data field to send message or execute smart contract
+  //   };
+  //
+  //   // 0x5250b86d7590590748a564E9f4528Aca82bF74b7
+  //
+  //   await ethers
+  //     .getDefaultProvider()
+  //     .sendTransaction(
+  //       transaction,
+  //       state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  //     );
+  //
+  //   const signedTx = await web3.eth.accounts.signTransaction(
+  //     transaction,
+  //     state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  //   );
+  //
+  //   web3.eth.sendSignedTransaction(
+  //     signedTx.rawTransaction,
+  //     function (error, hash) {
+  //       if (!error) {
+  //         console.log(
+  //           '🎉 The hash of your transaction is: ',
+  //           hash,
+  //           "\n Check Alchemy's Mempool to view the status of your transaction!",
+  //         );
+  //       } else {
+  //         console.log(
+  //           '❗Something went wrong while submitting your transaction:',
+  //           error,
+  //         );
+  //       }
+  //     },
+  //   );
+  // }
 
   return (
     <View style={styles.screen_view}>
