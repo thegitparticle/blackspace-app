@@ -18,6 +18,7 @@
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@react-navigation/stack": "^6.0.11",
+    "add": "^2.0.6",
     "ethers": "^5.5.2",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
@@ -25,6 +26,7 @@
     "react-native": "0.66.4",
     "react-native-code-push": "^7.0.4",
     "react-native-custom-icon": "^0.0.3",
+    "react-native-dotenv": "^3.3.1",
     "react-native-elements": "^3.4.2",
     "react-native-fast-image": "^8.5.11",
     "react-native-flash-message": "^0.2.0",
@@ -41,7 +43,8 @@
     "reanimated-bottom-sheet": "^1.0.0-alpha.22",
     "redux": "^4.1.2",
     "redux-persist": "^6.0.0",
-    "redux-thunk": "^2.4.1"
+    "redux-thunk": "^2.4.1",
+    "yarn": "^1.22.17"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
