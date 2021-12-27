@@ -21,7 +21,7 @@ function UserDetailsInputScreen({dispatch, navigation}) {
   const myProfileDetails = {username: ''};
 
   return (
-    <View style={styles.screen_view}>
+    <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
       <View
         style={{
@@ -83,7 +83,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapDispatchToProps)(UserDetailsInputScreen);
 
 const styles = StyleSheet.create({
-  screen_view: {
+  parent_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

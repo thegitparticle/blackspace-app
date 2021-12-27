@@ -15,7 +15,7 @@ const windowWidth = Dimensions.get('window').width;
 
 function WalletSetupOptionsScreen({dispatch, navigation}) {
   return (
-    <View style={styles.screen_view}>
+    <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
       <View
         style={{
@@ -80,7 +80,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapDispatchToProps)(WalletSetupOptionsScreen);
 
 const styles = StyleSheet.create({
-  screen_view: {
+  parent_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

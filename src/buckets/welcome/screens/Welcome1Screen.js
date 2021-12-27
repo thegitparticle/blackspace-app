@@ -22,7 +22,7 @@ const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function Welcome1Screen({dispatch, navigation}) {
   return (
-    <View style={styles.screen_view}>
+    <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
       <ImageBackground
         source={require('../../../../assets/space_bg_1.jpeg')}
@@ -62,7 +62,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapDispatchToProps)(Welcome1Screen);
 
 const styles = StyleSheet.create({
-  screen_view: {
+  parent_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

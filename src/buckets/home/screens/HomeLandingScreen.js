@@ -23,7 +23,7 @@ var state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
   return (
-    <View style={styles.screen_view}>
+    <View style={styles.parent_view}>
       <Text>superblack inside bro</Text>
       <Text>{state_here.MyProfileReducer.myProfileDetails.username}</Text>
       <TouchableOpacity
@@ -61,7 +61,7 @@ const mapStateToProps = state => {
 export default connect(mapStateToProps)(HomeLandingScreen);
 
 const styles = StyleSheet.create({
-  screen_view: {
+  parent_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',

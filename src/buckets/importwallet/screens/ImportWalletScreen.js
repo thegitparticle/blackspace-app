@@ -63,7 +63,7 @@ function ImportWalletScreen({dispatch, navigation}) {
   }
 
   return (
-    <View style={styles.screen_view}>
+    <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
       <View
         style={{
@@ -124,7 +124,7 @@ const mapDispatchToProps = dispatch => {
 export default connect(mapDispatchToProps)(ImportWalletScreen);
 
 const styles = StyleSheet.create({
-  screen_view: {
+  parent_view: {
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
