@@ -17,7 +17,6 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
-
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 var state_here = {};
