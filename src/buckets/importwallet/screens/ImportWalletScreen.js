@@ -136,7 +136,7 @@ function ImportWalletScreen({dispatch, navigation}) {
             marginVertical: windowHeight * 0.1,
             opacity: walletCreatedTextAndButtonOpacity,
           }}>
-          finally, created!
+          done, imported!
         </Text>
       );
     }
