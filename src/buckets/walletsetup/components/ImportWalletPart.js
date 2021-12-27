@@ -41,7 +41,7 @@ function ImportWalletPart({navigation}) {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate('MakeWalletScreen');
+              navigation.navigate('ImportWalletScreen');
             }}>
             <SquircleButton
               buttonColor={'#282828'}
