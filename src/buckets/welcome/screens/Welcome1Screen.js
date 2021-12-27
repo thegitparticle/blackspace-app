@@ -14,6 +14,7 @@ import {connect} from 'react-redux';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import SquircleButton from '../../../bits/SquircleButton';
 import window from '@react-navigation/native/src/__mocks__/window';
+import IntroTextsAnimation from '../components/IntroTextsAnimation';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,9 +29,10 @@ function Welcome1Screen({dispatch, navigation}) {
         source={require('../../../../assets/space_bg_1.jpeg')}
         style={styles.background_image}>
         <View style={styles.bottom_block}>
-          <Text style={{color: 'white', ...themeHere.text.title_3}}>
-            WELCOME TO CRYPTO INTERNET
-          </Text>
+          {/*<Text style={{color: 'white', ...themeHere.text.title_3}}>*/}
+          {/*  WELCOME TO CRYPTO INTERNET*/}
+          {/*</Text>*/}
+          <IntroTextsAnimation />
           <TouchableOpacity
             style={{marginVertical: windowHeight * 0.1}}
             onPress={() => {
@@ -76,12 +78,12 @@ const styles = StyleSheet.create({
   },
   bottom_block: {
     width: windowWidth,
-    height: windowHeight * 0.3,
+    height: windowHeight * 0.5,
     position: 'absolute',
     bottom: 0,
     backgroundColor: 'transparent',
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
 });
