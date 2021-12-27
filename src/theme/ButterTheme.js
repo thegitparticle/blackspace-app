@@ -47,44 +47,88 @@ export const ButterThemeLight = {
       fontFamily: 'GothamRounded-Bold',
       fontSize: windowHeight > 770 ? 30 : 28,
     },
+    title_large_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
+      fontSize: windowHeight > 770 ? 30 : 28,
+    },
     title_1: {
       fontFamily: 'GothamRounded-Bold',
+      fontSize: windowHeight > 770 ? 25 : 24,
+    },
+    title_1_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
       fontSize: windowHeight > 770 ? 25 : 24,
     },
     title_2: {
       fontFamily: 'GothamRounded-Bold',
       fontSize: windowHeight > 770 ? 21 : 20,
     },
+    title_2_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
+      fontSize: windowHeight > 770 ? 21 : 20,
+    },
     title_3: {
       fontFamily: 'GothamRounded-Bold',
+      fontSize: windowHeight > 770 ? 19 : 18,
+    },
+    title_3_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
       fontSize: windowHeight > 770 ? 19 : 18,
     },
     header: {
       fontFamily: 'GothamRounded-Medium',
       fontSize: windowHeight > 770 ? 17 : 16,
     },
+    header_i: {
+      fontFamily: 'GothamRounded-MediumItalic',
+      fontSize: windowHeight > 770 ? 17 : 16,
+    },
     subhead_medium: {
       fontFamily: 'GothamRounded-Medium',
+      fontSize: windowHeight > 770 ? 15 : 14,
+    },
+    subhead_medium_i: {
+      fontFamily: 'GothamRounded-MediumItalic',
       fontSize: windowHeight > 770 ? 15 : 14,
     },
     subhead: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 15 : 14,
     },
+    subhead_i: {
+      fontFamily: 'GothamRounded-BookItalic',
+      fontSize: windowHeight > 770 ? 15 : 14,
+    },
     body_medium: {
       fontFamily: 'GothamRounded-Medium',
+      fontSize: windowHeight > 770 ? 13 : 12,
+    },
+    body_medium_i: {
+      fontFamily: 'GothamRounded-MediumItalic',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
     body: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
+    body_i: {
+      fontFamily: 'GothamRounded-BookItalic',
+      fontSize: windowHeight > 770 ? 13 : 12,
+    },
     caption: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 11 : 10,
     },
+    caption_i: {
+      fontFamily: 'GothamRounded-BookItalic',
+      fontSize: windowHeight > 770 ? 11 : 10,
+    },
     smallest: {
       fontFamily: 'GothamRounded-Book',
+      fontSize: windowHeight > 770 ? 9 : 8,
+    },
+    smallest_i: {
+      fontFamily: 'GothamRounded-BookItalic',
       fontSize: windowHeight > 770 ? 9 : 8,
     },
   },
@@ -132,44 +176,88 @@ export const ButterThemeDark = {
       fontFamily: 'GothamRounded-Bold',
       fontSize: windowHeight > 770 ? 30 : 28,
     },
+    title_large_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
+      fontSize: windowHeight > 770 ? 30 : 28,
+    },
     title_1: {
       fontFamily: 'GothamRounded-Bold',
+      fontSize: windowHeight > 770 ? 25 : 24,
+    },
+    title_1_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
       fontSize: windowHeight > 770 ? 25 : 24,
     },
     title_2: {
       fontFamily: 'GothamRounded-Bold',
       fontSize: windowHeight > 770 ? 21 : 20,
     },
+    title_2_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
+      fontSize: windowHeight > 770 ? 21 : 20,
+    },
     title_3: {
       fontFamily: 'GothamRounded-Bold',
+      fontSize: windowHeight > 770 ? 19 : 18,
+    },
+    title_3_i: {
+      fontFamily: 'GothamRounded-BoldItalic',
       fontSize: windowHeight > 770 ? 19 : 18,
     },
     header: {
       fontFamily: 'GothamRounded-Medium',
       fontSize: windowHeight > 770 ? 17 : 16,
     },
+    header_i: {
+      fontFamily: 'GothamRounded-MediumItalic',
+      fontSize: windowHeight > 770 ? 17 : 16,
+    },
     subhead_medium: {
       fontFamily: 'GothamRounded-Medium',
+      fontSize: windowHeight > 770 ? 15 : 14,
+    },
+    subhead_medium_i: {
+      fontFamily: 'GothamRounded-MediumItalic',
       fontSize: windowHeight > 770 ? 15 : 14,
     },
     subhead: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 15 : 14,
     },
+    subhead_i: {
+      fontFamily: 'GothamRounded-BookItalic',
+      fontSize: windowHeight > 770 ? 15 : 14,
+    },
     body_medium: {
       fontFamily: 'GothamRounded-Medium',
+      fontSize: windowHeight > 770 ? 13 : 12,
+    },
+    body_medium_i: {
+      fontFamily: 'GothamRounded-MediumItalic',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
     body: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
+    body_i: {
+      fontFamily: 'GothamRounded-BookItalic',
+      fontSize: windowHeight > 770 ? 13 : 12,
+    },
     caption: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 11 : 10,
     },
+    caption_i: {
+      fontFamily: 'GothamRounded-BookItalic',
+      fontSize: windowHeight > 770 ? 11 : 10,
+    },
     smallest: {
       fontFamily: 'GothamRounded-Book',
+      fontSize: windowHeight > 770 ? 9 : 8,
+    },
+    smallest_i: {
+      fontFamily: 'GothamRounded-BookItalic',
       fontSize: windowHeight > 770 ? 9 : 8,
     },
   },
