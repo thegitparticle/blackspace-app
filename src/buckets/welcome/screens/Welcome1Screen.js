@@ -12,6 +12,8 @@ import {
 import {LOGIN, LOGOUT} from '../../../redux/types';
 import {connect} from 'react-redux';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import SquircleButton from '../../../bits/SquircleButton';
+import window from '@react-navigation/native/src/__mocks__/window';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,22 +32,18 @@ function Welcome1Screen({dispatch, navigation}) {
             WELCOME TO CRYPTO INTERNET
           </Text>
           <TouchableOpacity
-            style={{
-              alignItems: 'center',
-              justifyContent: 'center',
-              marginVertical: windowHeight * 0.1,
-              backgroundColor: '#FFFFFF',
-              width: 200,
-              height: 50,
-              borderRadius: 10,
-            }}
+            style={{marginVertical: windowHeight * 0.1}}
             onPress={() => {
               navigation.navigate('WalletSetupOptionsScreen');
             }}>
-            <Text
-              style={{color: themeHere.colors.red, ...themeHere.text.title_3}}>
-              LFG 🚀
-            </Text>
+            <SquircleButton
+              buttonColor={themeHere.colors.light}
+              width={windowWidth * 0.8}
+              height={50}
+              buttonText={'LFG! 🚀'}
+              font={themeHere.text.title_3}
+              textColor={themeHere.colors.red}
+            />
           </TouchableOpacity>
         </View>
       </ImageBackground>
