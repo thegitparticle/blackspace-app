@@ -15,7 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function CreateWalletPart() {
   const navigation = useNavigation();

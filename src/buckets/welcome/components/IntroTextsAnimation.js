@@ -18,7 +18,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function IntroTextsAnimation() {
   const offsetText1 = useSharedValue(0);
@@ -51,13 +51,14 @@ function IntroTextsAnimation() {
 
   useEffect(() => {
     AnimationRunner();
-  });
+  }, []);
 
   function AnimationRunner() {
     setTimeout(() => {
       offsetText1.value = withSpring(windowHeight * 0.075);
       text1Opacity.value = 0.5;
       text2Opacity.value = withTiming(1);
+      console.log('2.5 sec done');
     }, 2500);
     setTimeout(() => {
       offsetText1.value = withSpring(windowHeight * 0.15);
@@ -69,6 +70,7 @@ function IntroTextsAnimation() {
     setTimeout(() => {
       text1Opacity.value = 0;
       text2Opacity.value = withTiming(0);
+      console.log('7.5 sec done');
     }, 7500);
   }
 

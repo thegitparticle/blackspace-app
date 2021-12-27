@@ -25,7 +25,7 @@ import Animated, {
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function Welcome1Screen({dispatch, navigation}) {
   const buttonOpacity = useSharedValue(0);
