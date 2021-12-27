@@ -21,25 +21,31 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function IntroTextsAnimation() {
-  const offset = useSharedValue(0);
+  const offsetText1 = useSharedValue(0);
+  const offsetText2 = useSharedValue(0);
+  const offsetText3 = useSharedValue(0);
+  const text1Opacity = useSharedValue(1);
+  const text2Opacity = useSharedValue(0);
+  const text3Opacity = useSharedValue(0);
 
   const animatedStylesText1 = useAnimatedStyle(() => {
     return {
-      transform: [{translateY: -offset.value}],
+      transform: [{translateY: -offsetText1.value}],
+      opacity: text1Opacity.value,
     };
   });
 
   const animatedStylesText2 = useAnimatedStyle(() => {
     return {
-      transform: [{translateY: -offset.value}],
-      opacity: 0,
+      transform: [{translateY: -offsetText2.value}],
+      opacity: text2Opacity.value,
     };
   });
 
   const animatedStylesText3 = useAnimatedStyle(() => {
     return {
-      transform: [{translateY: -offset.value}],
-      opacity: 0,
+      transform: [{translateY: -offsetText3.value}],
+      opacity: text3Opacity.value,
     };
   });
 
@@ -49,8 +55,17 @@ function IntroTextsAnimation() {
 
   function AnimationRunner() {
     setTimeout(() => {
-      offset.value = withSpring(windowHeight * 0.075);
+      offsetText1.value = withSpring(windowHeight * 0.075);
+      text1Opacity.value = 0.5;
+      text2Opacity.value = withTiming(1);
     }, 2500);
+    setTimeout(() => {
+      offsetText1.value = withSpring(windowHeight * 0.15);
+      offsetText2.value = withSpring(windowHeight * 0.075);
+      text1Opacity.value = 0.1;
+      text2Opacity.value = withTiming(0.5);
+      text3Opacity.value = withTiming(1);
+    }, 5000);
   }
 
   return (
@@ -62,20 +77,14 @@ function IntroTextsAnimation() {
       </Animated.View>
       <Animated.View style={[animatedStylesText2]}>
         <Text style={{...themeHere.text.title_3, color: 'white'}}>
-          A NEW WORLD IS EMERGING!
+          ON TOP OF YOUR FAV INTERNET
         </Text>
       </Animated.View>
       <Animated.View style={[animatedStylesText3]}>
         <Text style={{...themeHere.text.title_3, color: 'white'}}>
-          A NEW WORLD IS EMERGING!
+          WELCOME TO CRYPTO INTERNET
         </Text>
       </Animated.View>
-      {/*<Button*/}
-      {/*  onPress={() => {*/}
-      {/*    offset.value = withSpring(windowHeight * 0.075);*/}
-      {/*  }}*/}
-      {/*  title="Move"*/}
-      {/*/>*/}
     </View>
   );
 }
