@@ -58,7 +58,7 @@ function Welcome1Screen({dispatch, navigation}) {
               }}>
               <SquircleButton
                 buttonColor={themeHere.colors.light}
-                width={windowWidth * 0.8}
+                width={windowWidth * 0.7}
                 height={50}
                 buttonText={'LFG! 🚀'}
                 font={themeHere.text.title_3}
