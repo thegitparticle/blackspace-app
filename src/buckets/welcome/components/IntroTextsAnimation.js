@@ -66,6 +66,10 @@ function IntroTextsAnimation() {
       text2Opacity.value = withTiming(0.5);
       text3Opacity.value = withTiming(1);
     }, 5000);
+    setTimeout(() => {
+      text1Opacity.value = 0;
+      text2Opacity.value = withTiming(0);
+    }, 7500);
   }
 
   return (

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   StyleSheet,
   Text,
@@ -15,6 +15,12 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import SquircleButton from '../../../bits/SquircleButton';
 import window from '@react-navigation/native/src/__mocks__/window';
 import IntroTextsAnimation from '../components/IntroTextsAnimation';
+import Animated, {
+  useAnimatedStyle,
+  useSharedValue,
+  withSpring,
+  withTiming,
+} from 'react-native-reanimated';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,6 +28,20 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function Welcome1Screen({dispatch, navigation}) {
+  const buttonOpacity = useSharedValue(0);
+
+  const animatedButton = useAnimatedStyle(() => {
+    return {
+      opacity: buttonOpacity.value,
+    };
+  });
+
+  useEffect(() => {
+    setTimeout(() => {
+      buttonOpacity.value = withTiming(1);
+    }, 7500);
+  });
+
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
@@ -29,24 +49,23 @@ function Welcome1Screen({dispatch, navigation}) {
         source={require('../../../../assets/space_bg_1.jpeg')}
         style={styles.background_image}>
         <View style={styles.bottom_block}>
-          {/*<Text style={{color: 'white', ...themeHere.text.title_3}}>*/}
-          {/*  WELCOME TO CRYPTO INTERNET*/}
-          {/*</Text>*/}
           <IntroTextsAnimation />
-          <TouchableOpacity
-            style={{marginVertical: windowHeight * 0.1}}
-            onPress={() => {
-              navigation.navigate('WalletSetupOptionsScreen');
-            }}>
-            <SquircleButton
-              buttonColor={themeHere.colors.light}
-              width={windowWidth * 0.8}
-              height={50}
-              buttonText={'LFG! 🚀'}
-              font={themeHere.text.title_3}
-              textColor={themeHere.colors.red}
-            />
-          </TouchableOpacity>
+          <Animated.View style={[animatedButton]}>
+            <TouchableOpacity
+              style={{marginVertical: windowHeight * 0.1}}
+              onPress={() => {
+                navigation.navigate('WalletSetupOptionsScreen');
+              }}>
+              <SquircleButton
+                buttonColor={themeHere.colors.light}
+                width={windowWidth * 0.8}
+                height={50}
+                buttonText={'LFG! 🚀'}
+                font={themeHere.text.title_3}
+                textColor={themeHere.colors.red}
+              />
+            </TouchableOpacity>
+          </Animated.View>
         </View>
       </ImageBackground>
     </View>
