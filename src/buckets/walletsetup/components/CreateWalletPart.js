@@ -10,13 +10,16 @@ import {
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LinearGradient from 'react-native-linear-gradient';
 import SquircleButton from '../../../bits/SquircleButton';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function CreateWalletPart({navigation}) {
+function CreateWalletPart() {
+  const navigation = useNavigation();
+
   return (
     <View style={styles.parent_view}>
       <LinearGradient
