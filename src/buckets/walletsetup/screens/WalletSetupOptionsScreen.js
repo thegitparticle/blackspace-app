@@ -10,6 +10,7 @@ import {
 import {LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
 import CreateWalletPart from '../components/CreateWalletPart';
+import ImportWalletPart from '../components/ImportWalletPart';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,30 +20,7 @@ function WalletSetupOptionsScreen({dispatch, navigation}) {
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
       <CreateWalletPart />
-      <View
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          height: windowHeight * 0.5,
-          width: windowWidth,
-          backgroundColor: '#333',
-        }}>
-        <TouchableOpacity
-          style={{
-            alignItems: 'center',
-            justifyContent: 'center',
-            marginVertical: windowHeight * 0.015,
-            backgroundColor: '#FFFFFF50',
-            width: 200,
-            height: 50,
-            borderRadius: 10,
-          }}
-          onPress={() => {
-            navigation.navigate('ImportWalletScreen');
-          }}>
-          <Text style={{color: 'white'}}>import your wallet</Text>
-        </TouchableOpacity>
-      </View>
+      <ImportWalletPart />
     </View>
   );
 }

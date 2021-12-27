@@ -20,7 +20,7 @@ function SquircleButton({
       }}
       squircleParams={{
         cornerSmoothing: 1,
-        cornerRadius: 15,
+        cornerRadius: 10,
         fillColor: buttonColor,
       }}>
       <Text
