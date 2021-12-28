@@ -141,7 +141,9 @@ function ImportWalletScreen({dispatch, navigation}) {
           marginVertical: windowHeight * 0.1,
         }}
         onPress={() => {
-          navigation.navigate('UserDetailsInputScreen');
+          navigation.navigate('UserDetailsInputScreen', {
+            wallet_address: wallet.wallet_address,
+          });
         }}>
         <SquircleButton
           buttonColor={'#282828'}
