@@ -62,6 +62,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
         dispatch(AddMyProfileDetails(myProfileDetails));
         Keyboard.dismiss();
         setShowSetupDoneOverlay(true);
+        NavigateToMainStack();
       })
       .catch(error => {
         console.log(error);
@@ -144,6 +145,12 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
     );
   }
 
+  function NavigateToMainStack() {
+    setTimeout(() => {
+      dispatch({type: LOGIN});
+    }, 3000);
+  }
+
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
@@ -162,6 +169,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       <Overlay
         isVisible={showSetupDoneOverlay}
         fullScreen={true}
+        overlayStyle={styles.overlay_gradient_background}
         onBackdropPress={toggleSetupDoneOverlay}>
         <SetupDoneOverlay />
       </Overlay>
