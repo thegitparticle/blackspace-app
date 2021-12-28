@@ -18,6 +18,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {useSharedValue} from 'react-native-reanimated';
 import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';
+import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,6 +29,12 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 // on click done - checks for 12 words - if not, throws error and keeps focus on input box,
 // if 12 words - calls importWallet function - and sets the waitingTextShowcase = true/1
 // when importWallet is done, set the opacity of waiting text = 0 and button and done text = 1
+
+// all the components needed for this screen
+// 1.textinput and import now button - wraped in view
+// 2;verifying the deeets and grabing wallet  - text play
+// 3;finally, done + next button - wraped in view
+// 4;wrong seed phrase + 2 buttons - wraped in view
 
 function ImportWalletScreen({dispatch, navigation}) {
   const wallet = {
@@ -47,6 +54,7 @@ function ImportWalletScreen({dispatch, navigation}) {
     setWalletCreatedTextAndButtonOpacity,
   ] = useState(0);
   const [renderInputBody, setRenderInputBody] = useState(true);
+  const [renderErrorBody, setRenderErrorBody] = useState(false);
 
   function importWallet() {
     try {
@@ -64,109 +72,11 @@ function ImportWalletScreen({dispatch, navigation}) {
       setWalletCreatedTextAndButtonOpacity(1);
     } catch (e) {
       console.log(e.toString());
-      setRenderInputBody(true);
-    }
-
-    // navigation.navigate('UserDetailsInputScreen');
-  }
-
-  function WaitingTextShowCase() {
-    return (
-      <View
-        style={{
-          ...styles.waiting_text_showcase_view,
-          opacity: waitingTextOverallOpacity,
-          marginVertical: windowHeight * 0.1,
-        }}>
-        <Text
-          style={{
-            ...themeHere.text.body,
-            position: 'absolute',
-            textAlign: 'center',
-            opacity: waitingText1Opacity.value,
-            color: 'white',
-          }}>
-          creating new wallet ...
-        </Text>
-        <Text
-          style={{
-            ...themeHere.text.body,
-            position: 'absolute',
-            textAlign: 'center',
-            opacity: waitingText2Opacity.value,
-            color: 'white',
-          }}>
-          fetching details from blockchain ...
-        </Text>
-        <Text
-          style={{
-            ...themeHere.text.body,
-            position: 'absolute',
-            textAlign: 'center',
-            opacity: waitingText3Opacity.value,
-            color: 'white',
-          }}>
-          how long? you could be asking!!!
-        </Text>
-      </View>
-    );
-  }
-
-  function WaitingTextChanger() {
-    setTimeout(() => {
-      console.log('1 sec done');
-      waitingText1Opacity.value = 0;
-      waitingText2Opacity.value = 1;
-    }, 1000);
-    setTimeout(() => {
-      waitingText2Opacity.value = 0;
-      waitingText3Opacity.value = 1;
-    }, 2000);
-  }
-
-  function CenterTextWhenDone() {
-    if (walletCreatedTextAndButtonOpacity === 0) {
-      return <WaitingTextShowCase />;
-    } else {
-      return (
-        <Text
-          style={{
-            ...themeHere.text.body,
-            color: 'white',
-            marginVertical: windowHeight * 0.1,
-            opacity: walletCreatedTextAndButtonOpacity,
-          }}>
-          done, imported!
-        </Text>
-      );
+      setRenderErrorBody(true);
     }
   }
 
-  function NextButtonWhenDone() {
-    return (
-      <TouchableOpacity
-        style={{
-          marginVertical: windowHeight * 0.1,
-        }}
-        onPress={() => {
-          navigation.navigate('UserDetailsInputScreen');
-        }}>
-        <SquircleButton
-          buttonColor={'#282828'}
-          width={windowWidth * 0.7}
-          height={50}
-          buttonText={walletCreatedTextAndButtonOpacity === 0 ? '' : 'next ✈️'}
-          font={themeHere.text.subhead_medium}
-          textColor={themeHere.colors.light}
-          style={{
-            opacity: walletCreatedTextAndButtonOpacity,
-          }}
-        />
-      </TouchableOpacity>
-    );
-  }
-
-  function InputWalletSeedPhrase() {
+  function InputAndImportWalletSeedPhrase() {
     return (
       <View style={styles.input_wallet_button_view}>
         <View style={styles.input_wrap_view}>
@@ -206,16 +116,115 @@ function ImportWalletScreen({dispatch, navigation}) {
     );
   }
 
-  function RenderBody() {
-    if (renderInputBody) {
-      return <InputWalletSeedPhrase />;
+  function CenterTextWhileImportingAndDone() {
+    if (walletCreatedTextAndButtonOpacity === 0) {
+      return <WhileImportingProcessShowcase />;
     } else {
       return (
-        <>
-          <CenterTextWhenDone />
-          <NextButtonWhenDone />
-        </>
+        <Text
+          style={{
+            ...themeHere.text.body,
+            color: 'white',
+            marginVertical: windowHeight * 0.1,
+            opacity: walletCreatedTextAndButtonOpacity,
+          }}>
+          done, imported!
+        </Text>
       );
+    }
+  }
+
+  function NextButtonWhenDone() {
+    return (
+      <TouchableOpacity
+        style={{
+          marginVertical: windowHeight * 0.1,
+        }}
+        onPress={() => {
+          navigation.navigate('UserDetailsInputScreen');
+        }}>
+        <SquircleButton
+          buttonColor={'#282828'}
+          width={windowWidth * 0.7}
+          height={50}
+          buttonText={walletCreatedTextAndButtonOpacity === 0 ? '' : 'next ✈️'}
+          font={themeHere.text.subhead_medium}
+          textColor={themeHere.colors.light}
+          style={{
+            opacity: walletCreatedTextAndButtonOpacity,
+          }}
+        />
+      </TouchableOpacity>
+    );
+  }
+
+  function IfErrorBody() {
+    return (
+      <>
+        <Text
+          style={{
+            ...themeHere.text.body,
+            color: themeHere.colors.danger_red,
+            marginVertical: windowHeight * 0.1,
+            width: windowWidth * 0.7,
+            textAlign: 'center',
+          }}>
+          cannot find wallet with the typed seed phrase, try again!
+        </Text>
+        <View style={{marginVertical: windowHeight * 0.1}}>
+          <TouchableOpacity
+            style={{
+              marginBottom: windowHeight * 0.01,
+            }}
+            onPress={() => {
+              setRenderErrorBody(false);
+              setRenderInputBody(true);
+            }}>
+            <SquircleButton
+              buttonColor={'#282828'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'try again'}
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={{
+              marginTop: windowHeight * 0.01,
+            }}
+            onPress={() => {
+              setRenderErrorBody(false);
+              navigation.navigate('MakeWalletScreen');
+            }}>
+            <SquircleButton
+              buttonColor={themeHere.colors.red + '75'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'create new wallet'}
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </TouchableOpacity>
+        </View>
+      </>
+    );
+  }
+
+  function RenderBody() {
+    if (renderErrorBody) {
+      return <IfErrorBody />;
+    } else {
+      if (renderInputBody) {
+        return <InputAndImportWalletSeedPhrase />;
+      } else {
+        return (
+          <>
+            <CenterTextWhileImportingAndDone />
+            <NextButtonWhenDone />
+          </>
+        );
+      }
     }
   }
 
@@ -225,14 +234,7 @@ function ImportWalletScreen({dispatch, navigation}) {
       <LinearGradient
         colors={['#050505', '#1F1F1F']}
         style={styles.gradient_background}>
-        <Text
-          style={{
-            ...themeHere.text.title_3,
-            color: 'white',
-            marginVertical: windowHeight * 0.1,
-          }}>
-          IMPORT OLD WALLET
-        </Text>
+        <Text style={styles.screen_header_text}>IMPORT OLD WALLET</Text>
         <RenderBody />
       </LinearGradient>
     </View>
@@ -275,5 +277,10 @@ const styles = StyleSheet.create({
     width: windowWidth,
     alignItems: 'center',
     marginVertical: windowHeight * 0.075,
+  },
+  screen_header_text: {
+    ...themeHere.text.title_3,
+    color: 'white',
+    marginVertical: windowHeight * 0.1,
   },
 });
