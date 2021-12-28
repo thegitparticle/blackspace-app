@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
-} from '../../../../../Desktop/soupapp/src/theme/ButterTheme';
+} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

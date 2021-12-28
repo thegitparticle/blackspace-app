@@ -12,7 +12,12 @@ import {LOGOUT} from '../../../redux/types';
 import {connect} from 'react-redux';
 import {Button} from 'react-native-elements';
 import {ButterThemeLight, ButterThemeDark} from '../../../theme/ButterTheme';
+import {TabView, SceneMap} from 'react-native-tab-view';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import CryptoPricesPage from '../pages/CryptoPricesPage';
+import HomeMainPage from '../pages/HomeMainPage';
+import NftsPage from '../pages/NftsPage';
+import DefiPage from '../pages/DefiPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,32 +27,29 @@ const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 var state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
+  const renderScene = SceneMap({
+    first: CryptoPricesPage,
+    second: HomeMainPage,
+    third: NftsPage,
+    fourth: DefiPage,
+  });
+
+  const [index, setIndex] = useState(1);
+
+  const [routes] = React.useState([
+    {key: 'first', title: 'Market'},
+    {key: 'second', title: 'Home'},
+    {key: 'third', title: 'NFTs'},
+    {key: 'fourth', title: 'DeFi'},
+  ]);
+
   return (
     <View style={styles.parent_view}>
-      <Text>superblack inside bro</Text>
-      <Text>{state_here.MyProfileReducer.myProfileDetails.username}</Text>
-      <TouchableOpacity
-        style={{
-          alignItems: 'center',
-          justifyContent: 'center',
-          marginVertical: windowHeight * 0.015,
-        }}
-        onPress={() => {
-          dispatch({type: LOGOUT});
-          AsyncStorage.clear();
-        }}>
-        <Text>log out</Text>
-      </TouchableOpacity>
-
-      <Button
-        title="go to send eth screen"
-        onPress={() => {
-          navigation.navigate('TransactionScreen');
-          ReactNativeHapticFeedback.trigger('impactLight', {
-            enableVibrateFallback: true,
-            ignoreAndroidSystemSettings: false,
-          });
-        }}
+      <TabView
+        navigationState={{index, routes}}
+        renderScene={renderScene}
+        onIndexChange={setIndex}
+        initialLayout={{width: windowWidth}}
       />
     </View>
   );
@@ -63,7 +65,5 @@ export default connect(mapStateToProps)(HomeLandingScreen);
 const styles = StyleSheet.create({
   parent_view: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
 });

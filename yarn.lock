@@ -8336,6 +8336,11 @@ react-native-network-logger@^1.12.0:
   resolved "https://registry.npmjs.org/react-native-network-logger/-/react-native-network-logger-1.12.0.tgz#a82528b3ac3cc2c7ded09ac37a0bba2e6030d032"
   integrity sha512-3Esss/+caz0d53vuKOYS5i9YtNn76O2AvnKMwQovtXbpJs0Fc4oyJhNJ50YWNQBCKJ5aHqWUEYNE4Ryp5GLmeQ==
 
+react-native-pager-view@^5.4.9:
+  version "5.4.9"
+  resolved "https://registry.npmjs.org/react-native-pager-view/-/react-native-pager-view-5.4.9.tgz#c0d40847cfeda5a4e729b53271b0ee0fedff3eb5"
+  integrity sha512-D6tzxpwMGdl6CXgtskGWhKRc5cJakCazESRGt7PkqnpyiH3N35ft1KmR82pCSQetAFlytFiToeu3a/dG5CELvA==
+
 react-native-ratings@8.0.4:
   version "8.0.4"
   resolved "https://registry.yarnpkg.com/react-native-ratings/-/react-native-ratings-8.0.4.tgz#efd5ebad8acc08bf98d34d39b18fb7a6813ef991"
@@ -8405,6 +8410,11 @@ react-native-svg@^12.1.1:
   dependencies:
     css-select "^2.1.0"
     css-tree "^1.0.0-alpha.39"
+
+react-native-tab-view@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.npmjs.org/react-native-tab-view/-/react-native-tab-view-3.1.1.tgz#1f8d7a835ab4f5b1b1407ec8dddc1053b53fa3c6"
+  integrity sha512-M5pRN6utQfytKWoKlKVzg5NbkYu308qNoW1khGTtEOTs1k14p2dHJ/BWOJoJYHKbPVUyZldbG9MFT7gUl4YHnw==
 
 react-native-text-size@4.0.0-rc.1:
   version "4.0.0-rc.1"
