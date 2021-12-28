@@ -6,6 +6,8 @@ import {persistStore, persistReducer} from 'redux-persist';
 import AuthStateReducer from './AuthStateReducer';
 import MyProfileReducer from './MyProfileReducer';
 import WDeetsReducer from './WDeetsReducer';
+import MyAppsReducer from './MyAppsReducer';
+import DiscoverAppsReducer from './DiscoverAppsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -22,10 +24,25 @@ export const persistConfigMyProfile = {
   storage: AsyncStorage,
 };
 
+export const persistConfigMyApps = {
+  key: 'my_apps',
+  storage: AsyncStorage,
+};
+
+export const persistConfigDiscoverApps = {
+  key: 'discover_apps',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigWDeets, MyProfileReducer),
   WDeetsReducer: persistReducer(persistConfigMyProfile, WDeetsReducer),
+  MyAppsReducer: persistReducer(persistConfigMyApps, MyAppsReducer),
+  DiscoverAppsReducer: persistReducer(
+    persistConfigDiscoverApps,
+    DiscoverAppsReducer,
+  ),
 });
 
 export const storehere = createStore(rootReducer, applyMiddleware(thunk));
