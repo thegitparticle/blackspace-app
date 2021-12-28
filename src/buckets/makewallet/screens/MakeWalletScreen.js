@@ -154,7 +154,7 @@ function MakeWalletScreen({dispatch, navigation}) {
           }}
           onPress={() => {
             navigation.navigate('UserDetailsInputScreen', {
-              wallet_address: wallet.wallet_address,
+              wallet_address: walletDetails.wallet_address,
             });
           }}>
           <SquircleButton

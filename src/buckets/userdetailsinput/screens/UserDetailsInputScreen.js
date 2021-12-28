@@ -8,6 +8,7 @@ import {
   StatusBar,
   TextInput,
   Appearance,
+  Keyboard,
 } from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {LOGIN} from '../../../redux/types';
@@ -17,7 +18,6 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
-import NetworkLogger from 'react-native-network-logger';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -60,6 +60,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
         myProfileDetails.username = username;
         myProfileDetails.userid = res.data.userid;
         dispatch(AddMyProfileDetails(myProfileDetails));
+        Keyboard.dismiss();
         setShowSetupDoneOverlay(true);
       })
       .catch(error => {
@@ -124,7 +125,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             multiline={true}
             autoFocus={true}
             textAlign={'center'}
-            placeholder={'type seed phrase words with space'}
+            placeholder={'type username'}
             placeholderTextColor={'#FFFFFF50'}
           />
         </View>
@@ -149,14 +150,21 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       <LinearGradient
         colors={['#050505', '#1F1F1F']}
         style={styles.gradient_background}>
-        <Text style={styles.screen_header_text}>PICK A USERNAME</Text>
+        <TouchableOpacity
+          onPress={() => {
+            setRenderInputBody(false);
+            SetUserDetails();
+          }}>
+          <Text style={styles.screen_header_text}>PICK A USERNAME</Text>
+        </TouchableOpacity>
         <RenderBody />
       </LinearGradient>
-      {/*<Overlay*/}
-      {/*  isVisible={setShowSetupDoneOverlay()}*/}
-      {/*  onBackdropPress={toggleSetupDoneOverlay}>*/}
-      {/*  <SetupDoneOverlay />*/}
-      {/*</Overlay>*/}
+      <Overlay
+        isVisible={showSetupDoneOverlay}
+        fullScreen={true}
+        onBackdropPress={toggleSetupDoneOverlay}>
+        <SetupDoneOverlay />
+      </Overlay>
     </View>
   );
 }
