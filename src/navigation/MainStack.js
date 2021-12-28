@@ -13,6 +13,7 @@ function MainStack() {
         component={HomeLandingScreen}
         options={{
           gestureEnabled: true,
+          headerShown: false,
         }}
       />
       <StackMain.Screen

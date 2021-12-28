@@ -18,6 +18,7 @@ import CryptoPricesPage from '../pages/CryptoPricesPage';
 import HomeMainPage from '../pages/HomeMainPage';
 import NftsPage from '../pages/NftsPage';
 import DefiPage from '../pages/DefiPage';
+import HeaderOnHome from '../components/HeaderOnHome';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -45,6 +46,7 @@ function HomeLandingScreen({dispatch, navigation}) {
 
   return (
     <View style={styles.parent_view}>
+      <HeaderOnHome />
       <TabView
         navigationState={{index, routes}}
         renderScene={renderScene}
