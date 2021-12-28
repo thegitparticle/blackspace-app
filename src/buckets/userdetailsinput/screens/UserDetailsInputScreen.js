@@ -18,6 +18,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -66,7 +67,11 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       })
       .catch(error => {
         console.log(error);
-        setShowError(true);
+        showMessage({
+          message: 'username already in use, try another',
+          type: 'error',
+          backgroundColor: themeHere.colors.danger_red,
+        });
         renderInputBody(true);
       });
   }
