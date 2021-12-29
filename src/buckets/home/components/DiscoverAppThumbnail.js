@@ -11,7 +11,12 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function DiscoverAppThumbnail({app_details}) {
+function DiscoverAppThumbnail(app_details: {
+  app_id: number,
+  app_image: string,
+  app_name: string,
+  extra_message: string,
+}) {
   return (
     <View style={styles.parent_view} key={app_details.app_id}>
       <FastImage

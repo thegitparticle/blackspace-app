@@ -16,6 +16,7 @@ import {GetMyApps} from '../../../redux/MyAppsActions';
 import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
 import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
 import {DraggableGrid} from 'react-native-draggable-grid';
+import {SectionGrid} from 'react-native-super-grid';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,7 +38,7 @@ function HomeMainPage({dispatch}) {
     }, [dispatch]),
   );
 
-  const DATA = [
+  const DATA2 = [
     {
       title: 'Main dishes',
       data: ['Pizza', 'Burger', 'Risotto'],
@@ -56,23 +57,54 @@ function HomeMainPage({dispatch}) {
     },
   ];
 
-  const Item = ({title}) => (
-    <View style={{backgroundColor: '#f9c2ff', padding: 20, marginVertical: 8}}>
-      <Text style={{fontSize: 24}}>{title}</Text>
-    </View>
-  );
+  const DATA = [
+    {
+      title: 'My Apps',
+      data: my_apps,
+    },
+    {
+      title: 'Discover',
+      data: discover_apps,
+    },
+  ];
+
+  function Item({title, section}) {
+    console.log(section.title);
+
+    return (
+      <View
+        style={{
+          backgroundColor: '#f9c2ff',
+          paddingVertical: 20,
+          marginVertical: 8,
+          width: 100,
+        }}>
+        <Text style={{fontSize: 24}}>{title}</Text>
+      </View>
+    );
+  }
+
+  function ThumbnailItem({item, section}) {
+    console.log(section.title);
+
+    if (section.title === 'My Apps') {
+      return MyAppThumbnail(item);
+    } else {
+      return DiscoverAppThumbnail(item);
+    }
+  }
 
   return (
-    <View style={styles.parent_view}>
-      <SectionList
-        sections={DATA}
-        keyExtractor={(item, index) => item + index}
-        renderItem={({item}) => <Item title={item} />}
-        renderSectionHeader={({section: {title}}) => (
-          <Text style={styles.header}>{title}</Text>
-        )}
-      />
-    </View>
+    <SectionGrid
+      itemDimension={100}
+      sections={DATA}
+      renderItem={({item, section}) => (
+        <ThumbnailItem item={item} section={section} />
+      )}
+      renderSectionHeader={({section: {title}}) => (
+        <Text style={styles.header}>{title}</Text>
+      )}
+    />
   );
 }
 
@@ -89,8 +121,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 100,
-    width: '100%',
-    height: '100%',
+    width: windowWidth,
   },
   parent_scrollview: {
     width: windowWidth,
