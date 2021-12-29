@@ -187,14 +187,14 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: themeHere.colors.mid_gray,
-    shadowOffset: {
-      width: 0,
-      height: 75,
-    },
-    shadowOpacity: 0.36,
-    shadowRadius: 16.68,
-    elevation: 11,
+    // shadowColor: themeHere.colors.mid_gray,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 75,
+    // },
+    // shadowOpacity: 0.36,
+    // shadowRadius: 16.68,
+    // elevation: 11,
   },
   header_items_view_wrap: {
     width: windowWidth * 0.9,

@@ -141,21 +141,21 @@ const styles = StyleSheet.create({
     backgroundColor: themeHere.colors.background,
   },
   tab_bar: {
-    backgroundColor: themeHere.colors.off_background,
+    backgroundColor: themeHere.colors.off_background + '00',
     height: 50,
     // justifyContent: 'center',
     alignSelf: 'center',
     width: windowWidth,
     borderRadius: 30,
     borderTopWidth: 0,
-    shadowColor: themeHere.colors.mid_ground,
-    shadowOffset: {
-      width: 0,
-      height: 4,
-    },
-    shadowOpacity: 0.32,
-    shadowRadius: 5.46,
-    elevation: 9,
+    // shadowColor: themeHere.colors.mid_ground,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 4,
+    // },
+    // shadowOpacity: 0.32,
+    // shadowRadius: 5.46,
+    // elevation: 9,
   },
   tab_bar_indicator: {
     width: 0,
@@ -167,11 +167,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tab_label_text_focused: {
-    ...themeHere.text.body_medium,
+    ...themeHere.text.subhead_medium,
     color: themeHere.colors.red,
   },
   tab_label_text_unfocused: {
-    ...themeHere.text.body_medium,
+    ...themeHere.text.subhead_medium,
     color: themeHere.colors.foreground,
   },
 });
