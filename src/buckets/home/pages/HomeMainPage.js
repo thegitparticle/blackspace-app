@@ -15,6 +15,8 @@ import {connect} from 'react-redux';
 import MyAppThumbnail from '../components/MyAppThumbnail';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {GetMyApps} from '../../../redux/MyAppsActions';
+import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
+import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -25,10 +27,14 @@ let state_here = {};
 
 function HomeMainPage({dispatch}) {
   let my_apps = state_here.MyAppsReducer.myapps;
+  let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
   useFocusEffect(
     React.useCallback(() => {
       dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.userid));
+      dispatch(
+        GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.userid),
+      );
     }, [dispatch]),
   );
 
@@ -38,6 +44,13 @@ function HomeMainPage({dispatch}) {
       <ScrollView style={styles.parent_scrollview}>
         {my_apps.map(item => (
           <MyAppThumbnail
+            app_image={item.app_icon}
+            app_name={item.app_name}
+            extra_message={item.extra_message}
+          />
+        ))}
+        {discover_apps.map(item => (
+          <DiscoverAppThumbnail
             app_image={item.app_icon}
             app_name={item.app_name}
             extra_message={item.extra_message}
