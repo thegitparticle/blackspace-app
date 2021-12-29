@@ -11,7 +11,7 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function MyAppThumbnail({app_image, app_name, extra_message}) {
+function DiscoverAppThumbnail({app_image, app_name, extra_message}) {
   return (
     <View style={styles.parent_view}>
       <FastImage
@@ -25,7 +25,7 @@ function MyAppThumbnail({app_image, app_name, extra_message}) {
   );
 }
 
-export default MyAppThumbnail;
+export default DiscoverAppThumbnail;
 
 const styles = StyleSheet.create({
   parent_view: {
