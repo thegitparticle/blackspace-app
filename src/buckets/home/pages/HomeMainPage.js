@@ -67,6 +67,7 @@ function HomeMainPage({dispatch}) {
       renderSectionHeader={({section: {title}}) => (
         <Text style={styles.header}>{title}</Text>
       )}
+      showsVerticalScrollIndicator={false}
     />
   );
 }
