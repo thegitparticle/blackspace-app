@@ -35,8 +35,7 @@ function HeaderOnHome() {
         return (
           <Pressable
             style={styles.settings_icon_view}
-            // onPress={() => navigation.navigate('TheAyeStackScreens')}
-          >
+            onPress={() => navigation.navigate('SettingsStack')}>
             <Iconly
               name="SettingBold"
               color={themeHere.colors.icon}
@@ -53,7 +52,7 @@ function HeaderOnHome() {
       function HeaderRightX() {
         return (
           <Pressable
-            // onPress={() => navigation.navigate('MyProfileModalScreens')}
+            onPress={() => navigation.navigate('MyProfileStack')}
             style={styles.header_right_view_wrap}>
             <FastImage
               style={styles.header_right_image}
