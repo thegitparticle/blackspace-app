@@ -92,6 +92,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeHere.colors.off_background,
     width: windowWidth - 40,
     borderRadius: 15,
+    marginBottom: 30,
   },
   title_text: {
     ...themeHere.text.subhead_medium,
