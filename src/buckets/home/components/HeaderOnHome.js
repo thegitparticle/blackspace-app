@@ -6,6 +6,7 @@ import {
   Dimensions,
   Appearance,
   Pressable,
+  Image,
 } from 'react-native';
 import {
   ButterThemeDark,
@@ -33,9 +34,14 @@ function HeaderOnHome() {
       function HeaderLeftX() {
         return (
           <Pressable
-            style={styles.header_left_view_wrap}
-            onPress={() => navigation.navigate('TheAyeStackScreens')}>
-            <Iconly name="SettingBold" color="#000" size={25} />
+            style={styles.settings_icon_view}
+            // onPress={() => navigation.navigate('TheAyeStackScreens')}
+          >
+            <Iconly
+              name="SettingBold"
+              color={themeHere.colors.icon}
+              size={15}
+            />
           </Pressable>
         );
       },
@@ -47,15 +53,15 @@ function HeaderOnHome() {
       function HeaderRightX() {
         return (
           <Pressable
-            onPress={() => navigation.navigate('MyProfileModalScreens')}
+            // onPress={() => navigation.navigate('MyProfileModalScreens')}
             style={styles.header_right_view_wrap}>
-            <Avatar
-              rounded
-              containerStyle={styles.header_right_image}
-              size={45}
+            <FastImage
+              style={styles.header_right_image}
               source={{
                 uri: 'https://i.postimg.cc/7hSZWDz1/photo-1541562232579-512a21360020.jpg',
+                priority: FastImage.priority.normal,
               }}
+              resizeMode={FastImage.resizeMode.contain}
             />
           </Pressable>
         );
@@ -64,40 +70,30 @@ function HeaderOnHome() {
   );
 
   function HeaderMiddle() {
-    return <View />;
+    return (
+      <Pressable
+        // onPress={() => navigation.navigate('MyProfileModalScreens')}
+        style={styles.header_middle_view_wrap}>
+        <Image
+          style={styles.logo}
+          source={require('../../../../assets/bs_logo_red_bg.png')}
+        />
+      </Pressable>
+    );
   }
+
   const HeaderView = useMemo(
     () =>
       function HeaderView() {
         return (
           <SquircleView
-            style={{
-              width: windowWidth,
-              height: '100%',
-              alignItems: 'center',
-              justifyContent: 'center',
-              shadowColor: '#00000025',
-              shadowOffset: {
-                width: 0,
-                height: 75,
-              },
-              shadowOpacity: 0.36,
-              shadowRadius: 16.68,
-              elevation: 11,
-            }}
+            style={styles.header_squircle_view}
             squircleParams={{
               cornerSmoothing: 0.7,
               cornerRadius: 30,
-              fillColor: '#F8F8F8',
+              fillColor: themeHere.colors.background,
             }}>
-            <View
-              style={{
-                width: windowWidth * 0.9,
-                alignItems: 'flex-end',
-                justifyContent: 'space-between',
-                flexDirection: 'row',
-                height: '100%',
-              }}>
+            <View style={styles.header_items_view_wrap}>
               <HeaderLeft />
               <HeaderMiddle />
               <HeaderRight />
@@ -112,7 +108,7 @@ function HeaderOnHome() {
     <View style={styles.parent_view}>
       <Header
         ViewComponent={HeaderView}
-        barStyle={colorScheme === 'dark' ? 'dark-content' : 'light-content'}
+        barStyle={colorScheme === 'dark' ? 'light-content' : 'light-content'}
       />
     </View>
   );
@@ -134,6 +130,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  settings_icon_view: {
+    backgroundColor: themeHere.colors.icon_background,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginHorizontal: 10,
+    marginBottom: 10,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
   header_left_view_wrap: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -144,30 +150,47 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 10,
-    borderColor: 'indianred',
-    width: 40,
-    height: 40,
-    borderRadius: 20,
+    borderColor: themeHere.colors.red,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
     marginHorizontal: 10,
     marginBottom: 10,
   },
-  header_left_image: {
-    width: 35 * 1.8,
-    height: 35,
-    marginHorizontal: 10,
-    borderRadius: 0,
-  },
   header_right_image: {
-    marginHorizontal: 10,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
   },
-  header_title_this_page: {
-    fontSize: 25,
-    fontFamily: 'GothamRounded-Medium',
+  header_middle_view_wrap: {
+    alignItems: 'center',
+    justifyContent: 'center',
     marginHorizontal: 10,
+    marginBottom: 10,
   },
-  header_title_this_page_view: {
-    justifyContent: 'flex-end',
-    flexDirection: 'column-reverse',
-    height: windowHeight * 0.06,
+  logo: {
+    width: 105,
+    height: 30,
+  },
+  header_squircle_view: {
+    width: windowWidth,
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    shadowColor: themeHere.colors.mid_gray + '50',
+    shadowOffset: {
+      width: 0,
+      height: 75,
+    },
+    shadowOpacity: 0.36,
+    shadowRadius: 16.68,
+    elevation: 11,
+  },
+  header_items_view_wrap: {
+    width: windowWidth * 0.9,
+    alignItems: 'flex-end',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    height: '100%',
   },
 });
