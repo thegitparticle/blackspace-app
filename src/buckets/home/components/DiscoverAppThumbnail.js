@@ -11,16 +11,19 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function DiscoverAppThumbnail({app_image, app_name, extra_message}) {
+function DiscoverAppThumbnail({app_details}) {
   return (
-    <View style={styles.parent_view}>
+    <View style={styles.parent_view} key={app_details.app_id}>
       <FastImage
-        source={{uri: app_image, priority: FastImage.priority.normal}}
+        source={{
+          uri: app_details.app_image,
+          priority: FastImage.priority.normal,
+        }}
         resizeMode={FastImage.resizeMode.contain}
         style={styles.app_image}
       />
-      <Text style={styles.title}>{app_name}</Text>
-      <Text style={styles.subtitle}>{extra_message}</Text>
+      <Text style={styles.title}>{app_details.app_name}</Text>
+      <Text style={styles.subtitle}>{app_details.extra_message}</Text>
     </View>
   );
 }

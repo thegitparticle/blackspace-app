@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 import {
   View,
   Text,
@@ -6,17 +6,16 @@ import {
   Dimensions,
   Appearance,
   ScrollView,
+  SectionList,
 } from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import MyAppThumbnail from '../components/MyAppThumbnail';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {GetMyApps} from '../../../redux/MyAppsActions';
 import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
 import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
+import {DraggableGrid} from 'react-native-draggable-grid';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,25 +37,41 @@ function HomeMainPage({dispatch}) {
     }, [dispatch]),
   );
 
-  console.log(my_apps);
+  const DATA = [
+    {
+      title: 'Main dishes',
+      data: ['Pizza', 'Burger', 'Risotto'],
+    },
+    {
+      title: 'Sides',
+      data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
+    },
+    {
+      title: 'Drinks',
+      data: ['Water', 'Coke', 'Beer'],
+    },
+    {
+      title: 'Desserts',
+      data: ['Cheese Cake', 'Ice Cream'],
+    },
+  ];
+
+  const Item = ({title}) => (
+    <View style={{backgroundColor: '#f9c2ff', padding: 20, marginVertical: 8}}>
+      <Text style={{fontSize: 24}}>{title}</Text>
+    </View>
+  );
+
   return (
     <View style={styles.parent_view}>
-      <ScrollView style={styles.parent_scrollview}>
-        {my_apps.map(item => (
-          <MyAppThumbnail
-            app_image={item.app_icon}
-            app_name={item.app_name}
-            extra_message={item.extra_message}
-          />
-        ))}
-        {discover_apps.map(item => (
-          <DiscoverAppThumbnail
-            app_image={item.app_icon}
-            app_name={item.app_name}
-            extra_message={item.extra_message}
-          />
-        ))}
-      </ScrollView>
+      <SectionList
+        sections={DATA}
+        keyExtractor={(item, index) => item + index}
+        renderItem={({item}) => <Item title={item} />}
+        renderSectionHeader={({section: {title}}) => (
+          <Text style={styles.header}>{title}</Text>
+        )}
+      />
     </View>
   );
 }
@@ -73,6 +88,9 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 100,
+    width: '100%',
+    height: '100%',
   },
   parent_scrollview: {
     width: windowWidth,

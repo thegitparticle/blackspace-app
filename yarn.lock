@@ -8256,6 +8256,11 @@ react-native-custom-icon@^0.0.3:
   resolved "https://registry.yarnpkg.com/react-native-custom-icon/-/react-native-custom-icon-0.0.3.tgz#e716115adc35dc9f0e7e6ee3daaf7be8e70b4a14"
   integrity sha512-JuZ0Y1R5+Z7vg8Ityi+L8d8gAJJunbod47d4pUUqWawxLXpvGAW2msyD4aHWQHLSE71lWdK3ey/KVopTG0QnGQ==
 
+react-native-draggable-grid@^2.1.4:
+  version "2.1.4"
+  resolved "https://registry.npmjs.org/react-native-draggable-grid/-/react-native-draggable-grid-2.1.4.tgz#25d1f167e754e2134c3d324e484076f4899d40e4"
+  integrity sha512-397Oo3Q78+6y+QXcs7tTVeIfRcafYlIxyvX3jOhcHeow4AJslhXJHUdBha0i2zDCe1fPEO0nm3GshzGR0TPA1g==
+
 react-native-elements@^3.4.2:
   version "3.4.2"
   resolved "https://registry.yarnpkg.com/react-native-elements/-/react-native-elements-3.4.2.tgz#66602be9c5e0e0a2a831913adec80ff6518d1ee2"
