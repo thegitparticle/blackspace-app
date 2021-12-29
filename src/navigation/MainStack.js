@@ -8,9 +8,13 @@ import {
 import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
 import TransactionScreen from '../buckets/test/TransactionScreen';
 import TestHome from '../buckets/test/TestHome';
+import MyProfileScreen from '../buckets/myprofile/screens/MyProfileScreen';
+import SettingsHomeScreen from '../buckets/settings/screens/SettingsHomeScreen';
 
 const StackMain = createNativeStackNavigator();
 const TestMain = createStackNavigator();
+const MyProfileMain = createStackNavigator();
+const SettingsMain = createStackNavigator();
 
 function TestStack() {
   return (
@@ -24,6 +28,36 @@ function TestStack() {
         }}
       />
     </TestMain.Navigator>
+  );
+}
+
+function MyProfileStack() {
+  return (
+    <MyProfileMain.Navigator>
+      <MyProfileMain.Screen
+        name="MyProfileScreen"
+        component={MyProfileScreen}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+    </MyProfileMain.Navigator>
+  );
+}
+
+function SettingsStack() {
+  return (
+    <SettingsMain.Navigator>
+      <SettingsMain.Screen
+        name="SettingsHomeScreen"
+        component={SettingsHomeScreen}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+    </SettingsMain.Navigator>
   );
 }
 
@@ -51,6 +85,30 @@ function MainStack() {
         <StackMain.Screen
           name="TestStack"
           component={TestStack}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="MyProfileStack"
+          component={MyProfileStack}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="SettingsStack"
+          component={SettingsStack}
           options={{
             headerShown: false,
             gestureEnabled: true,
