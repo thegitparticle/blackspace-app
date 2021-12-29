@@ -14,7 +14,7 @@ const TestMain = createStackNavigator();
 
 function TestStack() {
   return (
-    <TestMain.Navigator headerMode="none">
+    <TestMain.Navigator>
       <TestMain.Screen
         name="TestHome"
         component={TestHome}
