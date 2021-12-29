@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
-} from '../../../../../Desktop/soupapp/src/theme/ButterTheme';
+} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   parent_view: {
     width: (windowWidth - 80) / 3,
     height: ((windowWidth - 80) / 3) * 1.5,
-    backgroundColor: themeHere.color.off_background,
+    backgroundColor: themeHere.colors.off_background,
     flexDirection: 'column',
   },
   app_image: {

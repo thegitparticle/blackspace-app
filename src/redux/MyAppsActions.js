@@ -2,8 +2,6 @@ import {ADD_MYAPPS} from './types';
 import axios from 'axios';
 
 export const GetMyApps = user_id => {
-  console.log(user_id, 'user_id passed to actions api calls');
-
   return dispatch => {
     let res = [];
 

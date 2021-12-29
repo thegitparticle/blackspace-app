@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  ScrollView,
+} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
@@ -13,7 +20,53 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function CryptoPricesPage() {
   return (
     <View style={styles.parent_view}>
-      <Text>Prices page</Text>
+      <ScrollView style={styles.parent_scrollview}>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white'}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+      </ScrollView>
     </View>
   );
 }
@@ -25,5 +78,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  parent_scrollview: {
+    width: windowWidth,
+  },
+  header_right_image: {
+    width: 100,
+    height: 100,
+    borderRadius: 15,
   },
 });

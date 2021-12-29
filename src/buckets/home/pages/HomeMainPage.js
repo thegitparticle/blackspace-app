@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,67 +11,49 @@ import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import {connect} from 'react-redux';
+import MyAppThumbnail from '../components/MyAppThumbnail';
+import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {GetMyApps} from '../../../redux/MyAppsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function HomeMainPage() {
+let state_here = {};
+
+function HomeMainPage({dispatch}) {
+  let my_apps = state_here.MyAppsReducer.myapps;
+
+  useFocusEffect(
+    React.useCallback(() => {
+      dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.userid));
+    }, [dispatch]),
+  );
+
+  console.log(my_apps);
   return (
     <View style={styles.parent_view}>
       <ScrollView style={styles.parent_scrollview}>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        {my_apps.map(item => (
+          <MyAppThumbnail
+            app_image={item.app_icon}
+            app_name={item.app_name}
+            extra_message={item.extra_message}
+          />
+        ))}
       </ScrollView>
     </View>
   );
 }
 
-export default HomeMainPage;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(HomeMainPage);
 
 const styles = StyleSheet.create({
   parent_view: {
