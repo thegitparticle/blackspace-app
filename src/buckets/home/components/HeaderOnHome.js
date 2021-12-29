@@ -72,7 +72,7 @@ function HeaderOnHome() {
   function HeaderMiddle() {
     return (
       <Pressable
-        // onPress={() => navigation.navigate('MyProfileModalScreens')}
+        onPress={() => navigation.navigate('TestStack')}
         style={styles.header_middle_view_wrap}>
         <Image
           style={styles.logo}
