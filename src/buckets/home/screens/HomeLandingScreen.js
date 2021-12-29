@@ -25,7 +25,7 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
-var state_here = {};
+let state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
   const renderScene = SceneMap({
@@ -67,5 +67,6 @@ export default connect(mapStateToProps)(HomeLandingScreen);
 const styles = StyleSheet.create({
   parent_view: {
     flex: 1,
+    backgroundColor: themeHere.colors.background,
   },
 });

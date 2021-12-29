@@ -109,6 +109,7 @@ function HeaderOnHome() {
       <Header
         ViewComponent={HeaderView}
         barStyle={colorScheme === 'dark' ? 'light-content' : 'light-content'}
+        containerStyle={styles.header_container}
       />
     </View>
   );
@@ -129,6 +130,15 @@ const styles = StyleSheet.create({
     height: windowHeight * 0.125,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  header_container: {
+    // shadowColor: themeHere.colors.mid_ground,
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 10,
+    // },
+    // shadowOpacity: 0.27,
+    // shadowRadius: 40,
   },
   settings_icon_view: {
     backgroundColor: themeHere.colors.icon_background,
@@ -177,7 +187,7 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
-    shadowColor: themeHere.colors.mid_gray + '50',
+    shadowColor: themeHere.colors.mid_gray,
     shadowOffset: {
       width: 0,
       height: 75,
