@@ -13,7 +13,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function DiscoverAppThumbnail(app_details: {
   app_id: number,
-  app_image: string,
+  app_icon: string,
   app_name: string,
   extra_message: string,
 }) {
@@ -21,7 +21,7 @@ function DiscoverAppThumbnail(app_details: {
     <View style={styles.parent_view} key={app_details.app_id}>
       <FastImage
         source={{
-          uri: app_details.app_image,
+          uri: app_details.app_icon,
           priority: FastImage.priority.normal,
         }}
         resizeMode={FastImage.resizeMode.contain}

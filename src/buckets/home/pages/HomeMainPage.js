@@ -38,25 +38,6 @@ function HomeMainPage({dispatch}) {
     }, [dispatch]),
   );
 
-  const DATA2 = [
-    {
-      title: 'Main dishes',
-      data: ['Pizza', 'Burger', 'Risotto'],
-    },
-    {
-      title: 'Sides',
-      data: ['French Fries', 'Onion Rings', 'Fried Shrimps'],
-    },
-    {
-      title: 'Drinks',
-      data: ['Water', 'Coke', 'Beer'],
-    },
-    {
-      title: 'Desserts',
-      data: ['Cheese Cake', 'Ice Cream'],
-    },
-  ];
-
   const DATA = [
     {
       title: 'My Apps',
@@ -68,25 +49,7 @@ function HomeMainPage({dispatch}) {
     },
   ];
 
-  function Item({title, section}) {
-    console.log(section.title);
-
-    return (
-      <View
-        style={{
-          backgroundColor: '#f9c2ff',
-          paddingVertical: 20,
-          marginVertical: 8,
-          width: 100,
-        }}>
-        <Text style={{fontSize: 24}}>{title}</Text>
-      </View>
-    );
-  }
-
   function ThumbnailItem({item, section}) {
-    console.log(section.title);
-
     if (section.title === 'My Apps') {
       return MyAppThumbnail(item);
     } else {
