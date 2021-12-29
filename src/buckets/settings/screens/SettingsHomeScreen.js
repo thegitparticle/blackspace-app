@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import WalletTile from '../components/WalletTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -11,6 +12,7 @@ function SettingsHomeScreen() {
   return (
     <View style={styles.parent_view}>
       <Text style={styles.header_text}>Settings</Text>
+      <WalletTile />
     </View>
   );
 }
