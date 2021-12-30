@@ -19,36 +19,55 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function AccordianPortfolio() {
-  const [activeSections, setActiveSections] = useState(0);
+  const [activeSections, setActiveSections] = useState([]);
 
   const SECTIONS = [
     {
       title: 'First',
-      content: 'Lorem ipsum...',
+      content: 'Lorem ipsum... first first',
     },
     {
       title: 'Second',
-      content: 'Lorem ipsum...',
+      content: 'Lorem ipsum... second second',
     },
   ];
 
-  function RenderSomething() {
-    return <Text style={{color: 'white'}}>accordian</Text>;
+  function RenderSectionTitle(section) {
+    return (
+      <View style={{height: 50}}>
+        <Text style={{color: 'white'}}>{section.title}</Text>
+      </View>
+    );
+  }
+
+  function RenderHeader(section) {
+    return (
+      <View style={{height: 50}}>
+        <Text style={{color: 'white'}}>{section.title}</Text>
+      </View>
+    );
+  }
+
+  function RenderContent(section) {
+    return (
+      <View style={{height: 50}}>
+        <Text style={{color: 'white'}}>{section.content}</Text>
+      </View>
+    );
   }
 
   function UpdateActiveSections(sections) {
-    setActiveSections(sections);
+    setActiveSections(sections.includes(undefined) ? [] : sections);
   }
 
   return (
     <View style={styles.parent_view}>
       <Text style={{color: 'white'}}>accordian</Text>
       <Accordion
-        activeSections={[activeSections]}
+        activeSections={activeSections}
         sections={SECTIONS}
-        renderSectionTitle={RenderSomething}
-        renderHeader={RenderSomething}
-        renderContent={RenderSomething}
+        renderHeader={RenderHeader}
+        renderContent={RenderContent}
         onChange={UpdateActiveSections}
       />
     </View>
