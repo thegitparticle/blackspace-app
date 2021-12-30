@@ -2,6 +2,8 @@ import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import MainDetails from '../components/MainDetails';
+import WalletPie from '../components/WalletPie';
+import BarChartExample from '../components/DummyChartTest';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -13,6 +15,8 @@ function MyProfileScreen() {
     <View style={styles.parent_view}>
       <Text style={styles.header_text}>My Deets!</Text>
       <MainDetails />
+      <WalletPie />
+      <BarChartExample />
     </View>
   );
 }

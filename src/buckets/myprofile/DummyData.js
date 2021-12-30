@@ -6,7 +6,10 @@
 
 // info needed for each set - amount of "eth/token", $ price, Item name + Item icon
 
-const WalletDetailsDummy = {
+export const WalletDetailsDummy = {
+  total: {
+    value: '53748.8',
+  },
   cryptos: [
     {
       item_name: 'Ethereum',
