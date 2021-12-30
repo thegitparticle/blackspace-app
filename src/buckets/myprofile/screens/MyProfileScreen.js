@@ -36,6 +36,7 @@ const styles = StyleSheet.create({
   parent_view: {
     flex: 1,
     alignItems: 'center',
+    width: windowWidth,
     backgroundColor: themeHere.colors.dark,
   },
   header_text: {

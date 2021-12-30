@@ -6,10 +6,13 @@ import {
   Dimensions,
   Appearance,
   Pressable,
+  Image,
+  TouchableOpacity,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import Accordion from 'react-native-collapsible/Accordion';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,27 +26,39 @@ function AccordianPortfolio() {
 
   const SECTIONS = [
     {
-      title: 'First',
+      title: 'Cryptocurrencies',
+      main_icon: require('../../../../assets/crypto_bitcoin_icon.png'),
       content: 'Lorem ipsum... first first',
     },
     {
-      title: 'Second',
+      title: 'Tokens',
+      main_icon: require('../../../../assets/token_t_icon.png'),
       content: 'Lorem ipsum... second second',
+    },
+    {
+      title: 'DeFi',
+      main_icon: require('../../../../assets/defi_key_icon.png'),
+      content: 'Lorem ipsum... third third',
+    },
+    {
+      title: 'NFTs',
+      main_icon: require('../../../../assets/nfts_boredape_icon.png'),
+      content: 'Lorem ipsum... fourth fourth',
     },
   ];
 
-  function RenderSectionTitle(section) {
-    return (
-      <View style={{height: 50}}>
-        <Text style={{color: 'white'}}>{section.title}</Text>
-      </View>
-    );
-  }
-
   function RenderHeader(section) {
     return (
-      <View style={{height: 50}}>
-        <Text style={{color: 'white'}}>{section.title}</Text>
+      <View style={styles.listitem_view}>
+        <View style={styles.listitem_leftside_view}>
+          <Image style={styles.listitem_icon} source={section.main_icon} />
+          <Text style={styles.listitem_title}>{section.title}</Text>
+        </View>
+        <Iconly
+          name="ChevronDownBold"
+          color={themeHere.colors.foreground}
+          size={25}
+        />
       </View>
     );
   }
@@ -62,7 +77,6 @@ function AccordianPortfolio() {
 
   return (
     <View style={styles.parent_view}>
-      <Text style={{color: 'white'}}>accordian</Text>
       <Accordion
         activeSections={activeSections}
         sections={SECTIONS}
@@ -84,8 +98,40 @@ export default connect(mapStateToProps)(AccordianPortfolio);
 const styles = StyleSheet.create({
   parent_view: {
     alignItems: 'center',
-    width: windowWidth,
+    width: windowWidth - 40,
     justifyContent: 'center',
-    marginVertical: 70,
+    backgroundColor: themeHere.colors.background,
+    shadowColor: themeHere.colors.mid_ground,
+    shadowOffset: {
+      width: 0,
+      height: 10,
+    },
+    shadowOpacity: 0.17,
+    shadowRadius: 40,
+    alignSelf: 'center',
+    borderRadius: 15,
+    marginBottom: 40,
+  },
+  listitem_view: {
+    width: windowWidth - 90,
+    height: 75,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  listitem_leftside_view: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  listitem_icon: {
+    width: 25,
+    height: 25,
+    borderRadius: 12.5,
+  },
+  listitem_title: {
+    ...themeHere.text.subhead_medium,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 25,
   },
 });

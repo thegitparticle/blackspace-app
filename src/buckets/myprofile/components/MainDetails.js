@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: windowWidth,
     justifyContent: 'center',
-    marginVertical: 20,
+    marginTop: 20,
   },
   dp_view_wrap: {
     marginVertical: 10,
