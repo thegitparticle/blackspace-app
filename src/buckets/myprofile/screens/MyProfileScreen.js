@@ -1,9 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  ScrollView,
+} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import MainDetails from '../components/MainDetails';
 import WalletPie from '../components/WalletPie';
-import BarChartExample from '../components/DummyChartTest';
+import AccordianPortfolio from '../components/AccordianPortfolio';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -14,9 +21,11 @@ function MyProfileScreen() {
   return (
     <View style={styles.parent_view}>
       <Text style={styles.header_text}>My Deets!</Text>
-      <MainDetails />
-      <WalletPie />
-      <BarChartExample />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MainDetails />
+        <WalletPie />
+        <AccordianPortfolio />
+      </ScrollView>
     </View>
   );
 }
