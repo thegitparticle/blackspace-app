@@ -26,18 +26,8 @@ function CreateWalletPart() {
         colors={['#FF5B3A', '#FF3293']}
         style={styles.gradient_background}>
         <View style={styles.items_wrap_view}>
-          <Text
-            style={{
-              ...themeHere.text.title_3,
-              color: 'white',
-            }}>
-            CREATE NEW WALLET
-          </Text>
-          <Text
-            style={{
-              ...themeHere.text.body,
-              color: 'white',
-            }}>
+          <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
+          <Text style={styles.explanation_text}>
             a fresh, new wallet for a clean start
           </Text>
           <TouchableOpacity
@@ -80,5 +70,13 @@ const styles = StyleSheet.create({
     width: windowWidth,
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  heading_text: {
+    ...themeHere.text.title_3,
+    color: 'white',
+  },
+  explanation_text: {
+    ...themeHere.text.body,
+    color: 'white',
   },
 });

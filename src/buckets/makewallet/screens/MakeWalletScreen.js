@@ -139,14 +139,7 @@ function MakeWalletScreen({dispatch, navigation}) {
       <LinearGradient
         colors={['#FF5B3A', '#FF3293']}
         style={styles.gradient_background}>
-        <Text
-          style={{
-            ...themeHere.text.title_3,
-            color: 'white',
-            marginVertical: windowHeight * 0.1,
-          }}>
-          CREATE NEW WALLET
-        </Text>
+        <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
         <CenterText />
         <TouchableOpacity
           style={{
@@ -203,5 +196,10 @@ const styles = StyleSheet.create({
   waiting_text_showcase_view: {
     width: windowWidth * 0.8,
     alignItems: 'center',
+  },
+  heading_text: {
+    ...themeHere.text.title_3,
+    color: 'white',
+    marginVertical: windowHeight * 0.1,
   },
 });

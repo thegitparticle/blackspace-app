@@ -26,20 +26,8 @@ function ImportWalletPart() {
         colors={['#050505', '#1F1F1F']}
         style={styles.gradient_background}>
         <View style={styles.items_wrap_view}>
-          <Text
-            style={{
-              ...themeHere.text.title_3,
-              color: 'white',
-            }}>
-            IMPORT OLD WALLET
-          </Text>
-          <Text
-            style={{
-              ...themeHere.text.body,
-              color: 'white',
-              width: windowWidth * 0.8,
-              textAlign: 'center',
-            }}>
+          <Text style={styles.heading_text}>IMPORT OLD WALLET</Text>
+          <Text style={styles.explanation_text}>
             import your wallet from rainbow, metamask, trust wallet, etc...
           </Text>
           <TouchableOpacity
@@ -81,5 +69,15 @@ const styles = StyleSheet.create({
     width: windowWidth,
     alignItems: 'center',
     justifyContent: 'space-between',
+  },
+  heading_text: {
+    ...themeHere.text.title_3,
+    color: 'white',
+  },
+  explanation_text: {
+    ...themeHere.text.body,
+    color: 'white',
+    width: windowWidth * 0.8,
+    textAlign: 'center',
   },
 });

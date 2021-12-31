@@ -58,7 +58,6 @@ function IntroTextsAnimation() {
       offsetText1.value = withSpring(windowHeight * 0.075);
       text1Opacity.value = 0.5;
       text2Opacity.value = withTiming(1);
-      console.log('2.5 sec done');
     }, 2500);
     setTimeout(() => {
       offsetText1.value = withSpring(windowHeight * 0.15);
@@ -70,26 +69,21 @@ function IntroTextsAnimation() {
     setTimeout(() => {
       text1Opacity.value = 0;
       text2Opacity.value = withTiming(0);
-      console.log('7.5 sec done');
     }, 7500);
   }
 
   return (
     <View style={styles.parent_view}>
       <Animated.View style={[animatedStylesText1]}>
-        <Text style={{...themeHere.text.title_3, color: 'white'}}>
-          A NEW WORLD IS EMERGING!
-        </Text>
+        <Text style={styles.intro_texts_style}>A NEW WORLD IS EMERGING!</Text>
       </Animated.View>
       <Animated.View style={[animatedStylesText2]}>
-        <Text style={{...themeHere.text.title_3, color: 'white'}}>
+        <Text style={styles.intro_texts_style}>
           ON TOP OF YOUR FAV INTERNET
         </Text>
       </Animated.View>
       <Animated.View style={[animatedStylesText3]}>
-        <Text style={{...themeHere.text.title_3, color: 'white'}}>
-          WELCOME TO CRYPTO INTERNET
-        </Text>
+        <Text style={styles.intro_texts_style}>WELCOME TO CRYPTO INTERNET</Text>
       </Animated.View>
     </View>
   );
@@ -101,5 +95,9 @@ const styles = StyleSheet.create({
   parent_view: {
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  intro_texts_style: {
+    ...themeHere.text.title_3,
+    color: 'white',
   },
 });

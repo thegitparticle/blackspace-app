@@ -25,13 +25,6 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-// 1. Header in the main return () statement
-// 2. input and ok button  - button changes to text when api is called
-// 3. error component if username exists already
-// 4. if api call success, get userid - call redux and send info
-// 5. show a full screen overlay - green and done
-// 6. then after few seconds - change nav stack
-
 function UserDetailsInputScreen({route, dispatch, navigation}) {
   const {wallet_address} = route.params;
   const [username, setUsername] = useState('');
@@ -121,11 +114,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       <View style={styles.input_wallet_button_view}>
         <View style={styles.input_wrap_view}>
           <TextInput
-            style={{
-              backgroundColor: 'transparent',
-              maxWidth: windowWidth * 0.7,
-              color: 'white',
-            }}
+            style={styles.username_text_input}
             onChangeText={setUsername}
             value={username}
             multiline={true}
@@ -230,5 +219,10 @@ const styles = StyleSheet.create({
     ...themeHere.text.title_3,
     color: 'white',
     marginVertical: windowHeight * 0.1,
+  },
+  username_text_input: {
+    backgroundColor: 'transparent',
+    maxWidth: windowWidth * 0.7,
+    color: 'white',
   },
 });

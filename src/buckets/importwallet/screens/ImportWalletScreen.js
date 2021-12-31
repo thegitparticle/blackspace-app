@@ -25,17 +25,6 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-// basic setup and input box with keyboard auto up to take the seed phrase
-// on click done - checks for 12 words - if not, throws error and keeps focus on input box,
-// if 12 words - calls importWallet function - and sets the waitingTextShowcase = true/1
-// when importWallet is done, set the opacity of waiting text = 0 and button and done text = 1
-
-// all the components needed for this screen
-// 1.textinput and import now button - wraped in view
-// 2;verifying the deeets and grabing wallet  - text play
-// 3;finally, done + next button - wraped in view
-// 4;wrong seed phrase + 2 buttons - wraped in view
-
 function ImportWalletScreen({dispatch, navigation}) {
   const wallet = {
     wallet_privateKey: null,
@@ -62,9 +51,6 @@ function ImportWalletScreen({dispatch, navigation}) {
       wallet.wallet_address = walletCreated.address;
       wallet.wallet_privateKey = walletCreated.privateKey;
       wallet.wallet_phrase = walletCreated.mnemonicCiphertext;
-      console.log(walletCreated.privateKey);
-      console.log(walletCreated.address);
-      console.log(walletCreated.mnemonic);
       setWalletDetails(wallet);
       setWalletCreated(true);
       dispatch(AddWDeets(wallet));
