@@ -5,6 +5,7 @@ import {
   createStackNavigator,
   TransitionPresets,
 } from '@react-navigation/stack';
+import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
 import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
 import TransactionScreen from '../buckets/test/TransactionScreen';
 import TestHome from '../buckets/test/TestHome';
@@ -14,6 +15,7 @@ import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
 import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
 
 const StackMain = createStackNavigator();
+const HomeAndAppMain = createSharedElementStackNavigator();
 const TestMain = createStackNavigator();
 const MyProfileMain = createStackNavigator();
 const SettingsMain = createStackNavigator();
@@ -63,28 +65,43 @@ function SettingsStack() {
   );
 }
 
+function HomeAndAppsStack() {
+  return (
+    <HomeAndAppMain.Navigator>
+      <HomeAndAppMain.Screen
+        name="HomeLandingScreen"
+        component={HomeLandingScreen}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+      <HomeAndAppMain.Screen
+        name="TransactionScreen"
+        component={TransactionScreen}
+        options={{
+          gestureEnabled: true,
+        }}
+      />
+      <HomeAndAppMain.Screen
+        name="MiniAppLanding"
+        component={MiniAppLanding}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+    </HomeAndAppMain.Navigator>
+  );
+}
+
 function MainStack() {
   return (
     <StackMain.Navigator>
       <StackMain.Group>
         <StackMain.Screen
-          name="HomeLandingScreen"
-          component={HomeLandingScreen}
-          options={{
-            gestureEnabled: true,
-            headerShown: false,
-          }}
-        />
-        <StackMain.Screen
-          name="TransactionScreen"
-          component={TransactionScreen}
-          options={{
-            gestureEnabled: true,
-          }}
-        />
-        <StackMain.Screen
-          name="MiniAppLanding"
-          component={MiniAppLanding}
+          name="HomeAndAppsStack"
+          component={HomeAndAppsStack}
           options={{
             gestureEnabled: true,
             headerShown: false,
