@@ -9,37 +9,40 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function TestHome() {
+function GlassBgScreenTest() {
   const navigation = useNavigation();
 
   const test_screens = [
     {
-      title: 'Glass BG',
-      screen_name: 'GlassBgScreenTest',
+      title: 'Brazil',
+    },
+    {
+      title: 'China',
+    },
+    {
+      title: 'Russia',
     },
   ];
 
-  function TestItem(item_deets) {
+  function Item(item_deets) {
     return (
-      <TouchableOpacity
-        style={styles.test_item_view}
-        onPress={() => navigation.navigate(item_deets.screen_name)}>
+      <View style={styles.test_item_view}>
         <Text style={{...themeHere.text.subhead_medium, color: 'white'}}>
           {item_deets.title}
         </Text>
-      </TouchableOpacity>
+      </View>
     );
   }
 
   return (
     <View style={styles.parent_view}>
-      <Text style={styles.header_text}>TEST</Text>
-      {test_screens.map(item => TestItem(item))}
+      <Text style={styles.header_text}>Where to find glass?</Text>
+      {test_screens.map(item => Item(item))}
     </View>
   );
 }
 
-export default TestHome;
+export default GlassBgScreenTest;
 
 const styles = StyleSheet.create({
   parent_view: {
