@@ -13,6 +13,8 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import Accordion from 'react-native-collapsible/Accordion';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {WalletDetailsDummy} from '../DummyData';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -26,49 +28,100 @@ function AccordianPortfolio() {
 
   const SECTIONS = [
     {
+      id: 0,
       title: 'Cryptocurrencies',
       main_icon: require('../../../../assets/crypto_bitcoin_icon.png'),
-      content: 'Lorem ipsum... first first',
+      content: WalletDetailsDummy.cryptos,
     },
     {
+      id: 1,
       title: 'Tokens',
       main_icon: require('../../../../assets/token_t_icon.png'),
-      content: 'Lorem ipsum... second second',
+      content: WalletDetailsDummy.erc_tokens,
     },
     {
+      id: 2,
       title: 'DeFi',
       main_icon: require('../../../../assets/defi_key_icon.png'),
-      content: 'Lorem ipsum... third third',
+      content: [],
     },
     {
+      id: 3,
       title: 'NFTs',
       main_icon: require('../../../../assets/nfts_boredape_icon.png'),
-      content: 'Lorem ipsum... fourth fourth',
+      content: WalletDetailsDummy.nfts,
     },
   ];
 
   function RenderHeader(section) {
+    console.log(activeSections);
+
+    function IconShow() {
+      if (section.id === activeSections[0]) {
+        return (
+          <Iconly
+            name="ChevronUpBold"
+            color={themeHere.colors.foreground}
+            size={25}
+          />
+        );
+      } else {
+        return (
+          <Iconly
+            name="ChevronDownBold"
+            color={themeHere.colors.foreground}
+            size={25}
+          />
+        );
+      }
+    }
     return (
       <View style={styles.listitem_view}>
         <View style={styles.listitem_leftside_view}>
           <Image style={styles.listitem_icon} source={section.main_icon} />
           <Text style={styles.listitem_title}>{section.title}</Text>
         </View>
-        <Iconly
-          name="ChevronDownBold"
-          color={themeHere.colors.foreground}
-          size={25}
-        />
+        <IconShow />
+      </View>
+    );
+  }
+
+  function ItemHoldingAndPrice(item) {
+    console.log(item.item_icon);
+    return (
+      <View style={styles.itemholding_view}>
+        <View style={styles.itemholding_leftside_view}>
+          <FastImage
+            style={styles.itemholding_icon}
+            source={{uri: item.item_icon, priority: FastImage.priority.normal}}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <Text style={styles.itemholding_title}>{item.item_name}</Text>
+        </View>
+        <View style={styles.itemholding_rightside_view}>
+          <Text style={styles.itemholding_balance}>{item.item_balance}</Text>
+          <Text style={styles.itemholding_converted_balance}>
+            ${item.base_coverted_balance}
+          </Text>
+        </View>
       </View>
     );
   }
 
   function RenderContent(section) {
-    return (
-      <View style={{height: 50}}>
-        <Text style={{color: 'white'}}>{section.content}</Text>
-      </View>
-    );
+    if (section.title !== 'NFTs') {
+      return (
+        <View style={styles.expanded_content_view}>
+          {section.content.map(item => ItemHoldingAndPrice(item))}
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.expanded_content_view}>
+          <Text style={{color: 'white', marginVertical: 100}}>NFTs</Text>
+        </View>
+      );
+    }
   }
 
   function UpdateActiveSections(sections) {
@@ -117,6 +170,7 @@ const styles = StyleSheet.create({
     height: 75,
     flexDirection: 'row',
     alignItems: 'center',
+    alignSelf: 'center',
     justifyContent: 'space-between',
   },
   listitem_leftside_view: {
@@ -133,5 +187,47 @@ const styles = StyleSheet.create({
     ...themeHere.text.subhead_medium,
     color: themeHere.colors.foreground,
     marginHorizontal: 25,
+  },
+  expanded_content_view: {
+    backgroundColor: themeHere.colors.off_background,
+    width: windowWidth - 40,
+    alignItems: 'center',
+  },
+  itemholding_view: {
+    width: windowWidth - 90,
+    height: 75,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  itemholding_leftside_view: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  itemholding_icon: {
+    width: 25,
+    height: 25,
+    borderRadius: 12.5,
+  },
+  itemholding_title: {
+    ...themeHere.text.subhead_medium,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 25,
+  },
+  itemholding_rightside_view: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+  },
+  itemholding_balance: {
+    ...themeHere.text.caption,
+    color: themeHere.colors.red,
+    marginVertical: 2.5,
+  },
+  itemholding_converted_balance: {
+    ...themeHere.text.caption,
+    color: themeHere.colors.foreground + '50',
+    marginVertical: 2.5,
   },
 });
