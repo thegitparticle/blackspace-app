@@ -11,8 +11,9 @@ import TestHome from '../buckets/test/TestHome';
 import MyProfileScreen from '../buckets/myprofile/screens/MyProfileScreen';
 import SettingsHomeScreen from '../buckets/settings/screens/SettingsHomeScreen';
 import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
+import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
 
-const StackMain = createNativeStackNavigator();
+const StackMain = createStackNavigator();
 const TestMain = createStackNavigator();
 const MyProfileMain = createStackNavigator();
 const SettingsMain = createStackNavigator();
@@ -64,7 +65,7 @@ function SettingsStack() {
 
 function MainStack() {
   return (
-    <StackMain.Navigator headerMode="none">
+    <StackMain.Navigator>
       <StackMain.Group>
         <StackMain.Screen
           name="HomeLandingScreen"
@@ -79,6 +80,14 @@ function MainStack() {
           component={TransactionScreen}
           options={{
             gestureEnabled: true,
+          }}
+        />
+        <StackMain.Screen
+          name="MiniAppLanding"
+          component={MiniAppLanding}
+          options={{
+            gestureEnabled: true,
+            headerShown: false,
           }}
         />
       </StackMain.Group>
