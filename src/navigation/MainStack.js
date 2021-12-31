@@ -86,6 +86,10 @@ function HomeAndAppsStack() {
       <HomeAndAppMain.Screen
         name="MiniAppLanding"
         component={MiniAppLanding}
+        sharedElements={(route, otherRoute, showing) => {
+          const {app_details} = route.params;
+          return [`item.${app_details.app_name}.app_icon`];
+        }}
         options={{
           gestureEnabled: true,
           headerShown: false,

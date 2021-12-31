@@ -13,6 +13,7 @@ import {
 } from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
+import {SharedElement} from 'react-native-shared-element';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,17 +33,19 @@ function MyAppThumbnail(app_details: {
       key={app_details.app_id.toString()}
       onPress={() =>
         navigation.navigate('MiniAppLanding', {
-          app_details: app_details,
+          app_details,
         })
       }>
-      <FastImage
-        source={{
-          uri: app_details.app_icon,
-          priority: FastImage.priority.normal,
-        }}
-        resizeMode={FastImage.resizeMode.contain}
-        style={styles.app_image}
-      />
+      <SharedElement id={`item.${app_details.app_name}.app_icon`}>
+        <FastImage
+          source={{
+            uri: app_details.app_icon,
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+          style={styles.app_image}
+        />
+      </SharedElement>
       <Text style={styles.title}>{app_details.app_name}</Text>
       <Text style={styles.subtitle}>{app_details.extra_message}</Text>
     </TouchableOpacity>
