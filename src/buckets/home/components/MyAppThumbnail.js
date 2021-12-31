@@ -1,10 +1,18 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  TouchableOpacity,
+} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -17,8 +25,16 @@ function MyAppThumbnail(app_details: {
   app_name: string,
   extra_message: string,
 }) {
+  const navigation = useNavigation();
   return (
-    <View style={styles.parent_view} key={app_details.app_id.toString()}>
+    <TouchableOpacity
+      style={styles.parent_view}
+      key={app_details.app_id.toString()}
+      onPress={() =>
+        navigation.navigate('MiniAppLanding', {
+          app_details: app_details,
+        })
+      }>
       <FastImage
         source={{
           uri: app_details.app_icon,
@@ -29,7 +45,7 @@ function MyAppThumbnail(app_details: {
       />
       <Text style={styles.title}>{app_details.app_name}</Text>
       <Text style={styles.subtitle}>{app_details.extra_message}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
