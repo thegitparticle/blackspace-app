@@ -15,6 +15,7 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {WalletDetailsDummy} from '../DummyData';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -25,6 +26,7 @@ let state_here = {};
 
 function AccordianPortfolio() {
   const [activeSections, setActiveSections] = useState([]);
+  const navigation = useNavigation();
 
   const SECTIONS = [
     {
@@ -108,6 +110,33 @@ function AccordianPortfolio() {
     );
   }
 
+  function NFTItemShow(item) {
+    return (
+      <TouchableOpacity
+        style={styles.itemholding_view}
+        onPress={() =>
+          navigation.navigate('NFTDetailedView', {
+            nft_details: item,
+          })
+        }>
+        <View style={styles.itemholding_leftside_view}>
+          <FastImage
+            style={styles.itemholding_icon}
+            source={{uri: item.item_icon, priority: FastImage.priority.normal}}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <Text style={styles.itemholding_title}>{item.item_name}</Text>
+        </View>
+        <View style={styles.itemholding_rightside_view}>
+          <Text style={styles.itemholding_balance}>{item.item_balance}</Text>
+          <Text style={styles.itemholding_converted_balance}>
+            ${item.base_coverted_balance}
+          </Text>
+        </View>
+      </TouchableOpacity>
+    );
+  }
+
   function RenderContent(section) {
     if (section.title !== 'NFTs') {
       return (
@@ -118,7 +147,7 @@ function AccordianPortfolio() {
     } else {
       return (
         <View style={styles.expanded_content_view}>
-          <Text style={{color: 'white', marginVertical: 100}}>NFTs</Text>
+          {section.content.map(item => NFTItemShow(item))}
         </View>
       );
     }

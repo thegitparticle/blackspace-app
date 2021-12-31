@@ -10,6 +10,7 @@ import TransactionScreen from '../buckets/test/TransactionScreen';
 import TestHome from '../buckets/test/TestHome';
 import MyProfileScreen from '../buckets/myprofile/screens/MyProfileScreen';
 import SettingsHomeScreen from '../buckets/settings/screens/SettingsHomeScreen';
+import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
 
 const StackMain = createNativeStackNavigator();
 const TestMain = createStackNavigator();
@@ -97,6 +98,18 @@ function MainStack() {
         <StackMain.Screen
           name="MyProfileStack"
           component={MyProfileStack}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="NFTDetailedView"
+          component={NFTDetailedView}
           options={{
             headerShown: false,
             gestureEnabled: true,
