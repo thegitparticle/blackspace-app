@@ -3,6 +3,7 @@ import {ADD_MYPROFILEDETAILS, GET_MYPROFILEDETAILS} from './types';
 const initial_state = {
   myProfileDetails: {
     username: null,
+    userid: null,
   },
 };
 
