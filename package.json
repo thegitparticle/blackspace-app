@@ -20,8 +20,6 @@
     "@react-navigation/stack": "^6.0.11",
     "axios": "^0.24.0",
     "ethers": "^5.5.2",
-    "expo": "^44.0.3",
-    "expo-blur": "~11.0.0",
     "lottie-ios": "3.2.3",
     "lottie-react-native": "^5.0.1",
     "react": "17.0.2",
