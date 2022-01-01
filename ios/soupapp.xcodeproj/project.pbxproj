@@ -20,11 +20,11 @@
 		2627D96E276BB36F0090823E /* GothamRounded-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D966276BB36E0090823E /* GothamRounded-BookItalic.otf */; };
 		2627D96F276BB36F0090823E /* GothamRounded-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D967276BB36F0090823E /* GothamRounded-MediumItalic.otf */; };
 		26DF3F88276BA985007A19E8 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DF3F86276BA2B1007A19E8 /* icomoon.ttf */; };
+		3E45F7415CEFEC60A7B0AFC8 /* libPods-soupapp-soupappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E5FF63B3B48DEDFFE9A7A4E /* libPods-soupapp-soupappTests.a */; };
 		71CBD94ED8D720978BC8EC55 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF37E6823ED3B2776033C34 /* ExpoModulesProvider.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		D3145C6CC1907B3704691DF8 /* libPods-soupapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 567CEF80C38B08962DF481D1 /* libPods-soupapp.a */; };
+		A0418838BE6859FA0893CB45 /* libPods-soupapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C3E94CB8245B87572BF83469 /* libPods-soupapp.a */; };
 		EAD086C334E3ED2EE22C21CF /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61158BAF0C3632F2DB211399 /* ExpoModulesProvider.swift */; };
-		ED9C4DFBA17E8A3855237450 /* libPods-soupapp-soupappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8FB33B6C4EF035EBC42160D5 /* libPods-soupapp-soupappTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -42,6 +42,7 @@
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* soupappTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = soupappTests.m; sourceTree = "<group>"; };
 		0CF37E6823ED3B2776033C34 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-soupapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
+		0FCC05FCF51A3DA2608E22D3 /* Pods-soupapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.release.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.release.xcconfig"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* soupapp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = soupapp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = soupapp/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = soupapp/AppDelegate.m; sourceTree = "<group>"; };
@@ -60,25 +61,24 @@
 		26DF3F86276BA2B1007A19E8 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		2BB9C7891BCF49D880CBC817 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2C00D947409A491BA9C48312 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
-		35F62EE172E62862E5E463C9 /* Pods-soupapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.debug.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.debug.xcconfig"; sourceTree = "<group>"; };
+		2EBC047DE77447D8BBAFE04E /* Pods-soupapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.debug.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.debug.xcconfig"; sourceTree = "<group>"; };
 		47DA8708BB124F5896275837 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
-		567CEF80C38B08962DF481D1 /* libPods-soupapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-soupapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A2A8755A52045ACA80BBF42 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5FD23B76F4DD437599F9B875 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
 		61158BAF0C3632F2DB211399 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-soupapp-soupappTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		688C03D8513C4716BC715552 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
+		6E5FF63B3B48DEDFFE9A7A4E /* libPods-soupapp-soupappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-soupapp-soupappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70919220D37C43A5A55B4D0E /* Entypo.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Entypo.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Entypo.ttf"; sourceTree = "<group>"; };
 		7782AADB7ABC4658A6AC280A /* SimpleLineIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = SimpleLineIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf"; sourceTree = "<group>"; };
-		78C2F2FFEE693DD4A898C4F7 /* Pods-soupapp-soupappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp-soupappTests.release.xcconfig"; path = "Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests.release.xcconfig"; sourceTree = "<group>"; };
 		7D017C1A6F554B83A6DA3AF3 /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		7FED56C4CE3B41DDAB7E0286 /* MaterialIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = soupapp/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		81B81AC07ADB763E506B6425 /* Pods-soupapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.release.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.release.xcconfig"; sourceTree = "<group>"; };
-		8FB33B6C4EF035EBC42160D5 /* libPods-soupapp-soupappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-soupapp-soupappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9A78791FC377FC6C891A6D91 /* Pods-soupapp-soupappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp-soupappTests.debug.xcconfig"; path = "Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9BEA797D61A948768188E8E4 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		A76E3A0370D449488D5FDD9B /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		B5D99D6E01A4EB790A4EA613 /* Pods-soupapp-soupappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp-soupappTests.release.xcconfig"; path = "Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests.release.xcconfig"; sourceTree = "<group>"; };
 		BD3F92AE7B7F4AFEBF68CD0E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
-		D163F8F5ADD10831E0336F4E /* Pods-soupapp-soupappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp-soupappTests.debug.xcconfig"; path = "Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests.debug.xcconfig"; sourceTree = "<group>"; };
+		C3E94CB8245B87572BF83469 /* libPods-soupapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-soupapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DE19C59A718149B9BA98D165 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 		E1D31E7BBB5042DB9E3BA0FA /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
@@ -89,7 +89,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ED9C4DFBA17E8A3855237450 /* libPods-soupapp-soupappTests.a in Frameworks */,
+				3E45F7415CEFEC60A7B0AFC8 /* libPods-soupapp-soupappTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -97,7 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D3145C6CC1907B3704691DF8 /* libPods-soupapp.a in Frameworks */,
+				A0418838BE6859FA0893CB45 /* libPods-soupapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -138,8 +138,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				567CEF80C38B08962DF481D1 /* libPods-soupapp.a */,
-				8FB33B6C4EF035EBC42160D5 /* libPods-soupapp-soupappTests.a */,
+				C3E94CB8245B87572BF83469 /* libPods-soupapp.a */,
+				6E5FF63B3B48DEDFFE9A7A4E /* libPods-soupapp-soupappTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -197,10 +197,10 @@
 		841B631218E7ABC54AAC571F /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				35F62EE172E62862E5E463C9 /* Pods-soupapp.debug.xcconfig */,
-				81B81AC07ADB763E506B6425 /* Pods-soupapp.release.xcconfig */,
-				D163F8F5ADD10831E0336F4E /* Pods-soupapp-soupappTests.debug.xcconfig */,
-				78C2F2FFEE693DD4A898C4F7 /* Pods-soupapp-soupappTests.release.xcconfig */,
+				2EBC047DE77447D8BBAFE04E /* Pods-soupapp.debug.xcconfig */,
+				0FCC05FCF51A3DA2608E22D3 /* Pods-soupapp.release.xcconfig */,
+				9A78791FC377FC6C891A6D91 /* Pods-soupapp-soupappTests.debug.xcconfig */,
+				B5D99D6E01A4EB790A4EA613 /* Pods-soupapp-soupappTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -252,12 +252,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "soupappTests" */;
 			buildPhases = (
-				8C66785CD1E66D3B680B8EA9 /* [CP] Check Pods Manifest.lock */,
+				5821CD3A1D003F1ECFD801A4 /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				D746ED1997C03D93DD8EDD1B /* [CP] Embed Pods Frameworks */,
-				0E32C2583AF2F3F5376D9C5F /* [CP] Copy Pods Resources */,
+				FDE817A3B65EA722B6D59DB6 /* [CP] Embed Pods Frameworks */,
+				09265C436CAA49B1E47F24D1 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -273,14 +273,14 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "soupapp" */;
 			buildPhases = (
-				30E6055AC0EEAE6ED47A9396 /* [CP] Check Pods Manifest.lock */,
+				232292BE1F54412954D32EB4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				112F485E9082F223E9ED9764 /* [CP] Embed Pods Frameworks */,
-				DFA607AA50D52F81490C36E8 /* [CP] Copy Pods Resources */,
+				14D8AE57E9D67A656C01B42A /* [CP] Embed Pods Frameworks */,
+				37A5CBCAF23D6AE99ABF0153 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -370,7 +370,7 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		0E32C2583AF2F3F5376D9C5F /* [CP] Copy Pods Resources */ = {
+		09265C436CAA49B1E47F24D1 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -387,7 +387,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		112F485E9082F223E9ED9764 /* [CP] Embed Pods Frameworks */ = {
+		14D8AE57E9D67A656C01B42A /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -404,7 +404,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		30E6055AC0EEAE6ED47A9396 /* [CP] Check Pods Manifest.lock */ = {
+		232292BE1F54412954D32EB4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -426,7 +426,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		8C66785CD1E66D3B680B8EA9 /* [CP] Check Pods Manifest.lock */ = {
+		37A5CBCAF23D6AE99ABF0153 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		5821CD3A1D003F1ECFD801A4 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -448,40 +465,6 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		D746ED1997C03D93DD8EDD1B /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DFA607AA50D52F81490C36E8 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -499,6 +482,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "export RCT_METRO_PORT=\"${RCT_METRO_PORT:=8081}\"\necho \"export RCT_METRO_PORT=${RCT_METRO_PORT}\" > \"${SRCROOT}/../node_modules/react-native/scripts/.packager.env\"\nif [ -z \"${RCT_NO_LAUNCH_PACKAGER+xxx}\" ] ; then\n  if nc -w 5 -z localhost ${RCT_METRO_PORT} ; then\n    if ! curl -s \"http://localhost:${RCT_METRO_PORT}/status\" | grep -q \"packager-status:running\" ; then\n      echo \"Port ${RCT_METRO_PORT} already in use, packager is either not running or not running correctly\"\n      exit 2\n    fi\n  else\n    open \"$SRCROOT/../node_modules/react-native/scripts/launchPackager.command\" || echo \"Can't start packager automatically\"\n  fi\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		FDE817A3B65EA722B6D59DB6 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -536,7 +536,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D163F8F5ADD10831E0336F4E /* Pods-soupapp-soupappTests.debug.xcconfig */;
+			baseConfigurationReference = 9A78791FC377FC6C891A6D91 /* Pods-soupapp-soupappTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -563,7 +563,7 @@
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 78C2F2FFEE693DD4A898C4F7 /* Pods-soupapp-soupappTests.release.xcconfig */;
+			baseConfigurationReference = B5D99D6E01A4EB790A4EA613 /* Pods-soupapp-soupappTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
@@ -587,7 +587,7 @@
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 35F62EE172E62862E5E463C9 /* Pods-soupapp.debug.xcconfig */;
+			baseConfigurationReference = 2EBC047DE77447D8BBAFE04E /* Pods-soupapp.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -614,7 +614,7 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 81B81AC07ADB763E506B6425 /* Pods-soupapp.release.xcconfig */;
+			baseConfigurationReference = 0FCC05FCF51A3DA2608E22D3 /* Pods-soupapp.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
@@ -686,7 +686,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -745,7 +745,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
