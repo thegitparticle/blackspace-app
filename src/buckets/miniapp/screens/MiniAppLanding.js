@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
 import {SharedElement} from 'react-native-shared-element';
+import HeaderBlock from '../components/HeaderBlock';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -14,6 +15,7 @@ function MiniAppLanding({route}) {
   return (
     <View style={styles.parent_view}>
       <SharedElement id={`item.${app_details.app_name}.app_icon`}>
+        <HeaderBlock app_details={app_details} />
         <FastImage
           style={styles.cover_image}
           source={{

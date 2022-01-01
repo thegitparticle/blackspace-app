@@ -10,7 +10,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@alch/alchemy-web3": "^1.1.9",
     "@ethersproject/shims": "^5.5.0",
     "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-native-community/art": "^1.2.0",
@@ -28,6 +27,7 @@
     "react-native-code-push": "^7.0.4",
     "react-native-collapsible": "^1.6.0",
     "react-native-custom-icon": "^0.0.3",
+    "react-native-dotenv": "^3.3.1",
     "react-native-draggable-grid": "^2.1.4",
     "react-native-elements": "^3.4.2",
     "react-native-fast-image": "^8.5.11",
