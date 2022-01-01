@@ -12,6 +12,7 @@ import FastImage from 'react-native-fast-image';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import LinearGradient from 'react-native-linear-gradient';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -45,6 +46,24 @@ function HeaderBlock({app_details}) {
     );
   }
 
+  function TitleSubBlock() {
+    return (
+      <LinearGradient
+        colors={[
+          themeHere.colors.background + '00',
+          themeHere.colors.background,
+        ]}
+        style={styles.title_subblock_view}>
+        <View style={styles.title_subblock_items_wrap_view}>
+          <Text style={styles.app_name_text}>{app_details.app_name}</Text>
+          <Text style={styles.app_description_text}>
+            {app_details.app_name}
+          </Text>
+        </View>
+      </LinearGradient>
+    );
+  }
+
   return (
     <View style={styles.parent_view}>
       <FastImage
@@ -56,7 +75,7 @@ function HeaderBlock({app_details}) {
         }}
         resizeMode={FastImage.resizeMode.cover}>
         <ButtonsSubBlock />
-        <Text>go go go</Text>
+        <TitleSubBlock />
       </FastImage>
     </View>
   );
@@ -75,6 +94,8 @@ const styles = StyleSheet.create({
     width: windowWidth,
     height: 300,
     alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
   },
   buttons_subblock_view: {
     width: windowWidth - 20,
@@ -90,5 +111,27 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     borderRadius: 25,
+  },
+  title_subblock_view: {
+    width: windowWidth,
+    alignItems: 'center',
+    flexDirection: 'column',
+  },
+  title_subblock_items_wrap_view: {
+    width: windowWidth - 40,
+    alignItems: 'center',
+    flexDirection: 'column',
+    marginBottom: 10,
+    marginTop: 30,
+  },
+  app_name_text: {
+    ...themeHere.text.header_bold,
+    color: themeHere.colors.foreground,
+    marginVertical: 10,
+  },
+  app_description_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
+    marginVertical: 10,
   },
 });

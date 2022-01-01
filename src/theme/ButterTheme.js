@@ -82,6 +82,10 @@ export const ButterThemeLight = {
       fontFamily: 'GothamRounded-BoldItalic',
       fontSize: windowHeight > 770 ? 19 : 18,
     },
+    header_bold: {
+      fontFamily: 'GothamRounded-Bold',
+      fontSize: windowHeight > 770 ? 17 : 16,
+    },
     header: {
       fontFamily: 'GothamRounded-Medium',
       fontSize: windowHeight > 770 ? 17 : 16,
@@ -217,6 +221,10 @@ export const ButterThemeDark = {
     title_3_i: {
       fontFamily: 'GothamRounded-BoldItalic',
       fontSize: windowHeight > 770 ? 19 : 18,
+    },
+    header_bold: {
+      fontFamily: 'GothamRounded-Bold',
+      fontSize: windowHeight > 770 ? 17 : 16,
     },
     header: {
       fontFamily: 'GothamRounded-Medium',
