@@ -11,6 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
 import GradientBgBehindGlass from './GradientBgBehindGlass';
+import {BlurView} from 'expo-blur';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -47,10 +48,10 @@ function GlassBgScreenTest() {
       <ImageBackground
         style={styles.behind_glass_image}
         source={require('../../../assets/color_grad_bg_1.png')}>
-        <View style={styles.glass_view}>
+        <BlurView style={styles.glass_view} intensity={80}>
           <Text style={styles.header_text}>Where to find glass?</Text>
           {test_screens.map(item => Item(item))}
-        </View>
+        </BlurView>
       </ImageBackground>
     </View>
   );
