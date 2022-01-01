@@ -15,15 +15,15 @@ function MiniAppLanding({route}) {
   return (
     <View style={styles.parent_view}>
       <SharedElement id={`item.${app_details.app_name}.app_icon`}>
-        <HeaderBlock app_details={app_details} />
-        <FastImage
-          style={styles.cover_image}
-          source={{
-            uri: app_details.app_icon,
-            priority: FastImage.priority.normal,
-          }}
-          resizeMode={FastImage.resizeMode.cover}
-        />
+        <HeaderBlock app_details={app_details} style={{top: 0}} />
+        {/*<FastImage*/}
+        {/*  style={styles.cover_image}*/}
+        {/*  source={{*/}
+        {/*    uri: app_details.app_icon,*/}
+        {/*    priority: FastImage.priority.normal,*/}
+        {/*  }}*/}
+        {/*  resizeMode={FastImage.resizeMode.cover}*/}
+        {/*/>*/}
       </SharedElement>
       <Text>...</Text>
     </View>
@@ -36,7 +36,6 @@ const styles = StyleSheet.create({
   parent_view: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'center',
     backgroundColor: themeHere.colors.background,
   },
   cover_image: {
