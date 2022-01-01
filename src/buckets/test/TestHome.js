@@ -60,5 +60,6 @@ const styles = StyleSheet.create({
     backgroundColor: themeHere.colors.off_background,
     alignItems: 'center',
     alignSelf: 'center',
+    justifyContent: 'center',
   },
 });

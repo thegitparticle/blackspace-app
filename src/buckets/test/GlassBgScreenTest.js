@@ -1,8 +1,16 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  ImageBackground,
+} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import GradientBgBehindGlass from './GradientBgBehindGlass';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -36,8 +44,14 @@ function GlassBgScreenTest() {
 
   return (
     <View style={styles.parent_view}>
-      <Text style={styles.header_text}>Where to find glass?</Text>
-      {test_screens.map(item => Item(item))}
+      <ImageBackground
+        style={styles.behind_glass_image}
+        source={require('../../../assets/color_grad_bg_1.png')}>
+        <View style={styles.glass_view}>
+          <Text style={styles.header_text}>Where to find glass?</Text>
+          {test_screens.map(item => Item(item))}
+        </View>
+      </ImageBackground>
     </View>
   );
 }
@@ -49,6 +63,19 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     backgroundColor: themeHere.colors.background,
+  },
+  behind_glass_image: {
+    width: windowWidth,
+    height: windowHeight,
+    flex: 1,
+    alignItems: 'center',
+  },
+  glass_view: {
+    width: windowWidth,
+    height: windowHeight,
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: themeHere.colors.background + '50',
   },
   header_text: {
     ...themeHere.text.title_3,
@@ -63,5 +90,6 @@ const styles = StyleSheet.create({
     backgroundColor: themeHere.colors.off_background,
     alignItems: 'center',
     alignSelf: 'center',
+    justifyContent: 'center',
   },
 });
