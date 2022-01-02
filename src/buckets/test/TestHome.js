@@ -17,6 +17,10 @@ function TestHome() {
       title: 'Glass BG',
       screen_name: 'GlassBgScreenTest',
     },
+    {
+      title: 'Infura Test',
+      screen_name: 'InfuraTestTransactionScreen',
+    },
   ];
 
   function TestItem(item_deets) {
