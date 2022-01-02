@@ -14,6 +14,7 @@ import SettingsHomeScreen from '../buckets/settings/screens/SettingsHomeScreen';
 import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
 import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
 import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
+import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -47,6 +48,14 @@ function TestStack() {
       <TestMain.Screen
         name="GlassBgScreenTest"
         component={GlassBgScreenTest}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+      <TestMain.Screen
+        name="InfuraTestTransactionScreen"
+        component={InfuraTestTransactionScreen}
         options={{
           gestureEnabled: true,
           headerShown: false,
