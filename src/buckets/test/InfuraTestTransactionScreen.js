@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {BigNumber, ethers} from 'ethers';
 import {connect} from 'react-redux';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -21,12 +22,12 @@ function InfuraTestTransactionScreen() {
     'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
   );
 
-  const provider = ethers.getDefaultProvider(network, {
-    infura: {
-      projectId: 'a2d69eb319254260ab3cef34410256ca',
-      projectSecret: 'b50c6cc3ae3c49f09265264e91384fc7',
-    },
-  });
+  // const provider = ethers.getDefaultProvider(network, {
+  //   infura: {
+  //     projectId: 'a2d69eb319254260ab3cef34410256ca',
+  //     projectSecret: 'b50c6cc3ae3c49f09265264e91384fc7',
+  //   },
+  // });
 
   async function FetchBalance() {
     const balance = await prov
@@ -43,11 +44,44 @@ function InfuraTestTransactionScreen() {
     FetchBalance();
   }, []);
 
+  function SendMoney() {
+    let wallet = new ethers.Wallet(
+      state_here.WDeetsReducer.wdeets.wallet_privateKey,
+    );
+    let walletSigner = wallet.connect(prov);
+
+    let gas_price = prov.getGasPrice();
+
+    console.log(gas_price);
+
+    const tx = {
+      from: state_here.WDeetsReducer.wdeets.wallet_address,
+      to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469',
+      value: ethers.utils.parseEther('0.01'),
+      nonce: prov.getTransactionCount(
+        state_here.WDeetsReducer.wdeets.wallet_address,
+        'latest',
+      ),
+      gasLimit: ethers.utils.hexlify(100000), // 100000
+      gasPrice: gas_price,
+    };
+
+    walletSigner.sendTransaction(tx).then(transaction => {
+      console.dir(transaction);
+      alert('Send finished!');
+    });
+  }
+
   return (
     <View style={styles.parent_view}>
       <Text style={styles.header_text}>ETH - Infura</Text>
       <Text style={styles.balance_text}>Balance - {ethBalanceString}</Text>
       <Text style={styles.balance_text}>Balance actual - {weiBalance}</Text>
+      <TouchableOpacity style={styles.button_view} onPress={() => SendMoney()}>
+        <Text style={{...themeHere.text.subhead_medium, color: 'white'}}>
+          send
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -74,5 +108,15 @@ const styles = StyleSheet.create({
     ...themeHere.text.title_3,
     color: themeHere.colors.red,
     marginVertical: 60,
+  },
+  button_view: {
+    marginVertical: 20,
+    width: windowWidth - 40,
+    height: 50,
+    borderRadius: 15,
+    backgroundColor: themeHere.colors.off_background,
+    alignItems: 'center',
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
 });
