@@ -1,6 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
+import Swiper from 'react-native-swiper';
+import LeverageEthProduct from '../dapps/makerdao/producttiles/LeverageEthProduct';
+import BorrowDaiProduct from '../dapps/makerdao/producttiles/BorrowDaiProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,10 +25,37 @@ variables to pass
 
  */
 
-function SwipeableProductsShowcase(products_list) {
+function SwipeableProductsShowcase(props) {
+  function ProductView(props) {
+    if (props.ProductComponent === 'LeverageEthProduct') {
+      return (
+        <View>
+          <Text style={{color: 'white'}}>Leverage eth</Text>
+          <LeverageEthProduct />
+        </View>
+      );
+    } else if (props.ProductComponent === 'BorrowDaiProduct') {
+      return (
+        <View>
+          <Text style={{color: 'white'}}>Leverage eth</Text>
+          <BorrowDaiProduct />
+        </View>
+      );
+    } else {
+      return <View />;
+    }
+  }
+
   return (
     <View style={styles.parent_view}>
-      <Text>swipe</Text>
+      <Swiper style={styles.wrapper} showsButtons={true}>
+        <View>
+          <LeverageEthProduct />
+        </View>
+        <View>
+          <BorrowDaiProduct />
+        </View>
+      </Swiper>
     </View>
   );
 }
@@ -33,9 +63,5 @@ function SwipeableProductsShowcase(products_list) {
 export default SwipeableProductsShowcase;
 
 const styles = StyleSheet.create({
-  parent_view: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
+  parent_view: {},
 });

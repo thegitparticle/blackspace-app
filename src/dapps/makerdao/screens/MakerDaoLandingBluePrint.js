@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import SwipeableProductsShowcase from '../../../bits/SwipeableProductsShowcase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,6 +25,7 @@ function MakerDaoLandingBluePrint() {
   return (
     <View style={styles.parent_view}>
       <Text style={{color: 'white'}}>blueprint</Text>
+      <SwipeableProductsShowcase products_list={products} />
     </View>
   );
 }

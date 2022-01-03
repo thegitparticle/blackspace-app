@@ -1,9 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,7 +19,6 @@ export default LeverageEthProduct;
 
 const styles = StyleSheet.create({
   parent_view: {
-    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
