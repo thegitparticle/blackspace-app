@@ -57,7 +57,7 @@ function HeaderBlock({app_details}) {
         <View style={styles.title_subblock_items_wrap_view}>
           <Text style={styles.app_name_text}>{app_details.app_name}</Text>
           <Text style={styles.app_description_text}>
-            {app_details.app_name}
+            {app_details.extra_message}
           </Text>
         </View>
       </LinearGradient>
@@ -128,10 +128,12 @@ const styles = StyleSheet.create({
     ...themeHere.text.header_bold,
     color: themeHere.colors.foreground,
     marginVertical: 10,
+    textAlign: 'center',
   },
   app_description_text: {
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground + '75',
     marginVertical: 10,
+    textAlign: 'center',
   },
 });

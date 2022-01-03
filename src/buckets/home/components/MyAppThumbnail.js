@@ -47,7 +47,7 @@ function MyAppThumbnail(app_details: {
         />
       </SharedElement>
       <Text style={styles.title}>{app_details.app_name}</Text>
-      <Text style={styles.subtitle}>{app_details.extra_message}</Text>
+      {/*<Text style={styles.subtitle}>{app_details.extra_message}</Text>*/}
     </TouchableOpacity>
   );
 }
