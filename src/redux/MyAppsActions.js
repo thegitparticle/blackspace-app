@@ -6,7 +6,7 @@ export const GetMyApps = user_id => {
     let res = [];
 
     axios
-      .get('https://run.mocky.io/v3/6f2fbb0a-8766-4558-a4a5-175b4b2dec2b')
+      .get('https://run.mocky.io/v3/b2714da6-08f9-4ac3-b582-24555d31331c')
       .then(response => (res = response.data))
       .then(() =>
         dispatch({

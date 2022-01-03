@@ -50,6 +50,7 @@
     "react-native-super-grid": "^4.2.0",
     "react-native-svg": "^12.1.1",
     "react-native-svg-charts": "^5.4.0",
+    "react-native-swiper": "^1.6.0-rc.3",
     "react-native-tab-view": "^3.1.1",
     "react-native-ui-lib": "^6.6.1",
     "react-native-vector-icons": "^9.0.0",

@@ -1,37 +1,28 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../Desktop/soupapp/src/theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function MakerDaoLandingBluePrint() {
-  const products = [
-    {
-      id: 1,
-      product_name: 'Leverage Up ETH',
-      component: 'LeverageEthProduct',
-    },
-    {
-      id: 2,
-      product_name: 'Borrow Stablecoin DAI',
-      component: 'BorrowDaiProduct',
-    },
-  ];
-
+function LeverageEthProduct() {
   return (
     <View style={styles.parent_view}>
-      <Text>blueprint</Text>
+      <Text style={{color: 'white'}}>Leverage eth</Text>
     </View>
   );
 }
 
-export default MakerDaoLandingBluePrint;
+export default LeverageEthProduct;
 
 const styles = StyleSheet.create({
   parent_view: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
