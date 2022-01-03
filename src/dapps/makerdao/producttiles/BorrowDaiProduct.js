@@ -20,6 +20,5 @@ export default BorrowDaiProduct;
 const styles = StyleSheet.create({
   parent_view: {
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

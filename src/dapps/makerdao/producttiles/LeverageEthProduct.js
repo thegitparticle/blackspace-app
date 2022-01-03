@@ -20,6 +20,5 @@ export default LeverageEthProduct;
 const styles = StyleSheet.create({
   parent_view: {
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

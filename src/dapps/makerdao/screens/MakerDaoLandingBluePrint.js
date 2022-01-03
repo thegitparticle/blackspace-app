@@ -10,8 +10,8 @@ import {
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LeverageEthProduct from '../producttiles/LeverageEthProduct';
 import BorrowDaiProduct from '../producttiles/BorrowDaiProduct';
-import Swiper from 'react-native-swiper';
 import Carousel from 'react-native-snap-carousel';
+import {SquircleView} from 'react-native-figma-squircle/src/index';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,28 +19,6 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function MakerDaoLandingBluePrint() {
-  const [currentViewIndex, setCurrentViewIndex] = useState(0);
-
-  function changeCurrentViewIndex(index) {
-    setCurrentViewIndex(index);
-  }
-
-  function ProductHeader() {
-    if (currentViewIndex === 0) {
-      return (
-        <View style={styles.product_head}>
-          <Text style={styles.product_title}>Leverage ETH</Text>
-        </View>
-      );
-    } else if (currentViewIndex === 1) {
-      return (
-        <View style={styles.product_head}>
-          <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
-        </View>
-      );
-    }
-  }
-
   const products = [
     {
       id: 1,
@@ -58,20 +36,38 @@ function MakerDaoLandingBluePrint() {
     console.log(index + 'index');
     if (index === 0) {
       return (
-        <View style={styles.product_head}>
+        <View style={styles.product_view}>
           <Text style={styles.product_title}>Leverage ETH</Text>
+          <SquircleView
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '50',
+            }}
+            style={styles.product_tile_view}>
+            <LeverageEthProduct />
+          </SquircleView>
         </View>
       );
     } else if (index === 1) {
       return (
-        <View style={styles.product_head}>
+        <View style={styles.product_view}>
           <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
+          <SquircleView
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '50',
+            }}
+            style={styles.product_tile_view}>
+            <BorrowDaiProduct />
+          </SquircleView>
         </View>
       );
     } else {
       return (
-        <View style={styles.product_head}>
-          <Text style={styles.product_title}>gone crazy</Text>
+        <View style={styles.product_view}>
+          <Text style={styles.product_title}></Text>
         </View>
       );
     }
@@ -79,7 +75,6 @@ function MakerDaoLandingBluePrint() {
 
   return (
     <View style={styles.parent_view}>
-      <ProductHeader />
       <Carousel
         data={products}
         renderItem={RenderProduct}
@@ -101,13 +96,18 @@ const styles = StyleSheet.create({
     backgroundColor: '#EEEEEE50',
     height: windowHeight * 0.5,
   },
-  product_head: {
+  product_view: {
     marginTop: 40,
-    marginBottom: 20,
+    alignItems: 'center',
   },
   product_title: {
     ...themeHere.text.header_bold,
     color: themeHere.colors.foreground,
     textAlign: 'center',
+    marginBottom: 40,
+  },
+  product_tile_view: {
+    width: windowWidth - 40,
+    alignItems: 'center',
   },
 });
