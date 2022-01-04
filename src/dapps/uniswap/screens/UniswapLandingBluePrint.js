@@ -11,7 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import BuyTokensUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
-import StakeToEarnUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
+import StakeToEarnUniswapProduct from '../products/staketoearnuniswap/StakeToEarnUniSwapProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -21,12 +21,12 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function UniswapLandingBluePrint() {
   const products = [
     {
-      id: 1,
+      id: 0,
       product_name: 'Buy Tokens',
       component: 'BuyTokensUniswapProduct',
     },
     {
-      id: 2,
+      id: 1,
       product_name: 'Stake to Earn',
       component: 'StakeToEarnUniswapProduct',
     },

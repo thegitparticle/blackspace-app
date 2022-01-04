@@ -10,7 +10,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function StakeToEarnUniswapProduct() {
   return (
     <View style={styles.parent_view}>
-      <Text style={{color: 'white'}}>choose token to buy</Text>
+      <Text style={{color: 'white'}}>choose token to stake and earn</Text>
     </View>
   );
 }
