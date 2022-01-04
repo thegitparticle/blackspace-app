@@ -8,8 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
-import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
+import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 
@@ -40,21 +39,6 @@ function MemeCoinsAppLandingBluePrint() {
             }}
             style={styles.product_tile_view}>
             <LeverageEthProduct />
-          </SquircleView>
-        </View>
-      );
-    } else if (index === 1) {
-      return (
-        <View style={styles.product_view}>
-          <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
-          <SquircleView
-            squircleParams={{
-              cornerSmoothing: 1,
-              cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
-            }}
-            style={styles.product_tile_view}>
-            <BorrowDaiProduct />
           </SquircleView>
         </View>
       );

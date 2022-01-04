@@ -3,6 +3,8 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import MakerDaoLandingBluePrint from '../../../dapps/makerdao/screens/MakerDaoLandingBluePrint';
 import CompoundFinanceLandingBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceLandingBluePrint';
+import UniswapLandingBluePrint from '../../../dapps/uniswap/screens/UniswapLandingBluePrint';
+import MemeCoinsAppLandingBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoinsAppLandingBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -14,6 +16,10 @@ function RenderAppBluePrintHelper(props) {
     return <MakerDaoLandingBluePrint />;
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
     return <CompoundFinanceLandingBluePrint />;
+  } else if (props.function_name === 'UniswapLandingBluePrint') {
+    return <UniswapLandingBluePrint />;
+  } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
+    return <MemeCoinsAppLandingBluePrint />;
   } else {
     return (
       <View style={styles.parent_view}>
