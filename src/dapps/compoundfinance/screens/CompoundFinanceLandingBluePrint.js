@@ -36,7 +36,7 @@ function CompoundFinanceLandingBluePrint() {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Leverage ETH</Text>
+          <Text style={styles.product_title}>Earn Interest</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -51,7 +51,7 @@ function CompoundFinanceLandingBluePrint() {
     } else if (index === 1) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
+          <Text style={styles.product_title}>Borrow Cryptos</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
