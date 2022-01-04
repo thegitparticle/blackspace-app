@@ -8,8 +8,8 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
-import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
+import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
+import BorrowDaiProduct from '../../makerdao/products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 
@@ -18,21 +18,21 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function MakerDaoLandingBluePrint() {
+function CompoundFinanceLandingBluePrint() {
   const products = [
     {
       id: 1,
-      product_name: 'Leverage Up ETH',
-      component: 'LeverageEthProduct',
+      product_name: 'Earn Interest',
+      component: 'EarnInterestCompoundFinance',
     },
     {
       id: 2,
-      product_name: 'Borrow Stablecoin DAI',
-      component: 'BorrowDaiProduct',
+      product_name: 'Borrow Cryptos',
+      component: 'BorrowCryptosCompoundFinance',
     },
   ];
 
-  function RenderProductMakerDao({item, index}) {
+  function RenderProductCompoundFinance({item, index}) {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
@@ -76,7 +76,7 @@ function MakerDaoLandingBluePrint() {
     <View style={styles.parent_view}>
       <Carousel
         data={products}
-        renderItem={RenderProductMakerDao}
+        renderItem={RenderProductCompoundFinance}
         sliderWidth={windowWidth}
         itemWidth={windowWidth}
       />
@@ -84,7 +84,7 @@ function MakerDaoLandingBluePrint() {
   );
 }
 
-export default MakerDaoLandingBluePrint;
+export default CompoundFinanceLandingBluePrint;
 
 const styles = StyleSheet.create({
   parent_view: {

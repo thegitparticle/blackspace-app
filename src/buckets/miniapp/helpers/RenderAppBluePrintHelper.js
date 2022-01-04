@@ -2,6 +2,7 @@ import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import MakerDaoLandingBluePrint from '../../../dapps/makerdao/screens/MakerDaoLandingBluePrint';
+import CompoundFinanceLandingBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceLandingBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -11,6 +12,8 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function RenderAppBluePrintHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
     return <MakerDaoLandingBluePrint />;
+  } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
+    return <CompoundFinanceLandingBluePrint />;
   } else {
     return (
       <View style={styles.parent_view}>
