@@ -11,6 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
+import TrendingTokensProduct from '../products/trendingtokens/TrendingTokensProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +31,7 @@ function MemeCoinsAppLandingBluePrint() {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Leverage ETH</Text>
+          <Text style={styles.product_title}>Currently Trending Tokens</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -38,7 +39,7 @@ function MemeCoinsAppLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <LeverageEthProduct />
+            <TrendingTokensProduct />
           </SquircleView>
         </View>
       );
