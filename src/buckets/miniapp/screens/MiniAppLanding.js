@@ -22,7 +22,9 @@ function MiniAppLanding({route}) {
   const {app_details} = route.params;
 
   return (
-    <ScrollView style={styles.parent_scroll_view}>
+    <ScrollView
+      style={styles.parent_scroll_view}
+      showsVerticalScrollIndicator={false}>
       <View style={styles.parent_view}>
         <SharedElement id={`item.${app_details.app_name}.app_icon`}>
           <HeaderBlock app_details={app_details} style={{top: 0}} />

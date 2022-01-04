@@ -64,7 +64,6 @@ function LeverageEthProduct() {
           value={liquidationPrice}
           onValueChange={value => {
             setLiquidationPrice(value);
-            console.log(typeof value);
           }}
           thumbStyle={{
             height: 20,
@@ -90,10 +89,51 @@ function LeverageEthProduct() {
     );
   }
 
+  function OrderInfo() {
+    return (
+      <View style={{marginBottom: 30}}>
+        <Text style={styles.block_title}>order info</Text>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>extra ETH you get</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              1.3501 ETH{' '}
+            </Text>
+            ($5,045.70)
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>total ETH exposure</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              2.8501 ETH{' '}
+            </Text>
+            ($10,650.30)
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>total debt</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>1.3501</Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>
+            stablity fee (annual interest %)
+          </Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>0.50%</Text>
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.parent_view}>
       <EnterAmount />
       <AdjustLiquidationPrice />
+      <OrderInfo />
     </View>
   );
 }
@@ -149,5 +189,19 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground + '50',
     marginHorizontal: 20,
     marginBottom: 10,
+  },
+  order_info_one_block_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 20,
+  },
+  order_info_title_text: {
+    ...themeHere.text.caption,
+    color: themeHere.colors.foreground + '50',
+  },
+  order_info_value_text: {
+    ...themeHere.text.caption,
+    color: themeHere.colors.foreground + '50',
   },
 });
