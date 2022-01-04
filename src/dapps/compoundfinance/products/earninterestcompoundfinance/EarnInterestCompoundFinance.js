@@ -25,7 +25,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function EarnInterestCompoundFinance() {
   const [amount, setAmount] = useState('');
-  const [activeSections, setActiveSections] = useState([0]);
+  const [activeSections, setActiveSections] = useState([]);
   const navigation = useNavigation();
 
   const CryptosToBorrow = [
@@ -70,7 +70,13 @@ function EarnInterestCompoundFinance() {
     return (
       <View>
         <Text style={styles.block_title}>
-          stake {CryptosToBorrow[activeSections[0]].title} to earn interest
+          stake{' '}
+          {
+            CryptosToBorrow[
+              activeSections[0] !== undefined ? activeSections[0] : 0
+            ].title
+          }{' '}
+          to earn interest
         </Text>
         <SquircleView
           squircleParams={{
@@ -84,17 +90,33 @@ function EarnInterestCompoundFinance() {
             onChangeText={setAmount}
             value={amount}
             style={styles.enter_amount_input}
-            placeholder={`0.0 ${CryptosToBorrow[activeSections[0]].title}`}
+            placeholder={`0.0 ${
+              CryptosToBorrow[
+                activeSections[0] !== undefined ? activeSections[0] : 0
+              ].title
+            }`}
             placeholderTextColor={themeHere.colors.foreground + 50}
           />
           <Text style={styles.enter_amount_input_fiat}>{amount * 3700}</Text>
         </SquircleView>
         <View style={styles.wallet_balances_view}>
           <Text style={styles.crypto_conversion_text}>
-            ~ 1 {CryptosToBorrow[activeSections[0]].title} = $ 3790
+            ~ 1{' '}
+            {
+              CryptosToBorrow[
+                activeSections[0] !== undefined ? activeSections[0] : 0
+              ].title
+            }{' '}
+            = $ 3790
           </Text>
           <Text style={styles.wallet_balance_text}>
-            my balance: 5.1 {CryptosToBorrow[activeSections[0]].title} = $ 19329
+            my balance: 5.1{' '}
+            {
+              CryptosToBorrow[
+                activeSections[0] !== undefined ? activeSections[0] : 0
+              ].title
+            }{' '}
+            = $ 19329
           </Text>
         </View>
         <Button
