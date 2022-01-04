@@ -8,10 +8,10 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../products/../../makerdao/products/leverageeth/LeverageEthProduct';
-import BorrowDaiProduct from '../products/../../makerdao/products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
+import BuyTokensUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
+import StakeToEarnUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,12 +23,12 @@ function UniswapLandingBluePrint() {
     {
       id: 1,
       product_name: 'Buy Tokens',
-      component: 'LeverageEthProduct',
+      component: 'BuyTokensUniswapProduct',
     },
     {
       id: 2,
-      product_name: 'Buy Tokens',
-      component: 'BorrowDaiProduct',
+      product_name: 'Stake to Earn',
+      component: 'StakeToEarnUniswapProduct',
     },
   ];
 
@@ -44,14 +44,14 @@ function UniswapLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <LeverageEthProduct />
+            <BuyTokensUniswapProduct />
           </SquircleView>
         </View>
       );
     } else if (index === 1) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Buy Tokens</Text>
+          <Text style={styles.product_title}>Stake to Earn</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -59,7 +59,7 @@ function UniswapLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <BorrowDaiProduct />
+            <StakeToEarnUniswapProduct />
           </SquircleView>
         </View>
       );
