@@ -8,10 +8,10 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../producttiles/LeverageEthProduct';
-import BorrowDaiProduct from '../producttiles/BorrowDaiProduct';
+import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
+import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
-import {SquircleView} from 'react-native-figma-squircle/src/index';
+import {SquircleView} from 'react-native-figma-squircle';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,7 +42,7 @@ function MakerDaoLandingBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '50',
+              fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
             <LeverageEthProduct />
@@ -57,7 +57,7 @@ function MakerDaoLandingBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '50',
+              fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
             <BorrowDaiProduct />
@@ -92,10 +92,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  swiper_wrapper: {
-    backgroundColor: '#EEEEEE50',
-    height: windowHeight * 0.5,
-  },
   product_view: {
     marginTop: 40,
     alignItems: 'center',
@@ -108,6 +104,5 @@ const styles = StyleSheet.create({
   },
   product_tile_view: {
     width: windowWidth - 40,
-    alignItems: 'center',
   },
 });
