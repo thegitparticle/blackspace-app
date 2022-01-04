@@ -8,10 +8,10 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
-import BorrowDaiProduct from '../../makerdao/products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
+import EarnInterestCompoundFinance from '../products/earninterestcompoundfinance/EarnInterestCompoundFinance';
+import BorrowCompoundFinance from '../products/borrowcompoundfinance/BorrowCompoundFinance';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,7 +28,7 @@ function CompoundFinanceLandingBluePrint() {
     {
       id: 2,
       product_name: 'Borrow Cryptos',
-      component: 'BorrowCryptosCompoundFinance',
+      component: 'BorrowCompoundFinance',
     },
   ];
 
@@ -44,7 +44,7 @@ function CompoundFinanceLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <LeverageEthProduct />
+            <EarnInterestCompoundFinance />
           </SquircleView>
         </View>
       );
@@ -59,7 +59,7 @@ function CompoundFinanceLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <BorrowDaiProduct />
+            <BorrowCompoundFinance />
           </SquircleView>
         </View>
       );
