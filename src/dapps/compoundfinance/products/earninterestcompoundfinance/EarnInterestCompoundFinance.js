@@ -28,7 +28,7 @@ function EarnInterestCompoundFinance() {
   const [activeSections, setActiveSections] = useState([]);
   const navigation = useNavigation();
 
-  const CryptosToBorrow = [
+  const CryptosToEarn = [
     {
       id: 0,
       title: 'Ethereum',
@@ -72,7 +72,7 @@ function EarnInterestCompoundFinance() {
         <Text style={styles.block_title}>
           stake{' '}
           {
-            CryptosToBorrow[
+            CryptosToEarn[
               activeSections[0] !== undefined ? activeSections[0] : 0
             ].title
           }{' '}
@@ -91,7 +91,7 @@ function EarnInterestCompoundFinance() {
             value={amount}
             style={styles.enter_amount_input}
             placeholder={`0.0 ${
-              CryptosToBorrow[
+              CryptosToEarn[
                 activeSections[0] !== undefined ? activeSections[0] : 0
               ].title
             }`}
@@ -103,7 +103,7 @@ function EarnInterestCompoundFinance() {
           <Text style={styles.crypto_conversion_text}>
             ~ 1{' '}
             {
-              CryptosToBorrow[
+              CryptosToEarn[
                 activeSections[0] !== undefined ? activeSections[0] : 0
               ].title
             }{' '}
@@ -112,7 +112,7 @@ function EarnInterestCompoundFinance() {
           <Text style={styles.wallet_balance_text}>
             my balance: 5.1{' '}
             {
-              CryptosToBorrow[
+              CryptosToEarn[
                 activeSections[0] !== undefined ? activeSections[0] : 0
               ].title
             }{' '}
@@ -213,7 +213,7 @@ function EarnInterestCompoundFinance() {
     <View style={styles.parent_view}>
       <Accordion
         activeSections={activeSections}
-        sections={CryptosToBorrow}
+        sections={CryptosToEarn}
         renderHeader={RenderHeader}
         renderContent={RenderContent}
         onChange={UpdateActiveSections}
