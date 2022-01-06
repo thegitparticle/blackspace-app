@@ -18,6 +18,7 @@ import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
 import {DraggableGrid} from 'react-native-draggable-grid';
 import {SectionGrid} from 'react-native-super-grid';
 import {GetMarketPrices} from '../../../redux/MarketPricesActions';
+import BottomSpacer from '../../../bits/BottomSpacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -70,6 +71,7 @@ function HomeMainPage({dispatch}) {
         <Text style={styles.header}>{title}</Text>
       )}
       showsVerticalScrollIndicator={false}
+      ListFooterComponent={<BottomSpacer height={75} />}
     />
   );
 }

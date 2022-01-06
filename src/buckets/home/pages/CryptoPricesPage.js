@@ -14,6 +14,7 @@ import {
 import {connect} from 'react-redux';
 import {GetMarketPrices} from '../../../redux/MarketPricesActions';
 import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
+import BottomSpacer from '../../../bits/BottomSpacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,6 +38,7 @@ function CryptoPricesPage({dispatch}) {
         {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />
         ))}
+        <BottomSpacer height={75} />
       </ScrollView>
     </View>
   );
