@@ -164,7 +164,7 @@ export const ButterThemeDark = {
     danger_red_light: '#F04C68',
     danger_red_dark: '#C31030',
     icon: '#F1F4F9',
-    icon_background: '#222222',
+    icon_background: '#333333',
     red: '#FF3E41',
     red_light: '#FF8182',
     red_dark: '#FF0106',
