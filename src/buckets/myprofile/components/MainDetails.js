@@ -11,6 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-elements';
+import Clipboard from '@react-native-clipboard/clipboard';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,6 +24,10 @@ function MainDetails() {
   let wallet_add = state_here.WDeetsReducer.wdeets.wallet_address;
   let render_wallet_string =
     wallet_add.slice(0, 4) + '...' + +wallet_add.slice(-2);
+
+  const copyToClipboard = () => {
+    Clipboard.setString(wallet_add);
+  };
 
   return (
     <View style={styles.parent_view}>
@@ -39,7 +44,7 @@ function MainDetails() {
       <Text style={styles.username_text}>
         {state_here.MyProfileReducer.myProfileDetails.username}
       </Text>
-      <Pressable style={styles.wallet_view_wrap}>
+      <Pressable style={styles.wallet_view_wrap} onPress={copyToClipboard}>
         <Text style={styles.wallet_text}>{render_wallet_string}</Text>
         <Icon
           name="copy"
