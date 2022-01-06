@@ -3,6 +3,7 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import window from '@react-navigation/native/src/__mocks__/window';
 import {SquircleView} from 'react-native-figma-squircle/src/index';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,15 +20,25 @@ function MarketPriceCryptoTile(props) {
           cornerRadius: 15,
           fillColor: themeHere.colors.mid_ground + '25',
         }}>
-        <View style={styles.name_ticker_view}>
-          <Text style={styles.name_text}>{props.coinDetails.name}</Text>
-          <Text style={styles.ticker_text}>
-            {props.coinDetails.symbol.toUpperCase()}
-          </Text>
+        <View style={styles.left_side_view}>
+          <FastImage
+            source={{
+              uri: props.coinDetails.image,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.coin_logo_image}
+          />
+          <View style={styles.name_ticker_view}>
+            <Text style={styles.name_text}>{props.coinDetails.name}</Text>
+            <Text style={styles.ticker_text}>
+              {props.coinDetails.symbol.toUpperCase()}
+            </Text>
+          </View>
         </View>
         <View style={styles.price_change_view}>
           <Text style={styles.price_text}>
-            {props.coinDetails.current_price}
+            ${props.coinDetails.current_price}
           </Text>
           <Text
             style={{
@@ -64,14 +75,24 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
+  left_side_view: {
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  coin_logo_image: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
   name_ticker_view: {
     flexDirection: 'column',
-    marginHorizontal: 20,
     justifyContent: 'space-around',
     height: 50,
+    marginHorizontal: 20,
   },
   name_text: {
-    ...themeHere.text.header,
+    ...themeHere.text.subhead_medium,
     color: themeHere.colors.foreground,
   },
   ticker_text: {
@@ -80,12 +101,12 @@ const styles = StyleSheet.create({
   },
   price_change_view: {
     flexDirection: 'column',
-    marginHorizontal: 20,
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
     height: 50,
+    marginHorizontal: 20,
   },
   price_text: {
-    ...themeHere.text.body_medium,
+    ...themeHere.text.subhead_medium,
     color: themeHere.colors.foreground,
     textAlign: 'right',
   },

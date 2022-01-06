@@ -31,7 +31,9 @@ function CryptoPricesPage({dispatch}) {
 
   return (
     <View style={styles.parent_view}>
-      <ScrollView style={styles.parent_scrollview}>
+      <ScrollView
+        style={styles.parent_scrollview}
+        showsVerticalScrollIndicator={false}>
         {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />
         ))}
