@@ -8,6 +8,7 @@ import MyProfileReducer from './MyProfileReducer';
 import WDeetsReducer from './WDeetsReducer';
 import MyAppsReducer from './MyAppsReducer';
 import DiscoverAppsReducer from './DiscoverAppsReducer';
+import MarketPricesReducer from './MarketPricesReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -34,6 +35,11 @@ export const persistConfigDiscoverApps = {
   storage: AsyncStorage,
 };
 
+export const persistConfigMarketPrices = {
+  key: 'market_prices',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigWDeets, MyProfileReducer),
@@ -42,6 +48,10 @@ const rootReducer = combineReducers({
   DiscoverAppsReducer: persistReducer(
     persistConfigDiscoverApps,
     DiscoverAppsReducer,
+  ),
+  MarketPricesReducer: persistReducer(
+    persistConfigMarketPrices,
+    MarketPricesReducer,
   ),
 });
 
