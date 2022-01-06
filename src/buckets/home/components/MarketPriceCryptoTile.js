@@ -19,7 +19,18 @@ function MarketPriceCryptoTile(props) {
           cornerRadius: 15,
           fillColor: themeHere.colors.mid_ground + '25',
         }}>
-        <Text style={{color: 'white'}}>₹</Text>
+        <View style={styles.name_ticker_view}>
+          <Text style={styles.name_text}>{props.coinDetails.coin_name}</Text>
+          <Text style={styles.ticker_text}>COIN</Text>
+        </View>
+        <View style={styles.price_change_view}>
+          <Text style={styles.price_text}>
+            {props.coinDetails.coin_details.usd}
+          </Text>
+          <Text style={styles.change_percent_text}>
+            {props.coinDetails.coin_details.usd_24h_change.toFixed(2)} %
+          </Text>
+        </View>
       </SquircleView>
     </View>
   );
@@ -38,5 +49,35 @@ const styles = StyleSheet.create({
   squircle_view_wrap: {
     width: windowWidth - 40,
     height: 50,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  name_ticker_view: {
+    flexDirection: 'column',
+    marginHorizontal: 20,
+    justifyContent: 'space-between',
+  },
+  name_text: {
+    ...themeHere.text.header,
+    color: themeHere.colors.foreground,
+  },
+  ticker_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
+  },
+  price_change_view: {
+    flexDirection: 'column',
+    marginHorizontal: 20,
+    justifyContent: 'space-between',
+  },
+  price_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
+  },
+  change_percent_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
   },
 });
+
+// <Text style={{color: 'white'}}>₹</Text> - Rupee symbol as text
