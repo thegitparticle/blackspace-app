@@ -31,8 +31,6 @@ function HomeLandingScreen({dispatch, navigation}) {
   const renderScene = SceneMap({
     first: CryptoPricesPage,
     second: HomeMainPage,
-    third: NftsPage,
-    fourth: DefiPage,
   });
 
   const [index, setIndex] = useState(1);
@@ -40,8 +38,6 @@ function HomeLandingScreen({dispatch, navigation}) {
   const [routes] = React.useState([
     {key: 'first', title: 'Market'},
     {key: 'second', title: 'Home'},
-    {key: 'third', title: 'NFTs'},
-    {key: 'fourth', title: 'DeFi'},
   ]);
 
   function renderLabel({route, focused}) {
@@ -70,20 +66,6 @@ function HomeLandingScreen({dispatch, navigation}) {
         return (
           <View style={styles.tab_label_view}>
             <Text style={styles.tab_label_text_unfocused}>Home</Text>
-          </View>
-        );
-      }
-    } else if (route.title === 'NFTs') {
-      if (focused) {
-        return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_focused}>NFTs</Text>
-          </View>
-        );
-      } else {
-        return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_unfocused}>NFTs</Text>
           </View>
         );
       }
