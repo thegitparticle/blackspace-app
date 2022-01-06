@@ -17,6 +17,7 @@ import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
 import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
 import {DraggableGrid} from 'react-native-draggable-grid';
 import {SectionGrid} from 'react-native-super-grid';
+import {GetMarketPrices} from '../../../redux/MarketPricesActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,6 +36,7 @@ function HomeMainPage({dispatch}) {
       dispatch(
         GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.userid),
       );
+      dispatch(GetMarketPrices());
     }, [dispatch]),
   );
 

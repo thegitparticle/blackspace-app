@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {
   View,
   Text,
@@ -11,67 +11,41 @@ import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import {connect} from 'react-redux';
+import {GetMarketPrices} from '../../../redux/MarketPricesActions';
+import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function CryptoPricesPage() {
+let state_here = {};
+
+function CryptoPricesPage({dispatch}) {
+  useEffect(() => {
+    dispatch(GetMarketPrices());
+  }, []);
+
+  let marketPrices = state_here.MarketPricesReducer.marketprices;
+
   return (
     <View style={styles.parent_view}>
       <ScrollView style={styles.parent_scrollview}>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white'}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
-        <Text style={{color: 'white', marginVertical: 30}}>Home page</Text>
+        {marketPrices.map(item => (
+          <MarketPriceCryptoTile coinDetails={item} />
+        ))}
       </ScrollView>
     </View>
   );
 }
 
-export default CryptoPricesPage;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(CryptoPricesPage);
 
 const styles = StyleSheet.create({
   parent_view: {
