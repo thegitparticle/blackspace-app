@@ -20,22 +20,24 @@ function MarketPriceCryptoTile(props) {
           fillColor: themeHere.colors.mid_ground + '25',
         }}>
         <View style={styles.name_ticker_view}>
-          <Text style={styles.name_text}>{props.coinDetails.coin_name}</Text>
-          <Text style={styles.ticker_text}>COIN</Text>
+          <Text style={styles.name_text}>{props.coinDetails.name}</Text>
+          <Text style={styles.ticker_text}>
+            {props.coinDetails.symbol.toUpperCase()}
+          </Text>
         </View>
         <View style={styles.price_change_view}>
           <Text style={styles.price_text}>
-            {props.coinDetails.coin_details.usd}
+            {props.coinDetails.current_price}
           </Text>
           <Text
             style={{
               ...styles.change_percent_text,
               color:
-                props.coinDetails.coin_details.usd_24h_change < 0
+                props.coinDetails.price_change_percentage_24h < 0
                   ? themeHere.colors.danger_red
                   : themeHere.colors.success_green,
             }}>
-            {props.coinDetails.coin_details.usd_24h_change.toFixed(2)} %
+            {props.coinDetails.price_change_percentage_24h.toFixed(2)} %
           </Text>
         </View>
       </SquircleView>

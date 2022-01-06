@@ -29,16 +29,10 @@ function CryptoPricesPage({dispatch}) {
 
   let marketPrices = state_here.MarketPricesReducer.marketprices;
 
-  let marketPricesSorted = marketPrices.sort(
-    (a, b) =>
-      parseFloat(b.coin_details.usd_market_cap) -
-      parseFloat(a.coin_details.usd_market_cap),
-  );
-
   return (
     <View style={styles.parent_view}>
       <ScrollView style={styles.parent_scrollview}>
-        {marketPricesSorted.map(item => (
+        {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />
         ))}
       </ScrollView>
