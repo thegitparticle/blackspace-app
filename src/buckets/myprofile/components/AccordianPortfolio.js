@@ -56,8 +56,6 @@ function AccordianPortfolio() {
   ];
 
   function RenderHeader(section) {
-    console.log(activeSections);
-
     function IconShow() {
       if (section.id === activeSections[0]) {
         return (
@@ -89,7 +87,6 @@ function AccordianPortfolio() {
   }
 
   function ItemHoldingAndPrice(item) {
-    console.log(item.item_icon);
     return (
       <View style={styles.itemholding_view}>
         <View style={styles.itemholding_leftside_view}>

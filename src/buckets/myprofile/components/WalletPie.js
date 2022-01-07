@@ -56,12 +56,12 @@ function WalletPie() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     nfts_percent = (nfts_value / total_value) * 100;
 
-    console.log(cryptos_value);
-    console.log(tokens_value);
-    console.log(nfts_value);
-    console.log(Math.trunc(cryptos_percent));
-    console.log(Math.trunc(tokens_percent));
-    console.log(Math.trunc(nfts_percent));
+    // console.log(cryptos_value);
+    // console.log(tokens_value);
+    // console.log(nfts_value);
+    // console.log(Math.trunc(cryptos_percent));
+    // console.log(Math.trunc(tokens_percent));
+    // console.log(Math.trunc(nfts_percent));
   }, []);
 
   return (
