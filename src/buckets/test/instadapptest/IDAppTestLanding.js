@@ -13,7 +13,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function IDAppTestLanding() {
   return (
     <View style={styles.parent_view}>
-      <Text>...</Text>
+      <Text style={styles.header_text}>ID App test</Text>
     </View>
   );
 }
@@ -25,5 +25,10 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  header_text: {
+    ...themeHere.text.title_3,
+    color: 'white',
+    marginVertical: 60,
   },
 });
