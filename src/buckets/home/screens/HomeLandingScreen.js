@@ -149,11 +149,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   tab_label_text_focused: {
-    ...themeHere.text.subhead_medium,
+    ...themeHere.text.subhead_bold,
     color: themeHere.colors.red,
   },
   tab_label_text_unfocused: {
-    ...themeHere.text.subhead_medium,
+    ...themeHere.text.subhead_bold,
     color: themeHere.colors.foreground,
   },
 });
