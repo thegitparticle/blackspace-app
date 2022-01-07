@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -12,6 +12,7 @@ import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
 import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
+import GetMakerDAOVaultInfo from '../helpers/GetMakerDAOVaultInfo';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -31,6 +32,10 @@ function MakerDaoLandingBluePrint() {
       component: 'BorrowDaiProduct',
     },
   ];
+
+  useEffect(() => {
+    GetMakerDAOVaultInfo();
+  }, []);
 
   function RenderProductMakerDao({item, index}) {
     if (index === 0) {
