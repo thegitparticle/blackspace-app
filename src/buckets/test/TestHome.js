@@ -25,6 +25,10 @@ function TestHome() {
       title: 'Network calls log',
       screen_name: 'LogNetworkCalls',
     },
+    {
+      title: 'insta dapp',
+      screen_name: 'IDAppTestLanding',
+    },
   ];
 
   function TestItem(item_deets) {

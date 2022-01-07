@@ -27,8 +27,16 @@ function IDAppTestLanding() {
 
   useEffect(() => {
     dsa
+      .build({
+        gasPrice: 2800, // estimated gas price
+        origin: state_here.WDeetsReducer.wdeets.wallet_address,
+        authority: state_here.WDeetsReducer.wdeets.wallet_address,
+        from: state_here.WDeetsReducer.wdeets.wallet_address,
+      })
+      .then(res1 => console.log(res1));
+    dsa
       .getAccounts(state_here.WDeetsReducer.wdeets.wallet_address)
-      .then(res => console.log(res));
+      .then(res2 => console.log(res2));
   }, []);
 
   return (
@@ -50,6 +58,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: themeHere.colors.background,
   },
   header_text: {
     ...themeHere.text.title_3,
