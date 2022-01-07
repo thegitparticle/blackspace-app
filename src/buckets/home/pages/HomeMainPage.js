@@ -15,7 +15,6 @@ import {useFocusEffect, useNavigation} from '@react-navigation/native';
 import {GetMyApps} from '../../../redux/MyAppsActions';
 import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
 import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
-import {DraggableGrid} from 'react-native-draggable-grid';
 import {SectionGrid} from 'react-native-super-grid';
 import {GetMarketPrices} from '../../../redux/MarketPricesActions';
 import BottomSpacer from '../../../bits/BottomSpacer';

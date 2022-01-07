@@ -1,3 +1,6 @@
+import 'react-native-get-random-values';
+import '@ethersproject/shims';
+
 if (typeof __dirname === 'undefined') global.__dirname = '/';
 if (typeof __filename === 'undefined') global.__filename = '';
 if (typeof process === 'undefined') {
@@ -15,10 +18,11 @@ process.browser = false;
 if (typeof Buffer === 'undefined') global.Buffer = require('buffer').Buffer;
 
 // global.location = global.location || { port: 80 }
-if (typeof location === 'undefined')
-  global.location = {port: 80, protocol: 'https:'};
+// if (typeof location === 'undefined')
+//   global.location = {port: 80, protocol: 'https:'};
 const isDev = typeof __DEV__ === 'boolean' && __DEV__;
-process.env['NODE_ENV'] = isDev ? 'development' : 'production';
+// process.env.NODE_ENV = isDev ? ['development'] : ['production'];
+Object.assign(process.env, {NODE_ENV: 'development'});
 if (typeof localStorage !== 'undefined') {
   localStorage.debug = isDev ? '*' : '';
 }
