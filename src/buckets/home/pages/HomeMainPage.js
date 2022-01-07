@@ -43,17 +43,17 @@ function HomeMainPage({dispatch}) {
 
   const DATA = [
     {
-      title: 'My Apps',
+      title: 'MY APP SUITE',
       data: my_apps,
     },
     {
-      title: 'Discover',
+      title: 'DISCOVER',
       data: discover_apps,
     },
   ];
 
   function ThumbnailItem({item, section}) {
-    if (section.title === 'My Apps') {
+    if (section.title === 'MY APP SUITE') {
       return MyAppThumbnail(item);
     } else {
       return DiscoverAppThumbnail(item);
@@ -68,7 +68,7 @@ function HomeMainPage({dispatch}) {
         <ThumbnailItem item={item} section={section} />
       )}
       renderSectionHeader={({section: {title}}) => (
-        <Text style={styles.header}>{title}</Text>
+        <Text style={styles.title_text}>{title}</Text>
       )}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={<BottomSpacer height={75} />}
@@ -98,5 +98,11 @@ const styles = StyleSheet.create({
     width: 100,
     height: 100,
     borderRadius: 15,
+  },
+  title_text: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 20,
+    marginVertical: 30,
   },
 });
