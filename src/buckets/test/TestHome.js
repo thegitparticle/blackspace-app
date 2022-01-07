@@ -21,6 +21,10 @@ function TestHome() {
       title: 'Infura Test',
       screen_name: 'InfuraTestTransactionScreen',
     },
+    {
+      title: 'Network calls log',
+      screen_name: 'LogNetworkCalls',
+    },
   ];
 
   function TestItem(item_deets) {

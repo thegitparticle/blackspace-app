@@ -1,14 +1,14 @@
 import React from 'react';
 import Maker from '@makerdao/dai';
 import {INFURA_MAINNET} from 'react-native-dotenv';
-import McdPlugin from '@makerdao/dai-plugin-mcd';
+import {McdPlugin} from '@makerdao/dai-plugin-mcd';
 
 async function GetMakerDAOVaultInfo(wallet_address) {
   const ownerAddress = wallet_address;
-  // const maker = await Maker.create('http', {
-  //   plugins: [McdPlugin],
-  //   url: 'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
-  // });
+  const maker = await Maker.create('http', {
+    plugins: [McdPlugin],
+    url: 'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+  });
 
   // const manager = maker.service('mcd:cdpManager');
   // const proxyAddress = maker.service('proxy').getProxyAddress(ownerAddress);

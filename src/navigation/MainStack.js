@@ -15,6 +15,7 @@ import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
 import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
 import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
+import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -56,6 +57,14 @@ function TestStack() {
       <TestMain.Screen
         name="InfuraTestTransactionScreen"
         component={InfuraTestTransactionScreen}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+      <TestMain.Screen
+        name="LogNetworkCalls"
+        component={LogNetworkCalls}
         options={{
           gestureEnabled: true,
           headerShown: false,
