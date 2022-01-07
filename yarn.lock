@@ -4670,6 +4670,11 @@ dotignore@~0.1.2:
   dependencies:
     minimatch "^3.0.4"
 
+dsa-connect@^0.5.17:
+  version "0.5.17"
+  resolved "https://registry.npmjs.org/dsa-connect/-/dsa-connect-0.5.17.tgz#1d1b4aee0dd57837a27ddfa9e18b3c35f12f80f6"
+  integrity sha512-kRrpQSFjbfLolAIP9fjnq+H0mvgsY2KPa1/AJ1WH+A7ENttWOtD3uhBx0oGi2qWWphDOnVAwuyXTue0OTdUYPA==
+
 duplexer3@^0.1.4:
   version "0.1.4"
   resolved "https://registry.npmjs.org/duplexer3/-/duplexer3-0.1.4.tgz#ee01dd1cac0ed3cbc7fdbea37dc0a8f1ce002ce2"

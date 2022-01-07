@@ -30,6 +30,7 @@
     "constants-browserify": "^1.0.0",
     "dns.js": "^1.0.1",
     "domain-browser": "^1.1.1",
+    "dsa-connect": "^0.5.17",
     "ethers": "^5.5.2",
     "https-browserify": "~0.0.1",
     "lottie-ios": "3.2.3",

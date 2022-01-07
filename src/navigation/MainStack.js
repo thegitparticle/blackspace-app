@@ -16,6 +16,7 @@ import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
 import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
+import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -65,6 +66,14 @@ function TestStack() {
       <TestMain.Screen
         name="LogNetworkCalls"
         component={LogNetworkCalls}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+      <TestMain.Screen
+        name="IDAppTestLanding"
+        component={IDAppTestLanding}
         options={{
           gestureEnabled: true,
           headerShown: false,
