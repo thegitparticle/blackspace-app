@@ -13,11 +13,14 @@ import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import GetMakerDAOVaultInfo from '../helpers/GetMakerDAOVaultInfo';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+let state_here = {};
 
 function MakerDaoLandingBluePrint() {
   const products = [
@@ -34,7 +37,9 @@ function MakerDaoLandingBluePrint() {
   ];
 
   useEffect(() => {
-    GetMakerDAOVaultInfo();
+    GetMakerDAOVaultInfo(state_here.WDeetsReducer.wdeets.wallet_address).then(
+      r => console.log(r),
+    );
   }, []);
 
   function RenderProductMakerDao({item, index}) {
@@ -89,7 +94,12 @@ function MakerDaoLandingBluePrint() {
   );
 }
 
-export default MakerDaoLandingBluePrint;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(MakerDaoLandingBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {

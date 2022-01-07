@@ -1441,6 +1441,17 @@
     babel-runtime "^6.26.0"
     bignumber.js "^8.1.1"
 
+"@makerdao/dai-plugin-mcd@^1.8.5-alpha.0":
+  version "1.8.5-alpha.0"
+  resolved "https://registry.npmjs.org/@makerdao/dai-plugin-mcd/-/dai-plugin-mcd-1.8.5-alpha.0.tgz#5438ad30205b40309d9587f36d03998d33ee6331"
+  integrity sha512-MXmAsePhoHO6il3N3hhzJU9qBtIRJnQMSRsbuLXdpQevtEahUOPwXvaqlF6Mn0p5vERXIhli/lbN8LmHLgNh3Q==
+  dependencies:
+    "@makerdao/currency" "^0.9.10"
+    "@makerdao/dai" "^0.42.4-alpha.0"
+    "@makerdao/services-core" "^0.11.4"
+    bignumber.js "^8.1.1"
+    rxjs "^6.5.4"
+
 "@makerdao/dai@^0.42.4-alpha.0":
   version "0.42.4-alpha.0"
   resolved "https://registry.npmjs.org/@makerdao/dai/-/dai-0.42.4-alpha.0.tgz#bf871a4dd2a4d5ef17c2ac87196573e9f3f23bb9"

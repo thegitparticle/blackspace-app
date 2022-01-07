@@ -15,8 +15,13 @@ import {PersistGate} from 'redux-persist/integration/react';
 import {ModalPortal} from 'react-native-modals';
 import codePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
+import {LogBox} from 'react-native';
 
 const App: () => Node = () => {
+  LogBox.ignoreLogs([
+    'Warning: Each child in a list should have a unique "key" prop.',
+  ]);
+
   return (
     <Provider store={storehere}>
       <PersistGate loading={null} persistor={persistor}>
