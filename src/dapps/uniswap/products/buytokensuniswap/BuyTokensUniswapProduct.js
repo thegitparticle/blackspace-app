@@ -17,6 +17,8 @@ import {connect} from 'react-redux';
 import {Modalize} from 'react-native-modalize';
 import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenListActions';
 import {Host, Portal} from 'react-native-portalize';
+import {FamousTokensList} from '../../helpers/FamousTokensList';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -44,15 +46,13 @@ function BuyTokenUniswapProduct({dispatch}) {
     modalizePickSecondCoinRef.current?.open();
   };
 
-  function RenderTokenListItem() {
-    return <Text style={{color: 'white'}}>Coin Name</Text>;
+  function RenderTokenListItem(item) {
+    return (
+      <View>
+        <Text style={{color: 'white'}}>Coin Name</Text>
+      </View>
+    );
   }
-
-  const renderItem = item => (
-    <View>
-      <Text style={{color: 'white'}}>Coin Name</Text>
-    </View>
-  );
 
   function PickFirstCoinHeader() {
     const [searchText, setSearchText] = useState('');
@@ -65,7 +65,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           cornerRadius: 15,
           fillColor: themeHere.colors.off_background,
         }}>
-        <Text style={styles.pick_coin_overlay_title}>you pay</Text>
+        <Text style={styles.pick_coin_overlay_title}>pick a coin</Text>
         <SquircleView
           style={styles.pick_coin_overlay_input_view}
           squircleParams={{
@@ -82,6 +82,107 @@ function BuyTokenUniswapProduct({dispatch}) {
             placeholderTextColor={themeHere.colors.foreground + 50}
           />
         </SquircleView>
+        <View style={styles.famous_tokens_wrap_view}>
+          <View style={styles.famous_tokens_line_view}>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[0].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[0].symbol}
+              </Text>
+            </SquircleView>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[1].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[1].symbol}
+              </Text>
+            </SquircleView>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[2].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[2].symbol}
+              </Text>
+            </SquircleView>
+          </View>
+          <View style={styles.famous_tokens_line_view}>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[3].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[3].symbol}
+              </Text>
+            </SquircleView>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[4].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[4].symbol}
+              </Text>
+            </SquircleView>
+          </View>
+        </View>
       </SquircleView>
     );
   }
@@ -95,9 +196,9 @@ function BuyTokenUniswapProduct({dispatch}) {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.off_ground,
+          fillColor: themeHere.colors.off_background,
         }}>
-        <Text style={styles.pick_coin_overlay_title}>you get</Text>
+        <Text style={styles.pick_coin_overlay_title}>pick a coin</Text>
         <SquircleView
           style={styles.pick_coin_overlay_input_view}
           squircleParams={{
@@ -254,14 +355,14 @@ function BuyTokenUniswapProduct({dispatch}) {
       <Portal>
         <Modalize
           ref={modalizePickFirstCoinRef}
-          rootStyle={{
-            backgroundColor: 'pink',
+          modalStyle={{
+            backgroundColor: themeHere.colors.off_background,
             width: windowWidth,
             height: windowHeight * 0.5,
           }}
           flatListProps={{
             data: token_list,
-            renderItem: renderItem,
+            renderItem: RenderTokenListItem,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickFirstCoinHeader(),
@@ -386,7 +487,6 @@ const styles = StyleSheet.create({
   },
   pick_coin_overlay_view: {
     width: windowWidth,
-    height: windowHeight * 0.5,
     alignItems: 'center',
   },
   pick_coin_overlay_title: {
@@ -396,20 +496,49 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   pick_coin_overlay_input_view: {
-    width: windowWidth * 0.8,
+    width: windowWidth - 40,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    marginVertical: 30,
+    marginVertical: 15,
   },
   pick_coin_overlay_input: {
     backgroundColor: 'transparent',
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground,
-    width: windowWidth * 0.7,
+    width: windowWidth - 40,
     height: 50,
     alignSelf: 'center',
     textAlign: 'center',
+  },
+  famous_token_item_view: {
+    width: (windowWidth - 80) / 3,
+    height: 50,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+  },
+  famous_token_item_logo: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  famous_token_item_symbol: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    textAlign: 'center',
+    marginHorizontal: 10,
+  },
+  famous_tokens_wrap_view: {
+    marginVertical: 15,
+  },
+  famous_tokens_line_view: {
+    width: windowWidth - 40,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 5,
   },
 });
