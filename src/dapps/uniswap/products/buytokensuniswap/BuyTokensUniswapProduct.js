@@ -48,8 +48,19 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   function RenderTokenListItem(item) {
     return (
-      <View>
-        <Text style={{color: 'white'}}>Coin Name</Text>
+      <View style={styles.render_token_item_view}>
+        <>
+          <FastImage
+            source={{
+              uri: item.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.render_token_item_logo}
+          />
+          <Text style={styles.render_token_item_title}>{item.item.name}</Text>
+        </>
+        <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
       </View>
     );
   }
@@ -647,5 +658,27 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginVertical: 5,
+  },
+  render_token_item_view: {
+    height: 50,
+    width: windowWidth,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  render_token_item_logo: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginHorizontal: 20,
+  },
+  render_token_item_title: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 10,
+  },
+  render_token_item_symbol: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
+    marginHorizontal: 10,
   },
 });
