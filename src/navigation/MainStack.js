@@ -17,6 +17,7 @@ import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
+import {Host, Portal} from 'react-native-portalize';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -115,40 +116,42 @@ function SettingsStack() {
 
 function HomeAndAppsStack() {
   return (
-    <HomeAndAppMain.Navigator>
-      <HomeAndAppMain.Screen
-        name="HomeLandingScreen"
-        component={HomeLandingScreen}
-        options={{
-          gestureEnabled: true,
-          headerShown: false,
-        }}
-      />
-      <HomeAndAppMain.Screen
-        name="TransactionScreen"
-        component={TransactionScreen}
-        options={{
-          gestureEnabled: true,
-        }}
-      />
-      <HomeAndAppMain.Screen
-        name="MiniAppLanding"
-        component={MiniAppLanding}
-        sharedElements={(route, otherRoute, showing) => {
-          const {app_details} = route.params;
-          return [`item.${app_details.app_name}.app_icon`];
-        }}
-        options={{
-          gestureEnabled: true,
-          headerShown: false,
-          cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
-          transitionSpec: {
-            open: config,
-            close: config,
-          },
-        }}
-      />
-    </HomeAndAppMain.Navigator>
+    <Host>
+      <HomeAndAppMain.Navigator>
+        <HomeAndAppMain.Screen
+          name="HomeLandingScreen"
+          component={HomeLandingScreen}
+          options={{
+            gestureEnabled: true,
+            headerShown: false,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="TransactionScreen"
+          component={TransactionScreen}
+          options={{
+            gestureEnabled: true,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="MiniAppLanding"
+          component={MiniAppLanding}
+          sharedElements={(route, otherRoute, showing) => {
+            const {app_details} = route.params;
+            return [`item.${app_details.app_name}.app_icon`];
+          }}
+          options={{
+            gestureEnabled: true,
+            headerShown: false,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
+          }}
+        />
+      </HomeAndAppMain.Navigator>
+    </Host>
   );
 }
 

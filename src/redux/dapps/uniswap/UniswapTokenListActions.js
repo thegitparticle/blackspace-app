@@ -1,7 +1,7 @@
-import {ADD_UNISWAPTOKENLIST} from './types';
+import {ADD_UNISWAPTOKENLIST} from '../../types';
 import axios from 'axios';
 
-export const GetUniswapTokenList = user_id => {
+export const GetUniswapTokenList = () => {
   return dispatch => {
     let res = [];
 

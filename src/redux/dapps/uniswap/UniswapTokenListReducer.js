@@ -1,4 +1,4 @@
-import {ADD_UNISWAPTOKENLIST} from './types';
+import {ADD_UNISWAPTOKENLIST} from '../../types';
 
 const INITIAL_STATE = {
   token_list: [],

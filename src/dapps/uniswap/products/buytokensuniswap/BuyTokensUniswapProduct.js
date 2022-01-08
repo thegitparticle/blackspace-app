@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -13,38 +13,48 @@ import {Picker, PickerIOS} from '@react-native-picker/picker';
 import {Button, Overlay} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {SquircleView} from 'react-native-figma-squircle';
+import {connect} from 'react-redux';
+import {Modalize} from 'react-native-modalize';
+import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenListActions';
+import {Host, Portal} from 'react-native-portalize';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function BuyTokenUniswapProduct() {
-  const pickerRef = useRef();
-  const [selectedFirstItem, setSelectedFirstItem] = useState();
-  const [selectedSecondItem, setSelectedSecondItem] = useState();
+let state_here = {};
 
-  const [showPickFirstCoinOverlay, setShowFirstCoinOverlay] = useState(false);
+function BuyTokenUniswapProduct({dispatch}) {
+  useEffect(() => {
+    dispatch(GetUniswapTokenList());
+  }, []);
 
-  const togglePickFirstCoinOverlay = () => {
-    setShowFirstCoinOverlay(!showPickFirstCoinOverlay);
+  let token_list = state_here.UniswapTokenListReducer.token_list;
+
+  const modalizePickFirstCoinRef = useRef(null);
+
+  const onOpenPickFirstCoin = () => {
+    modalizePickFirstCoinRef.current?.open();
   };
 
-  const [showPickSecondCoinOverlay, setShowSecondCoinOverlay] = useState(false);
+  const modalizePickSecondCoinRef = useRef(null);
 
-  const togglePickSecondCoinOverlay = () => {
-    setShowSecondCoinOverlay(!showPickSecondCoinOverlay);
+  const onOpenPickSecondCoin = () => {
+    modalizePickSecondCoinRef.current?.open();
   };
 
-  function open() {
-    pickerRef.current.focus();
+  function RenderTokenListItem() {
+    return <Text style={{color: 'white'}}>Coin Name</Text>;
   }
 
-  function close() {
-    pickerRef.current.blur();
-  }
+  const renderItem = item => (
+    <View>
+      <Text style={{color: 'white'}}>Coin Name</Text>
+    </View>
+  );
 
-  function PickFirstCoin() {
+  function PickFirstCoinHeader() {
     const [searchText, setSearchText] = useState('');
 
     return (
@@ -53,7 +63,7 @@ function BuyTokenUniswapProduct() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.off_ground,
+          fillColor: themeHere.colors.off_background,
         }}>
         <Text style={styles.pick_coin_overlay_title}>you pay</Text>
         <SquircleView
@@ -76,7 +86,7 @@ function BuyTokenUniswapProduct() {
     );
   }
 
-  function PickSecondCoin() {
+  function PickSecondCoinHeader() {
     const [searchText, setSearchText] = useState('');
 
     return (
@@ -136,7 +146,7 @@ function BuyTokenUniswapProduct() {
           </SquircleView>
           <TouchableOpacity
             style={{color: 'transparent'}}
-            onPress={() => togglePickFirstCoinOverlay()}>
+            onPress={() => onOpenPickFirstCoin()}>
             <SquircleView
               style={styles.first_pair_amount_view}
               squircleParams={{
@@ -144,7 +154,7 @@ function BuyTokenUniswapProduct() {
                 cornerRadius: 15,
                 fillColor: themeHere.colors.mid_ground + '25',
               }}>
-              <Text style={styles.block_title}>{selectedFirstItem}</Text>
+              <Text style={styles.block_title}>selectedFirstItem</Text>
             </SquircleView>
           </TouchableOpacity>
         </View>
@@ -169,7 +179,7 @@ function BuyTokenUniswapProduct() {
           </SquircleView>
           <TouchableOpacity
             style={{color: 'transparent'}}
-            onPress={() => togglePickSecondCoinOverlay()}>
+            onPress={() => onOpenPickSecondCoin()}>
             <SquircleView
               style={styles.second_pair_amount_view}
               squircleParams={{
@@ -177,7 +187,7 @@ function BuyTokenUniswapProduct() {
                 cornerRadius: 15,
                 fillColor: themeHere.colors.mid_ground + '25',
               }}>
-              <Text style={styles.block_title}>{selectedSecondItem}</Text>
+              <Text style={styles.block_title}>selectedSecondItem</Text>
             </SquircleView>
           </TouchableOpacity>
         </View>
@@ -241,41 +251,42 @@ function BuyTokenUniswapProduct() {
           ],
         }}
       />
-      <Overlay
-        isVisible={showPickFirstCoinOverlay}
-        overlayStyle={{backgroundColor: 'transparent'}}
-        onBackdropPress={togglePickFirstCoinOverlay}>
-        <PickFirstCoin />
-      </Overlay>
-      <Overlay
-        isVisible={showPickSecondCoinOverlay}
-        overlayStyle={{backgroundColor: 'transparent'}}
-        onBackdropPress={togglePickSecondCoinOverlay}>
-        <PickSecondCoin />
-      </Overlay>
-      <PickerIOS
-        ref={pickerRef}
-        selectedValue={selectedFirstItem}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedFirstItem(itemValue)
-        }>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </PickerIOS>
-      <PickerIOS
-        ref={pickerRef}
-        selectedValue={selectedSecondItem}
-        onValueChange={(itemValue, itemIndex) =>
-          setSelectedSecondItem(itemValue)
-        }>
-        <Picker.Item label="Java" value="java" />
-        <Picker.Item label="JavaScript" value="js" />
-      </PickerIOS>
+      <Portal>
+        <Modalize
+          ref={modalizePickFirstCoinRef}
+          rootStyle={{
+            backgroundColor: 'pink',
+            width: windowWidth,
+            height: windowHeight * 0.5,
+          }}
+          flatListProps={{
+            data: token_list,
+            renderItem: renderItem,
+            keyExtractor: item => item.heading,
+            showsVerticalScrollIndicator: false,
+            ListHeaderComponent: PickFirstCoinHeader(),
+          }}
+        />
+        <Modalize
+          ref={modalizePickSecondCoinRef}
+          rootStyle={{
+            backgroundColor: 'transparent',
+            width: windowWidth,
+            height: windowHeight * 0.5,
+          }}>
+          <PickSecondCoinHeader />
+        </Modalize>
+      </Portal>
     </View>
   );
 }
 
-export default BuyTokenUniswapProduct;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(BuyTokenUniswapProduct);
 
 const styles = StyleSheet.create({
   parent_view: {},
@@ -374,7 +385,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   pick_coin_overlay_view: {
-    width: windowWidth - 40,
+    width: windowWidth,
     height: windowHeight * 0.5,
     alignItems: 'center',
   },
