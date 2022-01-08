@@ -43,15 +43,28 @@ function BuyTokenUniswapProduct({dispatch}) {
     modalizePickFirstCoinRef.current?.open();
   };
 
+  const onClosePickFirstCoin = () => {
+    modalizePickFirstCoinRef.current?.close();
+  };
+
   const modalizePickSecondCoinRef = useRef(null);
 
   const onOpenPickSecondCoin = () => {
     modalizePickSecondCoinRef.current?.open();
   };
 
-  function RenderTokenListItem(item) {
+  const onClosePickSecondCoin = () => {
+    modalizePickSecondCoinRef.current?.close();
+  };
+
+  function RenderTokenListItemFirst(item) {
     return (
-      <View style={styles.render_token_item_view}>
+      <TouchableOpacity
+        style={styles.render_token_item_view}
+        onPress={() => {
+          setFirstPickedCoin(item.item);
+          onClosePickFirstCoin();
+        }}>
         <>
           <FastImage
             source={{
@@ -64,7 +77,31 @@ function BuyTokenUniswapProduct({dispatch}) {
           <Text style={styles.render_token_item_title}>{item.item.name}</Text>
         </>
         <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
-      </View>
+      </TouchableOpacity>
+    );
+  }
+
+  function RenderTokenListItemSecond(item) {
+    return (
+      <TouchableOpacity
+        style={styles.render_token_item_view}
+        onPress={() => {
+          setSecondPickedCoin(item.item);
+          onClosePickSecondCoin();
+        }}>
+        <>
+          <FastImage
+            source={{
+              uri: item.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.render_token_item_logo}
+          />
+          <Text style={styles.render_token_item_title}>{item.item.name}</Text>
+        </>
+        <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
+      </TouchableOpacity>
     );
   }
 
@@ -98,103 +135,133 @@ function BuyTokenUniswapProduct({dispatch}) {
         </SquircleView>
         <View style={styles.famous_tokens_wrap_view}>
           <View style={styles.famous_tokens_line_view}>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+            <TouchableOpacity
+              onPress={() => {
+                setFirstPickedCoin(FamousTokensList[0]);
+                onClosePickFirstCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[0].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[0].symbol}
-              </Text>
-            </SquircleView>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[0].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[0].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setFirstPickedCoin(FamousTokensList[1]);
+                onClosePickFirstCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[1].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[1].symbol}
-              </Text>
-            </SquircleView>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[1].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[1].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setFirstPickedCoin(FamousTokensList[2]);
+                onClosePickFirstCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[2].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[2].symbol}
-              </Text>
-            </SquircleView>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[2].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[2].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
           </View>
           <View style={styles.famous_tokens_line_view}>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+            <TouchableOpacity
+              onPress={() => {
+                setFirstPickedCoin(FamousTokensList[3]);
+                onClosePickFirstCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[3].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[3].symbol}
-              </Text>
-            </SquircleView>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[3].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[3].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setFirstPickedCoin(FamousTokensList[4]);
+                onClosePickFirstCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[4].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[4].symbol}
-              </Text>
-            </SquircleView>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[4].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[4].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
           </View>
         </View>
       </SquircleView>
@@ -231,103 +298,133 @@ function BuyTokenUniswapProduct({dispatch}) {
         </SquircleView>
         <View style={styles.famous_tokens_wrap_view}>
           <View style={styles.famous_tokens_line_view}>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+            <TouchableOpacity
+              onPress={() => {
+                setSecondPickedCoin(FamousTokensList[0]);
+                onClosePickSecondCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[0].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[0].symbol}
-              </Text>
-            </SquircleView>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[0].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[0].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setSecondPickedCoin(FamousTokensList[1]);
+                onClosePickSecondCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[1].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[1].symbol}
-              </Text>
-            </SquircleView>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[1].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[1].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setSecondPickedCoin(FamousTokensList[2]);
+                onClosePickSecondCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[2].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[2].symbol}
-              </Text>
-            </SquircleView>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[2].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[2].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
           </View>
           <View style={styles.famous_tokens_line_view}>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+            <TouchableOpacity
+              onPress={() => {
+                setSecondPickedCoin(FamousTokensList[3]);
+                onClosePickSecondCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[3].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[3].symbol}
-              </Text>
-            </SquircleView>
-            <SquircleView
-              style={styles.famous_token_item_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[3].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[3].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setSecondPickedCoin(FamousTokensList[4]);
+                onClosePickSecondCoin();
               }}>
-              <FastImage
-                source={{
-                  uri: FamousTokensList[4].logoURI,
-                  priority: FastImage.priority.normal,
-                }}
-                resizeMode={FastImage.resizeMode.contain}
-                style={styles.famous_token_item_logo}
-              />
-              <Text style={styles.famous_token_item_symbol}>
-                {FamousTokensList[4].symbol}
-              </Text>
-            </SquircleView>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[4].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[4].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
           </View>
         </View>
       </SquircleView>
@@ -367,7 +464,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                 ...themeHere.text.subhead_bold,
                 color: themeHere.colors.foreground,
               }}>
-              {props.Coin.name}
+              {' '}
+              {props.Coin.symbol}
             </Text>
           </View>
         );
@@ -526,7 +624,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           }}
           flatListProps={{
             data: token_list,
-            renderItem: RenderTokenListItem,
+            renderItem: RenderTokenListItemFirst,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickFirstCoinHeader(),
@@ -541,7 +639,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           }}
           flatListProps={{
             data: token_list,
-            renderItem: RenderTokenListItem,
+            renderItem: RenderTokenListItemSecond,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickSecondCoinHeader(),
