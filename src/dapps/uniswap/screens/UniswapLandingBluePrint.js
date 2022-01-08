@@ -12,11 +12,14 @@ import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import BuyTokensUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
 import StakeToEarnUniswapProduct from '../products/staketoearnuniswap/StakeToEarnUniSwapProduct';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+let state_here = {};
 
 function UniswapLandingBluePrint() {
   const products = [
@@ -84,7 +87,12 @@ function UniswapLandingBluePrint() {
   );
 }
 
-export default UniswapLandingBluePrint;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(UniswapLandingBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {
