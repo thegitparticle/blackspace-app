@@ -215,6 +215,107 @@ function BuyTokenUniswapProduct({dispatch}) {
             placeholderTextColor={themeHere.colors.foreground + 50}
           />
         </SquircleView>
+        <View style={styles.famous_tokens_wrap_view}>
+          <View style={styles.famous_tokens_line_view}>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[0].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[0].symbol}
+              </Text>
+            </SquircleView>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[1].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[1].symbol}
+              </Text>
+            </SquircleView>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[2].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[2].symbol}
+              </Text>
+            </SquircleView>
+          </View>
+          <View style={styles.famous_tokens_line_view}>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[3].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[3].symbol}
+              </Text>
+            </SquircleView>
+            <SquircleView
+              style={styles.famous_token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: FamousTokensList[4].logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.famous_token_item_logo}
+              />
+              <Text style={styles.famous_token_item_symbol}>
+                {FamousTokensList[4].symbol}
+              </Text>
+            </SquircleView>
+          </View>
+        </View>
       </SquircleView>
     );
   }
@@ -370,13 +471,19 @@ function BuyTokenUniswapProduct({dispatch}) {
         />
         <Modalize
           ref={modalizePickSecondCoinRef}
-          rootStyle={{
-            backgroundColor: 'transparent',
+          modalStyle={{
+            backgroundColor: themeHere.colors.off_background,
             width: windowWidth,
             height: windowHeight * 0.5,
-          }}>
-          <PickSecondCoinHeader />
-        </Modalize>
+          }}
+          flatListProps={{
+            data: token_list,
+            renderItem: RenderTokenListItem,
+            keyExtractor: item => item.heading,
+            showsVerticalScrollIndicator: false,
+            ListHeaderComponent: PickSecondCoinHeader(),
+          }}
+        />
       </Portal>
     </View>
   );
