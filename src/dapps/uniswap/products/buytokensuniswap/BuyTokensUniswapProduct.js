@@ -21,9 +21,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function BuyTokenUniswapProduct() {
   const pickerRef = useRef();
-  const [firstItemAmount, setFirstItemAmount] = useState('');
   const [selectedFirstItem, setSelectedFirstItem] = useState();
-  const [secondItemAmount, setSecondItemAmount] = useState('');
   const [selectedSecondItem, setSelectedSecondItem] = useState();
 
   function open() {
@@ -35,6 +33,10 @@ function BuyTokenUniswapProduct() {
   }
 
   function PickSwapPair() {
+    const [firstItemAmount, setFirstItemAmount] = useState('');
+
+    const [secondItemAmount, setSecondItemAmount] = useState('');
+
     return (
       <View style={{marginTop: 30}}>
         <Text style={styles.block_sub_title}>you pay</Text>
@@ -53,6 +55,7 @@ function BuyTokenUniswapProduct() {
               style={styles.enter_amount_input}
               placeholder={'0.0 ETH'}
               placeholderTextColor={themeHere.colors.foreground + 50}
+              keyboardType={'decimal-pad'}
             />
           </SquircleView>
           <TouchableOpacity
@@ -85,6 +88,7 @@ function BuyTokenUniswapProduct() {
               style={styles.enter_amount_input}
               placeholder={'0.0 ETH'}
               placeholderTextColor={themeHere.colors.foreground + 50}
+              keyboardType={'decimal-pad'}
             />
           </SquircleView>
           <TouchableOpacity
@@ -214,6 +218,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground,
+    width: windowWidth * 0.4,
+    height: 50,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   first_pair_amount_view: {
     width: windowWidth * 0.4,
