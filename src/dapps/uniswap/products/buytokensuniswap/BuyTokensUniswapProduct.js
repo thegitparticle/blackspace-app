@@ -45,29 +45,65 @@ function BuyTokenUniswapProduct() {
   }
 
   function PickFirstCoin() {
+    const [searchText, setSearchText] = useState('');
+
     return (
       <SquircleView
-        style={styles.pick_first_coin_overlay_view}
+        style={styles.pick_coin_overlay_view}
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground,
+          fillColor: themeHere.colors.off_ground,
         }}>
-        <Text style={styles.block_sub_title}>you pay</Text>
+        <Text style={styles.pick_coin_overlay_title}>you pay</Text>
+        <SquircleView
+          style={styles.pick_coin_overlay_input_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            onChangeText={setSearchText}
+            value={searchText}
+            style={styles.pick_coin_overlay_input}
+            placeholder={'search coins'}
+            placeholderTextColor={themeHere.colors.foreground + 50}
+          />
+        </SquircleView>
       </SquircleView>
     );
   }
 
   function PickSecondCoin() {
+    const [searchText, setSearchText] = useState('');
+
     return (
       <SquircleView
-        style={styles.pick_first_coin_overlay_view}
+        style={styles.pick_coin_overlay_view}
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground,
+          fillColor: themeHere.colors.off_ground,
         }}>
-        <Text style={styles.block_sub_title}>you get</Text>
+        <Text style={styles.pick_coin_overlay_title}>you get</Text>
+        <SquircleView
+          style={styles.pick_coin_overlay_input_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            onChangeText={setSearchText}
+            value={searchText}
+            style={styles.pick_coin_overlay_input}
+            placeholder={'search coins'}
+            placeholderTextColor={themeHere.colors.foreground + 50}
+          />
+        </SquircleView>
       </SquircleView>
     );
   }
@@ -337,8 +373,32 @@ const styles = StyleSheet.create({
     ...themeHere.text.body_medium,
     color: 'white',
   },
-  pick_first_coin_overlay_view: {
+  pick_coin_overlay_view: {
     width: windowWidth - 40,
-    height: windowHeight * 0.3,
+    height: windowHeight * 0.5,
+    alignItems: 'center',
+  },
+  pick_coin_overlay_title: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    marginVertical: 30,
+    textAlign: 'center',
+  },
+  pick_coin_overlay_input_view: {
+    width: windowWidth * 0.8,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 30,
+  },
+  pick_coin_overlay_input: {
+    backgroundColor: 'transparent',
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground,
+    width: windowWidth * 0.7,
+    height: 50,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
 });

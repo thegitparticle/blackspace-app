@@ -9,6 +9,7 @@ import WDeetsReducer from './WDeetsReducer';
 import MyAppsReducer from './MyAppsReducer';
 import DiscoverAppsReducer from './DiscoverAppsReducer';
 import MarketPricesReducer from './MarketPricesReducer';
+import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -40,6 +41,13 @@ export const persistConfigMarketPrices = {
   storage: AsyncStorage,
 };
 
+// dapps redux work only below
+
+export const persistConfigUniswapTokenList = {
+  key: 'uniswap_tokenlist',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigWDeets, MyProfileReducer),
@@ -52,6 +60,13 @@ const rootReducer = combineReducers({
   MarketPricesReducer: persistReducer(
     persistConfigMarketPrices,
     MarketPricesReducer,
+  ),
+
+  // dapps redux work only below
+
+  UniswapTokenListReducer: persistReducer(
+    persistConfigUniswapTokenList,
+    UniswapTokenListReducer,
   ),
 });
 
