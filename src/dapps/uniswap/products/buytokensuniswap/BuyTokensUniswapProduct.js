@@ -12,6 +12,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {Picker} from '@react-native-picker/picker';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
+import {SquircleView} from 'react-native-figma-squircle';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,9 +36,16 @@ function BuyTokenUniswapProduct() {
 
   function PickSwapPair() {
     return (
-      <View style={styles.pick_swap_pair_view}>
+      <View style={{marginTop: 30}}>
+        <Text style={styles.block_sub_title}>you pay</Text>
         <View style={styles.pick_first_pair_item_view}>
-          <View style={styles.first_pair_amount_view}>
+          <SquircleView
+            style={styles.first_pair_amount_view}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
             <TextInput
               numberOfLines={1}
               onChangeText={setFirstItemAmount}
@@ -46,15 +54,30 @@ function BuyTokenUniswapProduct() {
               placeholder={'0.0 ETH'}
               placeholderTextColor={themeHere.colors.foreground + 50}
             />
-          </View>
+          </SquircleView>
           <TouchableOpacity
-            style={styles.first_pair_token_view}
+            style={{color: 'transparent'}}
             onPress={() => open()}>
-            <Text style={styles.block_title}>{selectedFirstItem}</Text>
+            <SquircleView
+              style={styles.first_pair_amount_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <Text style={styles.block_title}>{selectedFirstItem}</Text>
+            </SquircleView>
           </TouchableOpacity>
         </View>
+        <Text style={styles.block_sub_title}>you get</Text>
         <View style={styles.pick_second_pair_item_view}>
-          <View style={styles.second_pair_amount_view}>
+          <SquircleView
+            style={styles.second_pair_amount_view}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
             <TextInput
               numberOfLines={1}
               onChangeText={setSecondItemAmount}
@@ -63,11 +86,19 @@ function BuyTokenUniswapProduct() {
               placeholder={'0.0 ETH'}
               placeholderTextColor={themeHere.colors.foreground + 50}
             />
-          </View>
+          </SquircleView>
           <TouchableOpacity
-            style={styles.second_pair_token_view}
+            style={{color: 'transparent'}}
             onPress={() => open()}>
-            <Text style={styles.block_title}>{selectedSecondItem}</Text>
+            <SquircleView
+              style={styles.second_pair_amount_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <Text style={styles.block_title}>{selectedSecondItem}</Text>
+            </SquircleView>
           </TouchableOpacity>
         </View>
       </View>
@@ -114,7 +145,6 @@ function BuyTokenUniswapProduct() {
 
   return (
     <View style={styles.parent_view}>
-      <Text style={styles.block_title}>choose what to swap</Text>
       <PickSwapPair />
       <OrderInfo />
       <Button
@@ -161,13 +191,20 @@ const styles = StyleSheet.create({
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground,
     marginHorizontal: 20,
-    marginVertical: 30,
+    marginVertical: 15,
+  },
+  block_sub_title: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 20,
+    marginTop: 15,
   },
   pick_first_pair_item_view: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 20,
+    marginHorizontal: 20,
   },
   pick_swap_pair_view: {
     flexDirection: 'column',
@@ -179,7 +216,6 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
   },
   first_pair_amount_view: {
-    backgroundColor: themeHere.colors.mid_ground + '25',
     width: windowWidth * 0.4,
     height: 50,
     borderRadius: 10,
@@ -187,7 +223,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   first_pair_token_view: {
-    backgroundColor: themeHere.colors.mid_ground + '25',
     width: windowWidth * 0.4,
     height: 50,
     borderRadius: 10,
@@ -199,9 +234,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 20,
+    marginHorizontal: 20,
   },
   second_pair_amount_view: {
-    backgroundColor: themeHere.colors.mid_ground + '25',
     width: windowWidth * 0.4,
     height: 50,
     borderRadius: 10,
@@ -209,7 +244,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   second_pair_token_view: {
-    backgroundColor: themeHere.colors.mid_ground + '25',
     width: windowWidth * 0.4,
     height: 50,
     borderRadius: 10,
