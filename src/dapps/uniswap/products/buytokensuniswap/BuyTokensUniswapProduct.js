@@ -28,6 +28,9 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function BuyTokenUniswapProduct({dispatch}) {
+  const [firstPickedCoin, setFirstPickedCoin] = useState(FamousTokensList[0]);
+  const [secondPickedCoin, setSecondPickedCoin] = useState();
+
   useEffect(() => {
     dispatch(GetUniswapTokenList());
   }, []);
@@ -336,6 +339,55 @@ function BuyTokenUniswapProduct({dispatch}) {
 
     const [secondItemAmount, setSecondItemAmount] = useState('');
 
+    function PickedCoinShowHere(props) {
+      if (props.Coin) {
+        return (
+          <View
+            style={{
+              flexDirection: 'row',
+              height: 50,
+              alignItems: 'center',
+              width: windowWidth * 0.4,
+              justifyContent: 'center',
+            }}>
+            <FastImage
+              source={{
+                uri: props.Coin.logoURI,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+              style={{
+                width: 30,
+                height: 30,
+                borderRadius: 15,
+              }}
+            />
+            <Text
+              style={{
+                ...themeHere.text.subhead_bold,
+                color: themeHere.colors.foreground,
+              }}>
+              {props.Coin.name}
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <View style={{flexDirection: 'row'}}>
+            <Text
+              style={{
+                ...themeHere.text.subhead_bold,
+                color: themeHere.colors.foreground,
+                textAlign: 'center',
+                marginHorizontal: 10,
+              }}>
+              PICK
+            </Text>
+          </View>
+        );
+      }
+    }
+
     return (
       <View style={{marginTop: 30}}>
         <Text style={styles.block_sub_title}>you pay</Text>
@@ -367,7 +419,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 cornerRadius: 15,
                 fillColor: themeHere.colors.mid_ground + '25',
               }}>
-              <Text style={styles.block_title}>selectedFirstItem</Text>
+              <PickedCoinShowHere Coin={firstPickedCoin} />
             </SquircleView>
           </TouchableOpacity>
         </View>
@@ -400,7 +452,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 cornerRadius: 15,
                 fillColor: themeHere.colors.mid_ground + '25',
               }}>
-              <Text style={styles.block_title}>selectedSecondItem</Text>
+              <PickedCoinShowHere Coin={secondPickedCoin} />
             </SquircleView>
           </TouchableOpacity>
         </View>
@@ -524,7 +576,7 @@ const styles = StyleSheet.create({
   pick_first_pair_item_view: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     marginVertical: 20,
     marginHorizontal: 20,
   },
@@ -542,35 +594,36 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   first_pair_amount_view: {
-    width: windowWidth * 0.4,
+    width: windowWidth * 0.3,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   first_pair_token_view: {
-    width: windowWidth * 0.4,
+    width: windowWidth * 0.3,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+    backgroundColor: 'green',
   },
   pick_second_pair_item_view: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
+    justifyContent: 'space-evenly',
     marginVertical: 20,
     marginHorizontal: 20,
   },
   second_pair_amount_view: {
-    width: windowWidth * 0.4,
+    width: windowWidth * 0.3,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
   },
   second_pair_token_view: {
-    width: windowWidth * 0.4,
+    width: windowWidth * 0.3,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
