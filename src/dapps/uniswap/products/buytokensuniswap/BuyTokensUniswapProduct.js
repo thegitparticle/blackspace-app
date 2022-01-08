@@ -9,8 +9,8 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {Picker} from '@react-native-picker/picker';
-import {Button} from 'react-native-elements';
+import {Picker, PickerIOS} from '@react-native-picker/picker';
+import {Button, Overlay} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {SquircleView} from 'react-native-figma-squircle';
 
@@ -24,12 +24,52 @@ function BuyTokenUniswapProduct() {
   const [selectedFirstItem, setSelectedFirstItem] = useState();
   const [selectedSecondItem, setSelectedSecondItem] = useState();
 
+  const [showPickFirstCoinOverlay, setShowFirstCoinOverlay] = useState(false);
+
+  const togglePickFirstCoinOverlay = () => {
+    setShowFirstCoinOverlay(!showPickFirstCoinOverlay);
+  };
+
+  const [showPickSecondCoinOverlay, setShowSecondCoinOverlay] = useState(false);
+
+  const togglePickSecondCoinOverlay = () => {
+    setShowSecondCoinOverlay(!showPickSecondCoinOverlay);
+  };
+
   function open() {
     pickerRef.current.focus();
   }
 
   function close() {
     pickerRef.current.blur();
+  }
+
+  function PickFirstCoin() {
+    return (
+      <SquircleView
+        style={styles.pick_first_coin_overlay_view}
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: themeHere.colors.mid_ground,
+        }}>
+        <Text style={styles.block_sub_title}>you pay</Text>
+      </SquircleView>
+    );
+  }
+
+  function PickSecondCoin() {
+    return (
+      <SquircleView
+        style={styles.pick_first_coin_overlay_view}
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: themeHere.colors.mid_ground,
+        }}>
+        <Text style={styles.block_sub_title}>you get</Text>
+      </SquircleView>
+    );
   }
 
   function PickSwapPair() {
@@ -60,7 +100,7 @@ function BuyTokenUniswapProduct() {
           </SquircleView>
           <TouchableOpacity
             style={{color: 'transparent'}}
-            onPress={() => open()}>
+            onPress={() => togglePickFirstCoinOverlay()}>
             <SquircleView
               style={styles.first_pair_amount_view}
               squircleParams={{
@@ -93,7 +133,7 @@ function BuyTokenUniswapProduct() {
           </SquircleView>
           <TouchableOpacity
             style={{color: 'transparent'}}
-            onPress={() => open()}>
+            onPress={() => togglePickSecondCoinOverlay()}>
             <SquircleView
               style={styles.second_pair_amount_view}
               squircleParams={{
@@ -165,7 +205,19 @@ function BuyTokenUniswapProduct() {
           ],
         }}
       />
-      <Picker
+      <Overlay
+        isVisible={showPickFirstCoinOverlay}
+        overlayStyle={{backgroundColor: 'transparent'}}
+        onBackdropPress={togglePickFirstCoinOverlay}>
+        <PickFirstCoin />
+      </Overlay>
+      <Overlay
+        isVisible={showPickSecondCoinOverlay}
+        overlayStyle={{backgroundColor: 'transparent'}}
+        onBackdropPress={togglePickSecondCoinOverlay}>
+        <PickSecondCoin />
+      </Overlay>
+      <PickerIOS
         ref={pickerRef}
         selectedValue={selectedFirstItem}
         onValueChange={(itemValue, itemIndex) =>
@@ -173,8 +225,8 @@ function BuyTokenUniswapProduct() {
         }>
         <Picker.Item label="Java" value="java" />
         <Picker.Item label="JavaScript" value="js" />
-      </Picker>
-      <Picker
+      </PickerIOS>
+      <PickerIOS
         ref={pickerRef}
         selectedValue={selectedSecondItem}
         onValueChange={(itemValue, itemIndex) =>
@@ -182,7 +234,7 @@ function BuyTokenUniswapProduct() {
         }>
         <Picker.Item label="Java" value="java" />
         <Picker.Item label="JavaScript" value="js" />
-      </Picker>
+      </PickerIOS>
     </View>
   );
 }
@@ -284,5 +336,9 @@ const styles = StyleSheet.create({
   swap_button_title: {
     ...themeHere.text.body_medium,
     color: 'white',
+  },
+  pick_first_coin_overlay_view: {
+    width: windowWidth - 40,
+    height: windowHeight * 0.3,
   },
 });
