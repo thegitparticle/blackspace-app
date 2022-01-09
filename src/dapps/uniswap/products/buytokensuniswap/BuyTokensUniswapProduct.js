@@ -521,6 +521,15 @@ function BuyTokenUniswapProduct({dispatch}) {
             </SquircleView>
           </TouchableOpacity>
         </View>
+        <View style={styles.pick_first_pair_info_row_view}>
+          <Text style={styles.pick_pair_info_text}>
+            wallet balance:{' '}
+            {state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string.substring(
+              0,
+              5,
+            )}
+          </Text>
+        </View>
         <Text style={styles.block_sub_title}>you get</Text>
         <View style={styles.pick_second_pair_item_view}>
           <SquircleView
@@ -676,7 +685,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginVertical: 20,
+    marginTop: 20,
     marginHorizontal: 20,
   },
   pick_swap_pair_view: {
@@ -705,6 +714,18 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  pick_first_pair_info_row_view: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginHorizontal: 25,
+    marginTop: 10,
+    marginBottom: 20,
+  },
+  pick_pair_info_text: {
+    ...themeHere.text.body,
+    color: themeHere.colors.foreground + '75',
   },
   pick_second_pair_item_view: {
     flexDirection: 'row',
