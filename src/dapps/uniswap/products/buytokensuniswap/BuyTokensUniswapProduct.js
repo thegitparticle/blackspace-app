@@ -306,9 +306,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
-                getPoolImmutables().then(result => {
-                  console.log(result);
-                });
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setSecondPickedCoin(FamousTokensList[0]);
                 onClosePickSecondCoin();
               }}>
@@ -334,9 +332,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                getPoolImmutables().then(result => {
-                  console.log(result);
-                });
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setSecondPickedCoin(FamousTokensList[1]);
                 onClosePickSecondCoin();
               }}>
@@ -362,9 +358,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                getPoolImmutables().then(result => {
-                  console.log(result);
-                });
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setSecondPickedCoin(FamousTokensList[2]);
                 onClosePickSecondCoin();
               }}>
@@ -392,9 +386,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
-                getPoolImmutables().then(result => {
-                  console.log(result);
-                });
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setSecondPickedCoin(FamousTokensList[3]);
                 onClosePickSecondCoin();
               }}>
@@ -420,9 +412,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                getPoolImmutables().then(result => {
-                  console.log(result);
-                });
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setSecondPickedCoin(FamousTokensList[4]);
                 onClosePickSecondCoin();
               }}>
