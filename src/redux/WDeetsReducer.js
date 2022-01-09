@@ -5,6 +5,8 @@ const initial_state = {
     wallet_address: null,
     wallet_phrase: null,
     wallet_privateKey: null,
+    wallet_eth_balance: null,
+    wallet_eth_balance_readable_string: null,
   },
 };
 

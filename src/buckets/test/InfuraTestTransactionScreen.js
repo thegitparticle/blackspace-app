@@ -4,6 +4,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {BigNumber, ethers} from 'ethers';
 import {connect} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {AddWDeets} from '../../redux/WDeetsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -14,7 +15,7 @@ const network = 'rinkeby'; // use 'homested' for mainnet
 
 let state_here = {};
 
-function InfuraTestTransactionScreen() {
+function InfuraTestTransactionScreen({dispatch}) {
   const [weiBalance, setWeiBalance] = useState(0);
   const [ethBalanceString, setEthBalanceString] = useState('');
 
@@ -36,6 +37,18 @@ function InfuraTestTransactionScreen() {
         setWeiBalance(JSON.parse(r));
         setEthBalanceString(
           ethers.utils.formatEther(BigNumber.from(JSON.parse(r).toString())),
+        );
+        dispatch(
+          AddWDeets({
+            wallet_address: state_here.WDeetsReducer.wdeets.wallet_address,
+            wallet_phrase: state_here.WDeetsReducer.wdeets.wallet_phrase,
+            wallet_privateKey:
+              state_here.WDeetsReducer.wdeets.wallet_privateKey,
+            wallet_eth_balance: JSON.parse(r),
+            wallet_eth_balance_readable_string: ethers.utils.formatEther(
+              BigNumber.from(JSON.parse(r).toString()),
+            ),
+          }),
         );
       });
   }
