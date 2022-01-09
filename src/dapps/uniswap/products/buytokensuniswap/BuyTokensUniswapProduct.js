@@ -511,7 +511,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             style={{color: 'transparent'}}
             onPress={() => onOpenPickFirstCoin()}>
             <SquircleView
-              style={styles.first_pair_amount_view}
+              style={styles.first_pair_token_view}
               squircleParams={{
                 cornerSmoothing: 1,
                 cornerRadius: 15,
@@ -544,7 +544,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             style={{color: 'transparent'}}
             onPress={() => onOpenPickSecondCoin()}>
             <SquircleView
-              style={styles.second_pair_amount_view}
+              style={styles.second_pair_token_view}
               squircleParams={{
                 cornerSmoothing: 1,
                 cornerRadius: 15,
@@ -670,11 +670,12 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
     marginHorizontal: 20,
     marginTop: 15,
+    // textAlign: 'center',
   },
   pick_first_pair_item_view: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     marginVertical: 20,
     marginHorizontal: 20,
   },
@@ -682,21 +683,21 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     marginHorizontal: 20,
   },
-  enter_amount_input: {
-    backgroundColor: 'transparent',
-    ...themeHere.text.body_medium,
-    color: themeHere.colors.foreground,
-    width: windowWidth * 0.4,
-    height: 50,
-    alignSelf: 'center',
-    textAlign: 'center',
-  },
   first_pair_amount_view: {
-    width: windowWidth * 0.3,
+    width: windowWidth * 0.45,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  enter_amount_input: {
+    backgroundColor: 'transparent',
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground,
+    width: windowWidth * 0.45,
+    height: 50,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   first_pair_token_view: {
     width: windowWidth * 0.3,
@@ -704,17 +705,16 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'green',
   },
   pick_second_pair_item_view: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-evenly',
+    justifyContent: 'space-between',
     marginVertical: 20,
     marginHorizontal: 20,
   },
   second_pair_amount_view: {
-    width: windowWidth * 0.3,
+    width: windowWidth * 0.45,
     height: 50,
     borderRadius: 10,
     justifyContent: 'center',
