@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useMemo, useRef, useState} from 'react';
 import {
   View,
   Text,
@@ -23,7 +23,7 @@ import {
   getPoolImmutables,
   getSpotPricesOfPool,
 } from '../../helpers/UniswapPoolSetup';
-import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
+import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,6 +35,11 @@ let state_here = {};
 function BuyTokenUniswapProduct({dispatch}) {
   const [firstPickedCoin, setFirstPickedCoin] = useState(FamousTokensList[0]);
   const [secondPickedCoin, setSecondPickedCoin] = useState();
+  const [poolDetails, setPoolDetails] = useState();
+
+  const [firstItemAmountExternal, setFirstItemAmountExternal] = useState('');
+  const [secondItemAmountExternal, setSecondItemAmountExternal] =
+    useState('---');
 
   useEffect(() => {
     dispatch(GetUniswapTokenList());
@@ -62,11 +67,73 @@ function BuyTokenUniswapProduct({dispatch}) {
     modalizePickSecondCoinRef.current?.close();
   };
 
+  function SetPickPairBlockVariables() {
+    if (poolDetails) {
+      setSecondItemAmountExternal(
+        poolDetails.data.pool.token1Price.substring(0, 10),
+      );
+    }
+  }
+
+  function SetOtherInfoBlockVariables() {}
+
+  function getPoolDetails(poolid) {
+    const data = JSON.stringify({
+      query: `query Pool($poolID: ID!){
+  pool(id: $poolID) {
+    tick
+    token0 {
+      symbol
+      id
+      decimals
+      feesUSD
+      volumeUSD
+      derivedETH
+    }
+    token1 {
+      symbol
+      id
+      decimals
+      feesUSD
+      volumeUSD
+      derivedETH
+    }
+    feeTier
+    sqrtPrice
+    liquidity
+    token0Price
+    token1Price
+  }
+}`,
+      variables: {poolID: poolid},
+    });
+
+    const config = {
+      method: 'post',
+      url: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      data: data,
+    };
+
+    axios(config)
+      .then(function (response) {
+        setPoolDetails(response.data);
+        SetPickPairBlockVariables();
+        console.log('got pool data');
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   function RenderTokenListItemFirst(item) {
     return (
       <TouchableOpacity
         style={styles.render_token_item_view}
         onPress={() => {
+          getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
           setFirstPickedCoin(item.item);
           onClosePickFirstCoin();
         }}>
@@ -143,6 +210,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setFirstPickedCoin(FamousTokensList[0]);
                 onClosePickFirstCoin();
               }}>
@@ -168,6 +236,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setFirstPickedCoin(FamousTokensList[1]);
                 onClosePickFirstCoin();
               }}>
@@ -193,6 +262,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setFirstPickedCoin(FamousTokensList[2]);
                 onClosePickFirstCoin();
               }}>
@@ -220,6 +290,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setFirstPickedCoin(FamousTokensList[3]);
                 onClosePickFirstCoin();
               }}>
@@ -245,6 +316,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setFirstPickedCoin(FamousTokensList[4]);
                 onClosePickFirstCoin();
               }}>
@@ -442,142 +514,148 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
-  function PickSwapPair() {
+  function FirstTokenAmountInput() {
     const [firstItemAmount, setFirstItemAmount] = useState('');
 
-    const [secondItemAmount, setSecondItemAmount] = useState('');
-
-    function PickedCoinShowHere(props) {
-      if (props.Coin) {
-        return (
-          <View
-            style={{
-              flexDirection: 'row',
-              height: 50,
-              alignItems: 'center',
-              width: windowWidth * 0.4,
-              justifyContent: 'center',
-            }}>
-            <FastImage
-              source={{
-                uri: props.Coin.logoURI,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-              style={{
-                width: 30,
-                height: 30,
-                borderRadius: 15,
-              }}
-            />
-            <Text
-              style={{
-                ...themeHere.text.subhead_bold,
-                color: themeHere.colors.foreground,
-              }}>
-              {' '}
-              {props.Coin.symbol}
-            </Text>
-          </View>
-        );
-      } else {
-        return (
-          <View style={{flexDirection: 'row'}}>
-            <Text
-              style={{
-                ...themeHere.text.subhead_bold,
-                color: themeHere.colors.foreground,
-                textAlign: 'center',
-                marginHorizontal: 10,
-              }}>
-              PICK
-            </Text>
-          </View>
-        );
-      }
-    }
-
     return (
-      <View style={{marginTop: 30}}>
-        <Text style={styles.block_sub_title}>you pay</Text>
-        <View style={styles.pick_first_pair_item_view}>
-          <SquircleView
-            style={styles.first_pair_amount_view}
-            squircleParams={{
-              cornerSmoothing: 1,
-              cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
-            }}>
-            <TextInput
-              numberOfLines={1}
-              onChangeText={setFirstItemAmount}
-              value={firstItemAmount}
-              style={styles.enter_amount_input}
-              placeholder={'0.0 ETH'}
-              placeholderTextColor={themeHere.colors.foreground + 50}
-              keyboardType={'decimal-pad'}
-            />
-          </SquircleView>
-          <TouchableOpacity
-            style={{color: 'transparent'}}
-            onPress={() => onOpenPickFirstCoin()}>
-            <SquircleView
-              style={styles.first_pair_token_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
-              }}>
-              <PickedCoinShowHere Coin={firstPickedCoin} />
-            </SquircleView>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.pick_first_pair_info_row_view}>
-          <Text style={styles.pick_pair_info_text}>1 ETH = ~$3100</Text>
-          <Text style={styles.pick_pair_info_text}>
-            wallet balance:{' '}
-            {state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string.substring(
-              0,
-              5,
-            )}
-          </Text>
-        </View>
-        <Text style={styles.block_sub_title}>you get</Text>
-        <View style={styles.pick_second_pair_item_view}>
-          <SquircleView
-            style={styles.second_pair_amount_view}
-            squircleParams={{
-              cornerSmoothing: 1,
-              cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
-            }}>
-            <TextInput
-              numberOfLines={1}
-              onChangeText={setSecondItemAmount}
-              value={secondItemAmount}
-              style={styles.enter_amount_input}
-              placeholder={'0.0 ETH'}
-              placeholderTextColor={themeHere.colors.foreground + 50}
-              keyboardType={'decimal-pad'}
-            />
-          </SquircleView>
-          <TouchableOpacity
-            style={{color: 'transparent'}}
-            onPress={() => onOpenPickSecondCoin()}>
-            <SquircleView
-              style={styles.second_pair_token_view}
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
-              }}>
-              <PickedCoinShowHere Coin={secondPickedCoin} />
-            </SquircleView>
-          </TouchableOpacity>
-        </View>
-      </View>
+      <TextInput
+        numberOfLines={1}
+        onChangeText={setFirstItemAmount}
+        value={firstItemAmount}
+        style={styles.enter_amount_input}
+        placeholder={'0.0 ETH'}
+        placeholderTextColor={themeHere.colors.foreground + 50}
+        keyboardType={'decimal-pad'}
+        onEndEditing={() => {
+          getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+          setFirstItemAmountExternal(firstItemAmount);
+        }}
+      />
     );
   }
+
+  const PickSwapPair = useMemo(
+    () =>
+      function PickSwapPair() {
+        function PickedCoinShowHere(props) {
+          if (props.Coin) {
+            return (
+              <View
+                style={{
+                  flexDirection: 'row',
+                  height: 50,
+                  alignItems: 'center',
+                  width: windowWidth * 0.4,
+                  justifyContent: 'center',
+                }}>
+                <FastImage
+                  source={{
+                    uri: props.Coin.logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={{
+                    width: 30,
+                    height: 30,
+                    borderRadius: 15,
+                  }}
+                />
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_bold,
+                    color: themeHere.colors.foreground,
+                  }}>
+                  {' '}
+                  {props.Coin.symbol}
+                </Text>
+              </View>
+            );
+          } else {
+            return (
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_bold,
+                    color: themeHere.colors.foreground,
+                    textAlign: 'center',
+                    marginHorizontal: 10,
+                  }}>
+                  PICK
+                </Text>
+              </View>
+            );
+          }
+        }
+
+        return (
+          <View style={{marginTop: 30}}>
+            <Text style={styles.block_sub_title}>you pay</Text>
+            <View style={styles.pick_first_pair_item_view}>
+              <SquircleView
+                style={styles.first_pair_amount_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FirstTokenAmountInput />
+              </SquircleView>
+              <TouchableOpacity
+                style={{color: 'transparent'}}
+                onPress={() => onOpenPickFirstCoin()}>
+                <SquircleView
+                  style={styles.first_pair_token_view}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: themeHere.colors.mid_ground + '25',
+                  }}>
+                  <PickedCoinShowHere Coin={firstPickedCoin} />
+                </SquircleView>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.pick_first_pair_info_row_view}>
+              <Text style={styles.pick_pair_info_text}>1 ETH = ~$3100</Text>
+              <Text style={styles.pick_pair_info_text}>
+                wallet balance:{' '}
+                {state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string.substring(
+                  0,
+                  5,
+                )}
+              </Text>
+            </View>
+            <Text style={styles.block_sub_title}>you get</Text>
+            <View style={styles.pick_second_pair_item_view}>
+              <SquircleView
+                style={styles.second_pair_amount_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <Text style={styles.second_pair_amount_text}>
+                  {secondItemAmountExternal}
+                </Text>
+              </SquircleView>
+              <TouchableOpacity
+                style={{color: 'transparent'}}
+                onPress={() => onOpenPickSecondCoin()}>
+                <SquircleView
+                  style={styles.second_pair_token_view}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: themeHere.colors.mid_ground + '25',
+                  }}>
+                  <PickedCoinShowHere Coin={secondPickedCoin} />
+                </SquircleView>
+              </TouchableOpacity>
+            </View>
+          </View>
+        );
+      },
+    [firstPickedCoin, secondItemAmountExternal, secondPickedCoin],
+  );
 
   function OrderInfo() {
     return (
@@ -759,6 +837,13 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  second_pair_amount_text: {
+    backgroundColor: 'transparent',
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
   order_info_one_block_view: {
     flexDirection: 'row',

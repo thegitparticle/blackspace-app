@@ -1,7 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import axios from 'axios';
 
 export function getPoolDetails(poolid) {
+  let poolData = {};
+
   const data = JSON.stringify({
     query: `query Pool($poolID: ID!){
   pool(id: $poolID) {
@@ -43,9 +45,11 @@ export function getPoolDetails(poolid) {
 
   axios(config)
     .then(function (response) {
-      console.log(JSON.stringify(response.data));
+      poolData = JSON.stringify(response.data);
     })
     .catch(function (error) {
       console.log(error);
     });
+
+  return poolData;
 }
