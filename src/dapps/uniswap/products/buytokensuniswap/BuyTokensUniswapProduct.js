@@ -522,6 +522,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           </TouchableOpacity>
         </View>
         <View style={styles.pick_first_pair_info_row_view}>
+          <Text style={styles.pick_pair_info_text}>1 ETH = ~$3100</Text>
           <Text style={styles.pick_pair_info_text}>
             wallet balance:{' '}
             {state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string.substring(
@@ -720,11 +721,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginHorizontal: 25,
-    marginTop: 10,
+    marginTop: 15,
     marginBottom: 20,
   },
   pick_pair_info_text: {
-    ...themeHere.text.body,
+    ...themeHere.text.caption,
     color: themeHere.colors.foreground + '75',
   },
   pick_second_pair_item_view: {
