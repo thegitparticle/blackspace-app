@@ -2119,12 +2119,12 @@
   resolved "https://registry.npmjs.org/@uniswap/v2-core/-/v2-core-1.0.1.tgz#af8f508bf183204779938969e2e54043e147d425"
   integrity sha512-MtybtkUPSyysqLY2U210NBDeCHX+ltHt3oADGdjqoThZaFRDKwM6k1Nb3F0A3hk5hwuQvytFWhrWHOEq6nVJ8Q==
 
-"@uniswap/v3-core@1.0.0":
+"@uniswap/v3-core@1.0.0", "@uniswap/v3-core@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@uniswap/v3-core/-/v3-core-1.0.0.tgz#6c24adacc4c25dceee0ba3ca142b35adbd7e359d"
   integrity sha512-kSC4djMGKMHj7sLMYVnn61k9nu+lHjMIxgg9CDQT+s2QYLoA56GbSK9Oxr+qJXzzygbkrmuY6cwgP6cW2JXPFA==
 
-"@uniswap/v3-periphery@^1.0.1", "@uniswap/v3-periphery@^1.1.1":
+"@uniswap/v3-periphery@^1.0.1", "@uniswap/v3-periphery@^1.1.1", "@uniswap/v3-periphery@^1.3.0":
   version "1.3.0"
   resolved "https://registry.npmjs.org/@uniswap/v3-periphery/-/v3-periphery-1.3.0.tgz#37f0a1ef6025221722e50e9f3f2009c2d5d6e4ec"
   integrity sha512-HjHdI5RkjBl8zz3bqHShrbULFoZSrjbbrRHoO2vbzn+WRzTa6xY4PWphZv2Tlcb38YEKfKHp6NPl5hVedac8uw==

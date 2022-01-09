@@ -19,6 +19,11 @@ import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenL
 import {Host, Portal} from 'react-native-portalize';
 import {FamousTokensList} from '../../helpers/FamousTokensList';
 import FastImage from 'react-native-fast-image';
+import {
+  getPoolImmutables,
+  getSpotPricesOfPool,
+} from '../../helpers/UniswapPoolSetup';
+import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -86,6 +91,7 @@ function BuyTokenUniswapProduct({dispatch}) {
       <TouchableOpacity
         style={styles.render_token_item_view}
         onPress={() => {
+          getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
           setSecondPickedCoin(item.item);
           onClosePickSecondCoin();
         }}>
@@ -300,6 +306,9 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
+                getPoolImmutables().then(result => {
+                  console.log(result);
+                });
                 setSecondPickedCoin(FamousTokensList[0]);
                 onClosePickSecondCoin();
               }}>
@@ -325,6 +334,9 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                getPoolImmutables().then(result => {
+                  console.log(result);
+                });
                 setSecondPickedCoin(FamousTokensList[1]);
                 onClosePickSecondCoin();
               }}>
@@ -350,6 +362,9 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                getPoolImmutables().then(result => {
+                  console.log(result);
+                });
                 setSecondPickedCoin(FamousTokensList[2]);
                 onClosePickSecondCoin();
               }}>
@@ -377,6 +392,9 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
+                getPoolImmutables().then(result => {
+                  console.log(result);
+                });
                 setSecondPickedCoin(FamousTokensList[3]);
                 onClosePickSecondCoin();
               }}>
@@ -402,6 +420,9 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
+                getPoolImmutables().then(result => {
+                  console.log(result);
+                });
                 setSecondPickedCoin(FamousTokensList[4]);
                 onClosePickSecondCoin();
               }}>
