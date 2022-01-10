@@ -76,14 +76,14 @@ function UniswapBluePrint() {
   }
 
   return (
-    <View style={styles.parent_view}>
-      <Carousel
-        data={products}
-        renderItem={RenderProductMakerDao}
-        sliderWidth={windowWidth}
-        itemWidth={windowWidth}
-      />
-    </View>
+    <Carousel
+      data={products}
+      renderItem={RenderProductMakerDao}
+      sliderWidth={windowWidth}
+      itemWidth={windowWidth}
+      initialNumToRender={products.length}
+      useScrollView={true}
+    />
   );
 }
 

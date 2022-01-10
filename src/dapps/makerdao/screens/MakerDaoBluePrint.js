@@ -89,6 +89,8 @@ function MakerDaoBluePrint() {
         renderItem={RenderProductMakerDao}
         sliderWidth={windowWidth}
         itemWidth={windowWidth}
+        initialNumToRender={products.length}
+        useScrollView={true}
       />
     </View>
   );
