@@ -155,9 +155,10 @@ const styles = StyleSheet.create({
   },
   tab_bar: {
     backgroundColor: themeHere.colors.off_background + '00',
-    height: 50,
+    height: 70,
     // justifyContent: 'center',
     alignSelf: 'center',
+    justifyContent: 'center',
     width: windowWidth,
     borderRadius: 30,
     borderTopWidth: 0,
@@ -176,7 +177,11 @@ const styles = StyleSheet.create({
   tab_label_view: {
     alignItems: 'center',
     alignContent: 'center',
-    height: 50,
+    height: 40,
+    borderRadius: 20,
+    // paddingVertical: 5,
+    paddingHorizontal: 20,
+    backgroundColor: themeHere.colors.mid_ground + '25',
     justifyContent: 'center',
   },
   tab_label_text_focused: {
