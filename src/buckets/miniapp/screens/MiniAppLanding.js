@@ -15,6 +15,8 @@ import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper'
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import CryptoPricesPage from '../../home/pages/CryptoPricesPage';
 import HomeMainPage from '../../home/pages/HomeMainPage';
+import {HScrollView} from 'react-native-head-tab-view';
+import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -25,14 +27,18 @@ const Products = () => (
   // <RenderAppBluePrintHelper
   //   function_name={app_details.landing_blueprint_function_name}
   // />
-  <View style={{flex: 1, backgroundColor: '#ff4081', height: 400}} />
+  <HScrollView index={0}>
+    <View style={{flex: 1, backgroundColor: '#ff4081'}} />
+  </HScrollView>
 );
 
 const JargonBuster = () => (
   // <RenderAppJargonBusterHelper
   //   function_name={app_details.landing_blueprint_function_name}
   // />
-  <View style={{flex: 1, backgroundColor: '#673ab7', height: 400}} />
+  <HScrollView index={1}>
+    <View style={{flex: 1, backgroundColor: '#673ab7'}} />
+  </HScrollView>
 );
 
 function MiniAppLanding({route}) {
@@ -106,39 +112,16 @@ function MiniAppLanding({route}) {
     />
   );
 
-  // return (
-  //   <TabView
-  //     navigationState={{index, routes}}
-  //     renderScene={renderSceneMiniApp}
-  //     renderTabBar={renderTabBarMiniApp}
-  //     onIndexChange={setIndex}
-  //     initialLayout={{width: windowWidth}}
-  //   />
-  // );
-
   return (
-    // <ScrollView
-    //   style={styles.parent_scroll_view}
-    //   showsVerticalScrollIndicator={false}>
-    <View style={styles.parent_view}>
-      <SharedElement id={`item.${app_details.app_name}.app_icon`}>
-        <HeaderBlock app_details={app_details} style={{top: 0}} />
-      </SharedElement>
-      <TabView
-        navigationState={{index, routes}}
-        renderScene={renderSceneMiniApp}
-        renderTabBar={renderTabBarMiniApp}
-        onIndexChange={setIndex}
-        initialLayout={{width: windowWidth}}
-      />
-      {/*<RenderAppBluePrintHelper*/}
-      {/*  function_name={app_details.landing_blueprint_function_name}*/}
-      {/*/>*/}
-      {/*<RenderAppJargonBusterHelper*/}
-      {/*  function_name={app_details.landing_blueprint_function_name}*/}
-      {/*/>*/}
-    </View>
-    // </ScrollView>
+    <CollapsibleHeaderTabView
+      renderScrollHeader={() => (
+        <View style={{height: 200, backgroundColor: 'red'}} />
+      )}
+      navigationState={{index, routes}}
+      renderScene={renderSceneMiniApp}
+      onIndexChange={setIndex}
+      initialLayout={{width: windowWidth}}
+    />
   );
 }
 
