@@ -9,20 +9,15 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {Picker, PickerIOS} from '@react-native-picker/picker';
-import {Button, Overlay} from 'react-native-elements';
+import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {SquircleView} from 'react-native-figma-squircle';
 import {connect} from 'react-redux';
 import {Modalize} from 'react-native-modalize';
 import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenListActions';
-import {Host, Portal} from 'react-native-portalize';
+import {Portal} from 'react-native-portalize';
 import {FamousTokensList} from '../../helpers/FamousTokensList';
 import FastImage from 'react-native-fast-image';
-import {
-  getPoolImmutables,
-  getSpotPricesOfPool,
-} from '../../helpers/UniswapPoolSetup';
 import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
@@ -534,59 +529,59 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
+  function PickedCoinShowHere(props) {
+    if (props.Coin) {
+      return (
+        <View
+          style={{
+            flexDirection: 'row',
+            height: 50,
+            alignItems: 'center',
+            width: windowWidth * 0.4,
+            justifyContent: 'center',
+          }}>
+          <FastImage
+            source={{
+              uri: props.Coin.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={{
+              width: 30,
+              height: 30,
+              borderRadius: 15,
+            }}
+          />
+          <Text
+            style={{
+              ...themeHere.text.subhead_bold,
+              color: themeHere.colors.foreground,
+            }}>
+            {' '}
+            {props.Coin.symbol}
+          </Text>
+        </View>
+      );
+    } else {
+      return (
+        <View style={{flexDirection: 'row'}}>
+          <Text
+            style={{
+              ...themeHere.text.subhead_bold,
+              color: themeHere.colors.foreground,
+              textAlign: 'center',
+              marginHorizontal: 10,
+            }}>
+            PICK
+          </Text>
+        </View>
+      );
+    }
+  }
+
   const PickSwapPair = useMemo(
     () =>
       function PickSwapPair() {
-        function PickedCoinShowHere(props) {
-          if (props.Coin) {
-            return (
-              <View
-                style={{
-                  flexDirection: 'row',
-                  height: 50,
-                  alignItems: 'center',
-                  width: windowWidth * 0.4,
-                  justifyContent: 'center',
-                }}>
-                <FastImage
-                  source={{
-                    uri: props.Coin.logoURI,
-                    priority: FastImage.priority.normal,
-                  }}
-                  resizeMode={FastImage.resizeMode.contain}
-                  style={{
-                    width: 30,
-                    height: 30,
-                    borderRadius: 15,
-                  }}
-                />
-                <Text
-                  style={{
-                    ...themeHere.text.subhead_bold,
-                    color: themeHere.colors.foreground,
-                  }}>
-                  {' '}
-                  {props.Coin.symbol}
-                </Text>
-              </View>
-            );
-          } else {
-            return (
-              <View style={{flexDirection: 'row'}}>
-                <Text
-                  style={{
-                    ...themeHere.text.subhead_bold,
-                    color: themeHere.colors.foreground,
-                    textAlign: 'center',
-                    marginHorizontal: 10,
-                  }}>
-                  PICK
-                </Text>
-              </View>
-            );
-          }
-        }
-
         return (
           <View style={{marginTop: 30}}>
             <Text style={styles.block_sub_title}>you pay</Text>
@@ -697,7 +692,70 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   return (
     <View style={styles.parent_view}>
-      <PickSwapPair />
+      <View style={{marginTop: 30}}>
+        <Text style={styles.block_sub_title}>you pay</Text>
+        <View style={styles.pick_first_pair_item_view}>
+          <SquircleView
+            style={styles.first_pair_amount_view}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
+            <FirstTokenAmountInput />
+          </SquircleView>
+          <TouchableOpacity
+            style={{color: 'transparent'}}
+            onPress={() => onOpenPickFirstCoin()}>
+            <SquircleView
+              style={styles.first_pair_token_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <PickedCoinShowHere Coin={firstPickedCoin} />
+            </SquircleView>
+          </TouchableOpacity>
+        </View>
+        <View style={styles.pick_first_pair_info_row_view}>
+          <Text style={styles.pick_pair_info_text}>1 ETH = ~$3100</Text>
+          <Text style={styles.pick_pair_info_text}>
+            wallet balance:{' '}
+            {state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string.substring(
+              0,
+              5,
+            )}
+          </Text>
+        </View>
+        <Text style={styles.block_sub_title}>you get</Text>
+        <View style={styles.pick_second_pair_item_view}>
+          <SquircleView
+            style={styles.second_pair_amount_view}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
+            <Text style={styles.second_pair_amount_text}>
+              {secondItemAmountExternal}
+            </Text>
+          </SquircleView>
+          <TouchableOpacity
+            style={{color: 'transparent'}}
+            onPress={() => onOpenPickSecondCoin()}>
+            <SquircleView
+              style={styles.second_pair_token_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <PickedCoinShowHere Coin={secondPickedCoin} />
+            </SquircleView>
+          </TouchableOpacity>
+        </View>
+      </View>
       <OrderInfo />
       <Button
         title={'swap'}
