@@ -117,7 +117,7 @@ function SettingsStack() {
 function HomeAndAppsStack() {
   return (
     <Host>
-      <HomeAndAppMain.Navigator>
+      <HomeAndAppMain.Navigator style={{backgroundColor: '#050505'}}>
         <HomeAndAppMain.Screen
           name="HomeLandingScreen"
           component={HomeLandingScreen}
@@ -157,7 +157,7 @@ function HomeAndAppsStack() {
 
 function MainStack() {
   return (
-    <StackMain.Navigator>
+    <StackMain.Navigator style={{backgroundColor: '#050505'}}>
       <StackMain.Group>
         <StackMain.Screen
           name="HomeAndAppsStack"

@@ -23,26 +23,26 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-const Products = () => (
-  // <RenderAppBluePrintHelper
-  //   function_name={app_details.landing_blueprint_function_name}
-  // />
-  <HScrollView index={0}>
-    <View style={{flex: 1, backgroundColor: '#ff4081'}} />
-  </HScrollView>
-);
-
-const JargonBuster = () => (
-  // <RenderAppJargonBusterHelper
-  //   function_name={app_details.landing_blueprint_function_name}
-  // />
-  <HScrollView index={1}>
-    <View style={{flex: 1, backgroundColor: '#673ab7'}} />
-  </HScrollView>
-);
-
 function MiniAppLanding({route}) {
   const {app_details} = route.params;
+
+  const Products = () => (
+    <HScrollView index={0}>
+      <RenderAppBluePrintHelper
+        function_name={app_details.landing_blueprint_function_name}
+      />
+      {/*<View style={{flex: 1, backgroundColor: '#ff4081'}} />*/}
+    </HScrollView>
+  );
+
+  const JargonBuster = () => (
+    <HScrollView index={1}>
+      <RenderAppJargonBusterHelper
+        function_name={app_details.landing_blueprint_function_name}
+      />
+      {/*<View style={{flex: 1, backgroundColor: '#673ab7'}} />*/}
+    </HScrollView>
+  );
 
   const renderSceneMiniApp = SceneMap({
     first: Products,
@@ -115,12 +115,20 @@ function MiniAppLanding({route}) {
   return (
     <CollapsibleHeaderTabView
       renderScrollHeader={() => (
-        <View style={{height: 200, backgroundColor: 'red'}} />
+        <SharedElement id={`item.${app_details.app_name}.app_icon`}>
+          <HeaderBlock app_details={app_details} style={{top: 0}} />
+        </SharedElement>
       )}
       navigationState={{index, routes}}
+      renderTabBar={renderTabBarMiniApp}
       renderScene={renderSceneMiniApp}
       onIndexChange={setIndex}
       initialLayout={{width: windowWidth}}
+      style={styles.header_tab_view}
+      frozeTop={150}
+      lazy={true}
+      tabBarHeight={50}
+      headerHeight={300}
     />
   );
 }
@@ -135,6 +143,10 @@ const styles = StyleSheet.create({
   parent_view: {
     flex: 1,
     alignItems: 'center',
+    backgroundColor: themeHere.colors.background,
+  },
+  header_tab_view: {
+    flex: 1,
     backgroundColor: themeHere.colors.background,
   },
   cover_image: {
