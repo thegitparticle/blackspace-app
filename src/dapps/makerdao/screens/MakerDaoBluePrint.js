@@ -46,7 +46,20 @@ function MakerDaoBluePrint() {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Leverage ETH</Text>
+          <Text style={styles.product_title}>
+            Leverage ETH{' '}
+            <Text
+              style={{
+                ...themeHere.text.body_medium,
+                color: themeHere.colors.foreground,
+              }}>
+              (1/2)
+            </Text>
+          </Text>
+          <View style={styles.product_focused_indicator_view}>
+            <View style={styles.product_focused_indicator} />
+            <View style={styles.product_unfocused_indicator} />
+          </View>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -61,7 +74,20 @@ function MakerDaoBluePrint() {
     } else if (index === 1) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
+          <Text style={styles.product_title}>
+            Borrow Stablecoin DAI{' '}
+            <Text
+              style={{
+                ...themeHere.text.body_medium,
+                color: themeHere.colors.foreground,
+              }}>
+              (2/2)
+            </Text>
+          </Text>
+          <View style={styles.product_focused_indicator_view}>
+            <View style={styles.product_unfocused_indicator} />
+            <View style={styles.product_focused_indicator} />
+          </View>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -116,9 +142,28 @@ const styles = StyleSheet.create({
     ...themeHere.text.header_bold,
     color: themeHere.colors.foreground,
     textAlign: 'center',
-    marginBottom: 40,
+    marginBottom: 20,
   },
   product_tile_view: {
     width: windowWidth - 40,
+  },
+  product_focused_indicator_view: {
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginBottom: 20,
+  },
+  product_focused_indicator: {
+    width: 25,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: themeHere.colors.red,
+    marginHorizontal: 5,
+  },
+  product_unfocused_indicator: {
+    width: 25,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: themeHere.colors.mid_ground + '50',
+    marginHorizontal: 5,
   },
 });
