@@ -1,10 +1,10 @@
 import React from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MakerDaoLandingBluePrint from '../../../dapps/makerdao/screens/MakerDaoLandingBluePrint';
-import CompoundFinanceLandingBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceLandingBluePrint';
-import UniswapLandingBluePrint from '../../../dapps/uniswap/screens/UniswapLandingBluePrint';
-import MemeCoinsAppLandingBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoinsAppLandingBluePrint';
+import MakerDaoLandingBluePrint from '../../../dapps/makerdao/screens/MakerDaoBluePrint';
+import CompoundFinanceBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint';
+import UniswapLandingBluePrint from '../../../dapps/uniswap/screens/UniswapBluePrint';
+import MemeCoinsAppBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,11 +15,11 @@ function RenderAppBluePrintHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
     return <MakerDaoLandingBluePrint />;
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
-    return <CompoundFinanceLandingBluePrint />;
+    return <CompoundFinanceBluePrint />;
   } else if (props.function_name === 'UniswapLandingBluePrint') {
     return <UniswapLandingBluePrint />;
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
-    return <MemeCoinsAppLandingBluePrint />;
+    return <MemeCoinsAppBluePrint />;
   } else {
     return (
       <View style={styles.parent_view}>

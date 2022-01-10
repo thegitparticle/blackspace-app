@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -8,35 +8,45 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
+import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
-import EarnInterestCompoundFinance from '../products/earninterestcompoundfinance/EarnInterestCompoundFinance';
-import BorrowCompoundFinance from '../products/borrowcompoundfinance/BorrowCompoundFinance';
+import GetMakerDAOVaultInfo from '../helpers/GetMakerDAOVaultInfo';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function CompoundFinanceLandingBluePrint() {
+let state_here = {};
+
+function MakerDaoBluePrint() {
   const products = [
     {
       id: 1,
-      product_name: 'Earn Interest',
-      component: 'EarnInterestCompoundFinance',
+      product_name: 'Leverage Up ETH',
+      component: 'LeverageEthProduct',
     },
     {
       id: 2,
-      product_name: 'Borrow Cryptos',
-      component: 'BorrowCompoundFinance',
+      product_name: 'Borrow Stablecoin DAI',
+      component: 'BorrowDaiProduct',
     },
   ];
 
-  function RenderProductCompoundFinance({item, index}) {
+  useEffect(() => {
+    GetMakerDAOVaultInfo(state_here.WDeetsReducer.wdeets.wallet_address).then(
+      r => console.log(r),
+    );
+  }, []);
+
+  function RenderProductMakerDao({item, index}) {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Earn Interest</Text>
+          <Text style={styles.product_title}>Leverage ETH</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -44,14 +54,14 @@ function CompoundFinanceLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <EarnInterestCompoundFinance />
+            <LeverageEthProduct />
           </SquircleView>
         </View>
       );
     } else if (index === 1) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Borrow Cryptos</Text>
+          <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -59,7 +69,7 @@ function CompoundFinanceLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <BorrowCompoundFinance />
+            <BorrowDaiProduct />
           </SquircleView>
         </View>
       );
@@ -76,7 +86,7 @@ function CompoundFinanceLandingBluePrint() {
     <View style={styles.parent_view}>
       <Carousel
         data={products}
-        renderItem={RenderProductCompoundFinance}
+        renderItem={RenderProductMakerDao}
         sliderWidth={windowWidth}
         itemWidth={windowWidth}
       />
@@ -84,7 +94,12 @@ function CompoundFinanceLandingBluePrint() {
   );
 }
 
-export default CompoundFinanceLandingBluePrint;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(MakerDaoBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {

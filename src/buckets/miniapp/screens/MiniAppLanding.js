@@ -8,7 +8,6 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
 import {SharedElement} from 'react-native-shared-element';
 import HeaderBlock from '../components/HeaderBlock';
 import RenderAppBluePrintHelper from '../helpers/RenderAppBluePrintHelper';

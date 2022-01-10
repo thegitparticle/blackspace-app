@@ -8,30 +8,35 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
-import TrendingTokensProduct from '../products/trendingtokens/TrendingTokensProduct';
+import EarnInterestCompoundFinance from '../products/earninterestcompoundfinance/EarnInterestCompoundFinance';
+import BorrowCompoundFinance from '../products/borrowcompoundfinance/BorrowCompoundFinance';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function MemeCoinsAppLandingBluePrint() {
+function CompoundFinanceBluePrint() {
   const products = [
     {
       id: 1,
-      product_name: 'Currently Trending Tokens',
-      component: 'LeverageEthProduct',
+      product_name: 'Earn Interest',
+      component: 'EarnInterestCompoundFinance',
+    },
+    {
+      id: 2,
+      product_name: 'Borrow Cryptos',
+      component: 'BorrowCompoundFinance',
     },
   ];
 
-  function RenderProductMakerDao({item, index}) {
+  function RenderProductCompoundFinance({item, index}) {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Currently Trending Tokens</Text>
+          <Text style={styles.product_title}>Earn Interest</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -39,7 +44,22 @@ function MemeCoinsAppLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <TrendingTokensProduct />
+            <EarnInterestCompoundFinance />
+          </SquircleView>
+        </View>
+      );
+    } else if (index === 1) {
+      return (
+        <View style={styles.product_view}>
+          <Text style={styles.product_title}>Borrow Cryptos</Text>
+          <SquircleView
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}
+            style={styles.product_tile_view}>
+            <BorrowCompoundFinance />
           </SquircleView>
         </View>
       );
@@ -56,7 +76,7 @@ function MemeCoinsAppLandingBluePrint() {
     <View style={styles.parent_view}>
       <Carousel
         data={products}
-        renderItem={RenderProductMakerDao}
+        renderItem={RenderProductCompoundFinance}
         sliderWidth={windowWidth}
         itemWidth={windowWidth}
       />
@@ -64,7 +84,7 @@ function MemeCoinsAppLandingBluePrint() {
   );
 }
 
-export default MemeCoinsAppLandingBluePrint;
+export default CompoundFinanceBluePrint;
 
 const styles = StyleSheet.create({
   parent_view: {

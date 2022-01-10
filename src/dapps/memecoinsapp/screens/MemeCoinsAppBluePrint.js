@@ -8,30 +8,22 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
-import BuyTokensUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
-import StakeToEarnUniswapProduct from '../products/staketoearnuniswap/StakeToEarnUniSwapProduct';
-import {connect} from 'react-redux';
+import TrendingTokensProduct from '../products/trendingtokens/TrendingTokensProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-let state_here = {};
-
-function UniswapLandingBluePrint() {
+function MemeCoinsAppBluePrint() {
   const products = [
     {
-      id: 0,
-      product_name: 'Buy Tokens',
-      component: 'BuyTokensUniswapProduct',
-    },
-    {
       id: 1,
-      product_name: 'Stake to Earn',
-      component: 'StakeToEarnUniswapProduct',
+      product_name: 'Currently Trending Tokens',
+      component: 'LeverageEthProduct',
     },
   ];
 
@@ -39,7 +31,7 @@ function UniswapLandingBluePrint() {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Buy Tokens</Text>
+          <Text style={styles.product_title}>Currently Trending Tokens</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -47,22 +39,7 @@ function UniswapLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <BuyTokensUniswapProduct />
-          </SquircleView>
-        </View>
-      );
-    } else if (index === 1) {
-      return (
-        <View style={styles.product_view}>
-          <Text style={styles.product_title}>Stake to Earn</Text>
-          <SquircleView
-            squircleParams={{
-              cornerSmoothing: 1,
-              cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
-            }}
-            style={styles.product_tile_view}>
-            <StakeToEarnUniswapProduct />
+            <TrendingTokensProduct />
           </SquircleView>
         </View>
       );
@@ -87,12 +64,7 @@ function UniswapLandingBluePrint() {
   );
 }
 
-const mapStateToProps = state => {
-  state_here = state;
-  return state_here;
-};
-
-export default connect(mapStateToProps)(UniswapLandingBluePrint);
+export default MemeCoinsAppBluePrint;
 
 const styles = StyleSheet.create({
   parent_view: {

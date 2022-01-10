@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   View,
   Text,
@@ -8,11 +8,10 @@ import {
   ScrollView,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
-import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
-import GetMakerDAOVaultInfo from '../helpers/GetMakerDAOVaultInfo';
+import BuyTokensUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
+import StakeToEarnUniswapProduct from '../products/staketoearnuniswap/StakeToEarnUniSwapProduct';
 import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
@@ -22,31 +21,25 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function MakerDaoLandingBluePrint() {
+function UniswapBluePrint() {
   const products = [
     {
-      id: 1,
-      product_name: 'Leverage Up ETH',
-      component: 'LeverageEthProduct',
+      id: 0,
+      product_name: 'Buy Tokens',
+      component: 'BuyTokensUniswapProduct',
     },
     {
-      id: 2,
-      product_name: 'Borrow Stablecoin DAI',
-      component: 'BorrowDaiProduct',
+      id: 1,
+      product_name: 'Stake to Earn',
+      component: 'StakeToEarnUniswapProduct',
     },
   ];
-
-  useEffect(() => {
-    GetMakerDAOVaultInfo(state_here.WDeetsReducer.wdeets.wallet_address).then(
-      r => console.log(r),
-    );
-  }, []);
 
   function RenderProductMakerDao({item, index}) {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Leverage ETH</Text>
+          <Text style={styles.product_title}>Buy Tokens</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -54,14 +47,14 @@ function MakerDaoLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <LeverageEthProduct />
+            <BuyTokensUniswapProduct />
           </SquircleView>
         </View>
       );
     } else if (index === 1) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>Borrow Stablecoin DAI</Text>
+          <Text style={styles.product_title}>Stake to Earn</Text>
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
@@ -69,7 +62,7 @@ function MakerDaoLandingBluePrint() {
               fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={styles.product_tile_view}>
-            <BorrowDaiProduct />
+            <StakeToEarnUniswapProduct />
           </SquircleView>
         </View>
       );
@@ -99,7 +92,7 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(MakerDaoLandingBluePrint);
+export default connect(mapStateToProps)(UniswapBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {
