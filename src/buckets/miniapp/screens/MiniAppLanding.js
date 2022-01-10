@@ -11,6 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {SharedElement} from 'react-native-shared-element';
 import HeaderBlock from '../components/HeaderBlock';
 import RenderAppBluePrintHelper from '../helpers/RenderAppBluePrintHelper';
+import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -29,6 +30,9 @@ function MiniAppLanding({route}) {
           <HeaderBlock app_details={app_details} style={{top: 0}} />
         </SharedElement>
         <RenderAppBluePrintHelper
+          function_name={app_details.landing_blueprint_function_name}
+        />
+        <RenderAppJargonBusterHelper
           function_name={app_details.landing_blueprint_function_name}
         />
       </View>
