@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -26,22 +26,34 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function MiniAppLanding({route}) {
   const {app_details} = route.params;
 
-  const Products = () => (
-    <HScrollView index={0}>
-      <RenderAppBluePrintHelper
-        function_name={app_details.landing_blueprint_function_name}
-      />
-      {/*<View style={{flex: 1, backgroundColor: '#ff4081'}} />*/}
-    </HScrollView>
+  const Products = useMemo(
+    () =>
+      function Products() {
+        return (
+          <HScrollView index={0}>
+            <RenderAppBluePrintHelper
+              function_name={app_details.landing_blueprint_function_name}
+            />
+            {/*<View style={{flex: 1, backgroundColor: '#ff4081'}} />*/}
+          </HScrollView>
+        );
+      },
+    [],
   );
 
-  const JargonBuster = () => (
-    <HScrollView index={1}>
-      <RenderAppJargonBusterHelper
-        function_name={app_details.landing_blueprint_function_name}
-      />
-      {/*<View style={{flex: 1, backgroundColor: '#673ab7'}} />*/}
-    </HScrollView>
+  const JargonBuster = useMemo(
+    () =>
+      function JargonBuster() {
+        return (
+          <HScrollView index={1}>
+            <RenderAppJargonBusterHelper
+              function_name={app_details.landing_blueprint_function_name}
+            />
+            {/*<View style={{flex: 1, backgroundColor: '#673ab7'}} />*/}
+          </HScrollView>
+        );
+      },
+    [],
   );
 
   const renderSceneMiniApp = SceneMap({
