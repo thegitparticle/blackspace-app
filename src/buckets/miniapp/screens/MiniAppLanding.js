@@ -17,6 +17,7 @@ import CryptoPricesPage from '../../home/pages/CryptoPricesPage';
 import HomeMainPage from '../../home/pages/HomeMainPage';
 import {HScrollView} from 'react-native-head-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
+import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -34,7 +35,6 @@ function MiniAppLanding({route}) {
             <RenderAppBluePrintHelper
               function_name={app_details.landing_blueprint_function_name}
             />
-            {/*<View style={{flex: 1, backgroundColor: '#ff4081'}} />*/}
           </HScrollView>
         );
       },
@@ -49,23 +49,43 @@ function MiniAppLanding({route}) {
             <RenderAppJargonBusterHelper
               function_name={app_details.landing_blueprint_function_name}
             />
-            {/*<View style={{flex: 1, backgroundColor: '#673ab7'}} />*/}
           </HScrollView>
         );
       },
     [],
   );
 
-  const renderSceneMiniApp = SceneMap({
-    first: Products,
-    second: JargonBuster,
-  });
+  const UsageShowcase = useMemo(
+    () =>
+      function UsageShowcase() {
+        return (
+          <HScrollView index={1}>
+            <RenderAppInUseHelper
+              function_name={app_details.landing_blueprint_function_name}
+            />
+          </HScrollView>
+        );
+      },
+    [],
+  );
 
   const [index, setIndex] = useState(0);
+
+  const renderSceneMiniApp = app_details.show_in_use_tab
+    ? SceneMap({
+        first: Products,
+        second: JargonBuster,
+        third: UsageShowcase,
+      })
+    : SceneMap({
+        first: Products,
+        second: JargonBuster,
+      });
 
   const [routes] = React.useState([
     {key: 'first', title: 'Products'},
     {key: 'second', title: 'Jargon Buster'},
+    {key: 'third', title: app_details.in_use_tab_name},
   ]);
 
   function renderLabelMiniApp({route, focused}) {
@@ -94,6 +114,24 @@ function MiniAppLanding({route}) {
         return (
           <View style={styles.tab_label_view}>
             <Text style={styles.tab_label_text_unfocused}>Jargon Buster</Text>
+          </View>
+        );
+      }
+    } else if (route.title === app_details.in_use_tab_name) {
+      if (focused) {
+        return (
+          <View style={styles.tab_label_view}>
+            <Text style={styles.tab_label_text_focused}>
+              {app_details.in_use_tab_name}
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <View style={styles.tab_label_view}>
+            <Text style={styles.tab_label_text_unfocused}>
+              {app_details.in_use_tab_name}
+            </Text>
           </View>
         );
       }
