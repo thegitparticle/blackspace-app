@@ -47,7 +47,85 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   const myEthBalance =
     state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string;
-  const myPortfolioTokens = []; // get them from redux state of wallet deets
+  const myPortfolioTokens = [
+    {
+      item_name: 'Unisocks',
+      item_icon:
+        'https://assets.coingecko.com/coins/images/10717/small/qFrcoiM.png',
+      item_balance: '0.017',
+      base_coverted_balance: '1697',
+    },
+    {
+      item_name: 'Matic',
+      item_icon:
+        'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
+      item_balance: '105',
+      base_coverted_balance: '265.1',
+    },
+  ]; // get them from redux state of wallet deets
+
+  function RenderPaymentOptions() {
+    function PaymentOptionItem(item) {
+      return (
+        <SquircleView
+          style={styles.payment_option_item_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <View style={styles.itemholding_leftside_view}>
+            <FastImage
+              style={styles.itemholding_icon}
+              source={{
+                uri: item.item_icon,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+            <Text style={styles.itemholding_title}>{item.item_name}</Text>
+          </View>
+          <View style={styles.itemholding_rightside_view}>
+            <Text style={styles.itemholding_balance}>{item.item_balance}</Text>
+            <Text style={styles.itemholding_converted_balance}>
+              ${item.base_coverted_balance}
+            </Text>
+          </View>
+        </SquircleView>
+      );
+    }
+
+    return (
+      <View style={styles.payment_token_pick_view}>
+        <SquircleView
+          style={styles.payment_option_item_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <View style={styles.itemholding_leftside_view}>
+            <FastImage
+              style={styles.itemholding_icon}
+              source={{
+                uri: 'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+            <Text style={styles.itemholding_title}>Ethereum</Text>
+          </View>
+          <View style={styles.itemholding_rightside_view}>
+            <Text style={styles.itemholding_balance}>
+              {myEthBalance.substring(0, 5)}
+            </Text>
+            <Text style={styles.itemholding_converted_balance}>$</Text>
+          </View>
+        </SquircleView>
+        {myPortfolioTokens.map(item => PaymentOptionItem(item))}
+      </View>
+    );
+  }
 
   function PickedCoinShowHere(props) {
     if (props.Coin) {
@@ -138,7 +216,8 @@ function BuyTokenUniswapProduct({dispatch}) {
         </TouchableOpacity>
       </View>
       <Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>
-      <View style={styles.payment_token_pick_view}></View>
+      <RenderPaymentOptions />
+      <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
     </View>
   );
 }
@@ -179,7 +258,8 @@ const styles = StyleSheet.create({
   payment_token_pick_view: {
     flexDirection: 'column',
     marginBottom: 20,
-    marginTop: 30,
+    marginTop: 20,
+    alignItems: 'center',
   },
   famous_token_item_view: {
     width: (windowWidth - 80) / 3,
@@ -209,5 +289,45 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'center',
     marginVertical: 5,
+  },
+  payment_option_item_view: {
+    width: windowWidth - 80,
+    height: 50,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+  },
+  itemholding_leftside_view: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginHorizontal: 20,
+  },
+  itemholding_icon: {
+    width: 25,
+    height: 25,
+    borderRadius: 12.5,
+  },
+  itemholding_title: {
+    ...themeHere.text.subhead_medium,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 10,
+  },
+  itemholding_rightside_view: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
+    marginHorizontal: 20,
+  },
+  itemholding_balance: {
+    ...themeHere.text.caption,
+    color: themeHere.colors.red,
+    marginVertical: 2.5,
+  },
+  itemholding_converted_balance: {
+    ...themeHere.text.caption,
+    color: themeHere.colors.foreground + '50',
+    marginVertical: 2.5,
   },
 });
