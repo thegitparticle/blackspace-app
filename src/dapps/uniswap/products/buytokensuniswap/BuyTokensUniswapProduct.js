@@ -127,54 +127,41 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
-  function PickedCoinShowHere(props) {
-    if (props.Coin) {
-      return (
-        <View
-          style={{
-            flexDirection: 'row',
-            height: 50,
-            alignItems: 'center',
-            width: windowWidth * 0.4,
-            justifyContent: 'center',
-          }}>
-          <FastImage
-            source={{
-              uri: props.Coin.logoURI,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            style={{
-              width: 30,
-              height: 30,
-              borderRadius: 15,
-            }}
-          />
-          <Text
-            style={{
-              ...themeHere.text.subhead_bold,
-              color: themeHere.colors.foreground,
-            }}>
-            {' '}
-            {props.Coin.symbol}
+  function RenderOrderInfo() {
+    return (
+      <View style={styles.order_info_view}>
+        <View style={styles.order_info_block_view}>
+          <Text style={styles.order_info_title_text}>you get</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              6,573.88 DAI ($6573)
+            </Text>
           </Text>
         </View>
-      );
-    } else {
-      return (
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{
-              ...themeHere.text.subhead_bold,
-              color: themeHere.colors.foreground,
-              textAlign: 'center',
-              marginHorizontal: 10,
-            }}>
-            PICK
+        <View style={styles.order_info_block_view}>
+          <Text style={styles.order_info_title_text}>by paying</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              0.45 ETH ($6643.1)
+            </Text>
           </Text>
         </View>
-      );
-    }
+        <View style={styles.order_info_block_view}>
+          <Text style={styles.order_info_title_text}>
+            max expected slippage
+          </Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>0.76%</Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_block_view}>
+          <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
+          </Text>
+        </View>
+      </View>
+    );
   }
 
   return (
@@ -218,6 +205,7 @@ function BuyTokenUniswapProduct({dispatch}) {
       <Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>
       <RenderPaymentOptions />
       <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
+      <RenderOrderInfo />
     </View>
   );
 }
@@ -260,6 +248,27 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
     alignItems: 'center',
+  },
+  order_info_view: {
+    flexDirection: 'column',
+    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  order_info_block_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 20,
+    width: windowWidth - 80,
+  },
+  order_info_title_text: {
+    ...themeHere.text.body,
+    color: themeHere.colors.foreground + '50',
+  },
+  order_info_value_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
   },
   famous_token_item_view: {
     width: (windowWidth - 80) / 3,
