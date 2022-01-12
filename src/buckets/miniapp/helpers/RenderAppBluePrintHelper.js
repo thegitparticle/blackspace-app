@@ -5,6 +5,7 @@ import MakerDaoBluePrint from '../../../dapps/makerdao/screens/MakerDaoBluePrint
 import CompoundFinanceBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint';
 import UniswapBluePrint from '../../../dapps/uniswap/screens/UniswapBluePrint';
 import MemeCoinsAppBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint';
+import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,6 +21,8 @@ function RenderAppBluePrintHelper(props) {
     return <UniswapBluePrint />;
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return <MemeCoinsAppBluePrint />;
+  } else if (props.function_name === 'LiquityLandingBluePrint') {
+    return <LiquityBluePrint />;
   } else {
     return (
       <View style={styles.parent_view}>

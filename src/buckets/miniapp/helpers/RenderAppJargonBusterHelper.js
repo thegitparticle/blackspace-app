@@ -5,6 +5,8 @@ import MakerDaoJargonBuster from '../../../dapps/makerdao/screens/MakerDaoJargon
 import CompoundFinanceJargonBuster from '../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
 import UniswapJargonBuster from '../../../dapps/uniswap/screens/UniswapJargonBuster';
 import MemeCoinsJargonBuster from '../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster';
+import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
+import LiquityJargonBuster from '../../../dapps/liquity/screens/LiquityJargonBuster';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,6 +22,8 @@ function RenderAppJargonBusterHelper(props) {
     return <UniswapJargonBuster />;
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return <MemeCoinsJargonBuster />;
+  } else if (props.function_name === 'LiquityLandingBluePrint') {
+    return <LiquityJargonBuster />;
   } else {
     return (
       <View style={styles.parent_view}>

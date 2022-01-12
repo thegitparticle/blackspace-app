@@ -9,6 +9,8 @@ import MakerDaoUsageShowCase from '../../../dapps/makerdao/screens/MakerDaoUsage
 import CompoundFinanceUsageShowCase from '../../../dapps/compoundfinance/screens/CompoundFinanceUsageShowCase';
 import UniswapUsageShowCase from '../../../dapps/uniswap/screens/UniswapUsageShowCase';
 import MemeCoinsUsageShowCase from '../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
+import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
+import LiquityUsageShowCase from '../../../dapps/liquity/screens/LiquityUsageShowCase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,6 +26,8 @@ function RenderAppInUseHelper(props) {
     return <UniswapUsageShowCase />;
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return <MemeCoinsUsageShowCase />;
+  } else if (props.function_name === 'LiquityLandingBluePrint') {
+    return <LiquityUsageShowCase />;
   } else {
     return (
       <View style={styles.parent_view}>

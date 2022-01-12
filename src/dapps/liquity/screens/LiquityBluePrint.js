@@ -11,6 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
+import BorrowLiquityProduct from '../products/borrowfromliquity/BorrowLiquityProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -21,17 +22,17 @@ function LiquityBluePrint() {
   const products = [
     {
       id: 1,
-      product_name: 'Currently Trending Tokens',
-      component: 'LeverageEthProduct',
+      product_name: 'Borrow @ 0% interest',
+      component: 'BorrowLiquityProduct',
     },
   ];
 
-  function RenderProductMakerDao({item, index}) {
+  function RenderProductLiquity({item, index}) {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
           <Text style={styles.product_title}>
-            Currently Trending Tokens{' '}
+            Borrow @ 0% interest
             <Text
               style={{
                 ...themeHere.text.body_medium,
@@ -49,7 +50,9 @@ function LiquityBluePrint() {
               cornerRadius: 15,
               fillColor: themeHere.colors.mid_ground + '25',
             }}
-            style={styles.product_tile_view}></SquircleView>
+            style={styles.product_tile_view}>
+            <BorrowLiquityProduct />
+          </SquircleView>
         </View>
       );
     } else {
@@ -65,7 +68,7 @@ function LiquityBluePrint() {
     <View style={styles.parent_view}>
       <Carousel
         data={products}
-        renderItem={RenderProductMakerDao}
+        renderItem={RenderProductLiquity}
         sliderWidth={windowWidth}
         itemWidth={windowWidth}
         initialNumToRender={products.length}
