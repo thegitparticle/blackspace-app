@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -17,16 +17,60 @@ import Accordion from 'react-native-collapsible/Accordion';
 import {useNavigation} from '@react-navigation/native';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import LinearGradient from 'react-native-linear-gradient';
+import Compound from '@compound-finance/compound-js';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function EarnInterestCompoundFinance() {
+function BorrowCompoundFinance() {
   const [amount, setAmount] = useState('');
   const [activeSections, setActiveSections] = useState([]);
+  const [poolsAndDetails, setPoolsAndDetails] = useState([]);
+
   const navigation = useNavigation();
+
+  const poolsHeaders = [
+    {
+      id: 0,
+      title: 'Ethereum',
+      symbol: 'ETH',
+      main_icon: require('../../../../../assets/crypto_bitcoin_icon.png'),
+    },
+    {
+      id: 1,
+      title: 'BAT',
+      symbol: 'BAT',
+      main_icon: require('../../../../../assets/token_t_icon.png'),
+    },
+    {
+      id: 2,
+      title: 'USDC',
+      symbol: 'USDC',
+      main_icon: require('../../../../../assets/defi_key_icon.png'),
+    },
+    {
+      id: 3,
+      title: 'USD Tether',
+      symbol: 'USDT',
+      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
+    },
+    {
+      id: 4,
+      title: 'DAI',
+      symbol: 'DAI',
+      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
+    },
+  ];
+
+  let pools = [
+    Compound.cETH,
+    Compound.cBAT,
+    Compound.cUSDC,
+    Compound.cUSDT,
+    Compound.cDAI,
+  ];
 
   const CryptosToBorrow = [
     {
@@ -66,17 +110,25 @@ function EarnInterestCompoundFinance() {
     },
   ];
 
-  function EnterAmountAndStake() {
+  useEffect(() => {
+    let listHere = [];
+    for (let i = 0; i < pools.length; i++) {
+      (async function () {
+        const cDaiData = await Compound.api.cToken({
+          addresses: Compound.util.getAddress(pools[i]),
+        });
+        listHere.push(cDaiData);
+        // console.log(poolsAndDetails); // JavaScript Object
+      })().catch(console.error);
+    }
+    setPoolsAndDetails(listHere);
+  }, []);
+
+  function EnterAmountAndStake(props) {
     return (
       <View>
         <Text style={styles.block_title}>
-          stake{' '}
-          {
-            CryptosToBorrow[
-              activeSections[0] !== undefined ? activeSections[0] : 0
-            ].title
-          }{' '}
-          to earn interest
+          stake {poolsHeaders[props.Index].symbol} to earn interest
         </Text>
         <SquircleView
           squircleParams={{
@@ -90,33 +142,17 @@ function EarnInterestCompoundFinance() {
             onChangeText={setAmount}
             value={amount}
             style={styles.enter_amount_input}
-            placeholder={`0.0 ${
-              CryptosToBorrow[
-                activeSections[0] !== undefined ? activeSections[0] : 0
-              ].title
-            }`}
+            placeholder={`0.0 ${poolsHeaders[props.Index].symbol}`}
             placeholderTextColor={themeHere.colors.foreground + 50}
           />
           <Text style={styles.enter_amount_input_fiat}>{amount * 3700}</Text>
         </SquircleView>
         <View style={styles.wallet_balances_view}>
           <Text style={styles.crypto_conversion_text}>
-            ~ 1{' '}
-            {
-              CryptosToBorrow[
-                activeSections[0] !== undefined ? activeSections[0] : 0
-              ].title
-            }{' '}
-            = $ 3790
+            ~ 1 {poolsHeaders[props.Index].symbol} = $ 3790
           </Text>
           <Text style={styles.wallet_balance_text}>
-            my balance: 5.1{' '}
-            {
-              CryptosToBorrow[
-                activeSections[0] !== undefined ? activeSections[0] : 0
-              ].title
-            }{' '}
-            = $ 19329
+            my balance: 5.1 {poolsHeaders[props.Index].symbol} = $ 19329
           </Text>
         </View>
         <Button
@@ -137,7 +173,7 @@ function EarnInterestCompoundFinance() {
     );
   }
 
-  function PoolMoreInfo() {
+  function PoolMoreInfo(props) {
     return (
       <View style={{marginBottom: 30}}>
         <Text style={styles.block_title}>more details</Text>
@@ -146,19 +182,28 @@ function EarnInterestCompoundFinance() {
             annual interest % to earn
           </Text>
           <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>3.07%</Text>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {(
+                poolsAndDetails[props.Index].cToken[0].borrow_rate.value * 100
+              ).toFixed(2)}{' '}
+              %
+            </Text>
           </Text>
         </View>
         <View style={styles.order_info_one_block_view}>
           <Text style={styles.order_info_title_text}># of Suppliers</Text>
           <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>218405</Text>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {poolsAndDetails[props.Index].cToken[0].number_of_suppliers}
+            </Text>
           </Text>
         </View>
         <View style={styles.order_info_one_block_view}>
           <Text style={styles.order_info_title_text}># of Borrowers</Text>
           <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>2918</Text>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {poolsAndDetails[props.Index].cToken[0].number_of_borrowers}
+            </Text>
           </Text>
         </View>
       </View>
@@ -192,8 +237,13 @@ function EarnInterestCompoundFinance() {
     return (
       <View style={styles.listitem_view}>
         <View style={styles.listitem_leftside_view}>
-          <Image style={styles.listitem_icon} source={section.main_icon} />
-          <Text style={styles.listitem_title}>{section.title}</Text>
+          <Image
+            style={styles.listitem_icon}
+            source={poolsHeaders[section.id].main_icon}
+          />
+          <Text style={styles.listitem_title}>
+            {poolsHeaders[section.id].title}
+          </Text>
         </View>
         <IconShow />
       </View>
@@ -201,19 +251,23 @@ function EarnInterestCompoundFinance() {
   }
 
   function RenderContent(section) {
-    return (
-      <>
-        <PoolMoreInfo />
-        <EnterAmountAndStake />
-      </>
-    );
+    if (poolsAndDetails.length > 0) {
+      return (
+        <>
+          <PoolMoreInfo Index={section.id} />
+          <EnterAmountAndStake Index={section.id} />
+        </>
+      );
+    } else {
+      return <View />;
+    }
   }
 
   return (
     <View style={styles.parent_view}>
       <Accordion
         activeSections={activeSections}
-        sections={CryptosToBorrow}
+        sections={poolsHeaders}
         renderHeader={RenderHeader}
         renderContent={RenderContent}
         onChange={UpdateActiveSections}
@@ -222,7 +276,7 @@ function EarnInterestCompoundFinance() {
   );
 }
 
-export default EarnInterestCompoundFinance;
+export default BorrowCompoundFinance;
 
 const styles = StyleSheet.create({
   parent_view: {},
