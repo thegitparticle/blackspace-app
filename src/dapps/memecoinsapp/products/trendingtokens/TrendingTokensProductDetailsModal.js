@@ -1,8 +1,17 @@
 import React, {useEffect} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  ScrollView,
+} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import axios from 'axios';
 import {LineChart} from 'react-native-wagmi-charts';
+import FastImage from 'react-native-fast-image';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -313,46 +322,111 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
     getCoinChartInfo(token.token_gecko_id);
   }, []);
 
-  return (
-    <View style={styles.parent_view}>
-      <Text>...</Text>
-      <LineChart.Provider data={refinedChartInfo}>
-        <LineChart>
-          <LineChart.Path color="red">
-            <LineChart.Gradient color="red" />
-          </LineChart.Path>
-        </LineChart>
-      </LineChart.Provider>
-      <View style={styles.details_view_wrap}>
-        <View style={styles.details_block_view}>
-          <Text style={styles.details_title_text}>you get</Text>
-          <Text style={styles.details_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              6,573.88 DAI ($6573)
+  function RenderTokenDetails() {
+    return (
+      <View style={styles.token_details_view_wrap}>
+        <View style={styles.token_details_left_side_view}>
+          <FastImage
+            source={{
+              uri: token.token_icon,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.token_details_coin_logo_image}
+          />
+          <View style={styles.token_details_name_ticker_view}>
+            <Text style={styles.token_details_name_text}>
+              {token.token_name}
             </Text>
-          </Text>
-        </View>
-        <View style={styles.details_block_view}>
-          <Text style={styles.details_title_text}>by paying</Text>
-          <Text style={styles.details_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              0.45 ETH ($6643.1)
+            <Text style={styles.token_details_ticker_text}>
+              {token.token_symbol.toUpperCase()}
             </Text>
-          </Text>
+          </View>
         </View>
-        <View style={styles.details_block_view}>
-          <Text style={styles.details_title_text}>max expected slippage</Text>
-          <Text style={styles.details_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>0.76%</Text>
-          </Text>
-        </View>
-        <View style={styles.details_block_view}>
-          <Text style={styles.details_title_text}>Ethereum Gas Fees</Text>
-          <Text style={styles.details_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
+        <View style={styles.token_details_price_change_view}>
+          <Text style={styles.token_details_price_text}>
+            {token.current_price}
           </Text>
         </View>
       </View>
+    );
+  }
+
+  function RenderPriceDetails() {
+    return (
+      <View style={styles.price_details_view_wrap}>
+        <View style={styles.price_details_block_view}>
+          <Text style={styles.price_details_title_text}>
+            last 24 hours change (%)
+          </Text>
+          <Text style={styles.price_details_value_text}>
+            <Text
+              style={{
+                color:
+                  token._24h_change < 0
+                    ? themeHere.colors.danger_red
+                    : themeHere.colors.success_green,
+              }}>
+              {token._24h_change.substring(0, 5)} %
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.price_details_block_view}>
+          <Text style={styles.price_details_title_text}>
+            last 7 days change (%)
+          </Text>
+          <Text style={styles.price_details_value_text}>
+            <Text
+              style={{
+                color:
+                  token._24h_change < 0
+                    ? themeHere.colors.danger_red
+                    : themeHere.colors.success_green,
+              }}>
+              {token._7d_change.substring(0, 5)} %
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.price_details_block_view}>
+          <Text style={styles.price_details_title_text}>market cap ($)</Text>
+          <Text style={styles.price_details_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              ${' '}
+              {token.market_cap
+                .toString()
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+            </Text>
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <View style={styles.parent_view}>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <Text>...</Text>
+        <LineChart.Provider data={dummy1}>
+          <LineChart>
+            <LineChart.Path
+              color={
+                _.last(dummy1).value - _.head(dummy1).value > 0
+                  ? themeHere.colors.success_green
+                  : themeHere.colors.danger_red
+              }>
+              <LineChart.Gradient
+                color={
+                  _.last(dummy1).value - _.head(dummy1).value > 0
+                    ? themeHere.colors.success_green
+                    : themeHere.colors.danger_red
+                }
+              />
+            </LineChart.Path>
+          </LineChart>
+        </LineChart.Provider>
+        <RenderTokenDetails />
+        <RenderPriceDetails />
+      </ScrollView>
     </View>
   );
 }
@@ -364,29 +438,73 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: themeHere.colors.background,
   },
-  details_view_wrap: {
+  token_details_view_wrap: {
+    marginTop: 60,
+    marginBottom: 30,
+    width: windowWidth - 40,
+    height: 75,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    alignSelf: 'center',
+  },
+  token_details_left_side_view: {
+    marginHorizontal: 20,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  token_details_coin_logo_image: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+  },
+  token_details_name_ticker_view: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    height: 50,
+    marginHorizontal: 20,
+  },
+  token_details_name_text: {
+    ...themeHere.text.subhead_medium,
+    color: themeHere.colors.foreground,
+  },
+  token_details_ticker_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
+  },
+  token_details_price_change_view: {
+    flexDirection: 'column',
+    justifyContent: 'space-around',
+    height: 50,
+    marginHorizontal: 20,
+  },
+  token_details_price_text: {
+    ...themeHere.text.subhead_medium,
+    color: themeHere.colors.foreground,
+    textAlign: 'right',
+  },
+  token_details_change_percent_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
+    textAlign: 'right',
+  },
+  price_details_view_wrap: {
     marginVertical: 30,
     width: windowWidth - 40,
     alignSelf: 'center',
   },
-  details_view: {
-    flexDirection: 'column',
-    marginBottom: 20,
-    marginTop: 20,
-    alignItems: 'center',
-  },
-  details_block_view: {
+  price_details_block_view: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginVertical: 10,
     marginHorizontal: 20,
     width: windowWidth - 80,
   },
-  details_title_text: {
+  price_details_title_text: {
     ...themeHere.text.body,
     color: themeHere.colors.foreground + '50',
   },
-  details_value_text: {
+  price_details_value_text: {
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground + '50',
   },
