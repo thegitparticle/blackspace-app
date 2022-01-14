@@ -37,52 +37,54 @@ function EarnInterestCompoundFinance() {
   let poolsAndDetails = [];
 
   useEffect(() => {
-    for (var i = 0; i < pools.length; i++) {
+    for (let i = 0; i < pools.length; i++) {
       (async function () {
         const cDaiData = await Compound.api.cToken({
           addresses: Compound.util.getAddress(pools[i]),
         });
-
-        console.log('cDaiData', cDaiData); // JavaScript Object
+        poolsAndDetails.push(cDaiData);
+        console.log(poolsAndDetails[0].cToken[0].name); // JavaScript Object
       })().catch(console.error);
     }
   }, []);
 
   const CryptosToEarn = [
     {
-      id: 0,
-      title: 'Ethereum',
-      main_icon: require('../../../../../assets/crypto_bitcoin_icon.png'),
-      content: WalletDetailsDummy.cryptos,
-      interest: '0.08%',
-    },
-    {
-      id: 1,
-      title: 'BAT',
-      main_icon: require('../../../../../assets/token_t_icon.png'),
-      content: WalletDetailsDummy.erc_tokens,
-      interest: '0.26%',
-    },
-    {
-      id: 2,
-      title: 'USDC',
-      main_icon: require('../../../../../assets/defi_key_icon.png'),
-      content: [],
-      interest: '3.07%',
-    },
-    {
-      id: 3,
-      title: 'USD Tether',
-      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
-      content: WalletDetailsDummy.nfts,
-      interest: '3.24%',
-    },
-    {
-      id: 4,
-      title: 'DAI',
-      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
-      content: WalletDetailsDummy.nfts,
-      interest: '2.97%',
+      cToken: [
+        {
+          borrow_cap: [{}],
+          borrow_rate: [{}],
+          cash: [{}],
+          collateral_factor: [{}],
+          comp_borrow_apy: [{}],
+          comp_supply_apy: [{}],
+          exchange_rate: [{}],
+          interest_rate_model_address: 0,
+          name: 'Compound Dai',
+          number_of_borrowers: 3048,
+          number_of_suppliers: 19579,
+          reserve_factor: [{}],
+          reserves: [{}],
+          supply_rate: [{}],
+          symbol: 'cDAI',
+          token_address: 0,
+          total_borrows: [{}],
+          total_supply: [{}],
+          underlying_address: 0,
+          underlying_name: 'DAI',
+          underlying_price: [{}],
+          underlying_symbol: 'DAI',
+        },
+      ],
+      error: null,
+      meta: null,
+      request: {
+        addresses: [0],
+        block_number: 0,
+        block_timestamp: 0,
+        meta: false,
+        network: 'mainnet',
+      },
     },
   ];
 
@@ -212,8 +214,8 @@ function EarnInterestCompoundFinance() {
     return (
       <View style={styles.listitem_view}>
         <View style={styles.listitem_leftside_view}>
-          <Image style={styles.listitem_icon} source={section.main_icon} />
-          <Text style={styles.listitem_title}>{section.title}</Text>
+          {/*<Image style={styles.listitem_icon} source={section.main_icon} />*/}
+          <Text style={styles.listitem_title}>{section.cToken[0].name}</Text>
         </View>
         <IconShow />
       </View>
