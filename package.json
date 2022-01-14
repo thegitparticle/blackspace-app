@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@compound-finance/compound-js": "^0.4.2",
     "@ethersproject/shims": "^5.5.0",
     "@makerdao/dai": "^0.42.4-alpha.0",
     "@makerdao/dai-plugin-mcd": "^1.8.5-alpha.0",

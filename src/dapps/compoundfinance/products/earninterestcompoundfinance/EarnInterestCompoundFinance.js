@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,8 @@ import Accordion from 'react-native-collapsible/Accordion';
 import {useNavigation} from '@react-navigation/native';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import LinearGradient from 'react-native-linear-gradient';
+import Compound from '@compound-finance/compound-js';
+import {INFURA_RINKEBY} from 'react-native-dotenv';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -27,6 +29,24 @@ function EarnInterestCompoundFinance() {
   const [amount, setAmount] = useState('');
   const [activeSections, setActiveSections] = useState([]);
   const navigation = useNavigation();
+
+  const compound = new Compound(INFURA_RINKEBY);
+
+  let pools = [Compound.cDAI, Compound.cETH, Compound.cUSDC, Compound.cUSDT];
+
+  let poolsAndDetails = [];
+
+  useEffect(() => {
+    for (var i = 0; i < pools.length; i++) {
+      (async function () {
+        const cDaiData = await Compound.api.cToken({
+          addresses: Compound.util.getAddress(pools[i]),
+        });
+
+        console.log('cDaiData', cDaiData); // JavaScript Object
+      })().catch(console.error);
+    }
+  }, []);
 
   const CryptosToEarn = [
     {
