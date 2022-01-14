@@ -6,10 +6,12 @@ import {
   Dimensions,
   Appearance,
   TextInput,
+  Pressable,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,7 +34,7 @@ f. market cap
  */
 
 function TrendingTokensProduct() {
-  const [amount, setAmount] = useState('');
+  const navigation = useNavigation();
 
   const tokens_list = [
     {
@@ -43,48 +45,56 @@ function TrendingTokensProduct() {
       _24h_change: '15.04%',
       _7d_change: '20.77%',
       market_cap: '17575124678',
+      token_gecko_id: 'shiba-inu',
     },
   ];
 
   function TokenCard(token) {
     return (
-      <SquircleView
-        style={styles.squircle_view_wrap}
-        squircleParams={{
-          cornerSmoothing: 1,
-          cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
-        }}>
-        <View style={styles.left_side_view}>
-          <FastImage
-            source={{
-              uri: token.token_icon,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.coin_logo_image}
-          />
-          <View style={styles.name_ticker_view}>
-            <Text style={styles.name_text}>{token.token_name}</Text>
-            <Text style={styles.ticker_text}>
-              {token.token_symbol.toUpperCase()}
+      <Pressable
+        onPress={() =>
+          navigation.navigate('TrendingTokensProductDetailsModal', {
+            token: token,
+          })
+        }>
+        <SquircleView
+          style={styles.squircle_view_wrap}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <View style={styles.left_side_view}>
+            <FastImage
+              source={{
+                uri: token.token_icon,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+              style={styles.coin_logo_image}
+            />
+            <View style={styles.name_ticker_view}>
+              <Text style={styles.name_text}>{token.token_name}</Text>
+              <Text style={styles.ticker_text}>
+                {token.token_symbol.toUpperCase()}
+              </Text>
+            </View>
+          </View>
+          <View style={styles.price_change_view}>
+            <Text style={styles.price_text}>{token.current_price}</Text>
+            <Text
+              style={{
+                ...styles.change_percent_text,
+                color:
+                  token._24h_change < 0
+                    ? themeHere.colors.danger_red
+                    : themeHere.colors.success_green,
+              }}>
+              {token._24h_change.substring(0, 5)} %
             </Text>
           </View>
-        </View>
-        <View style={styles.price_change_view}>
-          <Text style={styles.price_text}>{token.current_price}</Text>
-          <Text
-            style={{
-              ...styles.change_percent_text,
-              color:
-                token._24h_change < 0
-                  ? themeHere.colors.danger_red
-                  : themeHere.colors.success_green,
-            }}>
-            {token._24h_change.substring(0, 5)} %
-          </Text>
-        </View>
-      </SquircleView>
+        </SquircleView>
+      </Pressable>
     );
   }
 

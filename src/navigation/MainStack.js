@@ -18,6 +18,7 @@ import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionSc
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
 import {Host, Portal} from 'react-native-portalize';
+import TrendingTokensProductDetailsModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensProductDetailsModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -148,6 +149,18 @@ function HomeAndAppsStack() {
               open: config,
               close: config,
             },
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="TrendingTokensProductDetailsModal"
+          component={TrendingTokensProductDetailsModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
           }}
         />
       </HomeAndAppMain.Navigator>
