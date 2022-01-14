@@ -38,26 +38,31 @@ function EarnInterestCompoundFinance() {
     {
       id: 0,
       title: 'Ethereum',
+      symbol: 'ETH',
       main_icon: require('../../../../../assets/crypto_bitcoin_icon.png'),
     },
     {
       id: 1,
       title: 'BAT',
+      symbol: 'BAT',
       main_icon: require('../../../../../assets/token_t_icon.png'),
     },
     {
       id: 2,
       title: 'USDC',
+      symbol: 'USDC',
       main_icon: require('../../../../../assets/defi_key_icon.png'),
     },
     {
       id: 3,
       title: 'USD Tether',
+      symbol: 'USDT',
       main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
     },
     {
       id: 4,
       title: 'DAI',
+      symbol: 'DAI',
       main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
     },
   ];
@@ -130,13 +135,7 @@ function EarnInterestCompoundFinance() {
     return (
       <View>
         <Text style={styles.block_title}>
-          stake{' '}
-          {
-            CryptosToEarn[
-              activeSections[0] !== undefined ? activeSections[0] : 0
-            ].title
-          }{' '}
-          to earn interest
+          stake {poolsHeaders[props.Index].symbol} to earn interest
         </Text>
         <SquircleView
           squircleParams={{
@@ -150,33 +149,17 @@ function EarnInterestCompoundFinance() {
             onChangeText={setAmount}
             value={amount}
             style={styles.enter_amount_input}
-            placeholder={`0.0 ${
-              CryptosToEarn[
-                activeSections[0] !== undefined ? activeSections[0] : 0
-              ].title
-            }`}
+            placeholder={`0.0 ${poolsHeaders[props.Index].symbol}`}
             placeholderTextColor={themeHere.colors.foreground + 50}
           />
           <Text style={styles.enter_amount_input_fiat}>{amount * 3700}</Text>
         </SquircleView>
         <View style={styles.wallet_balances_view}>
           <Text style={styles.crypto_conversion_text}>
-            ~ 1{' '}
-            {
-              CryptosToEarn[
-                activeSections[0] !== undefined ? activeSections[0] : 0
-              ].title
-            }{' '}
-            = $ 3790
+            ~ 1 {poolsHeaders[props.Index].symbol} = $ 3790
           </Text>
           <Text style={styles.wallet_balance_text}>
-            my balance: 5.1{' '}
-            {
-              CryptosToEarn[
-                activeSections[0] !== undefined ? activeSections[0] : 0
-              ].title
-            }{' '}
-            = $ 19329
+            my balance: 5.1 {poolsHeaders[props.Index].symbol} = $ 19329
           </Text>
         </View>
         <Button
@@ -207,7 +190,10 @@ function EarnInterestCompoundFinance() {
           </Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {poolsAndDetails[props.Index].cToken[0].number_of_borrowers}
+              {(
+                poolsAndDetails[props.Index].cToken[0].supply_rate.value * 100
+              ).toFixed(2)}{' '}
+              %
             </Text>
           </Text>
         </View>
