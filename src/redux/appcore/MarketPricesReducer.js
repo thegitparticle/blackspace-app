@@ -1,4 +1,4 @@
-import {ADD_MARKETPRICES} from './types';
+import {ADD_MARKETPRICES} from '../types';
 
 const INITIAL_STATE = {
   marketprices: [],

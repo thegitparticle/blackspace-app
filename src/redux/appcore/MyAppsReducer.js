@@ -1,4 +1,4 @@
-import {ADD_MYAPPS} from './types';
+import {ADD_MYAPPS} from '../types';
 
 const INITIAL_STATE = {
   myapps: [],

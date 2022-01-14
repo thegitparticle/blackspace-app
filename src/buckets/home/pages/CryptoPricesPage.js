@@ -12,7 +12,7 @@ import {
   ButterThemeLight,
 } from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
 import {connect} from 'react-redux';
-import {GetMarketPrices} from '../../../redux/MarketPricesActions';
+import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
 import BottomSpacer from '../../../bits/BottomSpacer';
 

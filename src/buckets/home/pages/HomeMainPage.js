@@ -12,11 +12,11 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import MyAppThumbnail from '../components/MyAppThumbnail';
 import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {GetMyApps} from '../../../redux/MyAppsActions';
+import {GetMyApps} from '../../../redux/appcore/MyAppsActions';
 import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
-import {GetDiscoverApps} from '../../../redux/DiscoverAppsActions';
+import {GetDiscoverApps} from '../../../redux/appcore/DiscoverAppsActions';
 import {SectionGrid} from 'react-native-super-grid';
-import {GetMarketPrices} from '../../../redux/MarketPricesActions';
+import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import BottomSpacer from '../../../bits/BottomSpacer';
 
 const windowHeight = Dimensions.get('window').height;

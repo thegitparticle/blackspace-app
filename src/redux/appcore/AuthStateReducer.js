@@ -1,4 +1,4 @@
-import {LOGIN, LOGOUT} from './types';
+import {LOGIN, LOGOUT} from '../types';
 
 const INITIAL_STATE = {
   logged_in_or_not: false,

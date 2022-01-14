@@ -4,7 +4,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {BigNumber, ethers} from 'ethers';
 import {connect} from 'react-redux';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {AddWDeets} from '../../redux/WDeetsActions';
+import {AddWDeets} from '../../redux/appcore/WDeetsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

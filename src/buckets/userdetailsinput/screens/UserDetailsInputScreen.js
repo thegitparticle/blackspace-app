@@ -13,7 +13,7 @@ import {
 import {Overlay} from 'react-native-elements';
 import {LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
-import {AddMyProfileDetails} from '../../../redux/MyProfileActions';
+import {AddMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';

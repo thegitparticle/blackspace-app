@@ -1,4 +1,4 @@
-import {ADD_WDEETS, GET_WDEETS} from './types';
+import {ADD_WDEETS, GET_WDEETS} from '../types';
 
 const initial_state = {
   wdeets: {

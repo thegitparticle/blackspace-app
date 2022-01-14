@@ -3,12 +3,12 @@ import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {persistStore, persistReducer} from 'redux-persist';
 
-import AuthStateReducer from './AuthStateReducer';
-import MyProfileReducer from './MyProfileReducer';
-import WDeetsReducer from './WDeetsReducer';
-import MyAppsReducer from './MyAppsReducer';
-import DiscoverAppsReducer from './DiscoverAppsReducer';
-import MarketPricesReducer from './MarketPricesReducer';
+import AuthStateReducer from './appcore/AuthStateReducer';
+import MyProfileReducer from './appcore/MyProfileReducer';
+import WDeetsReducer from './appcore/WDeetsReducer';
+import MyAppsReducer from './appcore/MyAppsReducer';
+import DiscoverAppsReducer from './appcore/DiscoverAppsReducer';
+import MarketPricesReducer from './appcore/MarketPricesReducer';
 import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
 
 export const persistConfigAuth = {

@@ -12,7 +12,7 @@ import {ADD_WDEETS, LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
 import '@ethersproject/shims';
 import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../redux/WDeetsActions';
+import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LinearGradient from 'react-native-linear-gradient';
 import SquircleButton from '../../../bits/SquircleButton';

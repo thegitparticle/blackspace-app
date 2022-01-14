@@ -1,4 +1,4 @@
-import {ADD_DISCOVERAPPS} from './types';
+import {ADD_DISCOVERAPPS} from '../types';
 import axios from 'axios';
 
 export const GetDiscoverApps = user_id => {

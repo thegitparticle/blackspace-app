@@ -1,4 +1,4 @@
-import {ADD_DISCOVERAPPS} from './types';
+import {ADD_DISCOVERAPPS} from '../types';
 
 const INITIAL_STATE = {
   discoverapps: [],
