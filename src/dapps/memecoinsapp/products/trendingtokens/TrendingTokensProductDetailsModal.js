@@ -12,6 +12,7 @@ import axios from 'axios';
 import {LineChart} from 'react-native-wagmi-charts';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
+import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -404,6 +405,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
 
   return (
     <View style={styles.parent_view}>
+      <ModalGoBackHeader />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text>...</Text>
         <LineChart.Provider data={dummy1}>
