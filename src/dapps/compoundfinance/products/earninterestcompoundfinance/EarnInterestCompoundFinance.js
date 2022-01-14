@@ -19,11 +19,15 @@ import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import LinearGradient from 'react-native-linear-gradient';
 import Compound from '@compound-finance/compound-js';
 import {INFURA_RINKEBY} from 'react-native-dotenv';
+import {BigNumber} from 'ethers';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+let state_here = {};
 
 function EarnInterestCompoundFinance() {
   const [amount, setAmount] = useState('');
@@ -32,7 +36,11 @@ function EarnInterestCompoundFinance() {
 
   const navigation = useNavigation();
 
-  const compound = new Compound(INFURA_RINKEBY);
+  // const compound = new Compound(INFURA_RINKEBY);
+
+  const compound = new Compound(INFURA_RINKEBY, {
+    privateKey: state_here.WDeetsReducer.wdeets.wallet_privateKey, // preferably with environment variable
+  });
 
   const poolsHeaders = [
     {
@@ -91,45 +99,13 @@ function EarnInterestCompoundFinance() {
     setPoolsAndDetails(listHere);
   }, []);
 
-  const CryptosToEarn = [
-    {
-      cToken: [
-        {
-          borrow_cap: [{}],
-          borrow_rate: [{}],
-          cash: [{}],
-          collateral_factor: [{}],
-          comp_borrow_apy: [{}],
-          comp_supply_apy: [{}],
-          exchange_rate: [{}],
-          interest_rate_model_address: 0,
-          name: 'Compound Dai',
-          number_of_borrowers: 3048,
-          number_of_suppliers: 19579,
-          reserve_factor: [{}],
-          reserves: [{}],
-          supply_rate: [{}],
-          symbol: 'cDAI',
-          token_address: 0,
-          total_borrows: [{}],
-          total_supply: [{}],
-          underlying_address: 0,
-          underlying_name: 'DAI',
-          underlying_price: [{}],
-          underlying_symbol: 'DAI',
-        },
-      ],
-      error: null,
-      meta: null,
-      request: {
-        addresses: [0],
-        block_number: 0,
-        block_timestamp: 0,
-        meta: false,
-        network: 'mainnet',
-      },
-    },
-  ];
+  function SupplyAssets() {
+    (async function () {
+      console.log('Supplying ETH to the Compound Protocol...');
+      const trx = await compound.supply(Compound.ETH, Number(amount));
+      console.log('Ethers.js transaction object', trx);
+    })().catch(console.error);
+  }
 
   function EnterAmountAndStake(props) {
     return (
@@ -165,6 +141,7 @@ function EarnInterestCompoundFinance() {
         <Button
           title={'deposit'}
           type={'solid'}
+          onPress={() => SupplyAssets()}
           containerStyle={styles.deposit_button_container}
           buttonStyle={styles.deposit_button_style}
           titleStyle={styles.deposit_button_title}
@@ -283,7 +260,12 @@ function EarnInterestCompoundFinance() {
   );
 }
 
-export default EarnInterestCompoundFinance;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(EarnInterestCompoundFinance);
 
 const styles = StyleSheet.create({
   parent_view: {},
