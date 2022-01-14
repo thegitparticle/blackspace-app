@@ -13,6 +13,9 @@ import {LineChart} from 'react-native-wagmi-charts';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
+import {Button} from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+import BottomSpacer from '../../../../bits/BottomSpacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -428,6 +431,21 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         </LineChart.Provider>
         <RenderTokenDetails />
         <RenderPriceDetails />
+        <Button
+          title={'buy'}
+          type={'solid'}
+          containerStyle={styles.buy_button_container}
+          buttonStyle={styles.buy_button_style}
+          titleStyle={styles.buy_button_title}
+          ViewComponent={LinearGradient}
+          linearGradientProps={{
+            colors: [
+              themeHere.colors.success_green_dark,
+              themeHere.colors.success_green,
+            ],
+          }}
+        />
+        <BottomSpacer height={50} />
       </ScrollView>
     </View>
   );
@@ -509,5 +527,18 @@ const styles = StyleSheet.create({
   price_details_value_text: {
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground + '50',
+  },
+  buy_button_container: {
+    marginVertical: 30,
+    alignSelf: 'center',
+  },
+  buy_button_style: {
+    width: windowWidth * 0.5,
+    height: 50,
+    borderRadius: 25,
+  },
+  buy_button_title: {
+    ...themeHere.text.body_medium,
+    color: 'white',
   },
 });
