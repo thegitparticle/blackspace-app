@@ -18,6 +18,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import BottomSpacer from '../../../bits/BottomSpacer';
+import ModalGoBackHeader from '../../../bits/ModalGoBackHeader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -75,6 +76,7 @@ function MyProfileScreen() {
     <View style={styles.parent_view}>
       {/*<Header />*/}
       <Animated.ScrollView showsVerticalScrollIndicator={false}>
+        <ModalGoBackHeader />
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />

@@ -18,6 +18,7 @@ import {useNavigation} from '@react-navigation/native';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import LinearGradient from 'react-native-linear-gradient';
 import Compound from '@compound-finance/compound-js';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -29,9 +30,17 @@ function BorrowCompoundFinance() {
   const [activeSections, setActiveSections] = useState([]);
   const [poolsAndDetails, setPoolsAndDetails] = useState([]);
 
+  const [detailsETH, setDetailsETH] = useState({});
+  const [detailsBAT, setDetailsBAT] = useState({});
+  const [detailsUSDC, setDetailsUSDC] = useState({});
+  const [detailsUSDT, setDetailsUSDT] = useState({});
+  const [detailsDAI, setDetailsDAI] = useState({});
+  const [fetchedDetailsFromCompound, setFetchedDetailsFromCompound] =
+    useState(false);
+
   const navigation = useNavigation();
 
-  const poolsHeaders = [
+  const poolsHeadersBorrowProduct = [
     {
       id: 0,
       title: 'Ethereum',
@@ -72,121 +81,77 @@ function BorrowCompoundFinance() {
     Compound.cDAI,
   ];
 
-  const CryptosToBorrow = [
-    {
-      id: 0,
-      title: 'Ethereum',
-      main_icon: require('../../../../../assets/crypto_bitcoin_icon.png'),
-      content: WalletDetailsDummy.cryptos,
-      interest: '0.08%',
-    },
-    {
-      id: 1,
-      title: 'BAT',
-      main_icon: require('../../../../../assets/token_t_icon.png'),
-      content: WalletDetailsDummy.erc_tokens,
-      interest: '0.26%',
-    },
-    {
-      id: 2,
-      title: 'USDC',
-      main_icon: require('../../../../../assets/defi_key_icon.png'),
-      content: [],
-      interest: '3.07%',
-    },
-    {
-      id: 3,
-      title: 'USD Tether',
-      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
-      content: WalletDetailsDummy.nfts,
-      interest: '3.24%',
-    },
-    {
-      id: 4,
-      title: 'DAI',
-      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
-      content: WalletDetailsDummy.nfts,
-      interest: '2.97%',
-    },
-  ];
-
   useEffect(() => {
-    let listHere = [];
-    for (let i = 0; i < pools.length; i++) {
-      (async function () {
-        const cDaiData = await Compound.api.cToken({
-          addresses: Compound.util.getAddress(pools[i]),
-        });
-        listHere.push(cDaiData);
-        // console.log(poolsAndDetails); // JavaScript Object
-      })().catch(console.error);
-    }
-    setPoolsAndDetails(listHere);
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cETH),
+      });
+      setDetailsETH(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cBAT),
+      });
+      setDetailsBAT(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cUSDC),
+      });
+      setDetailsUSDC(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cUSDT),
+      });
+      setDetailsUSDT(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cDAI),
+      });
+      setDetailsDAI(cData);
+    })().catch(console.error);
+
+    setFetchedDetailsFromCompound(true);
   }, []);
 
-  function EnterAmountAndStake(props) {
-    return (
-      <View>
-        <Text style={styles.block_title}>
-          stake {poolsHeaders[props.Index].symbol} to earn interest
-        </Text>
-        <SquircleView
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 7.5,
-            fillColor: themeHere.colors.mid_ground + '25',
-          }}
-          style={styles.enter_amount_input_view}>
-          <TextInput
-            numberOfLines={1}
-            onChangeText={setAmount}
-            value={amount}
-            style={styles.enter_amount_input}
-            placeholder={`0.0 ${poolsHeaders[props.Index].symbol}`}
-            placeholderTextColor={themeHere.colors.foreground + 50}
-          />
-          <Text style={styles.enter_amount_input_fiat}>{amount * 3700}</Text>
-        </SquircleView>
-        <View style={styles.wallet_balances_view}>
-          <Text style={styles.crypto_conversion_text}>
-            ~ 1 {poolsHeaders[props.Index].symbol} = $ 3790
-          </Text>
-          <Text style={styles.wallet_balance_text}>
-            my balance: 5.1 {poolsHeaders[props.Index].symbol} = $ 19329
-          </Text>
-        </View>
-        <Button
-          title={'deposit'}
-          type={'solid'}
-          containerStyle={styles.deposit_button_container}
-          buttonStyle={styles.deposit_button_style}
-          titleStyle={styles.deposit_button_title}
-          ViewComponent={LinearGradient}
-          linearGradientProps={{
-            colors: [
-              themeHere.colors.success_green_dark,
-              themeHere.colors.success_green,
-            ],
-          }}
-        />
-      </View>
-    );
-  }
+  function PoolMoreInfoBorrowProduct(props) {
+    let infoHere =
+      props.Index === 0
+        ? detailsETH
+        : props.Index === 1
+        ? detailsBAT
+        : props.Index === 2
+        ? detailsUSDC
+        : props.Index === 3
+        ? detailsUSDT
+        : props.Index === 4
+        ? detailsDAI
+        : detailsETH;
 
-  function PoolMoreInfo(props) {
     return (
       <View style={{marginBottom: 30}}>
-        <Text style={styles.block_title}>more details</Text>
+        <Text style={styles.block_title}>borrowing details</Text>
         <View style={styles.order_info_one_block_view}>
           <Text style={styles.order_info_title_text}>
-            annual interest % to earn
+            interest to be paid (% annual)
           </Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {(
-                poolsAndDetails[props.Index].cToken[0].borrow_rate.value * 100
-              ).toFixed(2)}{' '}
-              %
+              {(infoHere.cToken[0].borrow_rate.value * 100).toFixed(2)} %
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>cToken name</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {infoHere.cToken[0].symbol}
             </Text>
           </Text>
         </View>
@@ -194,7 +159,7 @@ function BorrowCompoundFinance() {
           <Text style={styles.order_info_title_text}># of Suppliers</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {poolsAndDetails[props.Index].cToken[0].number_of_suppliers}
+              {infoHere.cToken[0].number_of_suppliers}
             </Text>
           </Text>
         </View>
@@ -202,7 +167,7 @@ function BorrowCompoundFinance() {
           <Text style={styles.order_info_title_text}># of Borrowers</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {poolsAndDetails[props.Index].cToken[0].number_of_borrowers}
+              {infoHere.cToken[0].number_of_borrowers}
             </Text>
           </Text>
         </View>
@@ -210,11 +175,11 @@ function BorrowCompoundFinance() {
     );
   }
 
-  function UpdateActiveSections(sections) {
+  function UpdateActiveSectionsBorrowProduct(sections) {
     setActiveSections(sections.includes(undefined) ? [] : sections);
   }
 
-  function RenderHeader(section) {
+  function RenderHeaderBorrowProduct(section) {
     function IconShow() {
       if (section.id === activeSections[0]) {
         return (
@@ -239,10 +204,10 @@ function BorrowCompoundFinance() {
         <View style={styles.listitem_leftside_view}>
           <Image
             style={styles.listitem_icon}
-            source={poolsHeaders[section.id].main_icon}
+            source={poolsHeadersBorrowProduct[section.id].main_icon}
           />
           <Text style={styles.listitem_title}>
-            {poolsHeaders[section.id].title}
+            {poolsHeadersBorrowProduct[section.id].title}
           </Text>
         </View>
         <IconShow />
@@ -250,12 +215,11 @@ function BorrowCompoundFinance() {
     );
   }
 
-  function RenderContent(section) {
-    if (poolsAndDetails.length > 0) {
+  function RenderContentBorrowProduct(section) {
+    if (fetchedDetailsFromCompound) {
       return (
         <>
-          <PoolMoreInfo Index={section.id} />
-          <EnterAmountAndStake Index={section.id} />
+          <PoolMoreInfoBorrowProduct Index={section.id} />
         </>
       );
     } else {
@@ -267,10 +231,10 @@ function BorrowCompoundFinance() {
     <View style={styles.parent_view}>
       <Accordion
         activeSections={activeSections}
-        sections={poolsHeaders}
-        renderHeader={RenderHeader}
-        renderContent={RenderContent}
-        onChange={UpdateActiveSections}
+        sections={poolsHeadersBorrowProduct}
+        renderHeader={RenderHeaderBorrowProduct}
+        renderContent={RenderContentBorrowProduct}
+        onChange={UpdateActiveSectionsBorrowProduct}
       />
     </View>
   );
@@ -281,52 +245,10 @@ export default BorrowCompoundFinance;
 const styles = StyleSheet.create({
   parent_view: {},
   block_title: {
-    ...themeHere.text.body_medium,
+    ...themeHere.text.subhead_medium,
     color: themeHere.colors.foreground,
     marginHorizontal: 20,
     marginVertical: 30,
-  },
-  enter_amount_input_view: {
-    width: windowWidth - 80,
-    height: 50,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  enter_amount_input: {
-    backgroundColor: 'transparent',
-    ...themeHere.text.body_medium,
-    color: themeHere.colors.foreground,
-    maxWidth: windowWidth * 0.5,
-    marginHorizontal: 20,
-  },
-  enter_amount_input_fiat: {
-    ...themeHere.text.body_medium,
-    color: themeHere.colors.foreground,
-    marginHorizontal: 20,
-  },
-  wallet_balances_view: {
-    width: windowWidth - 80,
-    alignSelf: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginVertical: 10,
-  },
-  crypto_conversion_text: {
-    ...themeHere.text.caption,
-    color: themeHere.colors.foreground + 50,
-  },
-  wallet_balance_text: {
-    ...themeHere.text.caption,
-    color: themeHere.colors.foreground + 50,
-  },
-  liquidation_price_text: {
-    ...themeHere.text.body_medium,
-    color: themeHere.colors.foreground + '50',
-    marginHorizontal: 20,
-    marginBottom: 10,
   },
   order_info_one_block_view: {
     flexDirection: 'row',
@@ -335,12 +257,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   order_info_title_text: {
-    ...themeHere.text.caption,
-    color: themeHere.colors.foreground + '50',
+    ...themeHere.text.body,
+    color: themeHere.colors.foreground + '75',
   },
   order_info_value_text: {
-    ...themeHere.text.caption,
-    color: themeHere.colors.foreground + '50',
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
   },
   listitem_view: {
     width: windowWidth - 90,
