@@ -13,13 +13,9 @@ import HeaderBlock from '../components/HeaderBlock';
 import RenderAppBluePrintHelper from '../helpers/RenderAppBluePrintHelper';
 import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper';
 import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import CryptoPricesPage from '../../home/pages/CryptoPricesPage';
-import HomeMainPage from '../../home/pages/HomeMainPage';
 import {HScrollView} from 'react-native-head-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
 import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
-import ScreenFixedGoBackHeader from '../../../bits/ScreenFixedGoBackHeader';
-import {useSharedValue} from 'react-native-reanimated';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -177,7 +173,7 @@ function MiniAppLanding({route}) {
       onIndexChange={setIndex}
       initialLayout={{width: windowWidth}}
       style={styles.header_tab_view}
-      frozeTop={150}
+      frozeTop={125}
       lazy={true}
       tabBarHeight={50}
       headerHeight={300}

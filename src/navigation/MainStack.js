@@ -21,6 +21,7 @@ import {Host, Portal} from 'react-native-portalize';
 import TrendingTokensProductDetailsModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensProductDetailsModal';
 import Iconly from '../miscsetups/customfonts/Iconly';
 import {Pressable, View} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -118,6 +119,7 @@ function SettingsStack() {
 }
 
 function HomeAndAppsStack() {
+  const navigation = useNavigation();
   return (
     <Host>
       <HomeAndAppMain.Navigator style={{backgroundColor: '#050505'}}>
