@@ -16,7 +16,8 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function ModalGoBackHeader() {
+function ModalGoBackHeader(props) {
+  // props are - title
   const navigation = useNavigation();
 
   return (
@@ -24,6 +25,7 @@ function ModalGoBackHeader() {
       <View style={styles.left_side_icon}>
         <Iconly name="ChevronLeftBroken" color="transparent" size={25} />
       </View>
+      <Text style={styles.title_text}>{props.title}</Text>
       <Pressable
         style={styles.right_side_icon}
         onPress={() => navigation.goBack()}>
@@ -52,5 +54,9 @@ const styles = StyleSheet.create({
   },
   right_side_icon: {
     marginHorizontal: 20,
+  },
+  title_text: {
+    ...themeHere.text.title_3,
+    color: themeHere.colors.foreground,
   },
 });

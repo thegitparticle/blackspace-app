@@ -174,7 +174,11 @@ function BorrowCompoundFinance() {
         <Button
           title={'start borrowing'}
           type={'solid'}
-          // onPress={() => SupplyAssets()}
+          onPress={() =>
+            navigation.navigate('BorrowCompoundTransactionModal', {
+              info: infoHere,
+            })
+          }
           containerStyle={styles.borrow_button_container}
           buttonStyle={styles.borrow_button_style}
           titleStyle={styles.borrow_button_title}
