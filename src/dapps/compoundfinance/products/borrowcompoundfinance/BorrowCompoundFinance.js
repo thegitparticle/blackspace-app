@@ -28,7 +28,6 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function BorrowCompoundFinance() {
   const [amount, setAmount] = useState('');
   const [activeSections, setActiveSections] = useState([]);
-  const [poolsAndDetails, setPoolsAndDetails] = useState([]);
 
   const [detailsETH, setDetailsETH] = useState({});
   const [detailsBAT, setDetailsBAT] = useState({});
@@ -130,16 +129,6 @@ function BorrowCompoundFinance() {
       <View style={{marginBottom: 30}}>
         <Text style={styles.block_title}>borrowing details</Text>
         <View style={styles.order_info_one_block_view}>
-          <Text style={styles.order_info_title_text}>
-            interest to be paid (% annual)
-          </Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              {(infoHere.cToken[0].borrow_rate.value * 100).toFixed(2)} %
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_one_block_view}>
           <Text style={styles.order_info_title_text}>cToken name</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
@@ -163,6 +152,40 @@ function BorrowCompoundFinance() {
             </Text>
           </Text>
         </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>
+            interest to be paid (% annual)
+          </Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {(infoHere.cToken[0].borrow_rate.value * 100).toFixed(2)} %
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>collateral needed</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {(100 / (infoHere.cToken[0].collateral_factor.value * 100)) * 100}{' '}
+              %
+            </Text>
+          </Text>
+        </View>
+        <Button
+          title={'start borrowing'}
+          type={'solid'}
+          // onPress={() => SupplyAssets()}
+          containerStyle={styles.borrow_button_container}
+          buttonStyle={styles.borrow_button_style}
+          titleStyle={styles.borrow_button_title}
+          ViewComponent={LinearGradient}
+          linearGradientProps={{
+            colors: [
+              themeHere.colors.success_green_dark,
+              themeHere.colors.success_green,
+            ],
+          }}
+        />
       </View>
     );
   }
@@ -285,16 +308,16 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
     marginHorizontal: 25,
   },
-  deposit_button_container: {
+  borrow_button_container: {
     marginVertical: 30,
     alignSelf: 'center',
   },
-  deposit_button_style: {
+  borrow_button_style: {
     width: windowWidth * 0.5,
     height: 50,
     borderRadius: 25,
   },
-  deposit_button_title: {
+  borrow_button_title: {
     ...themeHere.text.body_medium,
     color: 'white',
   },
