@@ -1,9 +1,12 @@
 // BorrowCompoundTransactionModal
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
+import EnterAmountBorrowCompound from './components/EnterAmountBorrowCompound';
+import ConfirmBorrowCompound from './components/ConfirmBorrowCompound';
+import TransactionOngoingBorrowCompound from './components/TransactionOngoingBorrowCompound';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,10 +18,22 @@ let state_here = {};
 function BorrowCompoundTransactionModal({route, dispatch}) {
   const {info} = route.params;
 
+  const [renderScreen, setRenderScreen] = useState('EnterAmount');
+
+  function RenderBody() {
+    if (renderScreen === 'TransactionOngoing') {
+      return <TransactionOngoingBorrowCompound Info={info} />;
+    } else if (renderScreen === 'ConfirmBorrow') {
+      return <ConfirmBorrowCompound Info={info} />;
+    } else {
+      return <EnterAmountBorrowCompound Info={info} />;
+    }
+  }
+
   return (
     <View style={styles.parent_view}>
       <ModalGoBackHeader title={`Borrow ${info.cToken[0].underlying_symbol}`} />
-      <Text>...</Text>
+      <RenderBody />
     </View>
   );
 }

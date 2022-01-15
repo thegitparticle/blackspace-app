@@ -10380,6 +10380,11 @@ react-native-vector-icons@^9.0.0:
     prop-types "^15.7.2"
     yargs "^16.1.1"
 
+react-native-virtual-keyboard@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.npmjs.org/react-native-virtual-keyboard/-/react-native-virtual-keyboard-1.2.0.tgz#6e0db4beafb00af98920d4402797ce5ade5c3dac"
+  integrity sha512-2NZJQRV7/PL0rBDjLCCsVkuH8RbYYBvTxIypGvK6x+vMcEaqn1d3BQn7OJSDvVRriGOr7qIoNaklJky31hrOMw==
+
 react-native-wagmi-charts@^2.1.0:
   version "2.1.0"
   resolved "https://registry.npmjs.org/react-native-wagmi-charts/-/react-native-wagmi-charts-2.1.0.tgz#652e70e41befa4d73db5ecd47cc09c8bfe0d55e8"
