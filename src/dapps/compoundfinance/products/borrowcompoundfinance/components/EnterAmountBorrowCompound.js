@@ -40,11 +40,7 @@ function EnterAmountBorrowCompound(props) {
           <Button
             title={'borrow'}
             type={'solid'}
-            // onPress={() =>
-            //   navigation.navigate('BorrowCompoundTransactionModal', {
-            //     info: infoHere,
-            //   })
-            // }
+            onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

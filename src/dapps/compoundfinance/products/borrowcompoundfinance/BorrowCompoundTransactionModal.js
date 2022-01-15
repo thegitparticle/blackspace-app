@@ -22,12 +22,39 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
-      return <TransactionOngoingBorrowCompound Info={info} />;
+      return (
+        <TransactionOngoingBorrowCompound
+          Info={info}
+          ChangeBody={changeBodyToEnterAmount}
+        />
+      );
     } else if (renderScreen === 'ConfirmBorrow') {
-      return <ConfirmBorrowCompound Info={info} />;
+      return (
+        <ConfirmBorrowCompound
+          Info={info}
+          ChangeBody={changeBodyToTransaction}
+        />
+      );
     } else {
-      return <EnterAmountBorrowCompound Info={info} />;
+      return (
+        <EnterAmountBorrowCompound
+          Info={info}
+          ChangeBody={changeBodyToConfirmBorrow}
+        />
+      );
     }
+  }
+
+  function changeBodyToTransaction() {
+    setRenderScreen('TransactionOngoing');
+  }
+
+  function changeBodyToEnterAmount() {
+    setRenderScreen('EnterAmount');
+  }
+
+  function changeBodyToConfirmBorrow() {
+    setRenderScreen('ConfirmBorrow');
   }
 
   return (
