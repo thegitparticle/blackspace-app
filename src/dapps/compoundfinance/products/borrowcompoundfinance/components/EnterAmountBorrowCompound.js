@@ -65,6 +65,7 @@ function EnterAmountBorrowCompound(props) {
           decimal={true}
           onPress={val => setAmount(val)}
           style={styles.keyboard_overall}
+          cellStyle={styles.keyboard_cell}
         />
       </View>
     </View>
@@ -120,5 +121,8 @@ const styles = StyleSheet.create({
     width: windowWidth,
     marginHorizontal: 0,
     marginLeft: 0,
+  },
+  keyboard_cell: {
+    paddingVertical: 10,
   },
 });
