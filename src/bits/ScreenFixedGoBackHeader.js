@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function ModalGoBackHeader() {
+function ScreenFixedGoBackHeader() {
   const navigation = useNavigation();
 
   return (
@@ -37,7 +37,7 @@ function ModalGoBackHeader() {
   );
 }
 
-export default ModalGoBackHeader;
+export default ScreenFixedGoBackHeader;
 
 const styles = StyleSheet.create({
   parent_view: {

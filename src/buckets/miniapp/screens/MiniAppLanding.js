@@ -18,6 +18,8 @@ import HomeMainPage from '../../home/pages/HomeMainPage';
 import {HScrollView} from 'react-native-head-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
 import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
+import ScreenFixedGoBackHeader from '../../../bits/ScreenFixedGoBackHeader';
+import {useSharedValue} from 'react-native-reanimated';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -166,7 +168,7 @@ function MiniAppLanding({route}) {
     <CollapsibleHeaderTabView
       renderScrollHeader={() => (
         <SharedElement id={`item.${app_details.app_name}.app_icon`}>
-          <HeaderBlock app_details={app_details} style={{top: 0}} />
+          <HeaderBlock app_details={app_details} />
         </SharedElement>
       )}
       navigationState={{index, routes}}

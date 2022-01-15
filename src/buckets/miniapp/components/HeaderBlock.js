@@ -74,7 +74,6 @@ function HeaderBlock({app_details}) {
           priority: FastImage.priority.normal,
         }}
         resizeMode={FastImage.resizeMode.cover}>
-        <ButtonsSubBlock />
         <TitleSubBlock />
       </FastImage>
     </View>
@@ -95,7 +94,7 @@ const styles = StyleSheet.create({
     height: 300,
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'space-between',
+    justifyContent: 'flex-end',
   },
   buttons_subblock_view: {
     width: windowWidth - 20,

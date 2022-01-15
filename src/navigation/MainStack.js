@@ -19,6 +19,8 @@ import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
 import {Host, Portal} from 'react-native-portalize';
 import TrendingTokensProductDetailsModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensProductDetailsModal';
+import Iconly from '../miscsetups/customfonts/Iconly';
+import {Pressable, View} from 'react-native';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -143,7 +145,30 @@ function HomeAndAppsStack() {
           }}
           options={{
             gestureEnabled: true,
-            headerShown: false,
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: 'transparent',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTransparent: true,
+            headerTitle: '',
+            headerRight: () => (
+              <Pressable
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                }}
+                onPress={() => navigation.goBack()}>
+                <Iconly name="CloseSquareBold" color={'#FFFFFF'} size={30} />
+              </Pressable>
+            ),
+            headerLeft: () => <View />,
             cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
             transitionSpec: {
               open: config,
