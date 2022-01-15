@@ -12,7 +12,6 @@ import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import EarnInterestCompoundFinance from '../products/earninterestcompoundfinance/EarnInterestCompoundFinance';
 import BorrowCompoundFinance from '../products/borrowcompoundfinance/BorrowCompoundFinance';
-import Compound from '@compound-finance/compound-js';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,28 +31,6 @@ function CompoundFinanceBluePrint() {
       component: 'BorrowCompoundFinance',
     },
   ];
-
-  // let pools = [
-  //   Compound.cETH,
-  //   Compound.cBAT,
-  //   Compound.cUSDC,
-  //   Compound.cUSDT,
-  //   Compound.cDAI,
-  // ];
-  //
-  // let poolsAndDetails = [];
-  //
-  // useEffect(() => {
-  //   for (let i = 0; i < pools.length; i++) {
-  //     (async function () {
-  //       const cDaiData = await Compound.api.cToken({
-  //         addresses: Compound.util.getAddress(pools[i]),
-  //       });
-  //       poolsAndDetails.push(cDaiData);
-  //       console.log(poolsAndDetails[0].cToken[0].name); // JavaScript Object
-  //     })().catch(console.error);
-  //   }
-  // }, []);
 
   function RenderProductCompoundFinance({item, index}) {
     if (index === 0) {

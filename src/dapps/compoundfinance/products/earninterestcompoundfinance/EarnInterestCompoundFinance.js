@@ -102,7 +102,7 @@ function EarnInterestCompoundFinance() {
   function SupplyAssets() {
     (async function () {
       console.log('Supplying ETH to the Compound Protocol...');
-      const trx = await compound.supply(Compound.ETH, Number(amount));
+      const trx = await compound.supply(Compound.DAI, Number(amount));
       console.log('Ethers.js transaction object', trx);
     })().catch(console.error);
   }
