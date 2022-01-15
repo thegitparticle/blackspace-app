@@ -72,8 +72,8 @@ function MiniAppLanding({route}) {
   const renderSceneMiniApp = app_details.show_in_use_tab
     ? SceneMap({
         first: Products,
-        second: JargonBuster,
-        third: UsageShowcase,
+        second: UsageShowcase,
+        third: JargonBuster,
       })
     : SceneMap({
         first: Products,
@@ -82,8 +82,8 @@ function MiniAppLanding({route}) {
 
   const [routes] = React.useState([
     {key: 'first', title: 'Products'},
-    {key: 'second', title: 'Jargon Buster'},
-    {key: 'third', title: app_details.in_use_tab_name},
+    {key: 'second', title: app_details.in_use_tab_name},
+    {key: 'third', title: 'Jargon Buster'},
   ]);
 
   function renderLabelMiniApp({route, focused}) {
@@ -156,7 +156,7 @@ function MiniAppLanding({route}) {
       indicatorStyle={styles.tab_bar_indicator}
       style={styles.tab_bar}
       renderLabel={renderLabelMiniApp}
-      tabStyle={{backgroundColor: 'transparent'}}
+      tabStyle={{backgroundColor: themeHere.colors.background}}
     />
   );
 
