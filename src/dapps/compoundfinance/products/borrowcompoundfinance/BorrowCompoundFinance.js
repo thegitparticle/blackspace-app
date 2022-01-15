@@ -73,14 +73,6 @@ function BorrowCompoundFinance() {
     },
   ];
 
-  let pools = [
-    Compound.cETH,
-    Compound.cBAT,
-    Compound.cUSDC,
-    Compound.cUSDT,
-    Compound.cDAI,
-  ];
-
   useEffect(() => {
     (async function () {
       const cData = await Compound.api.cToken({
@@ -216,7 +208,13 @@ function BorrowCompoundFinance() {
   }
 
   function RenderContentBorrowProduct(section) {
-    if (fetchedDetailsFromCompound) {
+    if (
+      Object.entries(detailsETH).length !== 0 &&
+      Object.entries(detailsBAT).length !== 0 &&
+      Object.entries(detailsUSDC).length !== 0 &&
+      Object.entries(detailsUSDT).length !== 0 &&
+      Object.entries(detailsDAI).length !== 0
+    ) {
       return (
         <>
           <PoolMoreInfoBorrowProduct Index={section.id} />
