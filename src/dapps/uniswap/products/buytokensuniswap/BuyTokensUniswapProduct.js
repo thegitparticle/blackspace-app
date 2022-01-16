@@ -48,8 +48,17 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Fiat, setToken1Fiat] = useState(0);
 
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
+  const [token0Coin, setToken0Coin] = useState();
 
-  console.log(token1Coin);
+  function changeToken0(token0) {
+    setToken0Coin(token0);
+    console.log(token0Coin);
+    checkAndCallPoolInfo();
+  }
+
+  function checkAndCallPoolInfo() {
+    getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+  }
 
   let token_list = state_here.UniswapTokenListReducer.token_list;
 
@@ -95,7 +104,6 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
-                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setToken1Coin(FamousTokensList[0]);
                 onClosePickToken1Coin();
               }}>
@@ -121,7 +129,6 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setToken1Coin(FamousTokensList[1]);
                 onClosePickToken1Coin();
               }}>
@@ -147,7 +154,6 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setToken1Coin(FamousTokensList[2]);
                 onClosePickToken1Coin();
               }}>
@@ -175,7 +181,6 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={styles.famous_tokens_line_view}>
             <TouchableOpacity
               onPress={() => {
-                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setToken1Coin(FamousTokensList[3]);
                 onClosePickToken1Coin();
               }}>
@@ -201,7 +206,6 @@ function BuyTokenUniswapProduct({dispatch}) {
             </TouchableOpacity>
             <TouchableOpacity
               onPress={() => {
-                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
                 setToken1Coin(FamousTokensList[4]);
                 onClosePickToken1Coin();
               }}>
@@ -236,9 +240,9 @@ function BuyTokenUniswapProduct({dispatch}) {
       <TouchableOpacity
         style={styles.render_token_item_view}
         onPress={() => {
-          getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
           setToken1Coin(item.item);
           onClosePickToken1Coin();
+          checkAndCallPoolInfo();
         }}>
         <>
           <FastImage
@@ -260,6 +264,13 @@ function BuyTokenUniswapProduct({dispatch}) {
     state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string;
   const myPortfolioTokens = [
     {
+      item_name: 'Ethereum',
+      item_icon:
+        'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
+      item_balance: '1.1',
+      base_coverted_balance: '3715',
+    },
+    {
       item_name: 'Unisocks',
       item_icon:
         'https://assets.coingecko.com/coins/images/10717/small/qFrcoiM.png',
@@ -275,105 +286,170 @@ function BuyTokenUniswapProduct({dispatch}) {
     },
   ]; // get them from redux state of wallet deets
 
-  function RenderPaymentOptions() {
-    function PaymentOptionItem(item) {
-      return (
-        <SquircleView
-          style={styles.payment_option_item_view}
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
-          }}>
-          <View style={styles.itemholding_leftside_view}>
-            <FastImage
-              style={styles.itemholding_icon}
-              source={{
-                uri: item.item_icon,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-            <Text style={styles.itemholding_title}>{item.item_name}</Text>
-          </View>
-          <View style={styles.itemholding_rightside_view}>
-            <Text style={styles.itemholding_balance}>{item.item_balance}</Text>
-            <Text style={styles.itemholding_converted_balance}>
-              ${item.base_coverted_balance}
-            </Text>
-          </View>
-        </SquircleView>
-      );
-    }
+  const RenderPaymentOptions = useMemo(
+    () =>
+      function RenderPaymentOptions() {
+        function PaymentOptionItem(item) {
+          const [selected, setSelected] = useState(false);
 
-    return (
-      <View style={styles.payment_token_pick_view}>
-        <SquircleView
-          style={styles.payment_option_item_view}
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
-          }}>
-          <View style={styles.itemholding_leftside_view}>
-            <FastImage
-              style={styles.itemholding_icon}
-              source={{
-                uri: 'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-            <Text style={styles.itemholding_title}>Ethereum</Text>
-          </View>
-          <View style={styles.itemholding_rightside_view}>
-            <Text style={styles.itemholding_balance}>
-              {myEthBalance.substring(0, 5)}
-            </Text>
-            <Text style={styles.itemholding_converted_balance}>$</Text>
-          </View>
-        </SquircleView>
-        {myPortfolioTokens.map(item => PaymentOptionItem(item))}
-      </View>
-    );
-  }
+          if (selected) {
+            return (
+              <TouchableOpacity onPress={() => setSelected(!selected)}>
+                <SquircleView
+                  style={styles.payment_option_item_view}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: themeHere.colors.neon_blue + '75',
+                  }}>
+                  <View style={styles.itemholding_leftside_view}>
+                    <FastImage
+                      style={styles.itemholding_icon}
+                      source={{
+                        uri: item.item_icon,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.cover}
+                    />
+                    <Text style={styles.itemholding_title}>
+                      {item.item_name}
+                    </Text>
+                  </View>
+                  <View style={styles.itemholding_rightside_view}>
+                    <Text style={styles.itemholding_balance}>
+                      {item.item_balance}
+                    </Text>
+                    <Text style={styles.itemholding_converted_balance}>
+                      ${item.base_coverted_balance}
+                    </Text>
+                  </View>
+                </SquircleView>
+              </TouchableOpacity>
+            );
+          } else {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  setSelected(!selected);
+                  changeToken0(item);
+                }}>
+                <SquircleView
+                  style={styles.payment_option_item_view}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: themeHere.colors.mid_ground + '25',
+                  }}>
+                  <View style={styles.itemholding_leftside_view}>
+                    <FastImage
+                      style={styles.itemholding_icon}
+                      source={{
+                        uri: item.item_icon,
+                        priority: FastImage.priority.normal,
+                      }}
+                      resizeMode={FastImage.resizeMode.cover}
+                    />
+                    <Text style={styles.itemholding_title}>
+                      {item.item_name}
+                    </Text>
+                  </View>
+                  <View style={styles.itemholding_rightside_view}>
+                    <Text style={styles.itemholding_balance}>
+                      {item.item_balance}
+                    </Text>
+                    <Text style={styles.itemholding_converted_balance}>
+                      ${item.base_coverted_balance}
+                    </Text>
+                  </View>
+                </SquircleView>
+              </TouchableOpacity>
+            );
+          }
+        }
 
-  function RenderOrderInfo() {
-    return (
-      <View style={styles.order_info_view}>
-        <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>you get</Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              6,573.88 DAI ($6573)
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>by paying</Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              0.45 ETH ($6643.1)
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>
-            max expected slippage
-          </Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>0.76%</Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
-          </Text>
-        </View>
-      </View>
-    );
-  }
+        return (
+          <View style={styles.payment_token_pick_view}>
+            {myPortfolioTokens.map(item => PaymentOptionItem(item))}
+          </View>
+        );
+      },
+    [],
+  );
+
+  const RenderOrderInfo = useMemo(
+    () =>
+      function RenderOrderInfo() {
+        if (
+          token1Amount.length > 0 &&
+          token1Coin.address.length > 0 &&
+          token0Coin
+        ) {
+          return (
+            <View style={styles.order_info_view}>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>you get</Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    6,573.88 DAI ($6573)
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>by paying</Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    0.45 ETH ($6643.1)
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>
+                  max expected slippage
+                </Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    0.76%
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>
+                  Ethereum Gas Fees
+                </Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    ~$49.94
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          );
+        } else {
+          return (
+            <View style={styles.order_info_view}>
+              <View
+                style={{
+                  ...styles.order_info_block_view,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...styles.order_info_value_text,
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  <Text style={{color: themeHere.colors.blue}}>
+                    enter # of tokens you want & choose a token to pay with
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          );
+        }
+      },
+    [token0Coin, token1Amount],
+  );
 
   return (
     <View style={styles.parent_view}>
@@ -544,6 +620,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginVertical: 10,
   },
+
   itemholding_leftside_view: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -567,12 +644,12 @@ const styles = StyleSheet.create({
     marginHorizontal: 20,
   },
   itemholding_balance: {
-    ...themeHere.text.caption,
+    ...themeHere.text.body_medium,
     color: themeHere.colors.red,
     marginVertical: 2.5,
   },
   itemholding_converted_balance: {
-    ...themeHere.text.caption,
+    ...themeHere.text.body,
     color: themeHere.colors.foreground + '50',
     marginVertical: 2.5,
   },
