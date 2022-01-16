@@ -8,6 +8,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
+import EmojiIcon from '../../../../../bits/EmojiIcon';
+import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -58,51 +60,112 @@ function ConfirmBorrowCompound(props) {
     })().catch(console.error);
   }, []);
 
-  const [renderContext, setRenderContext] = useState('Checking');
+  const [renderContext, setRenderContext] = useState('WalletHasColl');
 
   function MainBlock() {
     if (renderContext === 'Checking') {
       return (
         <View style={styles.main_block_view}>
-          <Text style={styles.enter_amount_text_symbol}>
-            checking
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+          <EmojiIcon
+            color={themeHere.colors.mid_ground + '50'}
+            size={80}
+            emoji={'⌛'}
+          />
+          <Text style={styles.text_highlighted}>
+            checking your compound history & wallet to assess collateral
           </Text>
         </View>
       );
     } else if (renderContext === 'CompoundHasColl') {
       return (
         <View style={styles.main_block_view}>
-          <Text style={styles.enter_amount_text_symbol}>
-            CompoundHasColl
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+          <EmojiIcon
+            color={themeHere.colors.success_green_dark}
+            size={80}
+            emoji={'👍'}
+          />
+          <Text style={styles.text_highlighted}>
+            your Compound account has the collateral needed
           </Text>
         </View>
       );
     } else if (renderContext === 'WalletHasColl') {
       return (
         <View style={styles.main_block_view}>
-          <Text style={styles.enter_amount_text_symbol}>
-            WalletHasColl
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+          <EmojiIcon
+            color={themeHere.colors.success_green_dark}
+            size={80}
+            emoji={'👍'}
+          />
+          <Text style={styles.text_highlighted}>
+            your wallet has the collateral needed
           </Text>
         </View>
       );
     } else if (renderContext === 'WalletNeedsSwap') {
       return (
         <View style={styles.main_block_view}>
-          <Text style={styles.enter_amount_text_symbol}>
-            WalletNeedsSwap
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+          <EmojiIcon
+            color={themeHere.colors.danger_red}
+            size={80}
+            emoji={'⚠️'}
+          />
+          <Text style={styles.text_highlighted}>
+            your wallet has collateral in unsupported coins
           </Text>
+          <View style={styles.unsupported_coins_context_suggestions_view}>
+            <Text style={styles.text_not_highlighted}>
+              convert your balances into these supported coins shown below and
+              try again
+            </Text>
+            <View style={styles.supported_coins_view}>
+              <TokenWithIconBadge
+                symbol={'DAI'}
+                icon={
+                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                }
+              />
+              <TokenWithIconBadge
+                symbol={'DAI'}
+                icon={
+                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                }
+              />
+              <TokenWithIconBadge
+                symbol={'DAI'}
+                icon={
+                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                }
+              />
+            </View>
+            <View style={styles.supported_coins_view}>
+              <TokenWithIconBadge
+                symbol={'DAI'}
+                icon={
+                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                }
+              />
+              <TokenWithIconBadge
+                symbol={'DAI'}
+                icon={
+                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                }
+              />
+            </View>
+          </View>
         </View>
       );
     } else if (renderContext === 'NoColl') {
       return (
         <View style={styles.main_block_view}>
-          <Text style={styles.enter_amount_text_symbol}>
-            NoColl
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+          <EmojiIcon
+            color={themeHere.colors.danger_red}
+            size={80}
+            emoji={'⚠️'}
+          />
+          <Text style={styles.text_highlighted}>
+            your wallet does have enough collateral, reduce borrow amount and
+            try again
           </Text>
         </View>
       );
@@ -243,13 +306,28 @@ const styles = StyleSheet.create({
     ...themeHere.text.title_1,
     color: themeHere.colors.foreground,
   },
-  enter_amount_text_symbol: {
+  text_highlighted: {
     ...themeHere.text.header,
     color: themeHere.colors.foreground,
+    marginVertical: 30,
+    maxWidth: windowWidth * 0.7,
+    textAlign: 'center',
   },
-  enter_amount_text_fiat: {
-    ...themeHere.text.header,
+  text_not_highlighted: {
+    ...themeHere.text.body_medium,
     color: themeHere.colors.foreground + '75',
+    marginVertical: 30,
+    maxWidth: windowWidth * 0.7,
+    textAlign: 'center',
+  },
+  unsupported_coins_context_suggestions_view: {
+    flexDirection: 'column',
+    marginVertical: 30,
+    alignItems: 'center',
+  },
+  supported_coins_view: {
+    marginVertical: 15,
+    flexDirection: 'row',
   },
   button_block_view: {
     alignItems: 'center',
