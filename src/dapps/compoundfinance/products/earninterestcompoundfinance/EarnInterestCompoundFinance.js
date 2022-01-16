@@ -34,15 +34,21 @@ function EarnInterestCompoundFinance() {
   const [activeSections, setActiveSections] = useState([]);
   const [poolsAndDetails, setPoolsAndDetails] = useState([]);
 
-  const navigation = useNavigation();
+  const [detailsETH, setDetailsETH] = useState({});
+  const [detailsBAT, setDetailsBAT] = useState({});
+  const [detailsUSDC, setDetailsUSDC] = useState({});
+  const [detailsUSDT, setDetailsUSDT] = useState({});
+  const [detailsDAI, setDetailsDAI] = useState({});
+  const [fetchedDetailsFromCompound, setFetchedDetailsFromCompound] =
+    useState(false);
 
-  // const compound = new Compound(INFURA_RINKEBY);
+  const navigation = useNavigation();
 
   const compound = new Compound(INFURA_RINKEBY, {
     privateKey: state_here.WDeetsReducer.wdeets.wallet_privateKey, // preferably with environment variable
   });
 
-  const poolsHeaders = [
+  const poolsHeadersEarnProduct = [
     {
       id: 0,
       title: 'Ethereum',
@@ -75,76 +81,124 @@ function EarnInterestCompoundFinance() {
     },
   ];
 
-  let pools = [
-    Compound.cETH,
-    Compound.cBAT,
-    Compound.cUSDC,
-    Compound.cUSDT,
-    Compound.cDAI,
-  ];
-
-  // let poolsAndDetails = [];
-
   useEffect(() => {
-    let listHere = [];
-    for (let i = 0; i < pools.length; i++) {
-      (async function () {
-        const cDaiData = await Compound.api.cToken({
-          addresses: Compound.util.getAddress(pools[i]),
-        });
-        listHere.push(cDaiData);
-        // console.log(poolsAndDetails); // JavaScript Object
-      })().catch(console.error);
-    }
-    setPoolsAndDetails(listHere);
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cETH),
+      });
+      setDetailsETH(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cBAT),
+      });
+      setDetailsBAT(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cUSDC),
+      });
+      setDetailsUSDC(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cUSDT),
+      });
+      setDetailsUSDT(cData);
+    })().catch(console.error);
+
+    (async function () {
+      const cData = await Compound.api.cToken({
+        addresses: Compound.util.getAddress(Compound.cDAI),
+      });
+      setDetailsDAI(cData);
+    })().catch(console.error);
+
+    setFetchedDetailsFromCompound(true);
   }, []);
 
-  function SupplyAssets() {
-    (async function () {
-      console.log('Supplying ETH to the Compound Protocol...');
-      const trx = await compound.supply(Compound.DAI, Number(amount));
-      console.log('Ethers.js transaction object', trx);
-    })().catch(console.error);
-  }
+  // function SupplyAssets() {
+  //   (async function () {
+  //     console.log('Supplying ETH to the Compound Protocol...');
+  //     const trx = await compound.supply(Compound.DAI, Number(amount));
+  //     console.log('Ethers.js transaction object', trx);
+  //   })().catch(console.error);
+  // }
 
-  function EnterAmountAndStake(props) {
+  function PoolMoreInfoEarnProduct(props) {
+    let infoHere =
+      props.Index === 0
+        ? detailsETH
+        : props.Index === 1
+        ? detailsBAT
+        : props.Index === 2
+        ? detailsUSDC
+        : props.Index === 3
+        ? detailsUSDT
+        : props.Index === 4
+        ? detailsDAI
+        : detailsETH;
+
     return (
-      <View>
-        <Text style={styles.block_title}>
-          stake {poolsHeaders[props.Index].symbol} to earn interest
-        </Text>
-        <SquircleView
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 7.5,
-            fillColor: themeHere.colors.mid_ground + '25',
-          }}
-          style={styles.enter_amount_input_view}>
-          <TextInput
-            numberOfLines={1}
-            onChangeText={setAmount}
-            value={amount}
-            style={styles.enter_amount_input}
-            placeholder={`0.0 ${poolsHeaders[props.Index].symbol}`}
-            placeholderTextColor={themeHere.colors.foreground + 50}
-          />
-          <Text style={styles.enter_amount_input_fiat}>{amount * 3700}</Text>
-        </SquircleView>
-        <View style={styles.wallet_balances_view}>
-          <Text style={styles.crypto_conversion_text}>
-            ~ 1 {poolsHeaders[props.Index].symbol} = $ 3790
+      <View style={{marginBottom: 30}}>
+        <Text style={styles.block_title}>borrowing details</Text>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>cToken name</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {infoHere.cToken[0].symbol}
+            </Text>
           </Text>
-          <Text style={styles.wallet_balance_text}>
-            my balance: 5.1 {poolsHeaders[props.Index].symbol} = $ 19329
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}># of Suppliers</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {infoHere.cToken[0].number_of_suppliers}
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}># of Borrowers</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {infoHere.cToken[0].number_of_borrowers}
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>
+            interest to be paid (% annual)
+          </Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {(infoHere.cToken[0].borrow_rate.value * 100).toFixed(2)} %
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_one_block_view}>
+          <Text style={styles.order_info_title_text}>collateral needed</Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {(100 / (infoHere.cToken[0].collateral_factor.value * 100)) * 100}{' '}
+              %
+            </Text>
           </Text>
         </View>
         <Button
-          title={'deposit'}
+          title={'start borrowing'}
           type={'solid'}
-          onPress={() => SupplyAssets()}
-          containerStyle={styles.deposit_button_container}
-          buttonStyle={styles.deposit_button_style}
-          titleStyle={styles.deposit_button_title}
+          onPress={() =>
+            navigation.navigate('EarnInterestCompoundTransactionModal', {
+              info: infoHere,
+            })
+          }
+          containerStyle={styles.borrow_button_container}
+          buttonStyle={styles.borrow_button_style}
+          titleStyle={styles.borrow_button_title}
           ViewComponent={LinearGradient}
           linearGradientProps={{
             colors: [
@@ -157,48 +211,11 @@ function EarnInterestCompoundFinance() {
     );
   }
 
-  function PoolMoreInfo(props) {
-    return (
-      <View style={{marginBottom: 30}}>
-        <Text style={styles.block_title}>more details</Text>
-        <View style={styles.order_info_one_block_view}>
-          <Text style={styles.order_info_title_text}>
-            annual interest % to earn
-          </Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              {(
-                poolsAndDetails[props.Index].cToken[0].supply_rate.value * 100
-              ).toFixed(2)}{' '}
-              %
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_one_block_view}>
-          <Text style={styles.order_info_title_text}># of Suppliers</Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              {poolsAndDetails[props.Index].cToken[0].number_of_suppliers}
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_one_block_view}>
-          <Text style={styles.order_info_title_text}># of Borrowers</Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              {poolsAndDetails[props.Index].cToken[0].number_of_borrowers}
-            </Text>
-          </Text>
-        </View>
-      </View>
-    );
-  }
-
-  function UpdateActiveSections(sections) {
+  function UpdateActiveSectionsEarnProduct(sections) {
     setActiveSections(sections.includes(undefined) ? [] : sections);
   }
 
-  function RenderHeader(section) {
+  function RenderHeaderEarnProduct(section) {
     function IconShow() {
       if (section.id === activeSections[0]) {
         return (
@@ -223,10 +240,10 @@ function EarnInterestCompoundFinance() {
         <View style={styles.listitem_leftside_view}>
           <Image
             style={styles.listitem_icon}
-            source={poolsHeaders[section.id].main_icon}
+            source={poolsHeadersEarnProduct[section.id].main_icon}
           />
           <Text style={styles.listitem_title}>
-            {poolsHeaders[section.id].title}
+            {poolsHeadersEarnProduct[section.id].title}
           </Text>
         </View>
         <IconShow />
@@ -234,12 +251,17 @@ function EarnInterestCompoundFinance() {
     );
   }
 
-  function RenderContent(section) {
-    if (poolsAndDetails.length > 0) {
+  function RenderContentEarnProduct(section) {
+    if (
+      Object.entries(detailsETH).length !== 0 &&
+      Object.entries(detailsBAT).length !== 0 &&
+      Object.entries(detailsUSDC).length !== 0 &&
+      Object.entries(detailsUSDT).length !== 0 &&
+      Object.entries(detailsDAI).length !== 0
+    ) {
       return (
         <>
-          <PoolMoreInfo Index={section.id} />
-          <EnterAmountAndStake Index={section.id} />
+          <PoolMoreInfoEarnProduct Index={section.id} />
         </>
       );
     } else {
@@ -251,10 +273,10 @@ function EarnInterestCompoundFinance() {
     <View style={styles.parent_view}>
       <Accordion
         activeSections={activeSections}
-        sections={poolsHeaders}
-        renderHeader={RenderHeader}
-        renderContent={RenderContent}
-        onChange={UpdateActiveSections}
+        sections={poolsHeadersEarnProduct}
+        renderHeader={RenderHeaderEarnProduct}
+        renderContent={RenderContentEarnProduct}
+        onChange={UpdateActiveSectionsEarnProduct}
       />
     </View>
   );
