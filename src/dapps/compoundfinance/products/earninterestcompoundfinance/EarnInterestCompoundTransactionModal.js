@@ -31,7 +31,7 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
           State={state_here}
         />
       );
-    } else if (renderScreen === 'ConfirmBorrow') {
+    } else if (renderScreen === 'ConfirmEarn') {
       return (
         <ConfirmBorrowCompound
           Info={info}
@@ -45,7 +45,7 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
       return (
         <EnterAmountBorrowCompound
           Info={info}
-          ChangeBody={changeBodyToConfirmBorrow}
+          ChangeBody={changeBodyToConfirmEarn}
           State={state_here}
         />
       );
@@ -60,8 +60,8 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
     setRenderScreen('EnterAmount');
   }
 
-  function changeBodyToConfirmBorrow(amount, collNeededFiat) {
-    setRenderScreen('ConfirmBorrow');
+  function changeBodyToConfirmEarn(amount, collNeededFiat) {
+    setRenderScreen('ConfirmEarn');
     setAmount(amount);
     setCollNeededFiat(collNeededFiat);
   }
