@@ -30,9 +30,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function EarnInterestCompoundFinance() {
-  const [amount, setAmount] = useState('');
   const [activeSections, setActiveSections] = useState([]);
-  const [poolsAndDetails, setPoolsAndDetails] = useState([]);
 
   const [detailsETH, setDetailsETH] = useState({});
   const [detailsBAT, setDetailsBAT] = useState({});
@@ -43,10 +41,6 @@ function EarnInterestCompoundFinance() {
     useState(false);
 
   const navigation = useNavigation();
-
-  const compound = new Compound(INFURA_RINKEBY, {
-    privateKey: state_here.WDeetsReducer.wdeets.wallet_privateKey, // preferably with environment variable
-  });
 
   const poolsHeadersEarnProduct = [
     {
@@ -120,14 +114,6 @@ function EarnInterestCompoundFinance() {
     setFetchedDetailsFromCompound(true);
   }, []);
 
-  // function SupplyAssets() {
-  //   (async function () {
-  //     console.log('Supplying ETH to the Compound Protocol...');
-  //     const trx = await compound.supply(Compound.DAI, Number(amount));
-  //     console.log('Ethers.js transaction object', trx);
-  //   })().catch(console.error);
-  // }
-
   function PoolMoreInfoEarnProduct(props) {
     let infoHere =
       props.Index === 0
@@ -171,25 +157,16 @@ function EarnInterestCompoundFinance() {
         </View>
         <View style={styles.order_info_one_block_view}>
           <Text style={styles.order_info_title_text}>
-            interest to be paid (% annual)
+            interest potentially earned (% annual)
           </Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {(infoHere.cToken[0].borrow_rate.value * 100).toFixed(2)} %
-            </Text>
-          </Text>
-        </View>
-        <View style={styles.order_info_one_block_view}>
-          <Text style={styles.order_info_title_text}>collateral needed</Text>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              {(100 / (infoHere.cToken[0].collateral_factor.value * 100)) * 100}{' '}
-              %
+              {(infoHere.cToken[0].supply_rate.value * 100).toFixed(2)} %
             </Text>
           </Text>
         </View>
         <Button
-          title={'start borrowing'}
+          title={'start earning'}
           type={'solid'}
           onPress={() =>
             navigation.navigate('EarnInterestCompoundTransactionModal', {
