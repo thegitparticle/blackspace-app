@@ -68,7 +68,7 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
 
   return (
     <View style={styles.parent_view}>
-      <ModalGoBackHeader title={`Borrow ${info.cToken[0].underlying_symbol}`} />
+      <ModalGoBackHeader title={`Earn ${info.cToken[0].underlying_symbol}`} />
       <RenderBody />
     </View>
   );

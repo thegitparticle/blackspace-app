@@ -17,48 +17,20 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 /*
-1. checks if the wallet has enough collateral?
--> checking your wallet for collateral - must come when this happens
-2. if compound already has the free collateral - then, show this much is there - extra needed? do wallet check - if not
-compound supply exists - then perform full wallet check
-3. if yes in wallet : then show - coll of this much will be deducted from account
-4. if no in wallet : you do not have enough collateral in wallet - go back button show
 All states of this component
-a. "Checking" - checking your compound history and wallet balances to assess collateral - useEffect runs during this time
-b. "CompoundHasColl" - your compound finance account has the needed collateral - you can borrow <amount><token_symbol> now
-c. "WalletHasColl" - your have the needed collateral in <symbol> - you can borrow <amount><token_symbol> now
-d. "WalletNeedsSwap" - you have collateral amount in wallet in unsupported coins - convert them to either of these - give those 5 options
-e. "NoColl" - you do not have the needed collateral - reduce the borrow accordingly
+a. "Checking" - checking your wallet balances - useEffect runs during this time
+c. "WalletHasEnough" - your have the needed amount in <symbol> - you can supply <amount><token_symbol> now
+e. "WalletBalanceNotEnough" - you do not have the needed in wallet - reduce stake amount as per
  */
 
 function ConfirmEarnCompound(props) {
   useEffect(() => {
-    (async function () {
-      const account = await Compound.api.account({
-        addresses: props.State.WDeetsReducer.wdeets.wallet_address,
-        network: 'ropsten',
-      });
-
-      let daiBorrowBalance = 0;
-      if (Object.isExtensible(account) && account.accounts) {
-        account.accounts.forEach(acc => {
-          acc.tokens.forEach(tok => {
-            if (tok.symbol === Compound.cDAI) {
-              daiBorrowBalance = +tok.borrow_balance_underlying.value;
-
-              // 1. check if props.CollNeededFiat is > or < than this borrowbalance here
-              // 2.1. if compound itself has the needed coll - then
-              // 2.2. else balance is not fully there - then check wallet balances and see if it works
-            }
-          });
-        });
-      }
-
-      console.log('daiBorrowBalance', daiBorrowBalance);
-    })().catch(console.error);
+    // 1. check if wallet has the supply amount said
+    // 2.1. if not, invoke - "WalletBalanceNotEnough" - in that particular token chosen
+    // 2.2. else invoke - "WalletHasEnough" - in that particular token chosen
   }, []);
 
-  const [renderContext, setRenderContext] = useState('NoColl');
+  const [renderContext, setRenderContext] = useState('Checking');
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -70,11 +42,11 @@ function ConfirmEarnCompound(props) {
             emoji={'⌛'}
           />
           <Text style={styles.text_highlighted}>
-            checking your compound history & wallet to assess collateral
+            checking your wallet balances
           </Text>
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'WalletHasEnough') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -83,24 +55,11 @@ function ConfirmEarnCompound(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            your Compound account has the collateral needed
+            your wallet verification succeeded
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
-      return (
-        <View style={styles.main_block_view}>
-          <EmojiIcon
-            color={themeHere.colors.success_green_dark}
-            size={80}
-            emoji={'👍'}
-          />
-          <Text style={styles.text_highlighted}>
-            your wallet has the collateral needed
-          </Text>
-        </View>
-      );
-    } else if (renderContext === 'WalletNeedsSwap') {
+    } else if (renderContext === 'WalletBalanceNotEnough') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -109,61 +68,8 @@ function ConfirmEarnCompound(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet has collateral in unsupported coins
-          </Text>
-          <View style={styles.unsupported_coins_context_suggestions_view}>
-            <Text style={styles.text_not_highlighted}>
-              convert your balances into these supported coins shown below and
-              try again
-            </Text>
-            <View style={styles.supported_coins_view}>
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-            </View>
-            <View style={styles.supported_coins_view}>
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-            </View>
-          </View>
-        </View>
-      );
-    } else if (renderContext === 'NoColl') {
-      return (
-        <View style={styles.main_block_view}>
-          <EmojiIcon
-            color={themeHere.colors.danger_red}
-            size={80}
-            emoji={'⚠️'}
-          />
-          <Text style={styles.text_highlighted}>
-            your wallet does have enough collateral, reduce borrow amount and
-            try again
+            your wallet does have enough amount, reduce borrow amount and try
+            again
           </Text>
         </View>
       );
@@ -190,11 +96,11 @@ function ConfirmEarnCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'WalletHasEnough') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'start borrow process'}
+            title={'start staking process'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -210,44 +116,7 @@ function ConfirmEarnCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
-      return (
-        <View style={styles.button_block_view}>
-          <Button
-            title={'start borrow process'}
-            type={'solid'}
-            onPress={() => props.ChangeBody()}
-            containerStyle={styles.next_button_container}
-            buttonStyle={styles.next_button_style}
-            titleStyle={styles.next_button_title}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
-              ],
-            }}
-          />
-        </View>
-      );
-    } else if (renderContext === 'WalletNeedsSwap') {
-      return (
-        <View style={styles.button_block_view}>
-          <Button
-            title={'swap coins'}
-            type={'solid'}
-            onPress={() => props.ChangeBody()}
-            containerStyle={styles.next_button_container}
-            buttonStyle={styles.next_button_style}
-            titleStyle={styles.next_button_title}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [themeHere.colors.mid_ground + '50'],
-            }}
-          />
-        </View>
-      );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'WalletBalanceNotEnough') {
       return (
         <View style={styles.button_block_view}>
           <Button
