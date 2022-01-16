@@ -173,9 +173,9 @@ function EarnInterestCompoundFinance() {
               info: infoHere,
             })
           }
-          containerStyle={styles.borrow_button_container}
-          buttonStyle={styles.borrow_button_style}
-          titleStyle={styles.borrow_button_title}
+          containerStyle={styles.deposit_button_container}
+          buttonStyle={styles.deposit_button_style}
+          titleStyle={styles.deposit_button_title}
           ViewComponent={LinearGradient}
           linearGradientProps={{
             colors: [
