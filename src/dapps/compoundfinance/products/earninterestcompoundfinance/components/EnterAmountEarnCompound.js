@@ -27,39 +27,7 @@ function EnterAmountEarnCompound(props) {
             <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
           </Text>
         </Text>
-        <View>
-          <Text style={styles.collateral_text}>
-            collateral needed -{' '}
-            {5000 *
-              (100 /
-                Number(
-                  props.Info.cToken[0].collateral_factor.value * 100,
-                ))}{' '}
-            (approx)
-          </Text>
-          <Button
-            title={'borrow'}
-            type={'solid'}
-            onPress={() =>
-              props.ChangeBody(
-                amount,
-                5000 *
-                  (100 /
-                    Number(props.Info.cToken[0].collateral_factor.value * 100)),
-              )
-            }
-            containerStyle={styles.next_button_container}
-            buttonStyle={styles.next_button_style}
-            titleStyle={styles.next_button_title}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
-              ],
-            }}
-          />
-        </View>
+        <View />
       </View>
       <View style={styles.bottom_part_view}>
         <VirtualKeyboard
