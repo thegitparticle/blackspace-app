@@ -43,7 +43,10 @@ c. estimated fees = .....
  */
 
 function BuyTokenUniswapProduct({dispatch}) {
-  const [firstItemAmount, setFirstItemAmount] = useState('');
+  const [token1Amount, setToken1Amount] = useState('');
+  const [token1Fiat, setToken1Fiat] = useState(0);
+
+  const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
 
   const myEthBalance =
     state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string;
@@ -172,8 +175,8 @@ function BuyTokenUniswapProduct({dispatch}) {
       <View style={styles.want_token_view}>
         <TextInput
           numberOfLines={1}
-          onChangeText={setFirstItemAmount}
-          value={firstItemAmount}
+          onChangeText={setToken1Amount}
+          value={token1Amount}
           style={styles.enter_amount_input}
           placeholder={'0.0 DAI'}
           placeholderTextColor={themeHere.colors.foreground + 50}
@@ -190,18 +193,21 @@ function BuyTokenUniswapProduct({dispatch}) {
             }}>
             <FastImage
               source={{
-                uri: FamousTokensList[3].logoURI,
+                uri: token1Coin.logoURI,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
               style={styles.famous_token_item_logo}
             />
             <Text style={styles.famous_token_item_symbol}>
-              {FamousTokensList[3].symbol}
+              {token1Coin.symbol}
             </Text>
           </SquircleView>
         </TouchableOpacity>
       </View>
+      <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
+        ~ $ {token1Fiat}
+      </Text>
       <Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>
       <RenderPaymentOptions />
       <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
@@ -232,7 +238,6 @@ const styles = StyleSheet.create({
   },
   want_token_view: {
     flexDirection: 'row',
-    marginBottom: 20,
     marginTop: 30,
   },
   enter_amount_input: {
@@ -241,6 +246,11 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
     width: (windowWidth - 40) / 2,
     height: 50,
+    marginHorizontal: 20,
+  },
+  fiat_price_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
     marginHorizontal: 20,
   },
   payment_token_pick_view: {
