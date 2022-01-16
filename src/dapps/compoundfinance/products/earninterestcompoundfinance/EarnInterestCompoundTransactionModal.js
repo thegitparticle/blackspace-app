@@ -3,9 +3,9 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
-import EnterAmountBorrowCompound from './components/EnterAmountBorrowCompound';
-import ConfirmBorrowCompound from './components/ConfirmBorrowCompound';
-import TransactionOngoingBorrowCompound from './components/TransactionOngoingBorrowCompound';
+import TransactionOngoingEarnCompound from './components/TransactionOngoingEarnCompound';
+import ConfirmEarnCompound from './components/ConfirmEarnCompound';
+import EnterAmountEarnCompound from './components/EnterAmountEarnCompound';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -25,7 +25,7 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
-        <TransactionOngoingBorrowCompound
+        <TransactionOngoingEarnCompound
           Info={info}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
@@ -33,7 +33,7 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
       );
     } else if (renderScreen === 'ConfirmEarn') {
       return (
-        <ConfirmBorrowCompound
+        <ConfirmEarnCompound
           Info={info}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
@@ -43,7 +43,7 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
       );
     } else {
       return (
-        <EnterAmountBorrowCompound
+        <EnterAmountEarnCompound
           Info={info}
           ChangeBody={changeBodyToConfirmEarn}
           State={state_here}
