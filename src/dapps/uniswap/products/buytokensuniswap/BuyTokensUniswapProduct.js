@@ -422,6 +422,18 @@ function BuyTokenUniswapProduct({dispatch}) {
                   </Text>
                 </Text>
               </View>
+              <Button
+                title={'start buy process'}
+                type={'solid'}
+                // onPress={() => props.ChangeBody()}
+                containerStyle={styles.next_button_container}
+                buttonStyle={styles.next_button_style}
+                titleStyle={styles.next_button_title}
+                ViewComponent={LinearGradient}
+                linearGradientProps={{
+                  colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
+                }}
+              />
             </View>
           );
         } else {
@@ -708,5 +720,18 @@ const styles = StyleSheet.create({
     height: 50,
     alignSelf: 'center',
     textAlign: 'center',
+  },
+  next_button_container: {
+    marginVertical: 30,
+    alignSelf: 'center',
+  },
+  next_button_style: {
+    width: windowWidth * 0.5,
+    height: 50,
+    borderRadius: 25,
+  },
+  next_button_title: {
+    ...themeHere.text.body_medium,
+    color: 'white',
   },
 });
