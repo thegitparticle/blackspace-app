@@ -40,7 +40,14 @@ function EnterAmountBorrowCompound(props) {
           <Button
             title={'borrow'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() =>
+              props.ChangeBody(
+                amount,
+                5000 *
+                  (100 /
+                    Number(props.Info.cToken[0].collateral_factor.value * 100)),
+              )
+            }
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

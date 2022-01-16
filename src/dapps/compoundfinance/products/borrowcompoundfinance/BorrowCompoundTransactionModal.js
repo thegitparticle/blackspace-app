@@ -20,12 +20,16 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
 
   const [renderScreen, setRenderScreen] = useState('EnterAmount');
 
+  const [amount, setAmount] = useState('0');
+  const [collNeededFiat, setCollNeededFiat] = useState('0');
+
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
         <TransactionOngoingBorrowCompound
           Info={info}
           ChangeBody={changeBodyToEnterAmount}
+          State={state_here}
         />
       );
     } else if (renderScreen === 'ConfirmBorrow') {
@@ -33,6 +37,9 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
         <ConfirmBorrowCompound
           Info={info}
           ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          Amount={amount}
+          CollNeededFiat={collNeededFiat}
         />
       );
     } else {
@@ -40,6 +47,7 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
         <EnterAmountBorrowCompound
           Info={info}
           ChangeBody={changeBodyToConfirmBorrow}
+          State={state_here}
         />
       );
     }
@@ -53,8 +61,10 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
     setRenderScreen('EnterAmount');
   }
 
-  function changeBodyToConfirmBorrow() {
+  function changeBodyToConfirmBorrow(amount, collNeededFiat) {
     setRenderScreen('ConfirmBorrow');
+    setAmount(amount);
+    setCollNeededFiat(collNeededFiat);
   }
 
   return (
