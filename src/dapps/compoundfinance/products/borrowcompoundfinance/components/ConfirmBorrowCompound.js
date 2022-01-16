@@ -60,7 +60,7 @@ function ConfirmBorrowCompound(props) {
     })().catch(console.error);
   }, []);
 
-  const [renderContext, setRenderContext] = useState('WalletHasColl');
+  const [renderContext, setRenderContext] = useState('NoColl');
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -179,7 +179,7 @@ function ConfirmBorrowCompound(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'borrow'}
+            title={'go back'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -187,10 +187,7 @@ function ConfirmBorrowCompound(props) {
             titleStyle={styles.next_button_title}
             ViewComponent={LinearGradient}
             linearGradientProps={{
-              colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
-              ],
+              colors: [themeHere.colors.mid_ground + '50'],
             }}
           />
         </View>
@@ -199,7 +196,7 @@ function ConfirmBorrowCompound(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'borrow'}
+            title={'start borrow process'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -219,7 +216,7 @@ function ConfirmBorrowCompound(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'borrow'}
+            title={'start borrow process'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -239,7 +236,7 @@ function ConfirmBorrowCompound(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'borrow'}
+            title={'swap coins'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -247,10 +244,7 @@ function ConfirmBorrowCompound(props) {
             titleStyle={styles.next_button_title}
             ViewComponent={LinearGradient}
             linearGradientProps={{
-              colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
-              ],
+              colors: [themeHere.colors.mid_ground + '50'],
             }}
           />
         </View>
@@ -259,7 +253,7 @@ function ConfirmBorrowCompound(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'borrow'}
+            title={'go back'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -268,8 +262,8 @@ function ConfirmBorrowCompound(props) {
             ViewComponent={LinearGradient}
             linearGradientProps={{
               colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
+                themeHere.colors.danger_red_dark,
+                themeHere.colors.danger_red,
               ],
             }}
           />
