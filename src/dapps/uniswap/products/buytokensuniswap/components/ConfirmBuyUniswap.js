@@ -17,50 +17,21 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 /*
-1. checks if the wallet has enough collateral?
--> checking your wallet for collateral - must come when this happens
-2. if compound already has the free collateral - then, show this much is there - extra needed? do wallet check - if not
-compound supply exists - then perform full wallet check
-3. if yes in wallet : then show - coll of this much will be deducted from account
-4. if no in wallet : you do not have enough collateral in wallet - go back button show
+1. checks if wallet has enough of token1 + gas (ETH only)?
+3. if yes in wallet : show "x amount of this" will be paid to get "y of this" + gas fees (approx) = ....
+4. if no gas (ETH) in wallet : ETH needed for gas is not there. First buy ETH
+5. if no amount in wallet : you do not have required amount, reduce and try again
 
 All states of this component
 a. "Checking" - checking your compound history and wallet balances to assess collateral - useEffect runs during this time
-b. "CompoundHasColl" - your compound finance account has the needed collateral - you can borrow <amount><token_symbol> now
-c. "WalletHasColl" - your have the needed collateral in <symbol> - you can borrow <amount><token_symbol> now
-d. "WalletNeedsSwap" - you have collateral amount in wallet in unsupported coins - convert them to either of these - give those 5 options
-e. "NoColl" - you do not have the needed collateral - reduce the borrow accordingly
+c. "WalletHasAmount" - your have the needed collateral in <symbol> - you can borrow <amount><token_symbol> now
+d. "WalletHasNoETHGas" - you have collateral amount in wallet in unsupported coins - convert them to either of these - give those 5 options
+e. "NoAmount" - you do not have the needed collateral - reduce the borrow accordingly
 
  */
 
 function ConfirmBuyUniswap(props) {
-  useEffect(() => {
-    (async function () {
-      const account = await Compound.api.account({
-        addresses: props.State.WDeetsReducer.wdeets.wallet_address,
-        network: 'ropsten',
-      });
-
-      let daiBorrowBalance = 0;
-      if (Object.isExtensible(account) && account.accounts) {
-        account.accounts.forEach(acc => {
-          acc.tokens.forEach(tok => {
-            if (tok.symbol === Compound.cDAI) {
-              daiBorrowBalance = +tok.borrow_balance_underlying.value;
-
-              // 1. check if props.CollNeededFiat is > or < than this borrowbalance here
-              // 2.1. if compound itself has the needed coll - then
-              // 2.2. else balance is not fully there - then check wallet balances and see if it works
-            }
-          });
-        });
-      }
-
-      console.log('daiBorrowBalance', daiBorrowBalance);
-    })().catch(console.error);
-  }, []);
-
-  const [renderContext, setRenderContext] = useState('NoColl');
+  const [renderContext, setRenderContext] = useState('Checking');
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -72,11 +43,11 @@ function ConfirmBuyUniswap(props) {
             emoji={'⌛'}
           />
           <Text style={styles.text_highlighted}>
-            checking your compound history & wallet to assess collateral
+            checking your wallet for balances
           </Text>
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -85,24 +56,12 @@ function ConfirmBuyUniswap(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            your Compound account has the collateral needed
+            you will get {props.Token1Amount} {props.Token1Coin.symbol} for
+            paying {props.Token0Coin.symbol}
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
-      return (
-        <View style={styles.main_block_view}>
-          <EmojiIcon
-            color={themeHere.colors.success_green_dark}
-            size={80}
-            emoji={'👍'}
-          />
-          <Text style={styles.text_highlighted}>
-            your wallet has the collateral needed
-          </Text>
-        </View>
-      );
-    } else if (renderContext === 'WalletNeedsSwap') {
+    } else if (renderContext === 'WalletHasNoETHGas') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -111,51 +70,11 @@ function ConfirmBuyUniswap(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet has collateral in unsupported coins
+            your do not have enough ETH for gas, get ETH and try again
           </Text>
-          <View style={styles.unsupported_coins_context_suggestions_view}>
-            <Text style={styles.text_not_highlighted}>
-              convert your balances into these supported coins shown below and
-              try again
-            </Text>
-            <View style={styles.supported_coins_view}>
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-            </View>
-            <View style={styles.supported_coins_view}>
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-            </View>
-          </View>
         </View>
       );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -164,7 +83,7 @@ function ConfirmBuyUniswap(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough collateral, reduce borrow amount and
+            your wallet does have {props.Token0Coin.symbol}, reduce amount and
             try again
           </Text>
         </View>
@@ -192,11 +111,11 @@ function ConfirmBuyUniswap(props) {
           />
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'start borrow process'}
+            title={'confirm buy'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -212,11 +131,11 @@ function ConfirmBuyUniswap(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
+    } else if (renderContext === 'WalletHasNoETHGas') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'start borrow process'}
+            title={'go back'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -225,31 +144,14 @@ function ConfirmBuyUniswap(props) {
             ViewComponent={LinearGradient}
             linearGradientProps={{
               colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
+                themeHere.colors.danger_red_dark,
+                themeHere.colors.danger_red,
               ],
             }}
           />
         </View>
       );
-    } else if (renderContext === 'WalletNeedsSwap') {
-      return (
-        <View style={styles.button_block_view}>
-          <Button
-            title={'swap coins'}
-            type={'solid'}
-            onPress={() => props.ChangeBody()}
-            containerStyle={styles.next_button_container}
-            buttonStyle={styles.next_button_style}
-            titleStyle={styles.next_button_title}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [themeHere.colors.mid_ground + '50'],
-            }}
-          />
-        </View>
-      );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button

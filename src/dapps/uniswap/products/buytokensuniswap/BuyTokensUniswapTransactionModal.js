@@ -27,6 +27,10 @@ function BuyTokensUniswapTransactionModal({route, dispatch}) {
       return (
         <TransactionOngoingBuyUniswap
           // Info={info}
+          Token0Coin={token0Coin}
+          Token1Coin={token1Coin}
+          Token1Amount={token1Amount}
+          Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
         />
@@ -35,6 +39,10 @@ function BuyTokensUniswapTransactionModal({route, dispatch}) {
       return (
         <ConfirmBuyUniswap
           // Info={info}
+          Token0Coin={token0Coin}
+          Token1Coin={token1Coin}
+          Token1Amount={token1Amount}
+          Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           Amount={amount}
