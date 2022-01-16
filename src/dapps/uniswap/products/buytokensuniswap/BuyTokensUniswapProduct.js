@@ -19,6 +19,7 @@ import {Portal} from 'react-native-portalize';
 import {FamousTokensList} from '../../helpers/FamousTokensList';
 import FastImage from 'react-native-fast-image';
 import axios from 'axios';
+import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -47,6 +48,213 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Fiat, setToken1Fiat] = useState(0);
 
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
+
+  console.log(token1Coin);
+
+  let token_list = state_here.UniswapTokenListReducer.token_list;
+
+  const modalizePickToken1CoinRef = useRef(null);
+
+  const onOpenPickToken1Coin = () => {
+    modalizePickToken1CoinRef.current?.open();
+  };
+
+  const onClosePickToken1Coin = () => {
+    modalizePickToken1CoinRef.current?.close();
+  };
+
+  function PickToken1CoinHeader() {
+    const [searchText, setSearchText] = useState('');
+
+    return (
+      <SquircleView
+        style={styles.pick_coin_overlay_view}
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: themeHere.colors.off_background,
+        }}>
+        <Text style={styles.pick_coin_overlay_title}>pick a coin</Text>
+        <SquircleView
+          style={styles.pick_coin_overlay_input_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            onChangeText={setSearchText}
+            value={searchText}
+            style={styles.pick_coin_overlay_input}
+            placeholder={'search coins'}
+            placeholderTextColor={themeHere.colors.foreground + 50}
+          />
+        </SquircleView>
+        <View style={styles.famous_tokens_wrap_view}>
+          <View style={styles.famous_tokens_line_view}>
+            <TouchableOpacity
+              onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+                setToken1Coin(FamousTokensList[0]);
+                onClosePickToken1Coin();
+              }}>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[0].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[0].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+                setToken1Coin(FamousTokensList[1]);
+                onClosePickToken1Coin();
+              }}>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[1].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[1].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+                setToken1Coin(FamousTokensList[2]);
+                onClosePickToken1Coin();
+              }}>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[2].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[2].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.famous_tokens_line_view}>
+            <TouchableOpacity
+              onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+                setToken1Coin(FamousTokensList[3]);
+                onClosePickToken1Coin();
+              }}>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[3].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[3].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+                setToken1Coin(FamousTokensList[4]);
+                onClosePickToken1Coin();
+              }}>
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: FamousTokensList[4].logoURI,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>
+                  {FamousTokensList[4].symbol}
+                </Text>
+              </SquircleView>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </SquircleView>
+    );
+  }
+
+  function RenderToken1ListItem(item) {
+    return (
+      <TouchableOpacity
+        style={styles.render_token_item_view}
+        onPress={() => {
+          getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+          setToken1Coin(item.item);
+          onClosePickToken1Coin();
+        }}>
+        <>
+          <FastImage
+            source={{
+              uri: item.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.render_token_item_logo}
+          />
+          <Text style={styles.render_token_item_title}>{item.item.name}</Text>
+        </>
+        <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
+      </TouchableOpacity>
+    );
+  }
 
   const myEthBalance =
     state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string;
@@ -183,7 +391,9 @@ function BuyTokenUniswapProduct({dispatch}) {
           keyboardType={'decimal-pad'}
           onEndEditing={() => {}}
         />
-        <TouchableOpacity style={{color: 'transparent'}}>
+        <TouchableOpacity
+          style={{color: 'transparent'}}
+          onPress={() => onOpenPickToken1Coin()}>
           <SquircleView
             style={styles.famous_token_item_view}
             squircleParams={{
@@ -212,6 +422,23 @@ function BuyTokenUniswapProduct({dispatch}) {
       <RenderPaymentOptions />
       <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
       <RenderOrderInfo />
+      <Portal>
+        <Modalize
+          ref={modalizePickToken1CoinRef}
+          modalStyle={{
+            backgroundColor: themeHere.colors.off_background,
+            width: windowWidth,
+            height: windowHeight * 0.5,
+          }}
+          flatListProps={{
+            data: token_list,
+            renderItem: RenderToken1ListItem,
+            keyExtractor: item => item.heading,
+            showsVerticalScrollIndicator: false,
+            ListHeaderComponent: PickToken1CoinHeader(),
+          }}
+        />
+      </Portal>
     </View>
   );
 }
@@ -348,5 +575,61 @@ const styles = StyleSheet.create({
     ...themeHere.text.caption,
     color: themeHere.colors.foreground + '50',
     marginVertical: 2.5,
+  },
+  first_pair_token_view: {
+    width: windowWidth * 0.3,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  render_token_item_view: {
+    height: 50,
+    width: windowWidth,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  render_token_item_logo: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    marginHorizontal: 20,
+  },
+  render_token_item_title: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    marginHorizontal: 10,
+  },
+  render_token_item_symbol: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
+    marginHorizontal: 10,
+  },
+  pick_coin_overlay_view: {
+    width: windowWidth,
+    alignItems: 'center',
+  },
+  pick_coin_overlay_title: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    marginVertical: 30,
+    textAlign: 'center',
+  },
+  pick_coin_overlay_input_view: {
+    width: windowWidth - 40,
+    height: 50,
+    borderRadius: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginVertical: 15,
+  },
+  pick_coin_overlay_input: {
+    backgroundColor: 'transparent',
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground,
+    width: windowWidth - 40,
+    height: 50,
+    alignSelf: 'center',
+    textAlign: 'center',
   },
 });
