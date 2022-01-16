@@ -20,6 +20,7 @@ import {FamousTokensList} from '../../helpers/FamousTokensList';
 import FastImage from 'react-native-fast-image';
 import axios from 'axios';
 import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -44,6 +45,7 @@ c. estimated fees = .....
  */
 
 function BuyTokenUniswapProduct({dispatch}) {
+  const navigation = useNavigation();
   const [token1Amount, setToken1Amount] = useState('');
   const [token1Fiat, setToken1Fiat] = useState(0);
 
@@ -425,7 +427,14 @@ function BuyTokenUniswapProduct({dispatch}) {
               <Button
                 title={'start buy process'}
                 type={'solid'}
-                // onPress={() => props.ChangeBody()}
+                onPress={() =>
+                  navigation.navigate('BuyTokensUniswapTransactionModal', {
+                    token0Coin: token0Coin,
+                    token1Coin: token1Coin,
+                    token1Amount: token1Amount,
+                    token1Fiat: token1Fiat,
+                  })
+                }
                 containerStyle={styles.next_button_container}
                 buttonStyle={styles.next_button_style}
                 titleStyle={styles.next_button_title}
