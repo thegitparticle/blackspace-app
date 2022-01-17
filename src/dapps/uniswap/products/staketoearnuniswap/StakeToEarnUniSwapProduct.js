@@ -6,6 +6,7 @@ import FastImage from 'react-native-fast-image';
 import {FamousTokensList} from '../../helpers/FamousTokensList';
 import {Button, Divider} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -182,6 +183,8 @@ blocks
 */
 
 function StakeToEarnUniswapProduct() {
+  const navigation = useNavigation();
+
   function PoolItem(item) {
     return (
       <View style={styles.pool_item_view}>
@@ -248,11 +251,11 @@ function StakeToEarnUniswapProduct() {
         <Button
           title={'start buy process'}
           type={'solid'}
-          // onPress={() =>
-          //   navigation.navigate('BuyTokensUniswapTransactionModal', {
-          //     token0Coin: token0Coin,
-          //   })
-          // }
+          onPress={() =>
+            navigation.navigate('StakeToEarnUniSwapTransactionModal', {
+              info: item,
+            })
+          }
           containerStyle={styles.next_button_container}
           buttonStyle={styles.next_button_style}
           titleStyle={styles.next_button_title}

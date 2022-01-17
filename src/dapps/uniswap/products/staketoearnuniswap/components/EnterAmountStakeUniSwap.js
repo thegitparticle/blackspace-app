@@ -1,5 +1,13 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
@@ -7,38 +15,102 @@ import {
 import VirtualKeyboard from 'react-native-virtual-keyboard';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
+import {SquircleView} from 'react-native-figma-squircle';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+/*
+things to render
+
+1. token 0 symbol - text input
+2. token 1 symbol - text input
+
+3. fee level - fixed - just text
+4. concentration range - fixes - picked by best performance
+ */
+
 function EnterAmountStakeUniSwap(props) {
   const [amount, setAmount] = useState('0');
+  const [token0Amount, setToken0Amount] = useState('');
+  const [token1Amount, setToken1Amount] = useState('');
 
   return (
     <View style={styles.parent_view}>
       <View style={styles.top_part_view}>
         <Text></Text>
-        <Text style={styles.enter_amount_text}>
-          {amount}{' '}
-          <Text style={styles.enter_amount_text_symbol}>
-            {props.Info.cToken[0].underlying_symbol}{' '}
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
-          </Text>
-        </Text>
+        <View>
+          <View style={styles.token0_view}>
+            <TextInput
+              numberOfLines={1}
+              onChangeText={setToken0Amount}
+              value={token0Amount}
+              style={styles.enter_amount_text}
+              placeholder={`0.0 ${props.Info.token0_symbol}`}
+              placeholderTextColor={themeHere.colors.foreground + 50}
+              keyboardType={'decimal-pad'}
+              onEndEditing={() => {}}
+            />
+            <SquircleView
+              style={styles.token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: props.Info.token0_icon,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.token_item_logo}
+              />
+              <Text style={styles.token_item_symbol}>
+                {props.Info.token0_symbol}
+              </Text>
+            </SquircleView>
+          </View>
+          <View style={styles.token1_view}>
+            <TextInput
+              numberOfLines={1}
+              onChangeText={setToken1Amount}
+              value={token1Amount}
+              style={styles.enter_amount_text}
+              placeholder={`0.0 ${props.Info.token1_symbol}`}
+              placeholderTextColor={themeHere.colors.foreground + 50}
+              keyboardType={'decimal-pad'}
+              onEndEditing={() => {}}
+            />
+            <SquircleView
+              style={styles.token_item_view}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 15,
+                fillColor: themeHere.colors.mid_ground + '25',
+              }}>
+              <FastImage
+                source={{
+                  uri: props.Info.token1_icon,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.token_item_logo}
+              />
+              <Text style={styles.token_item_symbol}>
+                {props.Info.token1_symbol}
+              </Text>
+            </SquircleView>
+          </View>
+        </View>
         <View>
           <Button
-            title={'borrow'}
+            title={'confirm staking'}
             type={'solid'}
-            onPress={() =>
-              props.ChangeBody(
-                amount,
-                5000 *
-                  (100 /
-                    Number(props.Info.cToken[0].collateral_factor.value * 100)),
-              )
-            }
+            onPress={() => props.ChangeBody(token0Amount, token1Amount)}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -52,16 +124,7 @@ function EnterAmountStakeUniSwap(props) {
           />
         </View>
       </View>
-      <View style={styles.bottom_part_view}>
-        <VirtualKeyboard
-          color="white"
-          pressMode="string"
-          decimal={true}
-          onPress={val => setAmount(val)}
-          style={styles.keyboard_overall}
-          cellStyle={styles.keyboard_cell}
-        />
-      </View>
+      <View style={styles.bottom_part_view}></View>
     </View>
   );
 }
@@ -78,9 +141,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
   },
+  token0_view: {
+    flexDirection: 'row',
+    width: windowWidth - 40,
+    marginVertical: 15,
+  },
+  token1_view: {
+    flexDirection: 'row',
+    width: windowWidth - 40,
+    marginVertical: 15,
+  },
   enter_amount_text: {
-    ...themeHere.text.title_1,
+    backgroundColor: 'transparent',
+    ...themeHere.text.header_bold,
     color: themeHere.colors.foreground,
+    width: (windowWidth - 40) / 2,
+    height: 50,
+    marginHorizontal: 20,
   },
   enter_amount_text_symbol: {
     ...themeHere.text.header,
@@ -118,5 +195,24 @@ const styles = StyleSheet.create({
   },
   keyboard_cell: {
     paddingVertical: 10,
+  },
+  token_item_view: {
+    width: (windowWidth - 80) / 3,
+    height: 50,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+  },
+  token_item_logo: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  token_item_symbol: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    textAlign: 'center',
+    marginHorizontal: 10,
   },
 });
