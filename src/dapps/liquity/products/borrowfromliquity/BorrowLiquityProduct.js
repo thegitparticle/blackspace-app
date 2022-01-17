@@ -38,10 +38,30 @@ function BorrowLiquityProduct() {
   function CollateralNeededBlock() {
     return (
       <View style={styles.coll_needed_block_view}>
-        <Text style={{...styles.block_sub_title, marginTop: 40}}>
-          collateral needed -
+        <Text
+          style={{
+            ...styles.block_sub_title,
+            marginTop: 30,
+            marginHorizontal: 5,
+          }}>
+          collateral needed
         </Text>
-        <Text style={{...styles.block_sub_title, marginTop: 40}}>2.53 ETH</Text>
+        <Text
+          style={{
+            ...styles.block_sub_title,
+            marginTop: 30,
+            marginHorizontal: 5,
+          }}>
+          -
+        </Text>
+        <Text
+          style={{
+            ...styles.block_sub_title,
+            marginTop: 30,
+            marginHorizontal: 5,
+          }}>
+          2.53 ETH
+        </Text>
         <FastImage
           style={styles.itemholding_icon}
           source={{
@@ -102,7 +122,7 @@ function BorrowLiquityProduct() {
           onChangeText={setBorrowAmount}
           value={borrowAmount}
           style={styles.enter_amount_input}
-          placeholder={'0.0 DAI'}
+          placeholder={'0.0 LUSD'}
           placeholderTextColor={themeHere.colors.foreground + 50}
           keyboardType={'decimal-pad'}
           onEndEditing={() => {}}
@@ -199,6 +219,8 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
+    width: windowWidth * 0.3,
+    alignSelf: 'center',
   },
   order_info_view: {
     flexDirection: 'column',
