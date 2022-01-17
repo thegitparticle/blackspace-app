@@ -19,16 +19,12 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 /*
 All states of this component
 a. "Checking" - checking your wallet balances - useEffect runs during this time
-c. "WalletHasEnough" - your have the needed amount in <symbol> - you can supply <amount><token_symbol> now
+c. "WalletHasEnough" - your have the needed amount in token0 + token1 - combined value needed
 e. "WalletBalanceNotEnough" - you do not have the needed in wallet - reduce stake amount as per
  */
 
 function ConfirmStakeUniSwap(props) {
-  useEffect(() => {
-    // 1. check if wallet has the supply amount said
-    // 2.1. if not, invoke - "WalletBalanceNotEnough" - in that particular token chosen
-    // 2.2. else invoke - "WalletHasEnough" - in that particular token chosen
-  }, []);
+  useEffect(() => {}, []);
 
   const [renderContext, setRenderContext] = useState('Checking');
 
