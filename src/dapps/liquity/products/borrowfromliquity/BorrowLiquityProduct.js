@@ -12,6 +12,8 @@ import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import {FamousTokensList} from '../../../uniswap/helpers/FamousTokensList';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -34,6 +36,7 @@ blocks
 
 function BorrowLiquityProduct() {
   const [borrowAmount, setBorrowAmount] = useState('');
+  const [amount1Fiat, setAmount1Fiat] = useState(0);
 
   function CollateralNeededBlock() {
     return (
@@ -107,6 +110,21 @@ function BorrowLiquityProduct() {
             <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
           </Text>
         </View>
+        <Button
+          title={'start borrow process'}
+          type={'solid'}
+          // onPress={() => }
+          containerStyle={styles.next_button_container}
+          buttonStyle={styles.next_button_style}
+          titleStyle={styles.next_button_title}
+          ViewComponent={LinearGradient}
+          linearGradientProps={{
+            colors: [
+              themeHere.colors.blue_dark,
+              themeHere.colors.blue_dark + '90',
+            ],
+          }}
+        />
       </View>
     );
   }
@@ -147,6 +165,9 @@ function BorrowLiquityProduct() {
           </SquircleView>
         </TouchableOpacity>
       </View>
+      <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
+        ~ $ {amount1Fiat}
+      </Text>
       <CollateralNeededBlock />
       <RenderOrderInfo />
     </View>
@@ -242,5 +263,23 @@ const styles = StyleSheet.create({
   order_info_value_text: {
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground + '50',
+  },
+  fiat_price_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
+    marginHorizontal: 20,
+  },
+  next_button_container: {
+    marginVertical: 30,
+    alignSelf: 'center',
+  },
+  next_button_style: {
+    width: windowWidth * 0.5,
+    height: 50,
+    borderRadius: 25,
+  },
+  next_button_title: {
+    ...themeHere.text.body_medium,
+    color: 'white',
   },
 });
