@@ -25,6 +25,7 @@ import {useNavigation} from '@react-navigation/native';
 import BorrowCompoundTransactionModal from '../dapps/compoundfinance/products/borrowcompoundfinance/BorrowCompoundTransactionModal';
 import EarnInterestCompoundTransactionModal from '../dapps/compoundfinance/products/earninterestcompoundfinance/EarnInterestCompoundTransactionModal';
 import BuyTokensUniswapTransactionModal from '../dapps/uniswap/products/buytokensuniswap/BuyTokensUniswapTransactionModal';
+import StakeToEarnUniSwapTransactionModal from '../dapps/uniswap/products/staketoearnuniswap/StakeToEarnUniSwapTransactionModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -220,6 +221,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="BuyTokensUniswapTransactionModal"
           component={BuyTokensUniswapTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="StakeToEarnUniSwapTransactionModal"
+          component={StakeToEarnUniSwapTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,
