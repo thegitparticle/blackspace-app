@@ -26,6 +26,7 @@ import BorrowCompoundTransactionModal from '../dapps/compoundfinance/products/bo
 import EarnInterestCompoundTransactionModal from '../dapps/compoundfinance/products/earninterestcompoundfinance/EarnInterestCompoundTransactionModal';
 import BuyTokensUniswapTransactionModal from '../dapps/uniswap/products/buytokensuniswap/BuyTokensUniswapTransactionModal';
 import StakeToEarnUniSwapTransactionModal from '../dapps/uniswap/products/staketoearnuniswap/StakeToEarnUniSwapTransactionModal';
+import BorrowLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/BorrowLiquityTransactionModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -233,6 +234,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="StakeToEarnUniSwapTransactionModal"
           component={StakeToEarnUniSwapTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="BorrowLiquityTransactionModal"
+          component={BorrowLiquityTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,
