@@ -4,9 +4,9 @@ import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
-import TransactionOngoingEarnCompound from './components/TransactionOngoingEarnCompound';
-import ConfirmEarnCompound from './components/ConfirmEarnCompound';
-import EnterAmountEarnCompound from './components/EnterAmountEarnCompound';
+import TransactionOngoingStakeUniSwap from './components/TransactionOngoingStakeUniSwap';
+import ConfirmStakeUniSwap from './components/ConfirmStakeUniSwap';
+import EnterAmountStakeUniSwap from './components/EnterAmountStakeUniSwap';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -26,7 +26,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
-        <TransactionOngoingEarnCompound
+        <TransactionOngoingStakeUniSwap
           Info={info}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
@@ -34,7 +34,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
       );
     } else if (renderScreen === 'ConfirmStake') {
       return (
-        <ConfirmEarnCompound
+        <ConfirmStakeUniSwap
           Info={info}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
@@ -44,7 +44,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
       );
     } else {
       return (
-        <EnterAmountEarnCompound
+        <EnterAmountStakeUniSwap
           Info={info}
           ChangeBody={changeBodyToConfirmEarn}
           State={state_here}
