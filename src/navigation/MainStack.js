@@ -27,6 +27,7 @@ import EarnInterestCompoundTransactionModal from '../dapps/compoundfinance/produ
 import BuyTokensUniswapTransactionModal from '../dapps/uniswap/products/buytokensuniswap/BuyTokensUniswapTransactionModal';
 import StakeToEarnUniSwapTransactionModal from '../dapps/uniswap/products/staketoearnuniswap/StakeToEarnUniSwapTransactionModal';
 import BorrowLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/BorrowLiquityTransactionModal';
+import TrendingTokensTransactionModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensTransactionModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -186,6 +187,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="TrendingTokensProductDetailsModal"
           component={TrendingTokensProductDetailsModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="TrendingTokensTransactionModal"
+          component={TrendingTokensTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,
