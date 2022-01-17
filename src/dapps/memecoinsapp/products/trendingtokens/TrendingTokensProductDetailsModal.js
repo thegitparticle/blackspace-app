@@ -16,6 +16,7 @@ import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import BottomSpacer from '../../../../bits/BottomSpacer';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,6 +24,7 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function TrendingTokensProductDetailsModal({route, dispatch}) {
+  const navigation = useNavigation();
   const {token} = route.params;
 
   let refinedChartInfo = [];
@@ -434,6 +436,11 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         <Button
           title={'buy'}
           type={'solid'}
+          onPress={() =>
+            navigation.navigate('TrendingTokensTransactionModal', {
+              token: token,
+            })
+          }
           containerStyle={styles.buy_button_container}
           buttonStyle={styles.buy_button_style}
           titleStyle={styles.buy_button_title}

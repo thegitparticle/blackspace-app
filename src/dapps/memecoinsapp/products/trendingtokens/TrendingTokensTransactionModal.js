@@ -16,7 +16,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function TrendingTokensTransactionModal({route, dispatch}) {
-  const {info} = route.params;
+  const {token} = route.params;
 
   const [renderScreen, setRenderScreen] = useState('EnterAmount');
 
@@ -27,7 +27,7 @@ function TrendingTokensTransactionModal({route, dispatch}) {
     if (renderScreen === 'TransactionOngoing') {
       return (
         <TransactionOngoingBuyTrendingMemeCoins
-          Info={info}
+          Info={token}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
         />
@@ -35,7 +35,7 @@ function TrendingTokensTransactionModal({route, dispatch}) {
     } else if (renderScreen === 'ConfirmBorrow') {
       return (
         <ConfirmBuyTrendingMemeCoins
-          Info={info}
+          Info={token}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           Amount={amount}
@@ -45,7 +45,7 @@ function TrendingTokensTransactionModal({route, dispatch}) {
     } else {
       return (
         <EnterAmountBuyTrendingMemeCoins
-          Info={info}
+          Info={token}
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
         />
