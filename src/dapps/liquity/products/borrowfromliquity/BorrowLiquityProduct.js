@@ -14,6 +14,7 @@ import FastImage from 'react-native-fast-image';
 import {FamousTokensList} from '../../../uniswap/helpers/FamousTokensList';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,6 +38,8 @@ blocks
 function BorrowLiquityProduct() {
   const [borrowAmount, setBorrowAmount] = useState('');
   const [amount1Fiat, setAmount1Fiat] = useState(0);
+
+  const navigation = useNavigation();
 
   function CollateralNeededBlock() {
     return (
@@ -113,7 +116,12 @@ function BorrowLiquityProduct() {
         <Button
           title={'start borrow process'}
           type={'solid'}
-          // onPress={() => }
+          onPress={() =>
+            navigation.navigate('BorrowLiquityTransactionModal', {
+              amount1Fiat: amount1Fiat,
+              borrowAmount: borrowAmount,
+            })
+          }
           containerStyle={styles.next_button_container}
           buttonStyle={styles.next_button_style}
           titleStyle={styles.next_button_title}
