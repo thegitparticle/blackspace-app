@@ -4,7 +4,8 @@ import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import {FamousTokensList} from '../../helpers/FamousTokensList';
-import {Divider} from 'react-native-elements';
+import {Button, Divider} from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -170,12 +171,13 @@ const dummy_pools = [
 
 /*
 blocks
-1. "choose the pool to earn from"
+1. "choose the pool to earn from the list given"
 2. List of pools - info shown would be:
   a. pair of the pool name
   b. expected returns (can vary)
-  c. button to stake - opens modal to confirm staking
-3.
+  c. total liquidity
+  d. volume (last 24h)
+3. start stake process - button - opens modal
 
 */
 
@@ -221,6 +223,47 @@ function StakeToEarnUniswapProduct() {
             </View>
           </View>
         </View>
+        <View style={styles.pool_item_bottom_part_view}>
+          <View style={styles.info_block_view}>
+            <View style={styles.info_left_side_view}>
+              <Text style={styles.info_title_text}>total liquidity locked</Text>
+            </View>
+            <View style={styles.info_right_side_view}>
+              <Text style={styles.info_value_text}>$ 31,600,900</Text>
+              <Text style={styles.info_title_subtext}></Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.pool_item_bottom_part_view}>
+          <View style={styles.info_block_view}>
+            <View style={styles.info_left_side_view}>
+              <Text style={styles.info_title_text}>volume (24h)</Text>
+            </View>
+            <View style={styles.info_right_side_view}>
+              <Text style={styles.info_value_text}>$ 2,600,900</Text>
+              <Text style={styles.info_title_subtext}></Text>
+            </View>
+          </View>
+        </View>
+        <Button
+          title={'start buy process'}
+          type={'solid'}
+          // onPress={() =>
+          //   navigation.navigate('BuyTokensUniswapTransactionModal', {
+          //     token0Coin: token0Coin,
+          //   })
+          // }
+          containerStyle={styles.next_button_container}
+          buttonStyle={styles.next_button_style}
+          titleStyle={styles.next_button_title}
+          ViewComponent={LinearGradient}
+          linearGradientProps={{
+            colors: [
+              themeHere.colors.success_green,
+              themeHere.colors.success_green_dark,
+            ],
+          }}
+        />
         <Divider
           style={{...styles.pool_item_end_divider}}
           color={themeHere.colors.foreground + '75'}
@@ -332,5 +375,18 @@ const styles = StyleSheet.create({
     ...themeHere.text.body,
     color: themeHere.colors.foreground + '50',
     marginVertical: 2.5,
+  },
+  next_button_container: {
+    marginVertical: 30,
+    alignSelf: 'center',
+  },
+  next_button_style: {
+    width: windowWidth * 0.5,
+    height: 50,
+    borderRadius: 25,
+  },
+  next_button_title: {
+    ...themeHere.text.body_medium,
+    color: 'white',
   },
 });
