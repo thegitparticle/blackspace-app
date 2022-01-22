@@ -75,6 +75,7 @@ function HomeMainPage({dispatch}) {
       )}
       showsVerticalScrollIndicator={false}
       ListFooterComponent={<BottomSpacer height={75} />}
+      spacing={20}
     />
   );
 }
@@ -106,6 +107,6 @@ const styles = StyleSheet.create({
     ...themeHere.text.subhead_bold,
     color: themeHere.colors.foreground,
     marginHorizontal: 20,
-    marginVertical: 15,
+    marginTop: 15,
   },
 });
