@@ -7,7 +7,9 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:tailwind": "tailwindcss --input input.css --output tailwind.css --no-autoprefixer && tailwind-rn",
+    "dev:tailwind": "concurrently \"tailwindcss --input input.css --output tailwind.css --no-autoprefixer --watch\" \"tailwind-rn --watch\""
   },
   "dependencies": {
     "@compound-finance/compound-js": "^0.4.2",
@@ -93,6 +95,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "stream-browserify": "^1.0.0",
+    "tailwind-rn": "^4.0.0",
     "timers-browserify": "^1.0.1",
     "tty-browserify": "0.0.0",
     "url": "~0.10.1",
@@ -104,12 +107,14 @@
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
     "babel-jest": "^26.6.3",
+    "concurrently": "^7.0.0",
     "eslint": "7.14.0",
     "jest": "^27.4.5",
     "metro-react-native-babel-preset": "^0.66.2",
     "react-native-bundle-visualizer": "^3.1.1",
     "react-test-renderer": "17.0.2",
-    "rn-nodeify": "^10.2.0"
+    "rn-nodeify": "^10.2.0",
+    "tailwindcss": "^3.0.15"
   },
   "jest": {
     "preset": "react-native"
