@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {
   View,
   Text,
@@ -51,13 +51,17 @@ function HomeMainPage({dispatch}) {
     },
   ];
 
-  function ThumbnailItem({item, section}) {
-    if (section.title === 'MY APP SUITE') {
-      return MyAppThumbnail(item);
-    } else {
-      return DiscoverAppThumbnail(item);
-    }
-  }
+  const ThumbnailItem = useMemo(
+    () =>
+      function ThumbnailItem({item, section}) {
+        if (section.title === 'MY APP SUITE') {
+          return MyAppThumbnail(item);
+        } else {
+          return DiscoverAppThumbnail(item);
+        }
+      },
+    [],
+  );
 
   return (
     <SectionGrid
