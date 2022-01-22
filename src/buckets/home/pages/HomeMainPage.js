@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
     ...themeHere.text.subhead_bold,
     color: themeHere.colors.foreground,
     marginHorizontal: 20,
-    marginVertical: 30,
+    marginVertical: 15,
   },
 });

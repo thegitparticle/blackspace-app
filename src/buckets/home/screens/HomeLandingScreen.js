@@ -1,25 +1,13 @@
 import React, {useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-  Dimensions,
-  Appearance,
-} from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import {LOGOUT} from '../../../redux/types';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {connect} from 'react-redux';
-import {Button} from 'react-native-elements';
-import {ButterThemeLight, ButterThemeDark} from '../../../theme/ButterTheme';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import CryptoPricesPage from '../pages/CryptoPricesPage';
 import HomeMainPage from '../pages/HomeMainPage';
-import NftsPage from '../pages/NftsPage';
-import DefiPage from '../pages/DefiPage';
 import HeaderOnHome from '../components/HeaderOnHome';
 import LinearGradient from 'react-native-linear-gradient';
+import {Chip} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,42 +18,42 @@ let state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
   const renderScene = SceneMap({
-    first: CryptoPricesPage,
-    second: HomeMainPage,
+    first: HomeMainPage,
+    second: CryptoPricesPage,
   });
 
-  const [index, setIndex] = useState(1);
+  const [index, setIndex] = useState(0);
 
   const [routes] = React.useState([
-    {key: 'first', title: 'Market'},
-    {key: 'second', title: 'Home'},
+    {key: 'first', title: 'Home'},
+    {key: 'second', title: 'Prices'},
   ]);
 
   function renderLabel({route, focused}) {
-    if (route.title === 'Market') {
+    if (route.title === 'Prices') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_focused}>Market</Text>
+          <View style={styles.tab_label_view_focused}>
+            <Text style={styles.tab_label_text_focused}>Prices</Text>
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_unfocused}>Market</Text>
+          <View style={styles.tab_label_view_unfocused}>
+            <Text style={styles.tab_label_text_unfocused}>Prices</Text>
           </View>
         );
       }
     } else if (route.title === 'Home') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
+          <View style={styles.tab_label_view_focused}>
             <Text style={styles.tab_label_text_focused}>Home</Text>
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
+          <View style={styles.tab_label_view_unfocused}>
             <Text style={styles.tab_label_text_unfocused}>Home</Text>
           </View>
         );
@@ -73,13 +61,13 @@ function HomeLandingScreen({dispatch, navigation}) {
     } else {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
+          <View style={styles.tab_label_view_focused}>
             <Text style={styles.tab_label_text_focused}>DeFi</Text>
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
+          <View style={styles.tab_label_view_unfocused}>
             <Text style={styles.tab_label_text_unfocused}>DeFi</Text>
           </View>
         );
@@ -130,30 +118,32 @@ const styles = StyleSheet.create({
     backgroundColor: themeHere.colors.background,
   },
   tab_bar: {
-    backgroundColor: themeHere.colors.off_background + '00',
-    height: 50,
-    // justifyContent: 'center',
+    backgroundColor: 'transparent',
+    height: 75,
     alignSelf: 'center',
     width: windowWidth,
     borderRadius: 30,
     borderTopWidth: 0,
-    // shadowColor: themeHere.colors.mid_ground,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 4,
-    // },
-    // shadowOpacity: 0.32,
-    // shadowRadius: 5.46,
-    // elevation: 9,
+    justifyContent: 'center',
   },
   tab_bar_indicator: {
     width: 0,
   },
-  tab_label_view: {
+  tab_label_view_focused: {
     alignItems: 'center',
-    alignContent: 'center',
-    height: 50,
+    height: 40,
     justifyContent: 'center',
+    backgroundColor: themeHere.colors.mid_ground + '25',
+    borderRadius: 20,
+    width: 100,
+  },
+  tab_label_view_unfocused: {
+    alignItems: 'center',
+    height: 40,
+    justifyContent: 'center',
+    backgroundColor: themeHere.colors.mid_ground + '25',
+    borderRadius: 20,
+    width: 100,
   },
   tab_label_text_focused: {
     ...themeHere.text.subhead_bold,
