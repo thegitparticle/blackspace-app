@@ -6,7 +6,7 @@ export const GetMyApps = user_id => {
     let res = [];
 
     axios
-      .get('https://run.mocky.io/v3/cb5eb571-ccec-4f1e-827e-e38a1efb5373')
+      .get('www.suprblack.xyz/api/users/my_dapps/' + String(user_id) + '/')
       .then(response => (res = response.data))
       .then(() =>
         dispatch({
