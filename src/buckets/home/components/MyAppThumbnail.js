@@ -20,6 +20,8 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+const width = (windowWidth - 80) / 3;
+
 function MyAppThumbnail(app_details: {
   app_id: number,
   app_icon: string,
@@ -27,6 +29,7 @@ function MyAppThumbnail(app_details: {
   extra_message: string,
 }) {
   const navigation = useNavigation();
+
   return (
     <TouchableOpacity
       style={styles.parent_view}
@@ -42,12 +45,13 @@ function MyAppThumbnail(app_details: {
             uri: app_details.app_icon,
             priority: FastImage.priority.normal,
           }}
-          resizeMode={FastImage.resizeMode.contain}
+          resizeMode={FastImage.resizeMode.cover}
           style={styles.app_image}
         />
       </SharedElement>
-      <Text style={styles.title}>{app_details.app_name}</Text>
-      {/*<Text style={styles.subtitle}>{app_details.extra_message}</Text>*/}
+      <View style={styles.text_view}>
+        <Text style={styles.title}>{app_details.app_name}</Text>
+      </View>
     </TouchableOpacity>
   );
 }
@@ -56,15 +60,25 @@ export default MyAppThumbnail;
 
 const styles = StyleSheet.create({
   parent_view: {
-    width: (windowWidth - 80) / 3,
-    height: ((windowWidth - 80) / 3) * 1.5,
+    width: width,
+    height: width * 1.5,
     backgroundColor: themeHere.colors.off_background,
     flexDirection: 'column',
     borderRadius: 15,
+    flexWrap: 'wrap',
+    marginVertical: 5,
   },
   app_image: {
-    width: (windowWidth - 80) / 3,
-    height: ((windowWidth - 80) / 3) * 1.125,
+    width: width,
+    height: width * 1.125,
+    borderTopLeftRadius: 15,
+    borderTopRightRadius: 15,
+  },
+  text_view: {
+    width: width,
+    height: width * 0.375,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   title: {
     ...themeHere.text.body_medium,
