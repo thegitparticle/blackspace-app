@@ -19,6 +19,7 @@ import HomeMainPage from '../pages/HomeMainPage';
 import NftsPage from '../pages/NftsPage';
 import DefiPage from '../pages/DefiPage';
 import HeaderOnHome from '../components/HeaderOnHome';
+import LinearGradient from 'react-native-linear-gradient';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -97,7 +98,13 @@ function HomeLandingScreen({dispatch, navigation}) {
   );
 
   return (
-    <View style={styles.parent_view}>
+    <LinearGradient
+      colors={[
+        themeHere.colors.off_background,
+        themeHere.colors.background,
+        themeHere.colors.background,
+      ]}
+      style={styles.parent_view}>
       <HeaderOnHome />
       <TabView
         navigationState={{index, routes}}
@@ -106,7 +113,7 @@ function HomeLandingScreen({dispatch, navigation}) {
         onIndexChange={setIndex}
         initialLayout={{width: windowWidth}}
       />
-    </View>
+    </LinearGradient>
   );
 }
 

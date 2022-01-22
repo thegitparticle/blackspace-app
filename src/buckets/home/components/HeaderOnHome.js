@@ -90,7 +90,7 @@ function HeaderOnHome() {
             squircleParams={{
               cornerSmoothing: 0.7,
               cornerRadius: 30,
-              fillColor: themeHere.colors.background,
+              fillColor: themeHere.colors.background + '00',
             }}>
             <View style={styles.header_items_view_wrap}>
               <HeaderLeft />
