@@ -1,16 +1,17 @@
-import {ADD_MYPROFILEDETAILS, GET_MYPROFILEDETAILS} from '../types';
+import {ADD_MYPROFILEDETAILS} from '../types';
 
 const initial_state = {
   myProfileDetails: {
     username: null,
     userid: null,
+    wallet_address: null,
   },
 };
 
 const MyProfileReducer = (state = initial_state, action) => {
   switch (action.type) {
     case ADD_MYPROFILEDETAILS:
-      var myProfileDetails = action.payload;
+      const myProfileDetails = action.payload;
       const newState = {myProfileDetails};
       return newState;
     default:
