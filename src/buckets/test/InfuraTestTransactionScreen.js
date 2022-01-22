@@ -35,13 +35,8 @@ function InfuraTestTransactionScreen({dispatch}) {
       .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
       .then(r => {
         setWeiBalance(JSON.parse(r));
-        console.log(JSON.parse(r) + 'r log');
         setEthBalanceString(
           ethers.utils.formatEther(BigNumber.from(JSON.parse(r).toString())),
-        );
-        console.log(
-          ethers.utils.formatEther(BigNumber.from(JSON.parse(r).toString())) +
-            'format ether',
         );
         dispatch(
           AddWDeets({
