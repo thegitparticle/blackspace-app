@@ -150,14 +150,15 @@ export const ButterThemeLight = {
 };
 
 export const ButterThemeDark = {
+  // ALTERNATIVE OFF-DARK = #181818
   colors: {
     dark: '#050505',
-    off_dark: '#131313',
+    off_dark: '#1A1A1A',
     mid_gray: '#999999',
     off_light: '#F1F4F9',
     light: '#FFFFFF',
     background: '#050505',
-    off_background: '#131313',
+    off_background: '#1A1A1A',
     mid_ground: '#999999',
     off_foreground: '#F1F4F9',
     foreground: '#FFFFFF',
