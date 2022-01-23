@@ -4,11 +4,14 @@ import {
   Dimensions,
   Appearance,
   TouchableOpacity,
+  Linking,
 } from 'react-native';
 import {Text, View, Image} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {connect} from 'react-redux';
+import {LOGOUT} from '../../../redux/types';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -17,10 +20,15 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function MiscTile() {
+function MiscTile({dispatch}) {
   function PrivacyPolicy() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          Linking.openURL(
+            'https://www.notion.so/ayespaces/Privacy-Policy-b2f432d16d88458281babd62457df2b4',
+          )
+        }>
         <View
           sx={{
             height: 75,
@@ -57,7 +65,12 @@ function MiscTile() {
 
   function TermsAndConditions() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() =>
+          Linking.openURL(
+            'https://www.notion.so/ayespaces/Terms-of-Service-93d01782de4042708a5c10decaa1484c',
+          )
+        }>
         <View
           sx={{
             height: 75,
@@ -94,7 +107,11 @@ function MiscTile() {
 
   function Logout() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => {
+          dispatch({type: LOGOUT});
+          AsyncStorage.clear();
+        }}>
         <View
           sx={{
             height: 75,
