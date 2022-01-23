@@ -150,6 +150,9 @@ export const dripsytheme = makeTheme({
     },
   },
   layout: {
+    sub_view_0_margin: {
+      width: windowWidth,
+    },
     sub_view_20_margin: {
       width: windowWidth - 40,
     },

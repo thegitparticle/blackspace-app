@@ -66,7 +66,10 @@ function HeaderOnHome() {
     return (
       <Pressable
         onPress={() => navigation.navigate('TestStack')}
-        style={{paddingVertical: 10, paddingHorizontal: 20}}>
+        style={{
+          paddingVertical: 10,
+          paddingHorizontal: 20,
+        }}>
         <Image
           variant="images.small_icon_25_round"
           source={require('../../../../assets/just_b_logo.png')}
@@ -86,7 +89,7 @@ function HeaderOnHome() {
               flexDirection: 'row',
               height: '100%',
             }}
-            variant="layout.sub_view_20_margin">
+            variant="layout.sub_view_0_margin">
             <HeaderLeft />
             <HeaderMiddle />
             <HeaderRight />
