@@ -1,18 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  Pressable,
-} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import Pie from 'react-native-pie';
 import {WalletDetailsDummy} from '../DummyData';
-import {VictoryBar, VictoryChart, VictoryPie} from 'victory-native';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import {VictoryPie} from 'victory-native';
+import {DoubleBounce} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
