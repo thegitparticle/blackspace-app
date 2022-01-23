@@ -20,8 +20,10 @@ let state_here = {};
 
 function AppTile() {
   function NotificationsChange() {
+    // https://stackoverflow.com/questions/44582694/react-native-open-settings-through-linking-openurl-in-ios
     return (
-      <TouchableOpacity onPress={() => Linking.openSettings()}>
+      <TouchableOpacity
+        onPress={() => Linking.openURL('app-settings://notification/soupapp')}>
         <View
           sx={{
             height: 75,

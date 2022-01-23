@@ -1,13 +1,9 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TouchableOpacity,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Dimensions, Appearance, TouchableOpacity} from 'react-native';
 import {Text, View, Image} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,9 +11,11 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function WalletTile() {
+  const [showPopup, setShowPopup] = useState(false);
+
   function BaseFiatCurrency() {
     return (
-      <TouchableOpacity>
+      <TouchableOpacity onPress={() => setShowPopup(true)}>
         <View
           sx={{
             height: 75,
@@ -108,7 +106,38 @@ function WalletTile() {
         WALLET
       </Text>
       <BaseFiatCurrency />
-      <WalletBackup />
+      <Modal
+        visible={showPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowPopup(false);
+        }}>
+        <ModalContent>
+          <View variant="layout.info_popup">
+            <Text
+              variant="header_bold"
+              sx={{color: 'foreground', mt: '$4', mb: '$8'}}>
+              Base Currency
+            </Text>
+            <Text variant="subhead_medium" sx={{color: 'foreground', mb: '$4'}}>
+              $ US Dollar
+            </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              ₹ Indian Rupee (coming soon)
+            </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              € Euro (coming soon)
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }

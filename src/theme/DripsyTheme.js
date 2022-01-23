@@ -169,6 +169,14 @@ export const dripsytheme = makeTheme({
       alignItems: 'center',
       justifyContent: 'center',
     },
+    info_popup: {
+      backgroundColor: 'off_background',
+      borderColor: 'off_background',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: windowWidth - 40,
+      borderRadius: 15,
+    },
   },
   images: {
     small_icon_25_round: {
@@ -184,16 +192,16 @@ export const dripsytheme = makeTheme({
   },
   opacity: {
     full: {
-      opacity: '100%',
+      opacity: 1,
     },
     off: {
-      opacity: '75%',
+      opacity: 0.75,
     },
     half: {
-      opacity: '50%',
+      opacity: 0.5,
     },
     less: {
-      opacity: '25%',
+      opacity: 0.25,
     },
   },
 });
