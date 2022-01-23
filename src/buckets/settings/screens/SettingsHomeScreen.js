@@ -12,6 +12,7 @@ import WalletTile from '../components/WalletTile';
 import UserTile from '../components/UserTile';
 import AppTile from '../components/AppTile';
 import MiscTile from '../components/MiscTile';
+import BottomSpacer from '../../../bits/BottomSpacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,7 +25,7 @@ function SettingsHomeScreen() {
       <Text style={styles.header_text}>Settings</Text>
       <ScrollView showsVerticalScrollIndicator={false}>
         <WalletTile />
-        <UserTile />
+        {/*<UserTile />*/}
         <AppTile />
         <MiscTile />
       </ScrollView>

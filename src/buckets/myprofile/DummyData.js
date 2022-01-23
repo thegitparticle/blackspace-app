@@ -8,7 +8,7 @@
 
 export const WalletDetailsDummy = {
   total: {
-    value: '53748.8',
+    value: '22167.1',
   },
   cryptos: [
     {

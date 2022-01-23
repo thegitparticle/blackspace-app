@@ -20,6 +20,7 @@
 		2627D96D276BB36F0090823E /* GothamRounded-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D965276BB36E0090823E /* GothamRounded-Medium.otf */; };
 		2627D96E276BB36F0090823E /* GothamRounded-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D966276BB36E0090823E /* GothamRounded-BookItalic.otf */; };
 		2627D96F276BB36F0090823E /* GothamRounded-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D967276BB36F0090823E /* GothamRounded-MediumItalic.otf */; };
+		26386A72279DF4EE00829C2E /* libReactNativeART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26386A71279DF4EE00829C2E /* libReactNativeART.a */; };
 		26DF3F88276BA985007A19E8 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DF3F86276BA2B1007A19E8 /* icomoon.ttf */; };
 		68071B8B0C6891F9830B35C7 /* libPods-soupapp-soupappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 407AD6636FE0FB811FA3E093 /* libPods-soupapp-soupappTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -55,6 +56,7 @@
 		2627D965276BB36E0090823E /* GothamRounded-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GothamRounded-Medium.otf"; path = "../assets/fonts/GothamRounded-Medium.otf"; sourceTree = "<group>"; };
 		2627D966276BB36E0090823E /* GothamRounded-BookItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GothamRounded-BookItalic.otf"; path = "../assets/fonts/GothamRounded-BookItalic.otf"; sourceTree = "<group>"; };
 		2627D967276BB36F0090823E /* GothamRounded-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GothamRounded-MediumItalic.otf"; path = "../assets/fonts/GothamRounded-MediumItalic.otf"; sourceTree = "<group>"; };
+		26386A71279DF4EE00829C2E /* libReactNativeART.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReactNativeART.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		26DF3F86276BA2B1007A19E8 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		2BB9C7891BCF49D880CBC817 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2C00D947409A491BA9C48312 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
@@ -93,6 +95,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26386A72279DF4EE00829C2E /* libReactNativeART.a in Frameworks */,
 				25C529896CC3CBEE8549A5BD /* libPods-soupapp.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -133,6 +136,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				26386A71279DF4EE00829C2E /* libReactNativeART.a */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				FCA9602D3C2E27B4CCACAA0B /* libPods-soupapp.a */,
 				407AD6636FE0FB811FA3E093 /* libPods-soupapp-soupappTests.a */,

@@ -1,15 +1,9 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TouchableOpacity,
-  Image,
-} from 'react-native';
+import React, {useState} from 'react';
+import {Dimensions, Appearance, TouchableOpacity} from 'react-native';
+import {Text, View, Image} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -17,108 +11,135 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function WalletTile() {
-  function DefaultCrypto() {
-    return (
-      <TouchableOpacity style={styles.listitem_view}>
-        <View style={styles.listitem_leftside_view}>
-          <Image
-            style={styles.listitem_icon}
-            source={require('../../../../assets/crypto_bitcoin_icon.png')}
-          />
-          <Text style={styles.listitem_title}>Wallet Default Crypto</Text>
-        </View>
-        <Iconly
-          name="ChevronRightBold"
-          color={themeHere.colors.foreground}
-          size={25}
-        />
-      </TouchableOpacity>
-    );
-  }
+  const [showPopup, setShowPopup] = useState(false);
 
   function BaseFiatCurrency() {
     return (
-      <TouchableOpacity style={styles.listitem_view}>
-        <View style={styles.listitem_leftside_view}>
-          <Image
-            style={styles.listitem_icon}
-            source={require('../../../../assets/dollar_icon.png')}
+      <TouchableOpacity onPress={() => setShowPopup(true)}>
+        <View
+          sx={{
+            height: 75,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+          variant="layout.sub_view_50_margin">
+          <View
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <Image
+              variant="images.small_icon_25_round"
+              source={require('../../../../assets/dollar_icon.png')}
+            />
+            <Text
+              variant="subhead_medium"
+              sx={{marginHorizontal: '$5', color: 'foreground'}}>
+              Base Currency
+            </Text>
+          </View>
+          <Iconly
+            name="ChevronRightBold"
+            color={themeHere.colors.foreground}
+            size={25}
           />
-          <Text style={styles.listitem_title}>Base Currency</Text>
         </View>
-        <Iconly
-          name="ChevronRightBold"
-          color={themeHere.colors.foreground}
-          size={25}
-        />
       </TouchableOpacity>
     );
   }
 
   function WalletBackup() {
     return (
-      <TouchableOpacity style={styles.listitem_view}>
-        <View style={styles.listitem_leftside_view}>
-          <Image
-            style={styles.listitem_icon}
-            source={require('../../../../assets/icloud_icon.png')}
+      <TouchableOpacity>
+        <View
+          sx={{
+            height: 75,
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          }}
+          variant="layout.sub_view_50_margin">
+          <View
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <Image
+              variant="images.small_icon_25_round"
+              source={require('../../../../assets/icloud_icon.png')}
+            />
+            <Text
+              variant="subhead_medium"
+              sx={{marginHorizontal: '$5', color: 'foreground'}}>
+              iCloud Backup
+            </Text>
+          </View>
+          <Iconly
+            name="ChevronRightBold"
+            color={themeHere.colors.foreground}
+            size={25}
           />
-          <Text style={styles.listitem_title}>iCloud Backup</Text>
         </View>
-        <Iconly
-          name="ChevronRightBold"
-          color={themeHere.colors.foreground}
-          size={25}
-        />
       </TouchableOpacity>
     );
   }
 
   return (
-    <View style={styles.parent_view}>
-      <Text style={styles.title_text}>WALLET</Text>
-      <DefaultCrypto />
+    <View
+      sx={{
+        backgroundColor: 'off_background',
+        borderRadius: 15,
+        marginBottom: '$6',
+        alignItems: 'center',
+      }}
+      variant="layout.sub_view_20_margin">
+      <Text
+        variant="subhead_medium"
+        sx={{
+          paddingVertical: '$5',
+          color: 'foreground',
+          opacity: 0.25,
+        }}>
+        WALLET
+      </Text>
       <BaseFiatCurrency />
-      <WalletBackup />
+      <Modal
+        visible={showPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowPopup(false);
+        }}>
+        <ModalContent>
+          <View variant="layout.info_popup">
+            <Text
+              variant="header_bold"
+              sx={{color: 'foreground', mt: '$4', mb: '$8'}}>
+              Base Currency
+            </Text>
+            <Text variant="subhead_medium" sx={{color: 'foreground', mb: '$4'}}>
+              $ US Dollar
+            </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              ₹ Indian Rupee (coming soon)
+            </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              € Euro (coming soon)
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }
 
 export default WalletTile;
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    backgroundColor: themeHere.colors.off_background,
-    width: windowWidth - 40,
-    borderRadius: 15,
-    marginBottom: 30,
-  },
-  title_text: {
-    ...themeHere.text.subhead_medium,
-    color: themeHere.colors.foreground + '50',
-    paddingVertical: 25,
-  },
-  listitem_view: {
-    width: windowWidth - 90,
-    height: 75,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  listitem_leftside_view: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  listitem_icon: {
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
-  },
-  listitem_title: {
-    ...themeHere.text.subhead_medium,
-    color: themeHere.colors.foreground,
-    marginHorizontal: 25,
-  },
-});

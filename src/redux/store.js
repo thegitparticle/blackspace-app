@@ -10,6 +10,7 @@ import MyAppsReducer from './appcore/MyAppsReducer';
 import DiscoverAppsReducer from './appcore/DiscoverAppsReducer';
 import MarketPricesReducer from './appcore/MarketPricesReducer';
 import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
+import MyEmojiColorReducer from './appcore/MyEmojiColorReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -41,6 +42,11 @@ export const persistConfigMarketPrices = {
   storage: AsyncStorage,
 };
 
+export const persistConfigMyEmojiColor = {
+  key: 'emojicolor',
+  storage: AsyncStorage,
+};
+
 // dapps redux work only below
 
 export const persistConfigUniswapTokenList = {
@@ -60,6 +66,10 @@ const rootReducer = combineReducers({
   MarketPricesReducer: persistReducer(
     persistConfigMarketPrices,
     MarketPricesReducer,
+  ),
+  MyEmojiColorReducer: persistReducer(
+    persistConfigMyEmojiColor,
+    MyEmojiColorReducer,
   ),
 
   // dapps redux work only below
