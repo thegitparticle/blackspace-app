@@ -54,8 +54,12 @@ function HeaderOnHome() {
             <View
               variant="layout.round_icon_container_30"
               sx={{
-                backgroundColor: 'icon_background',
-              }}></View>
+                backgroundColor: state_here.MyEmojiColorReducer.details.color,
+              }}>
+              <Text variant="body_medium">
+                {state_here.MyEmojiColorReducer.details.emoji}
+              </Text>
+            </View>
           </Pressable>
         );
       },
@@ -71,7 +75,7 @@ function HeaderOnHome() {
           paddingHorizontal: 20,
         }}>
         <Image
-          variant="images.small_icon_25_round"
+          variant="images.small_icon_30_round"
           source={require('../../../../assets/just_b_logo.png')}
         />
       </Pressable>
