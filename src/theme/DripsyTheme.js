@@ -159,12 +159,24 @@ export const dripsytheme = makeTheme({
     sub_view_50_margin: {
       width: windowWidth - 100,
     },
+    round_icon_container_30: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   },
   images: {
     small_icon_25_round: {
       width: 25,
       height: 25,
       borderRadius: 12.5,
+    },
+    small_icon_30_round: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
     },
   },
   opacity: {
