@@ -149,4 +149,36 @@ export const dripsytheme = makeTheme({
       fontSize: windowHeight > 770 ? 9 : 8,
     },
   },
+  layout: {
+    sub_view_20_margin: {
+      width: windowWidth - 40,
+    },
+    sub_view_40_margin: {
+      width: windowWidth - 80,
+    },
+    sub_view_50_margin: {
+      width: windowWidth - 100,
+    },
+  },
+  images: {
+    small_icon_25_round: {
+      width: 25,
+      height: 25,
+      borderRadius: 12.5,
+    },
+  },
+  opacity: {
+    full: {
+      opacity: '100%',
+    },
+    off: {
+      opacity: '75%',
+    },
+    half: {
+      opacity: '50%',
+    },
+    less: {
+      opacity: '25%',
+    },
+  },
 });
