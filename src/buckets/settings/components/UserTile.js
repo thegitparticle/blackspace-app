@@ -1,7 +1,6 @@
 import React from 'react';
 import {
   View,
-  Text,
   StyleSheet,
   Dimensions,
   Appearance,
@@ -11,6 +10,7 @@ import {
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {connect} from 'react-redux';
+import {Text} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +30,11 @@ function UserTile() {
               uri: 'https://i.postimg.cc/7hSZWDz1/photo-1541562232579-512a21360020.jpg',
             }}
           />
-          <Text style={styles.listitem_title}>Username</Text>
+          <Text
+            variant="subhead_medium"
+            sx={{marginHorizontal: '$4', color: 'foreground'}}>
+            Username
+          </Text>
         </View>
         <Iconly
           name="ChevronRightBold"

@@ -16,23 +16,29 @@ import {ModalPortal} from 'react-native-modals';
 import codePush from 'react-native-code-push';
 import FlashMessage from 'react-native-flash-message';
 import {LogBox} from 'react-native';
+import {DripsyProvider, makeTheme} from 'dripsy';
+import {dripsytheme} from './src/theme/DripsyTheme';
 
 const App: () => Node = () => {
   LogBox.ignoreLogs([
     'Warning: Each child in a list should have a unique "key" prop.',
   ]);
 
+  const theme = makeTheme(dripsytheme);
+
   return (
     <Provider store={storehere}>
       <PersistGate loading={null} persistor={persistor}>
-        <RootStack />
-        <ModalPortal />
-        <FlashMessage
-          position="top"
-          duration={3000}
-          textStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
-          titleStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
-        />
+        <DripsyProvider theme={theme}>
+          <RootStack />
+          <ModalPortal />
+          <FlashMessage
+            position="top"
+            duration={3000}
+            textStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
+            titleStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
+          />
+        </DripsyProvider>
       </PersistGate>
     </Provider>
   );
