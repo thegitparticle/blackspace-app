@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -11,6 +11,8 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import Pie from 'react-native-pie';
 import {WalletDetailsDummy} from '../DummyData';
+import {VictoryBar, VictoryChart, VictoryPie} from 'victory-native';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,81 +22,52 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function WalletPie() {
-  let total_value = 0;
-  let cryptos_value = 0;
-  let tokens_value = 0;
-  let defi_value = 0;
-  let nfts_value = 0;
-  let cryptos_percent = 0;
-  let tokens_percent = 0;
-  let defi_percent = 0;
-  let nfts_percent = 0;
+  const [data, setData] = useState([]);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    total_value = Number(WalletDetailsDummy.total.value);
+    let data_here = [];
     for (let i = 0; i < WalletDetailsDummy.cryptos.length; i++) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      cryptos_value += Number(
-        WalletDetailsDummy.cryptos[i].base_coverted_balance,
-      );
+      let object_here = {
+        y: Number(WalletDetailsDummy.cryptos[i].base_coverted_balance),
+        label: WalletDetailsDummy.cryptos[i].item_name,
+      };
+      data_here.push(object_here);
     }
     for (let i = 0; i < WalletDetailsDummy.erc_tokens.length; i++) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      tokens_value += Number(
-        WalletDetailsDummy.erc_tokens[i].base_coverted_balance,
-      );
+      let object_here = {
+        y: Number(WalletDetailsDummy.erc_tokens[i].base_coverted_balance),
+        label: WalletDetailsDummy.erc_tokens[i].item_name,
+      };
+      data_here.push(object_here);
     }
-    for (let i = 0; i < WalletDetailsDummy.nfts.length; i++) {
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-      nfts_value += Number(WalletDetailsDummy.nfts[i].base_coverted_balance);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    cryptos_percent = (cryptos_value / total_value) * 100;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    tokens_percent = (tokens_value / total_value) * 100;
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    nfts_percent = (nfts_value / total_value) * 100;
-
-    // console.log(cryptos_value);
-    // console.log(tokens_value);
-    // console.log(nfts_value);
-    // console.log(Math.trunc(cryptos_percent));
-    // console.log(Math.trunc(tokens_percent));
-    // console.log(Math.trunc(nfts_percent));
+    setData(data_here);
   }, []);
+
+  function RenderPie() {
+    if (data.length > 0) {
+      return (
+        <VictoryPie
+          data={data}
+          width={windowWidth * 0.8}
+          height={windowWidth * 0.8}
+          innerRadius={75}
+          style={{
+            labels: {
+              fill: 'white',
+              fontSize: 15,
+              padding: 7,
+            },
+          }}
+        />
+      );
+    } else {
+      return <DoubleBounce size={10} color="#1CAFF6" />;
+    }
+  }
 
   return (
     <View style={styles.parent_view}>
-      <Pie
-        radius={120}
-        innerRadius={60}
-        sections={[
-          {
-            // percentage: Math.trunc(cryptos_percent),
-            percentage: 37,
-            color: themeHere.colors.yellow,
-          },
-          {
-            // percentage: Math.trunc(tokens_percent),
-            percentage: 3,
-            color: themeHere.colors.blue_light,
-          },
-          {
-            // percentage: Math.trunc(defi_percent),
-            percentage: 1,
-            color: themeHere.colors.red_light,
-          },
-          {
-            // percentage: Math.trunc(nfts_percent),
-            percentage: 58,
-            color: themeHere.colors.purple_light,
-          },
-        ]}
-        dividerSize={6}
-        strokeCap={'butt'}
-        backgroundColor={'#CCCCCC00'}
-      />
+      <RenderPie />
     </View>
   );
 }
