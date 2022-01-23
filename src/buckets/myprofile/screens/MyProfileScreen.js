@@ -26,57 +26,10 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function MyProfileScreen() {
-  // const [showHeader, setShowHeader] = useState(true);
-  //
-  // const emptyHeaderVisibility = useSharedValue(1);
-  // const filledHeaderVisibility = useSharedValue(0);
-  //
-  // const scrollHandler = useAnimatedScrollHandler({
-  //   onScroll: event => {
-  //     'worklet';
-  //     console.log(event.contentOffset.y);
-  //     if (event.contentOffset.y > 40) {
-  //       emptyHeaderVisibility.value = withTiming(0);
-  //       filledHeaderVisibility.value = withTiming(1);
-  //     } else {
-  //       emptyHeaderVisibility.value = withTiming(1);
-  //       filledHeaderVisibility.value = withTiming(0);
-  //     }
-  //     console.log(emptyHeaderVisibility.value + 'empty');
-  //     console.log(filledHeaderVisibility.value + 'filled');
-  //   },
-  // });
-
-  // const emptyHeaderStyles = useAnimatedStyle(() => {
-  //   return {
-  //     ...styles.header_view_shown,
-  //     opacity: emptyHeaderVisibility.value,
-  //   };
-  // });
-  //
-  // const filledHeaderStyles = useAnimatedStyle(() => {
-  //   return {
-  //     ...styles.header_view_hidden,
-  //     opacity: filledHeaderVisibility.value,
-  //   };
-  // });
-
-  // function Header() {
-  //   return (
-  //     <Animated.View>
-  //       <Animated.View style={[filledHeaderStyles]}>
-  //         <Text style={styles.header_text}>My Deets!</Text>
-  //       </Animated.View>
-  //       <Animated.View style={[emptyHeaderStyles]}></Animated.View>
-  //     </Animated.View>
-  //   );
-  // }
-
   return (
     <View style={styles.parent_view}>
-      {/*<Header />*/}
+      <ModalGoBackHeader />
       <Animated.ScrollView showsVerticalScrollIndicator={false}>
-        <ModalGoBackHeader />
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />
