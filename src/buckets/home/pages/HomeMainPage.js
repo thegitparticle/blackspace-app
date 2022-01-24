@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {useEffect, useMemo} from 'react';
 import {
   View,
   Text,
@@ -30,15 +30,15 @@ function HomeMainPage({dispatch}) {
   let my_apps = state_here.MyAppsReducer.myapps;
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
-  useFocusEffect(
-    React.useCallback(() => {
-      dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.userid));
-      dispatch(
-        GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.userid),
-      );
-      dispatch(GetMarketPrices());
-    }, [dispatch]),
-  );
+  useEffect(() => {
+    dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.userid));
+    dispatch(
+      GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.userid),
+    );
+    dispatch(GetMarketPrices());
+
+    console.log('apps page is now focused!');
+  }, []);
 
   const DATA = [
     {
