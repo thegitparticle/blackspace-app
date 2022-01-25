@@ -158,6 +158,11 @@ export const dripsytheme = makeTheme({
       flex: 1,
       backgroundColor: 'background',
     },
+    full_screen_transparent: {
+      width: windowWidth,
+      flex: 1,
+      backgroundColor: 'transparent',
+    },
 
     // sub views - components
     sub_view_0_margin: {

@@ -33,7 +33,7 @@ function CryptoPricesPage({dispatch}) {
   let marketPrices = state_here.MarketPricesReducer.marketprices;
 
   return (
-    <View variant="full_screen">
+    <View variant="layout.full_screen_transparent">
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={

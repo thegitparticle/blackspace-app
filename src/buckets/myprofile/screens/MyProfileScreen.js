@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
   Dimensions,
   Appearance,
   ScrollView,
+  RefreshControl,
 } from 'react-native';
+import {Text, View, Image} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import MainDetails from '../components/MainDetails';
 import WalletPie from '../components/WalletPie';
@@ -19,17 +19,40 @@ import Animated, {
 } from 'react-native-reanimated';
 import BottomSpacer from '../../../bits/BottomSpacer';
 import ModalGoBackHeader from '../../../bits/ModalGoBackHeader';
+import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function MyProfileScreen() {
+let state_here = {};
+
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
+function MyProfileScreen({dispatch}) {
+  const [refreshing, setRefreshing] = useState(false);
+
+  useEffect(() => {
+    dispatch(GetMarketPrices());
+  }, [refreshing]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   return (
-    <View style={styles.parent_view}>
+    <View variant="layout.full_screen">
       <ModalGoBackHeader />
-      <Animated.ScrollView showsVerticalScrollIndicator={false}>
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />
@@ -39,28 +62,9 @@ function MyProfileScreen() {
   );
 }
 
-export default MyProfileScreen;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
 
-const styles = StyleSheet.create({
-  parent_view: {
-    flex: 1,
-    alignItems: 'center',
-    width: windowWidth,
-    backgroundColor: themeHere.colors.background,
-  },
-  header_view_shown: {
-    width: windowWidth,
-    height: 30,
-    marginVertical: 20,
-    alignItems: 'center',
-  },
-  header_view_hidden: {
-    width: windowWidth,
-    height: 50,
-    alignItems: 'center',
-  },
-  header_text: {
-    ...themeHere.text.title_3,
-    color: 'white',
-  },
-});
+export default connect(mapStateToProps)(MyProfileScreen);
