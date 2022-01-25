@@ -10952,6 +10952,11 @@ rlp@^2.0.0, rlp@^2.2.3, rlp@^2.2.4:
   dependencies:
     bn.js "^5.2.0"
 
+rn-bounceable@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.npmjs.org/rn-bounceable/-/rn-bounceable-1.1.0.tgz#85717f999168cda3cb264ea0479e9b97ee842ff1"
+  integrity sha512-JZmMjL9bc3y0HAP8yLQ3EooGVI/NrN620BbfSbrB8wVwJMWBXYDP9BxPFkIUJd0PE9UVdGhk7zg69mAnMGMaNw==
+
 rn-nodeify@^10.2.0:
   version "10.3.0"
   resolved "https://registry.npmjs.org/rn-nodeify/-/rn-nodeify-10.3.0.tgz#06dc77819f7f500cdc41eda9654e60ecb140027a"
