@@ -16,6 +16,8 @@ import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
 import {HScrollView} from 'react-native-head-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
 import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
+import LottieView from 'lottie-react-native';
+import {useSx} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,6 +26,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function MiniAppLanding({route}) {
   const {app_details} = route.params;
+  const sxCustom = useSx();
 
   const Products = useMemo(
     () =>
@@ -105,13 +108,25 @@ function MiniAppLanding({route}) {
       if (focused) {
         return (
           <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_focused}>Jargon Buster</Text>
+            <LottieView
+              source={require('../../../../assets/hammer_lottie.json')}
+              autoPlay
+              loop
+              style={sxCustom({height: 30, width: 30})}
+              resizeMode="cover"
+            />
           </View>
         );
       } else {
         return (
           <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_unfocused}>Jargon Buster</Text>
+            <LottieView
+              source={require('../../../../assets/hammer_lottie.json')}
+              autoPlay
+              loop
+              style={sxCustom({height: 30, width: 30})}
+              resizeMode="cover"
+            />
           </View>
         );
       }
@@ -227,7 +242,6 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     height: 40,
     borderRadius: 20,
-    // paddingVertical: 5,
     paddingHorizontal: 20,
     backgroundColor: themeHere.colors.mid_ground + '25',
     justifyContent: 'center',
