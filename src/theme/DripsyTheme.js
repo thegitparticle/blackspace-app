@@ -1,5 +1,6 @@
-import {makeTheme} from 'dripsy';
+import {makeTheme, styled} from 'dripsy';
 import {Dimensions} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -211,4 +212,16 @@ export const dripsytheme = makeTheme({
       borderRadius: 15,
     },
   },
+});
+
+export const StyledFastImage30 = styled(FastImage)({
+  width: 30,
+  height: 30,
+  borderRadius: 15,
+});
+
+export const StyledFastImage25 = styled(FastImage)({
+  width: 25,
+  height: 25,
+  borderRadius: 12.5,
 });

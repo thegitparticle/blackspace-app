@@ -5,17 +5,12 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import window from '@react-navigation/native/src/__mocks__/window';
 import {SquircleView} from 'react-native-figma-squircle/src/index';
 import FastImage from 'react-native-fast-image';
+import {StyledFastImage30} from '../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
-
-const StyledFastImage = styled(FastImage)({
-  width: 30,
-  height: 30,
-  borderRadius: 15,
-});
 
 function MarketPriceCryptoTile(props) {
   const sxCustom = useSx();
@@ -45,7 +40,7 @@ function MarketPriceCryptoTile(props) {
           fillColor: themeHere.colors.mid_ground + '25',
         }}>
         <View sx={{mx: '$4', flexDirection: 'row', alignItems: 'center'}}>
-          <StyledFastImage
+          <StyledFastImage30
             source={{
               uri: props.coinDetails.image,
               priority: FastImage.priority.normal,

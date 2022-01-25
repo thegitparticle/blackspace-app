@@ -1,12 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
   StyleSheet,
   Dimensions,
   Appearance,
   Pressable,
-  Image,
   TouchableOpacity,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
@@ -16,6 +13,9 @@ import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {WalletDetailsDummy} from '../DummyData';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
+import {Text, View, Image, useSx, styled} from 'dripsy';
+import {StyledFastImage25} from '../../../theme/DripsyTheme';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -75,11 +75,35 @@ function AccordianPortfolio() {
         );
       }
     }
+
     return (
-      <View style={styles.listitem_view}>
-        <View style={styles.listitem_leftside_view}>
-          <Image style={styles.listitem_icon} source={section.main_icon} />
-          <Text style={styles.listitem_title}>{section.title}</Text>
+      <View
+        variant="layout.sub_view_50_margin"
+        sx={{
+          height: 75,
+          flexDirection: 'row',
+          alignItems: 'center',
+          alignSelf: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <View
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}>
+          <Image
+            variant="images.small_icon_25_round"
+            source={section.main_icon}
+          />
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: 'foreground',
+              mx: '$5',
+            }}>
+            {section.title}
+          </Text>
         </View>
         <IconShow />
       </View>
@@ -88,18 +112,58 @@ function AccordianPortfolio() {
 
   function ItemHoldingAndPrice(item) {
     return (
-      <View style={styles.itemholding_view}>
-        <View style={styles.itemholding_leftside_view}>
-          <FastImage
-            style={styles.itemholding_icon}
-            source={{uri: item.item_icon, priority: FastImage.priority.normal}}
+      <View
+        variant="layout.sub_view_50_margin"
+        sx={{
+          height: 75,
+          flexDirection: 'row',
+          alignItems: 'center',
+          alignSelf: 'center',
+          justifyContent: 'space-between',
+        }}>
+        <View
+          sx={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}>
+          <StyledFastImage25
+            source={{
+              uri: item.item_icon,
+              priority: FastImage.priority.normal,
+            }}
             resizeMode={FastImage.resizeMode.cover}
           />
-          <Text style={styles.itemholding_title}>{item.item_name}</Text>
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: 'foreground',
+              mx: '$5',
+            }}>
+            {item.item_name}
+          </Text>
         </View>
-        <View style={styles.itemholding_rightside_view}>
-          <Text style={styles.itemholding_balance}>{item.item_balance}</Text>
-          <Text style={styles.itemholding_converted_balance}>
+        <View
+          sx={{
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+          }}>
+          <Text
+            variant="caption"
+            sx={{
+              color: 'red',
+              my: '$1',
+            }}>
+            {item.item_balance}
+          </Text>
+          <Text
+            variant="caption"
+            sx={{
+              color: 'foreground',
+              my: '$1',
+              opacity: 0.5,
+            }}>
             ${item.base_coverted_balance}
           </Text>
         </View>
@@ -109,41 +173,92 @@ function AccordianPortfolio() {
 
   function NFTItemShow(item) {
     return (
-      <TouchableOpacity
-        style={styles.itemholding_view}
+      <Bounceable
         onPress={() =>
           navigation.navigate('NFTDetailedView', {
             nft_details: item,
           })
         }>
-        <View style={styles.itemholding_leftside_view}>
-          <FastImage
-            style={styles.itemholding_icon}
-            source={{uri: item.item_icon, priority: FastImage.priority.normal}}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-          <Text style={styles.itemholding_title}>{item.item_name}</Text>
+        <View
+          variant="layout.sub_view_50_margin"
+          sx={{
+            height: 75,
+            flexDirection: 'row',
+            alignItems: 'center',
+            alignSelf: 'center',
+            justifyContent: 'space-between',
+          }}>
+          <View
+            sx={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <StyledFastImage25
+              source={{
+                uri: item.item_icon,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                mx: '$5',
+              }}>
+              {item.item_name}
+            </Text>
+          </View>
+          <View
+            sx={{
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'flex-start',
+            }}>
+            <Text
+              variant="caption"
+              sx={{
+                color: 'red',
+                my: '$1',
+              }}>
+              {item.item_balance}
+            </Text>
+            <Text
+              variant="caption"
+              sx={{
+                color: 'foreground',
+                my: '$1',
+                opacity: 0.5,
+              }}>
+              ${item.base_coverted_balance}
+            </Text>
+          </View>
         </View>
-        <View style={styles.itemholding_rightside_view}>
-          <Text style={styles.itemholding_balance}>{item.item_balance}</Text>
-          <Text style={styles.itemholding_converted_balance}>
-            ${item.base_coverted_balance}
-          </Text>
-        </View>
-      </TouchableOpacity>
+      </Bounceable>
     );
   }
 
   function RenderContent(section) {
     if (section.title !== 'NFTs') {
       return (
-        <View style={styles.expanded_content_view}>
+        <View
+          variant="layout.sub_view_20_margin"
+          sx={{
+            backgroundColor: 'off_background',
+            alignItems: 'center',
+          }}>
           {section.content.map(item => ItemHoldingAndPrice(item))}
         </View>
       );
     } else {
       return (
-        <View style={styles.expanded_content_view}>
+        <View
+          variant="layout.sub_view_20_margin"
+          sx={{
+            backgroundColor: 'off_background',
+            alignItems: 'center',
+          }}>
           {section.content.map(item => NFTItemShow(item))}
         </View>
       );
@@ -155,7 +270,23 @@ function AccordianPortfolio() {
   }
 
   return (
-    <View style={styles.parent_view}>
+    <View
+      variant="layout.sub_view_20_margin"
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'background',
+        shadowColor: 'mid_ground',
+        shadowOffset: {
+          width: 0,
+          height: 10,
+        },
+        shadowOpacity: 0.17,
+        shadowRadius: 40,
+        alignSelf: 'center',
+        borderRadius: 15,
+        mb: '$8',
+      }}>
       <Accordion
         activeSections={activeSections}
         sections={SECTIONS}
@@ -173,87 +304,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(AccordianPortfolio);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    width: windowWidth - 40,
-    justifyContent: 'center',
-    backgroundColor: themeHere.colors.background,
-    shadowColor: themeHere.colors.mid_ground,
-    shadowOffset: {
-      width: 0,
-      height: 10,
-    },
-    shadowOpacity: 0.17,
-    shadowRadius: 40,
-    alignSelf: 'center',
-    borderRadius: 15,
-    marginBottom: 40,
-  },
-  listitem_view: {
-    width: windowWidth - 90,
-    height: 75,
-    flexDirection: 'row',
-    alignItems: 'center',
-    alignSelf: 'center',
-    justifyContent: 'space-between',
-  },
-  listitem_leftside_view: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  listitem_icon: {
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
-  },
-  listitem_title: {
-    ...themeHere.text.subhead_medium,
-    color: themeHere.colors.foreground,
-    marginHorizontal: 25,
-  },
-  expanded_content_view: {
-    backgroundColor: themeHere.colors.off_background,
-    width: windowWidth - 40,
-    alignItems: 'center',
-  },
-  itemholding_view: {
-    width: windowWidth - 90,
-    height: 75,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  itemholding_leftside_view: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  itemholding_icon: {
-    width: 25,
-    height: 25,
-    borderRadius: 12.5,
-  },
-  itemholding_title: {
-    ...themeHere.text.subhead_medium,
-    color: themeHere.colors.foreground,
-    marginHorizontal: 25,
-  },
-  itemholding_rightside_view: {
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  itemholding_balance: {
-    ...themeHere.text.caption,
-    color: themeHere.colors.red,
-    marginVertical: 2.5,
-  },
-  itemholding_converted_balance: {
-    ...themeHere.text.caption,
-    color: themeHere.colors.foreground + '50',
-    marginVertical: 2.5,
-  },
-});
