@@ -1,6 +1,6 @@
 import React from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {Text, View, Image, useSx} from 'dripsy';
+import {StyleSheet, Image, Dimensions, Appearance} from 'react-native';
+import {Text, View, useSx, styled} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import window from '@react-navigation/native/src/__mocks__/window';
 import {SquircleView} from 'react-native-figma-squircle/src/index';
@@ -10,6 +10,12 @@ const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+const StyledFastImage = styled(FastImage)({
+  width: 30,
+  height: 30,
+  borderRadius: 15,
+});
 
 function MarketPriceCryptoTile(props) {
   const sxCustom = useSx();
@@ -39,14 +45,21 @@ function MarketPriceCryptoTile(props) {
           fillColor: themeHere.colors.mid_ground + '25',
         }}>
         <View sx={{mx: '$4', flexDirection: 'row', alignItems: 'center'}}>
-          <FastImage
+          <StyledFastImage
             source={{
               uri: props.coinDetails.image,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.contain}
             // variant="images.small_icon_30_round"
-            style={sxCustom({width: 30, height: 30, borderRadius: 15})}
+            // style={sxCustom({width: 30, height: 30, borderRadius: 15})}
+          />
+          <Image
+            source={{
+              uri: props.coinDetails.image,
+            }}
+            variant="images.small_icon_30_round"
+            // style={sxCustom({width: 30, height: 30, borderRadius: 15})}
           />
           <View
             sx={{
