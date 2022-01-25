@@ -50,6 +50,8 @@ export const dripsytheme = makeTheme({
     $6: 30,
     $7: 35,
     $8: 40,
+    $9: 45,
+    $10: 50,
   },
   text: {
     title_large: {
@@ -150,6 +152,14 @@ export const dripsytheme = makeTheme({
     },
   },
   layout: {
+    // full views - screens
+    full_screen: {
+      width: windowWidth,
+      flex: 1,
+      backgroundColor: 'background',
+    },
+
+    // sub views - components
     sub_view_0_margin: {
       width: windowWidth,
     },
@@ -162,13 +172,8 @@ export const dripsytheme = makeTheme({
     sub_view_50_margin: {
       width: windowWidth - 100,
     },
-    round_icon_container_30: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
+
+    // popups and modals
     info_popup: {
       backgroundColor: 'off_background',
       borderColor: 'off_background',
@@ -177,7 +182,18 @@ export const dripsytheme = makeTheme({
       width: windowWidth - 40,
       borderRadius: 15,
     },
+
+    // for icons wrapped in <View />
+    round_icon_container_30: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
   },
+
+  // for <Image />
   images: {
     small_icon_25_round: {
       width: 25,
@@ -188,20 +204,6 @@ export const dripsytheme = makeTheme({
       width: 30,
       height: 30,
       borderRadius: 15,
-    },
-  },
-  opacity: {
-    full: {
-      opacity: 1,
-    },
-    off: {
-      opacity: 0.75,
-    },
-    half: {
-      opacity: 0.5,
-    },
-    less: {
-      opacity: 0.25,
     },
   },
 });
