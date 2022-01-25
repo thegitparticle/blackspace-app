@@ -2,7 +2,7 @@ import {ADD_USERDETAILS} from '../types';
 
 const initial_state = {
   userdetails: {
-    userdi: null,
+    userid: null,
     username: null,
   },
 };

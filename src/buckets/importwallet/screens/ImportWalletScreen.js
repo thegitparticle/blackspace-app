@@ -53,6 +53,7 @@ function ImportWalletScreen({dispatch, navigation}) {
       wallet.wallet_phrase = walletCreated.mnemonicCiphertext;
       setWalletDetails(wallet);
       setWalletCreated(true);
+      console.log(wallet);
       dispatch(AddWDeets(wallet));
       setWaitingTextOverallOpacity(0);
       setWalletCreatedTextAndButtonOpacity(1);

@@ -1,16 +1,51 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {useNavigation} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import axios from 'axios';
+import {AddUserDetails} from '../../redux/appcore/UserDetailsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function TestHome() {
+let state_here = {};
+
+function TestHome({dispatch}) {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    let wallet_details = state_here.WDeetsReducer.wdeets;
+    let user_details = {};
+
+    const config = {
+      method: 'get',
+      url:
+        'https://suprblack.xyz/api/users/list/?wallet_address=' +
+        wallet_details.wallet_address,
+    };
+
+    console.log(
+      'https://suprblack.xyz/api/users/list/?wallet_address=' +
+        wallet_details.wallet_address,
+    );
+
+    axios(config)
+      .then(function (response) {
+        console.log(response.data);
+        user_details = {
+          userid: response.data.id,
+          username: response.data.username,
+        };
+        dispatch(AddUserDetails(user_details));
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }, []);
 
   const test_screens = [
     {
@@ -51,7 +86,12 @@ function TestHome() {
   );
 }
 
-export default TestHome;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(TestHome);
 
 const styles = StyleSheet.create({
   parent_view: {
