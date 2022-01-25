@@ -11,6 +11,7 @@ import DiscoverAppsReducer from './appcore/DiscoverAppsReducer';
 import MarketPricesReducer from './appcore/MarketPricesReducer';
 import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
 import MyEmojiColorReducer from './appcore/MyEmojiColorReducer';
+import UserDetailsReducer from './appcore/UserDetailsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -19,6 +20,11 @@ export const persistConfigAuth = {
 
 export const persistConfigWDeets = {
   key: 'w_deets',
+  storage: AsyncStorage,
+};
+
+export const persistConfigUserDetails = {
+  key: 'user_details',
   storage: AsyncStorage,
 };
 
@@ -56,8 +62,12 @@ export const persistConfigUniswapTokenList = {
 
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
-  MyProfileReducer: persistReducer(persistConfigWDeets, MyProfileReducer),
-  WDeetsReducer: persistReducer(persistConfigMyProfile, WDeetsReducer),
+  MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
+  WDeetsReducer: persistReducer(persistConfigWDeets, WDeetsReducer),
+  UserDetailsReducer: persistReducer(
+    persistConfigUserDetails,
+    UserDetailsReducer,
+  ),
   MyAppsReducer: persistReducer(persistConfigMyApps, MyAppsReducer),
   DiscoverAppsReducer: persistReducer(
     persistConfigDiscoverApps,
