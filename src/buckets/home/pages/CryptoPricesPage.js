@@ -1,16 +1,7 @@
-import React, {useEffect} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import React, {useCallback, useEffect, useState} from 'react';
+import {RefreshControl, Dimensions, Appearance, ScrollView} from 'react-native';
+import {Text, View, Image} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
@@ -23,18 +14,31 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
+
 function CryptoPricesPage({dispatch}) {
+  const [refreshing, setRefreshing] = useState(false);
+
   useEffect(() => {
     dispatch(GetMarketPrices());
+  }, [refreshing]);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
   }, []);
 
   let marketPrices = state_here.MarketPricesReducer.marketprices;
 
   return (
-    <View style={styles.parent_view}>
+    <View variant="full_screen">
       <ScrollView
-        style={styles.parent_scrollview}
-        showsVerticalScrollIndicator={false}>
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }>
         {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />
         ))}
@@ -50,19 +54,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(CryptoPricesPage);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  parent_scrollview: {
-    width: windowWidth,
-  },
-  header_right_image: {
-    width: 100,
-    height: 100,
-    borderRadius: 15,
-  },
-});
