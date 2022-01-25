@@ -1,17 +1,12 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  Pressable,
-} from 'react-native';
+import {StyleSheet, Dimensions, Appearance, Pressable} from 'react-native';
+import {Text, View, Image, useSx, styled} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-elements';
 import Clipboard from '@react-native-clipboard/clipboard';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,28 +25,61 @@ function MainDetails() {
   };
 
   return (
-    <View style={styles.parent_view}>
-      <Pressable style={styles.dp_view_wrap}>
+    <View
+      variant="sub_view_0_margin"
+      sx={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        mt: '$4',
+      }}>
+      <Bounceable>
         <FastImage
-          style={styles.dp_image}
+          style={{
+            width: 70,
+            height: 70,
+            borderRadius: 35,
+            marginVertical: 10,
+          }}
           source={{
             uri: 'https://i.postimg.cc/7hSZWDz1/photo-1541562232579-512a21360020.jpg',
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}
         />
-      </Pressable>
-      <Text style={styles.username_text}>
+      </Bounceable>
+      <Text
+        variant="subhead_medium"
+        sx={{
+          color: 'foreground',
+          my: '$2',
+        }}>
         {state_here.MyProfileReducer.myProfileDetails.username}
       </Text>
-      <Pressable style={styles.wallet_view_wrap} onPress={copyToClipboard}>
-        <Text style={styles.wallet_text}>{render_wallet_string}</Text>
-        <Icon
-          name="copy"
-          type="feather"
-          color={themeHere.colors.foreground + '50'}
-          size={16}
-        />
+      <Pressable onPress={copyToClipboard}>
+        <View
+          sx={{
+            flexDirection: 'row',
+            my: '$2',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: 'foreground',
+              opacity: 0.5,
+              maxWidth: windowWidth * 0.2,
+              mx: '$2',
+            }}>
+            {render_wallet_string}
+          </Text>
+          <Icon
+            name="copy"
+            type="feather"
+            color={themeHere.colors.foreground + '50'}
+            size={16}
+          />
+        </View>
       </Pressable>
     </View>
   );
@@ -63,37 +91,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(MainDetails);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    width: windowWidth,
-    justifyContent: 'center',
-    marginTop: 20,
-  },
-  dp_view_wrap: {
-    marginVertical: 10,
-  },
-  dp_image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
-  },
-  username_text: {
-    ...themeHere.text.subhead_medium,
-    color: themeHere.colors.foreground,
-    marginVertical: 10,
-  },
-  wallet_view_wrap: {
-    flexDirection: 'row',
-    marginVertical: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  wallet_text: {
-    ...themeHere.text.subhead_medium,
-    color: themeHere.colors.foreground + '50',
-    maxWidth: windowWidth * 0.2,
-    marginHorizontal: 10,
-  },
-});

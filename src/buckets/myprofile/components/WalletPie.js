@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
+import {Appearance, Dimensions} from 'react-native';
+import {View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import {WalletDetailsDummy} from '../DummyData';
@@ -58,7 +59,13 @@ function WalletPie() {
   }
 
   return (
-    <View style={styles.parent_view}>
+    <View
+      variant="sub_view_0_margin"
+      style={{
+        alignItems: 'center',
+        justifyContent: 'center',
+        marginVertical: 70,
+      }}>
       <RenderPie />
     </View>
   );
@@ -70,12 +77,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(WalletPie);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    width: windowWidth,
-    justifyContent: 'center',
-    marginVertical: 70,
-  },
-});
