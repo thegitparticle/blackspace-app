@@ -22,6 +22,7 @@ import ModalGoBackHeader from '../../../bits/ModalGoBackHeader';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import {connect} from 'react-redux';
 import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
+import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,6 +40,11 @@ function MyProfileScreen({dispatch}) {
 
   useEffect(() => {
     dispatch(GetMyProfileDetails(state_here.UserDetailsReducer.userdetails.id));
+    dispatch(
+      GetTokenBalances(
+        state_here.UserDetailsReducer.userdetails.wallet_address,
+      ),
+    );
   }, [refreshing]);
 
   const onRefresh = useCallback(() => {

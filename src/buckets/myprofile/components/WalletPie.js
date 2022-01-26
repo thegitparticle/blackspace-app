@@ -17,22 +17,25 @@ let state_here = {};
 function WalletPie() {
   const [data, setData] = useState([]);
 
+  let listTokens = state_here.MyTokenBalancesReducer.tokens;
+
   useEffect(() => {
     let data_here = [];
-    for (let i = 0; i < WalletDetailsDummy.cryptos.length; i++) {
+    for (let i = 0; i < listTokens.length; i++) {
       let object_here = {
-        y: Number(WalletDetailsDummy.cryptos[i].base_coverted_balance),
-        label: WalletDetailsDummy.cryptos[i].item_name,
+        y: Number(listTokens[i].token_price_usd),
+        label: listTokens[i].symbol,
       };
       data_here.push(object_here);
     }
-    for (let i = 0; i < WalletDetailsDummy.erc_tokens.length; i++) {
-      let object_here = {
-        y: Number(WalletDetailsDummy.erc_tokens[i].base_coverted_balance),
-        label: WalletDetailsDummy.erc_tokens[i].item_name,
-      };
-      data_here.push(object_here);
-    }
+    let eth_object_here = {
+      y: Number(
+        (state_here.MyProfileReducer.myProfileDetails.eth_balance * 10) ^
+          (18 * 2400),
+      ),
+      label: 'ETH',
+    };
+    data_here.push(eth_object_here);
     setData(data_here);
   }, []);
 

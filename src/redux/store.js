@@ -12,6 +12,7 @@ import MarketPricesReducer from './appcore/MarketPricesReducer';
 import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
 import MyEmojiColorReducer from './appcore/MyEmojiColorReducer';
 import UserDetailsReducer from './appcore/UserDetailsReducer';
+import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -30,6 +31,11 @@ export const persistConfigUserDetails = {
 
 export const persistConfigMyProfile = {
   key: 'my_profile',
+  storage: AsyncStorage,
+};
+
+export const persistConfigMyTokenBalances = {
+  key: 'my_token_balances',
   storage: AsyncStorage,
 };
 
@@ -67,6 +73,10 @@ const rootReducer = combineReducers({
   UserDetailsReducer: persistReducer(
     persistConfigUserDetails,
     UserDetailsReducer,
+  ),
+  MyTokenBalancesReducer: persistReducer(
+    persistConfigMyTokenBalances,
+    MyTokenBalancesReducer,
   ),
   MyAppsReducer: persistReducer(persistConfigMyApps, MyAppsReducer),
   DiscoverAppsReducer: persistReducer(
