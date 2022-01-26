@@ -19,32 +19,7 @@ function TestHome({dispatch}) {
 
   useEffect(() => {
     let wallet_details = state_here.WDeetsReducer.wdeets;
-    let user_details = {};
-
-    const config = {
-      method: 'get',
-      url:
-        'https://suprblack.xyz/api/users/list/?wallet_address=' +
-        wallet_details.wallet_address,
-    };
-
-    console.log(
-      'https://suprblack.xyz/api/users/list/?wallet_address=' +
-        wallet_details.wallet_address,
-    );
-
-    axios(config)
-      .then(function (response) {
-        console.log(response.data);
-        user_details = {
-          userid: response.data.id,
-          username: response.data.username,
-        };
-        dispatch(AddUserDetails(user_details));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    dispatch(AddUserDetails(wallet_details.wallet_address));
   }, []);
 
   const test_screens = [

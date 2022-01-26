@@ -21,6 +21,7 @@ import BottomSpacer from '../../../bits/BottomSpacer';
 import ModalGoBackHeader from '../../../bits/ModalGoBackHeader';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import {connect} from 'react-redux';
+import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,7 +38,7 @@ function MyProfileScreen({dispatch}) {
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
-    dispatch(GetMarketPrices());
+    dispatch(GetMyProfileDetails(state_here.UserDetailsReducer.userdetails.id));
   }, [refreshing]);
 
   const onRefresh = useCallback(() => {

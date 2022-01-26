@@ -7,7 +7,10 @@ export const GetMyProfileDetails = userid => {
 
     axios
       .get('https://suprblack.xyz/api/users/profile-update/?user=' + userid)
-      .then(response => (res = response.data))
+      .then(response => {
+        res = response.data;
+        console.log(res);
+      })
       .then(() =>
         dispatch({
           type: ADD_MYPROFILEDETAILS,
@@ -15,7 +18,7 @@ export const GetMyProfileDetails = userid => {
         }),
       )
       .catch(err => {
-        console.log(err);
+        console.log(err + 'my profile actions');
       });
   };
 };

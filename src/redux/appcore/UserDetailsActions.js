@@ -1,4 +1,4 @@
-import {ADD_MYPROFILEDETAILS, ADD_USERDETAILS} from '../types';
+import {ADD_USERDETAILS} from '../types';
 import axios from 'axios';
 
 export const AddUserDetails = wallet_address => {
@@ -10,7 +10,9 @@ export const AddUserDetails = wallet_address => {
         'https://suprblack.xyz/api/users/list/?wallet_address=' +
           wallet_address,
       )
-      .then(response => (res = response.data))
+      .then(response => {
+        res = response.data;
+      })
       .then(() =>
         dispatch({
           type: ADD_USERDETAILS,
