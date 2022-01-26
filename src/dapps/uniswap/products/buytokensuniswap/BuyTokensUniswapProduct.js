@@ -21,6 +21,8 @@ import FastImage from 'react-native-fast-image';
 import axios from 'axios';
 import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
 import {useNavigation} from '@react-navigation/native';
+import {useUSDCPrice} from '../../helpers/useUSDCPrice';
+import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -46,27 +48,27 @@ c. estimated fees = .....
 
 function BuyTokenUniswapProduct({dispatch}) {
   const navigation = useNavigation();
+
   const [token1Amount, setToken1Amount] = useState('');
   const [token1Fiat, setToken1Fiat] = useState(0);
 
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
   const [token0Coin, setToken0Coin] = useState();
 
+  const {loading, derivedETH} = useDerivedEthPrice(
+    '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+  );
+
   const wallet_address =
     state_here.UserDetailsReducer.userdetails.wallet_address;
   const myProfileDetails = state_here.MyProfileReducer.myProfileDetails;
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
+  let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
 
   function changeToken0(token0) {
     setToken0Coin(token0);
     checkAndCallPoolInfo();
   }
-
-  function checkAndCallPoolInfo() {
-    getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
-  }
-
-  let token_list = state_here.UniswapTokenListReducer.token_list;
 
   const modalizePickToken1CoinRef = useRef(null);
 
@@ -77,6 +79,10 @@ function BuyTokenUniswapProduct({dispatch}) {
   const onClosePickToken1 = () => {
     modalizePickToken1CoinRef.current?.close();
   };
+
+  function checkAndCallPoolInfo() {
+    getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
+  }
 
   function PickToken1Header() {
     const [searchText, setSearchText] = useState('');
@@ -266,213 +272,213 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
-  const myPortfolioTokens = [
-    {
-      item_name: 'Ethereum',
-      item_icon:
-        'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-      item_balance: '1.1',
-      base_coverted_balance: '3715',
-    },
-    {
-      item_name: 'Unisocks',
-      item_icon:
-        'https://assets.coingecko.com/coins/images/10717/small/qFrcoiM.png',
-      item_balance: '0.017',
-      base_coverted_balance: '1697',
-    },
-    {
-      item_name: 'Matic',
-      item_icon:
-        'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-      item_balance: '105',
-      base_coverted_balance: '265.1',
-    },
-  ]; // get them from redux state of wallet deets
+  // const myPortfolioTokens = [
+  //   {
+  //     item_name: 'Ethereum',
+  //     item_icon:
+  //       'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
+  //     item_balance: '1.1',
+  //     base_coverted_balance: '3715',
+  //   },
+  //   {
+  //     item_name: 'Unisocks',
+  //     item_icon:
+  //       'https://assets.coingecko.com/coins/images/10717/small/qFrcoiM.png',
+  //     item_balance: '0.017',
+  //     base_coverted_balance: '1697',
+  //   },
+  //   {
+  //     item_name: 'Matic',
+  //     item_icon:
+  //       'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
+  //     item_balance: '105',
+  //     base_coverted_balance: '265.1',
+  //   },
+  // ]; // get them from redux state of wallet deets
 
-  const RenderPaymentOptions = useMemo(
-    () =>
-      function RenderPaymentOptions() {
-        function PaymentOptionItem(item) {
-          const [selected, setSelected] = useState(false);
-
-          if (selected) {
-            return (
-              <TouchableOpacity onPress={() => setSelected(!selected)}>
-                <SquircleView
-                  style={styles.payment_option_item_view}
-                  squircleParams={{
-                    cornerSmoothing: 1,
-                    cornerRadius: 15,
-                    fillColor: themeHere.colors.neon_blue + '75',
-                  }}>
-                  <View style={styles.itemholding_leftside_view}>
-                    <FastImage
-                      style={styles.itemholding_icon}
-                      source={{
-                        uri: item.item_icon,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <Text style={styles.itemholding_title}>
-                      {item.item_name}
-                    </Text>
-                  </View>
-                  <View style={styles.itemholding_rightside_view}>
-                    <Text style={styles.itemholding_balance}>
-                      {item.item_balance}
-                    </Text>
-                    <Text style={styles.itemholding_converted_balance}>
-                      ${item.base_coverted_balance}
-                    </Text>
-                  </View>
-                </SquircleView>
-              </TouchableOpacity>
-            );
-          } else {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  setSelected(!selected);
-                  changeToken0(item);
-                }}>
-                <SquircleView
-                  style={styles.payment_option_item_view}
-                  squircleParams={{
-                    cornerSmoothing: 1,
-                    cornerRadius: 15,
-                    fillColor: themeHere.colors.mid_ground + '25',
-                  }}>
-                  <View style={styles.itemholding_leftside_view}>
-                    <FastImage
-                      style={styles.itemholding_icon}
-                      source={{
-                        uri: item.item_icon,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <Text style={styles.itemholding_title}>
-                      {item.item_name}
-                    </Text>
-                  </View>
-                  <View style={styles.itemholding_rightside_view}>
-                    <Text style={styles.itemholding_balance}>
-                      {item.item_balance}
-                    </Text>
-                    <Text style={styles.itemholding_converted_balance}>
-                      ${item.base_coverted_balance}
-                    </Text>
-                  </View>
-                </SquircleView>
-              </TouchableOpacity>
-            );
-          }
-        }
-
-        return (
-          <View style={styles.payment_token_pick_view}>
-            {myPortfolioTokens.map(item => PaymentOptionItem(item))}
-          </View>
-        );
-      },
-    [],
-  );
-
-  const RenderOrderInfo = useMemo(
-    () =>
-      function RenderOrderInfo() {
-        if (
-          token1Amount.length > 0 &&
-          token1Coin.address.length > 0 &&
-          token0Coin
-        ) {
-          return (
-            <View style={styles.order_info_view}>
-              <View style={styles.order_info_block_view}>
-                <Text style={styles.order_info_title_text}>you get</Text>
-                <Text style={styles.order_info_value_text}>
-                  <Text style={{color: themeHere.colors.foreground}}>
-                    6,573.88 DAI ($6573)
-                  </Text>
-                </Text>
-              </View>
-              <View style={styles.order_info_block_view}>
-                <Text style={styles.order_info_title_text}>by paying</Text>
-                <Text style={styles.order_info_value_text}>
-                  <Text style={{color: themeHere.colors.foreground}}>
-                    0.45 ETH ($6643.1)
-                  </Text>
-                </Text>
-              </View>
-              <View style={styles.order_info_block_view}>
-                <Text style={styles.order_info_title_text}>
-                  max expected slippage
-                </Text>
-                <Text style={styles.order_info_value_text}>
-                  <Text style={{color: themeHere.colors.foreground}}>
-                    0.76%
-                  </Text>
-                </Text>
-              </View>
-              <View style={styles.order_info_block_view}>
-                <Text style={styles.order_info_title_text}>
-                  Ethereum Gas Fees
-                </Text>
-                <Text style={styles.order_info_value_text}>
-                  <Text style={{color: themeHere.colors.foreground}}>
-                    ~$49.94
-                  </Text>
-                </Text>
-              </View>
-              <Button
-                title={'start buy process'}
-                type={'solid'}
-                onPress={() =>
-                  navigation.navigate('BuyTokensUniswapTransactionModal', {
-                    token0Coin: token0Coin,
-                    token1Coin: token1Coin,
-                    token1Amount: token1Amount,
-                    token1Fiat: token1Fiat,
-                  })
-                }
-                containerStyle={styles.next_button_container}
-                buttonStyle={styles.next_button_style}
-                titleStyle={styles.next_button_title}
-                ViewComponent={LinearGradient}
-                linearGradientProps={{
-                  colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
-                }}
-              />
-            </View>
-          );
-        } else {
-          return (
-            <View style={styles.order_info_view}>
-              <View
-                style={{
-                  ...styles.order_info_block_view,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    ...styles.order_info_value_text,
-                    alignSelf: 'center',
-                    textAlign: 'center',
-                  }}>
-                  <Text style={{color: themeHere.colors.blue}}>
-                    enter # of tokens you want & choose a token to pay with
-                  </Text>
-                </Text>
-              </View>
-            </View>
-          );
-        }
-      },
-    [token0Coin, token1Amount],
-  );
+  // const RenderPaymentOptions = useMemo(
+  //   () =>
+  //     function RenderPaymentOptions() {
+  //       function PaymentOptionItem(item) {
+  //         const [selected, setSelected] = useState(false);
+  //
+  //         if (selected) {
+  //           return (
+  //             <TouchableOpacity onPress={() => setSelected(!selected)}>
+  //               <SquircleView
+  //                 style={styles.payment_option_item_view}
+  //                 squircleParams={{
+  //                   cornerSmoothing: 1,
+  //                   cornerRadius: 15,
+  //                   fillColor: themeHere.colors.neon_blue + '75',
+  //                 }}>
+  //                 <View style={styles.itemholding_leftside_view}>
+  //                   <FastImage
+  //                     style={styles.itemholding_icon}
+  //                     source={{
+  //                       uri: item.item_icon,
+  //                       priority: FastImage.priority.normal,
+  //                     }}
+  //                     resizeMode={FastImage.resizeMode.cover}
+  //                   />
+  //                   <Text style={styles.itemholding_title}>
+  //                     {item.item_name}
+  //                   </Text>
+  //                 </View>
+  //                 <View style={styles.itemholding_rightside_view}>
+  //                   <Text style={styles.itemholding_balance}>
+  //                     {item.item_balance}
+  //                   </Text>
+  //                   <Text style={styles.itemholding_converted_balance}>
+  //                     ${item.base_coverted_balance}
+  //                   </Text>
+  //                 </View>
+  //               </SquircleView>
+  //             </TouchableOpacity>
+  //           );
+  //         } else {
+  //           return (
+  //             <TouchableOpacity
+  //               onPress={() => {
+  //                 setSelected(!selected);
+  //                 changeToken0(item);
+  //               }}>
+  //               <SquircleView
+  //                 style={styles.payment_option_item_view}
+  //                 squircleParams={{
+  //                   cornerSmoothing: 1,
+  //                   cornerRadius: 15,
+  //                   fillColor: themeHere.colors.mid_ground + '25',
+  //                 }}>
+  //                 <View style={styles.itemholding_leftside_view}>
+  //                   <FastImage
+  //                     style={styles.itemholding_icon}
+  //                     source={{
+  //                       uri: item.item_icon,
+  //                       priority: FastImage.priority.normal,
+  //                     }}
+  //                     resizeMode={FastImage.resizeMode.cover}
+  //                   />
+  //                   <Text style={styles.itemholding_title}>
+  //                     {item.item_name}
+  //                   </Text>
+  //                 </View>
+  //                 <View style={styles.itemholding_rightside_view}>
+  //                   <Text style={styles.itemholding_balance}>
+  //                     {item.item_balance}
+  //                   </Text>
+  //                   <Text style={styles.itemholding_converted_balance}>
+  //                     ${item.base_coverted_balance}
+  //                   </Text>
+  //                 </View>
+  //               </SquircleView>
+  //             </TouchableOpacity>
+  //           );
+  //         }
+  //       }
+  //
+  //       return (
+  //         <View style={styles.payment_token_pick_view}>
+  //           {myPortfolioTokens.map(item => PaymentOptionItem(item))}
+  //         </View>
+  //       );
+  //     },
+  //   [],
+  // );
+  //
+  // const RenderOrderInfo = useMemo(
+  //   () =>
+  //     function RenderOrderInfo() {
+  //       if (
+  //         token1Amount.length > 0 &&
+  //         token1Coin.address.length > 0 &&
+  //         token0Coin
+  //       ) {
+  //         return (
+  //           <View style={styles.order_info_view}>
+  //             <View style={styles.order_info_block_view}>
+  //               <Text style={styles.order_info_title_text}>you get</Text>
+  //               <Text style={styles.order_info_value_text}>
+  //                 <Text style={{color: themeHere.colors.foreground}}>
+  //                   6,573.88 DAI ($6573)
+  //                 </Text>
+  //               </Text>
+  //             </View>
+  //             <View style={styles.order_info_block_view}>
+  //               <Text style={styles.order_info_title_text}>by paying</Text>
+  //               <Text style={styles.order_info_value_text}>
+  //                 <Text style={{color: themeHere.colors.foreground}}>
+  //                   0.45 ETH ($6643.1)
+  //                 </Text>
+  //               </Text>
+  //             </View>
+  //             <View style={styles.order_info_block_view}>
+  //               <Text style={styles.order_info_title_text}>
+  //                 max expected slippage
+  //               </Text>
+  //               <Text style={styles.order_info_value_text}>
+  //                 <Text style={{color: themeHere.colors.foreground}}>
+  //                   0.76%
+  //                 </Text>
+  //               </Text>
+  //             </View>
+  //             <View style={styles.order_info_block_view}>
+  //               <Text style={styles.order_info_title_text}>
+  //                 Ethereum Gas Fees
+  //               </Text>
+  //               <Text style={styles.order_info_value_text}>
+  //                 <Text style={{color: themeHere.colors.foreground}}>
+  //                   ~$49.94
+  //                 </Text>
+  //               </Text>
+  //             </View>
+  //             <Button
+  //               title={'start buy process'}
+  //               type={'solid'}
+  //               onPress={() =>
+  //                 navigation.navigate('BuyTokensUniswapTransactionModal', {
+  //                   token0Coin: token0Coin,
+  //                   token1Coin: token1Coin,
+  //                   token1Amount: token1Amount,
+  //                   token1Fiat: token1Fiat,
+  //                 })
+  //               }
+  //               containerStyle={styles.next_button_container}
+  //               buttonStyle={styles.next_button_style}
+  //               titleStyle={styles.next_button_title}
+  //               ViewComponent={LinearGradient}
+  //               linearGradientProps={{
+  //                 colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
+  //               }}
+  //             />
+  //           </View>
+  //         );
+  //       } else {
+  //         return (
+  //           <View style={styles.order_info_view}>
+  //             <View
+  //               style={{
+  //                 ...styles.order_info_block_view,
+  //                 alignItems: 'center',
+  //                 justifyContent: 'center',
+  //               }}>
+  //               <Text
+  //                 style={{
+  //                   ...styles.order_info_value_text,
+  //                   alignSelf: 'center',
+  //                   textAlign: 'center',
+  //                 }}>
+  //                 <Text style={{color: themeHere.colors.blue}}>
+  //                   enter # of tokens you want & choose a token to pay with
+  //                 </Text>
+  //               </Text>
+  //             </View>
+  //           </View>
+  //         );
+  //       }
+  //     },
+  //   [token0Coin, token1Amount],
+  // );
 
   return (
     <View style={styles.parent_view}>
@@ -517,10 +523,10 @@ function BuyTokenUniswapProduct({dispatch}) {
       <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
         ~ $ {token1Fiat}
       </Text>
-      <Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>
-      <RenderPaymentOptions />
-      <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
-      <RenderOrderInfo />
+      {/*<Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>*/}
+      {/*<RenderPaymentOptions />*/}
+      {/*<Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>*/}
+      {/*<RenderOrderInfo />*/}
       <Portal>
         <Modalize
           ref={modalizePickToken1CoinRef}
@@ -530,7 +536,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             height: windowHeight * 0.5,
           }}
           flatListProps={{
-            data: token_list,
+            data: uniswapTokens,
             renderItem: RenderToken1ListItem,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
