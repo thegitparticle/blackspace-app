@@ -28,31 +28,48 @@ function AccordianPortfolio() {
   const [activeSections, setActiveSections] = useState([]);
   const navigation = useNavigation();
 
+  let listTokens = state_here.MyTokenBalancesReducer.tokens;
+
   const SECTIONS = [
     {
       id: 0,
       title: 'Cryptocurrencies',
       main_icon: require('../../../../assets/crypto_bitcoin_icon.png'),
-      content: WalletDetailsDummy.cryptos,
+      content: [
+        {
+          name: 'Ethereum',
+          symbol: 'ETH',
+          logoURI:
+            'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png?1595348880',
+          tokenBalance_decimal:
+            (Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
+              10) ^
+            18,
+          token_price_usd:
+            (Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
+              10) ^
+            (18 * 2400),
+        },
+      ],
     },
     {
       id: 1,
       title: 'Tokens',
       main_icon: require('../../../../assets/token_t_icon.png'),
-      content: WalletDetailsDummy.erc_tokens,
+      content: listTokens,
     },
-    {
-      id: 2,
-      title: 'DeFi',
-      main_icon: require('../../../../assets/defi_key_icon.png'),
-      content: [],
-    },
-    {
-      id: 3,
-      title: 'NFTs',
-      main_icon: require('../../../../assets/nfts_boredape_icon.png'),
-      content: WalletDetailsDummy.nfts,
-    },
+    // {
+    //   id: 2,
+    //   title: 'DeFi',
+    //   main_icon: require('../../../../assets/defi_key_icon.png'),
+    //   content: [],
+    // },
+    // {
+    //   id: 3,
+    //   title: 'NFTs',
+    //   main_icon: require('../../../../assets/nfts_boredape_icon.png'),
+    //   content: WalletDetailsDummy.nfts,
+    // },
   ];
 
   function RenderHeader(section) {
@@ -129,7 +146,7 @@ function AccordianPortfolio() {
           }}>
           <StyledFastImage25
             source={{
-              uri: item.item_icon,
+              uri: item.logoURI,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}
@@ -140,13 +157,13 @@ function AccordianPortfolio() {
               color: 'foreground',
               mx: '$5',
             }}>
-            {item.item_name}
+            {item.name}
           </Text>
         </View>
         <View
           sx={{
             flexDirection: 'column',
-            alignItems: 'center',
+            alignItems: 'flex-end',
             justifyContent: 'flex-start',
           }}>
           <Text
@@ -154,8 +171,9 @@ function AccordianPortfolio() {
             sx={{
               color: 'red',
               my: '$1',
+              textAlign: 'right',
             }}>
-            {item.item_balance}
+            {item.tokenBalance_decimal}
           </Text>
           <Text
             variant="caption"
@@ -163,8 +181,9 @@ function AccordianPortfolio() {
               color: 'foreground',
               my: '$1',
               opacity: 0.5,
+              textAlign: 'right',
             }}>
-            ${item.base_coverted_balance}
+            ${item.token_price_usd}
           </Text>
         </View>
       </View>
