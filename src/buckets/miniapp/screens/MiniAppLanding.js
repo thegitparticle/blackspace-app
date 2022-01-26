@@ -1,12 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-} from 'react-native';
+import {StyleSheet, Dimensions, Appearance, ScrollView} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {SharedElement} from 'react-native-shared-element';
 import HeaderBlock from '../components/HeaderBlock';
@@ -17,7 +10,7 @@ import {HScrollView} from 'react-native-head-tab-view';
 import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
 import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
 import LottieView from 'lottie-react-native';
-import {useSx} from 'dripsy';
+import {useSx, View, Image, Text} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -93,21 +86,25 @@ function MiniAppLanding({route}) {
     if (route.title === 'Products') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_focused}>Products</Text>
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
+              Products
+            </Text>
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_unfocused}>Products</Text>
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
+              Products
+            </Text>
           </View>
         );
       }
     } else if (route.title === 'Jargon Buster') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
+          <View variant="layout.tab_label_chip">
             <LottieView
               source={require('../../../../assets/hammer_lottie.json')}
               autoPlay
@@ -119,7 +116,7 @@ function MiniAppLanding({route}) {
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
+          <View variant="layout.tab_label_chip">
             <LottieView
               source={require('../../../../assets/hammer_lottie.json')}
               autoPlay
@@ -133,16 +130,16 @@ function MiniAppLanding({route}) {
     } else if (route.title === app_details.in_use_tab_name) {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_focused}>
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
               {app_details.in_use_tab_name}
             </Text>
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_unfocused}>
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
               {app_details.in_use_tab_name}
             </Text>
           </View>
@@ -151,14 +148,18 @@ function MiniAppLanding({route}) {
     } else {
       if (focused) {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_focused}>---</Text>
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
+              ---
+            </Text>
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view}>
-            <Text style={styles.tab_label_text_unfocused}>---</Text>
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
+              ---
+            </Text>
           </View>
         );
       }
@@ -168,8 +169,18 @@ function MiniAppLanding({route}) {
   const renderTabBarMiniApp = props => (
     <TabBar
       {...props}
-      indicatorStyle={styles.tab_bar_indicator}
-      style={styles.tab_bar}
+      indicatorStyle={sxCustom({
+        width: 0,
+      })}
+      style={sxCustom({
+        backgroundColor: 'transparent',
+        height: 70,
+        alignSelf: 'center',
+        justifyContent: 'center',
+        width: windowWidth,
+        borderRadius: 30,
+        borderTopWidth: 0,
+      })}
       renderLabel={renderLabelMiniApp}
       tabStyle={{backgroundColor: themeHere.colors.background}}
     />
@@ -187,7 +198,10 @@ function MiniAppLanding({route}) {
       renderScene={renderSceneMiniApp}
       onIndexChange={setIndex}
       initialLayout={{width: windowWidth}}
-      style={styles.header_tab_view}
+      style={{
+        flex: 1,
+        backgroundColor: themeHere.colors.background,
+      }}
       frozeTop={125}
       lazy={true}
       tabBarHeight={50}
@@ -197,61 +211,3 @@ function MiniAppLanding({route}) {
 }
 
 export default MiniAppLanding;
-
-const styles = StyleSheet.create({
-  parent_scroll_view: {
-    flex: 1,
-    backgroundColor: themeHere.colors.background,
-  },
-  parent_view: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: themeHere.colors.background,
-  },
-  header_tab_view: {
-    flex: 1,
-    backgroundColor: themeHere.colors.background,
-  },
-  cover_image: {
-    width: windowWidth,
-    height: 200,
-  },
-  tab_bar: {
-    backgroundColor: themeHere.colors.off_background + '00',
-    height: 70,
-    // justifyContent: 'center',
-    alignSelf: 'center',
-    justifyContent: 'center',
-    width: windowWidth,
-    borderRadius: 30,
-    borderTopWidth: 0,
-    // shadowColor: themeHere.colors.mid_ground,
-    // shadowOffset: {
-    //   width: 0,
-    //   height: 4,
-    // },
-    // shadowOpacity: 0.32,
-    // shadowRadius: 5.46,
-    // elevation: 9,
-  },
-  tab_bar_indicator: {
-    width: 0,
-  },
-  tab_label_view: {
-    alignItems: 'center',
-    alignContent: 'center',
-    height: 40,
-    borderRadius: 20,
-    paddingHorizontal: 20,
-    backgroundColor: themeHere.colors.mid_ground + '25',
-    justifyContent: 'center',
-  },
-  tab_label_text_focused: {
-    ...themeHere.text.subhead_bold,
-    color: themeHere.colors.red,
-  },
-  tab_label_text_unfocused: {
-    ...themeHere.text.subhead_bold,
-    color: themeHere.colors.foreground,
-  },
-});

@@ -189,6 +189,16 @@ export const dripsytheme = makeTheme({
       borderRadius: 15,
     },
 
+    // custom Chips in <View />
+    tab_label_chip: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: 40,
+      borderRadius: 20,
+      paddingHorizontal: 20,
+      backgroundColor: 'off_background',
+    },
+
     // for icons wrapped in <View />
     round_icon_container_30: {
       width: 30,
