@@ -3,7 +3,7 @@ import axios from 'axios';
 
 export default function useDerivedEthPrice(token_address) {
   // 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
-  const [loading, setLoading] = useState(true);
+  const [loadingDerivedETH, setLoading] = useState(true);
   const [derivedETH, setDerivedETH] = useState(null);
 
   const data = JSON.stringify({
@@ -42,5 +42,5 @@ export default function useDerivedEthPrice(token_address) {
     fetchInfo();
   }, [token_address]);
 
-  return {loading, derivedETH};
+  return {loadingDerivedETH, derivedETH};
 }

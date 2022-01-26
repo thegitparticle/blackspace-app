@@ -23,6 +23,7 @@ import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
 import {useNavigation} from '@react-navigation/native';
 import {useUSDCPrice} from '../../helpers/useUSDCPrice';
 import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
+import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -55,9 +56,10 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
   const [token0Coin, setToken0Coin] = useState();
 
-  const {loading, derivedETH} = useDerivedEthPrice(
-    '0x1f9840a85d5af5bf1d1762f925bdaddc4201f984',
+  const {loadingDerivedETH, derivedETH} = useDerivedEthPrice(
+    token1Coin.address,
   );
+  const {loadingEth, priceEth} = useEthFiatPrice();
 
   const wallet_address =
     state_here.UserDetailsReducer.userdetails.wallet_address;
@@ -65,10 +67,14 @@ function BuyTokenUniswapProduct({dispatch}) {
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
   let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
 
-  function changeToken0(token0) {
-    setToken0Coin(token0);
-    checkAndCallPoolInfo();
+  function computeFiatToken1(value) {
+    setToken1Fiat(Number(value) * derivedETH * priceEth);
   }
+
+  // function changeToken0(token0) {
+  //   setToken0Coin(token0);
+  //   checkAndCallPoolInfo();
+  // }
 
   const modalizePickToken1CoinRef = useRef(null);
 
@@ -488,10 +494,13 @@ function BuyTokenUniswapProduct({dispatch}) {
       <View style={styles.want_token_view}>
         <TextInput
           numberOfLines={1}
-          onChangeText={setToken1Amount}
+          onChangeText={value => {
+            setToken1Amount(value);
+            computeFiatToken1(value);
+          }}
           value={token1Amount}
           style={styles.enter_amount_input}
-          placeholder={'0.0 DAI'}
+          placeholder={'0.0'}
           placeholderTextColor={themeHere.colors.foreground + 50}
           keyboardType={'decimal-pad'}
           onEndEditing={() => {}}

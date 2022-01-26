@@ -10,6 +10,15 @@ export const FamousTokensList = [
   },
   {
     chainId: 1,
+    address: '0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0',
+    name: 'Polygon',
+    symbol: 'MATIC',
+    decimals: 18,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912',
+  },
+  {
+    chainId: 1,
     address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
     name: 'USD Coin',
     symbol: 'USDC',
