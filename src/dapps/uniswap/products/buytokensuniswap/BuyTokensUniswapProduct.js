@@ -67,6 +67,16 @@ function BuyTokenUniswapProduct({dispatch}) {
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
   let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
 
+  let ethTokenObject = {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
+    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
+  };
+
   function computeFiatToken1(value) {
     setToken1Fiat(Number(value) * derivedETH * priceEth);
   }
@@ -357,6 +367,7 @@ function BuyTokenUniswapProduct({dispatch}) {
 
         return (
           <View style={styles.payment_token_pick_view}>
+            {PaymentOptionItem(ethTokenObject)}
             {myTokens.map(item => PaymentOptionItem(item))}
           </View>
         );
