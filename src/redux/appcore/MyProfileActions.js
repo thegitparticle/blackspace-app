@@ -1,14 +1,12 @@
 import {ADD_MYAPPS, ADD_MYPROFILEDETAILS} from '../types';
 import axios from 'axios';
 
-export const GetMyProfileDetails = wallet_address => {
+export const GetMyProfileDetails = userid => {
   return dispatch => {
     let res = [];
 
     axios
-      .get(
-        'https://suprblack.xyz/api/users/list?wallet_address=' + wallet_address,
-      )
+      .get('https://suprblack.xyz/api/users/profile-update/?user=' + userid)
       .then(response => (res = response.data))
       .then(() =>
         dispatch({

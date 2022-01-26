@@ -2,9 +2,15 @@ import {ADD_MYPROFILEDETAILS} from '../types';
 
 const initial_state = {
   myProfileDetails: {
-    username: null,
-    userid: null,
-    wallet_address: null,
+    user: {
+      id: 0,
+      wallet_address: '',
+      username: '',
+    },
+    id: 2,
+    erc20_token_holdings: '',
+    eth_balance: '',
+    portfolio_value: '0',
   },
 };
 

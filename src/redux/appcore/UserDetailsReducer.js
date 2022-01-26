@@ -2,8 +2,9 @@ import {ADD_USERDETAILS} from '../types';
 
 const initial_state = {
   userdetails: {
-    userid: null,
+    id: null,
     username: null,
+    wallet_address: null,
   },
 };
 
