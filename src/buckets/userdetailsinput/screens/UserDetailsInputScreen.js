@@ -51,9 +51,9 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
 
     axios(config)
       .then(res => {
-        myProfileDetails.username = username;
-        myProfileDetails.userid = res.data.userid;
-        dispatch(AddMyProfileDetails(myProfileDetails));
+        // myProfileDetails.username = username;
+        // myProfileDetails.userid = res.data.userid;
+        // dispatch(AddMyProfileDetails(myProfileDetails));
         Keyboard.dismiss();
         setShowSetupDoneOverlay(true);
         NavigateToMainStack();

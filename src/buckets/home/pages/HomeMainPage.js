@@ -31,10 +31,8 @@ function HomeMainPage({dispatch}) {
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
   useEffect(() => {
-    dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.userid));
-    dispatch(
-      GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.userid),
-    );
+    dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.id));
+    dispatch(GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.id));
     dispatch(GetMarketPrices());
 
     console.log('apps page is now focused!');
