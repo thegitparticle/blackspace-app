@@ -52,9 +52,13 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
   const [token0Coin, setToken0Coin] = useState();
 
+  const wallet_address =
+    state_here.UserDetailsReducer.userdetails.wallet_address;
+  const myProfileDetails = state_here.MyProfileReducer.myProfileDetails;
+  const myTokens = state_here.MyTokenBalancesReducer.tokens;
+
   function changeToken0(token0) {
     setToken0Coin(token0);
-    console.log(token0Coin);
     checkAndCallPoolInfo();
   }
 
@@ -66,15 +70,15 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   const modalizePickToken1CoinRef = useRef(null);
 
-  const onOpenPickToken1Coin = () => {
+  const onOpenPickToken1 = () => {
     modalizePickToken1CoinRef.current?.open();
   };
 
-  const onClosePickToken1Coin = () => {
+  const onClosePickToken1 = () => {
     modalizePickToken1CoinRef.current?.close();
   };
 
-  function PickToken1CoinHeader() {
+  function PickToken1Header() {
     const [searchText, setSearchText] = useState('');
 
     return (
@@ -107,7 +111,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             <TouchableOpacity
               onPress={() => {
                 setToken1Coin(FamousTokensList[0]);
-                onClosePickToken1Coin();
+                onClosePickToken1();
               }}>
               <SquircleView
                 style={styles.famous_token_item_view}
@@ -132,7 +136,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             <TouchableOpacity
               onPress={() => {
                 setToken1Coin(FamousTokensList[1]);
-                onClosePickToken1Coin();
+                onClosePickToken1();
               }}>
               <SquircleView
                 style={styles.famous_token_item_view}
@@ -157,7 +161,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             <TouchableOpacity
               onPress={() => {
                 setToken1Coin(FamousTokensList[2]);
-                onClosePickToken1Coin();
+                onClosePickToken1();
               }}>
               <SquircleView
                 style={styles.famous_token_item_view}
@@ -184,7 +188,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             <TouchableOpacity
               onPress={() => {
                 setToken1Coin(FamousTokensList[3]);
-                onClosePickToken1Coin();
+                onClosePickToken1();
               }}>
               <SquircleView
                 style={styles.famous_token_item_view}
@@ -209,7 +213,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             <TouchableOpacity
               onPress={() => {
                 setToken1Coin(FamousTokensList[4]);
-                onClosePickToken1Coin();
+                onClosePickToken1();
               }}>
               <SquircleView
                 style={styles.famous_token_item_view}
@@ -243,7 +247,7 @@ function BuyTokenUniswapProduct({dispatch}) {
         style={styles.render_token_item_view}
         onPress={() => {
           setToken1Coin(item.item);
-          onClosePickToken1Coin();
+          onClosePickToken1();
           checkAndCallPoolInfo();
         }}>
         <>
@@ -262,8 +266,6 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
-  const myEthBalance =
-    state_here.WDeetsReducer.wdeets.wallet_eth_balance_readable_string;
   const myPortfolioTokens = [
     {
       item_name: 'Ethereum',
@@ -490,7 +492,7 @@ function BuyTokenUniswapProduct({dispatch}) {
         />
         <TouchableOpacity
           style={{color: 'transparent'}}
-          onPress={() => onOpenPickToken1Coin()}>
+          onPress={() => onOpenPickToken1()}>
           <SquircleView
             style={styles.famous_token_item_view}
             squircleParams={{
@@ -532,7 +534,7 @@ function BuyTokenUniswapProduct({dispatch}) {
             renderItem: RenderToken1ListItem,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
-            ListHeaderComponent: PickToken1CoinHeader(),
+            ListHeaderComponent: PickToken1Header(),
           }}
         />
       </Portal>

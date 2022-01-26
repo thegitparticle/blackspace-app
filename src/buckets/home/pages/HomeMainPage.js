@@ -18,6 +18,7 @@ import {GetDiscoverApps} from '../../../redux/appcore/DiscoverAppsActions';
 import {SectionGrid} from 'react-native-super-grid';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import BottomSpacer from '../../../bits/BottomSpacer';
+import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenListActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -34,7 +35,7 @@ function HomeMainPage({dispatch}) {
     dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.id));
     dispatch(GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.id));
     dispatch(GetMarketPrices());
-
+    dispatch(GetUniswapTokenList());
     console.log('apps page is now focused!');
   }, []);
 
