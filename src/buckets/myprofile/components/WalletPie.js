@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
-import {View} from 'dripsy';
+import {Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import {WalletDetailsDummy} from '../DummyData';
@@ -39,19 +39,57 @@ function WalletPie() {
   function RenderPie() {
     if (data.length > 0) {
       return (
-        <VictoryPie
-          data={data}
-          width={windowWidth * 0.8}
-          height={windowWidth * 0.8}
-          innerRadius={75}
-          style={{
-            labels: {
-              fill: 'white',
-              fontSize: 15,
-              padding: 7,
-            },
-          }}
-        />
+        <View sx={{alignItem: 'center', justifyItems: 'center'}}>
+          <View
+            sx={{
+              width: windowWidth * 0.9,
+              height: windowWidth * 0.9,
+              position: 'absolute',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text
+              variant="header_bold"
+              sx={{
+                color: 'foreground',
+                my: '$2',
+              }}>
+              $ {state_here.MyProfileReducer.myProfileDetails.portfolio_value}
+            </Text>
+          </View>
+          <VictoryPie
+            data={data}
+            colorScale={[
+              'tomato',
+              'aqua',
+              'orange',
+              'gold',
+              'cyan',
+              'navy',
+              'chocolate',
+              'crimson',
+              'deeppink',
+              'deepskyblue',
+              'indianred',
+              'hotpink',
+              'springgreen',
+              'yellow',
+              'yellowgreen',
+            ]}
+            width={windowWidth * 0.9}
+            height={windowWidth * 0.9}
+            labelRadius={({innerRadius}) => innerRadius + 50}
+            innerRadius={100}
+            style={{
+              labels: {
+                fill: 'white',
+                fontSize: 15,
+                padding: 7,
+              },
+              position: 'absolute',
+            }}
+          />
+        </View>
       );
     } else {
       return <DoubleBounce size={10} color="#1CAFF6" />;
