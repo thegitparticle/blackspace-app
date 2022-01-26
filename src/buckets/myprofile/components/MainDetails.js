@@ -16,7 +16,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function MainDetails() {
-  let wallet_add = state_here.WDeetsReducer.wdeets.wallet_address;
+  let wallet_add = state_here.UserDetailsReducer.userdetails.wallet_address;
   let render_wallet_string =
     wallet_add.slice(0, 4) + '...' + +wallet_add.slice(-2);
 
@@ -53,7 +53,7 @@ function MainDetails() {
           color: 'foreground',
           my: '$2',
         }}>
-        {state_here.MyProfileReducer.myProfileDetails.username}
+        {state_here.UserDetailsReducer.userdetails.username}
       </Text>
       <Pressable onPress={copyToClipboard}>
         <View

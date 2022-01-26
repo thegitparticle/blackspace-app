@@ -9,7 +9,6 @@ export const GetMyProfileDetails = userid => {
       .get('https://suprblack.xyz/api/users/profile-update/?user=' + userid)
       .then(response => {
         res = response.data;
-        console.log(res);
       })
       .then(() =>
         dispatch({
