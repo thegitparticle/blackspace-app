@@ -55,7 +55,7 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Amount, setToken1Amount] = useState('');
   const [token1Fiat, setToken1Fiat] = useState(0);
 
-  const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
+  const [token1Coin, setToken1Coin] = useState(FamousTokensList[4]);
   const [token0Coin, setToken0Coin] = useState(null);
 
   const {loadingDerivedETH, derivedETH} = useDerivedEthPrice(
@@ -77,7 +77,7 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   let {loadingPoolPrices, token0PoolPrice, token1PoolPrice} =
     usePoolPricesFromChain(
-      // lpAddress,
+      lpAddress,
       token0Coin === null ? '' : token0Coin.contractAddress,
       token1Coin.address || '',
     );
@@ -403,8 +403,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                 }}>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    1 {token1Coin.symbol} = {token0PoolPrice}{' '}
-                    {token0Coin.symbol} - {String(derivedETH)}
+                    1 {token1Coin.symbol} = {token1PoolPrice}{' '}
+                    {token0Coin.symbol}
                   </Text>
                 </Text>
               </View>
@@ -412,7 +412,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_title_text}>you get</Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    6,573.88 DAI ($6573)
+                    {token1Amount} {token1Coin.symbol}
                   </Text>
                 </Text>
               </View>
@@ -420,7 +420,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_title_text}>by paying</Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    0.45 ETH ($6643.1)
+                    {Number(token1Amount) * Number(token1PoolPrice)}{' '}
+                    {token0Coin.symbol}
                   </Text>
                 </Text>
               </View>

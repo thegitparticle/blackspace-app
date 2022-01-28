@@ -13,7 +13,6 @@ const provider = new ethers.providers.JsonRpcProvider(
 );
 
 export default async function useSetupUniswapPool(lpDetails, walletAddress) {
-  // USDC-WETH pool address on mainnet for fee tier 0.05%
   const [loadingPoolSetup, setLoadingPoolSetup] = useState(true);
   const [poolExample, setPoolExample] = useState(null);
 

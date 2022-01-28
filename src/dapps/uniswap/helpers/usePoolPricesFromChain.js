@@ -7,7 +7,7 @@ const provider = new ethers.providers.JsonRpcProvider(
 );
 
 export default function usePoolPricesFromChain(
-  // lpDetails,
+  lpDetails,
   token0Address,
   token1Address,
 ) {
@@ -17,8 +17,8 @@ export default function usePoolPricesFromChain(
 
   async function fetch() {
     const tokenPairPrice = await getPriceUniswapV3(
-      // lpDetails.id !== undefined || null ? lpDetails.id : '',
-      '0x290a6a7460b308ee3f19023d2d00de604bcf5b42',
+      lpDetails.id !== undefined || null ? lpDetails.id : '',
+      // '0x290a6a7460b308ee3f19023d2d00de604bcf5b42',
       provider,
       [18, 18],
     );
@@ -36,7 +36,7 @@ export default function usePoolPricesFromChain(
 
   useEffect(() => {
     fetch();
-  }, [token0Address, token1Address]);
+  }, [lpDetails]);
 
   return {loadingPoolPrices, token0PoolPrice, token1PoolPrice};
 }
