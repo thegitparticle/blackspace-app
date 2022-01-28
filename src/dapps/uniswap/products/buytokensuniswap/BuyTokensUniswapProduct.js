@@ -19,12 +19,12 @@ import {Portal} from 'react-native-portalize';
 import {FamousTokensList} from '../../helpers/FamousTokensList';
 import FastImage from 'react-native-fast-image';
 import axios from 'axios';
-import {getPoolDetails} from '../../helpers/UniswapGetInfoFromGraph';
 import {useNavigation} from '@react-navigation/native';
-import {useUSDCPrice} from '../../helpers/useUSDCPrice';
 import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
 import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
+import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
+import useSetupUniswapPool from '../../helpers/UniswapPoolSetup';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -74,6 +74,22 @@ function BuyTokenUniswapProduct({dispatch}) {
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
   let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
 
+  let {loadingPoolSetup, poolExample} = useSetupUniswapPool(
+    lpAddress,
+    state_here.UserDetailsReducer.userdetails.wallet_address,
+  );
+
+  // useEffect(() => {
+  //   SetupUniswapPool(
+  //     // lpAddress === null || undefined
+  //     //   ? ''
+  //     //   : '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640',
+  //     lpAddress,
+  //     state_here.UserDetailsReducer.userdetails.wallet_address,
+  //   );
+  //   console.log(lpAddress);
+  // }, [lpAddress]);
+
   let ethTokenObject = {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -90,7 +106,6 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   function changeToken0(token0) {
     setToken0Coin(token0);
-    // checkAndCallPoolInfo();
   }
 
   const modalizePickToken1CoinRef = useRef(null);
@@ -102,10 +117,6 @@ function BuyTokenUniswapProduct({dispatch}) {
   const onClosePickToken1 = () => {
     modalizePickToken1CoinRef.current?.close();
   };
-
-  function checkAndCallPoolInfo() {
-    getPoolDetails('0x8ad599c3a0ff1de082011efddc58f1908eb6e6d8');
-  }
 
   function PickToken1Header() {
     const [searchText, setSearchText] = useState('');
@@ -277,7 +288,7 @@ function BuyTokenUniswapProduct({dispatch}) {
         onPress={() => {
           setToken1Coin(item.item);
           onClosePickToken1();
-          checkAndCallPoolInfo();
+          // checkAndCallPoolInfo();
         }}>
         <>
           <FastImage
@@ -464,8 +475,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                     alignSelf: 'center',
                     textAlign: 'center',
                   }}>
-                  <Text style={{color: themeHere.colors.blue}}>
-                    enter # of tokens you want & choose a token to pay with
+                  <Text style={{color: themeHere.colors.blue_light}}>
+                    enter # of tokens you want & choose payment method
                   </Text>
                 </Text>
               </View>
@@ -524,8 +535,8 @@ function BuyTokenUniswapProduct({dispatch}) {
       </Text>
       <Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>
       <RenderPaymentOptions />
-      {/*<Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>*/}
-      {/*<RenderOrderInfo />*/}
+      <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
+      <RenderOrderInfo />
       <Portal>
         <Modalize
           ref={modalizePickToken1CoinRef}

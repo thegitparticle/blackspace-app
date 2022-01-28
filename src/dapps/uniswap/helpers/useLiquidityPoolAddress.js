@@ -4,7 +4,25 @@ import _ from 'lodash';
 
 export default function useLiquidityPoolAddress(token0Address, token1Address) {
   const [loadingLPAddress, setLoadingLPAddress] = useState(true);
-  const [lpAddress, setLPAddress] = useState('');
+  const [lpAddress, setLPAddress] = useState({
+    feeTier: '3000',
+    id: '0x290a6a7460b308ee3f19023d2d00de604bcf5b42',
+    liquidity: '949973668670527790863439',
+    sqrtPrice: '2046379880895743797939048206',
+    tick: '-73129',
+    token0: {
+      decimals: '18',
+      name: 'Matic Token',
+      symbol: 'MATIC',
+    },
+    token0Price: '1498.948295981583083786621023745811',
+    token1: {
+      decimals: '18',
+      name: 'Wrapped Ether',
+      symbol: 'WETH',
+    },
+    token1Price: '0.0006671344186326000924924617213326372',
+  });
 
   let token0Here = '';
   let token1Here = '';
@@ -26,6 +44,14 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
       liquidity
       token0Price
       token1Price
+      token0 {
+        symbol
+        name
+      }
+      token1 {
+        symbol
+        name
+      }
     }
   }`,
     variables: {token0: token0Here, token1: token1Here},
@@ -44,7 +70,7 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     axios(config)
       .then(function (response) {
         setLPAddress(_.last(response.data.data.pools));
-        console.log(_.last(response.data.data.pools) + 'lp');
+        // console.log(_.last(response.data.data.pools));
         setLoadingLPAddress(false);
       })
       .catch(function (error) {
