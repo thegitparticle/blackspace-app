@@ -12,10 +12,11 @@ const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
-export default async function useSetupUniswapPool(lpDetails, walletAddress) {
-  const [loadingPoolSetup, setLoadingPoolSetup] = useState(true);
-  const [poolExample, setPoolExample] = useState(null);
-
+export default async function SetupUniswapPool(
+  lpDetails,
+  walletAddress,
+  privateKey,
+) {
   const poolContract = new ethers.Contract(
     lpDetails.id !== undefined || null ? lpDetails.id : '',
     IUniswapV3PoolABI,
@@ -124,8 +125,6 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
       state.tick,
     );
 
-    setPoolExample(poolExampleHere);
-
     // assign an input amount for the swap
     const amountIn = 100;
 
@@ -140,7 +139,7 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
       );
 
     // create an instance of the route object in order to construct a trade object
-    const swapRoute = new Route([poolExample], TokenA, TokenB);
+    const swapRoute = new Route([poolExampleHere], TokenA, TokenB);
 
     // create an unchecked trade instance
     const uncheckedTradeExample = await Trade.createUncheckedTrade({
@@ -161,6 +160,17 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
 
     console.log(tokenPairPrice);
 
+    let wallet = new ethers.Wallet(privateKey);
+
+    let walletSigner = wallet.connect(provider);
+
+    let gas_price = provider.getGasPrice();
+
+    walletSigner.sendTransaction(uncheckedTradeExample).then(transaction => {
+      console.dir(transaction);
+      alert('Send finished!');
+    });
+
     // console.log('The quoted amount out is', quotedAmountOut.toString());
     // console.log('The unchecked trade object is', uncheckedTradeExample);
     // console.log(poolExample.token0Price);
@@ -168,8 +178,6 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
   }
 
   // console.log(poolExample);
-
-  return {loadingPoolSetup, poolExample};
 
   // print the quote and the unchecked trade instance in the console
   // console.log('The quoted amount out is', quotedAmountOut.toString());

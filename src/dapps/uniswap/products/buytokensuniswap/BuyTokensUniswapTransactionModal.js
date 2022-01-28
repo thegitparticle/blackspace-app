@@ -15,7 +15,8 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function BuyTokensUniswapTransactionModal({route, dispatch}) {
-  const {token0Coin, token1Coin, token1Amount, token1Fiat} = route.params;
+  const {token0Coin, token1Coin, token1Amount, token1Fiat, lpDetails} =
+    route.params;
 
   const [renderScreen, setRenderScreen] = useState('ConfirmBorrow');
 
@@ -46,7 +47,8 @@ function BuyTokensUniswapTransactionModal({route, dispatch}) {
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           Amount={amount}
-          CollNeededFiat={collNeededFiat}
+          walletReducer={state_here.WDeetsReducer.wdeets}
+          lpDetails={lpDetails}
         />
       );
     } else {

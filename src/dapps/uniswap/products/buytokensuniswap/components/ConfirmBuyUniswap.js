@@ -10,6 +10,7 @@ import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
+import SetupUniswapPool from '../../../helpers/UniswapPoolSetup';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,6 +33,12 @@ e. "NoAmount" - you do not have the needed collateral - reduce the borrow accord
 
 function ConfirmBuyUniswap(props) {
   const [renderContext, setRenderContext] = useState('Checking');
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRenderContext('WalletHasAmount');
+    }, 2000);
+  }, []);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -117,7 +124,13 @@ function ConfirmBuyUniswap(props) {
           <Button
             title={'confirm buy'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => {
+              SetupUniswapPool(
+                props.lpDetails,
+                props.walletReducer.wallet_address,
+                props.walletReducer.wallet_privateKey,
+              );
+            }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

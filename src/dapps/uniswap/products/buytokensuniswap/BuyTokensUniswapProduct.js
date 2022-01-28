@@ -24,7 +24,6 @@ import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
 import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
 import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
-import useSetupUniswapPool from '../../helpers/UniswapPoolSetup';
 import usePoolPricesFromChain from '../../helpers/usePoolPricesFromChain';
 
 const windowHeight = Dimensions.get('window').height;
@@ -454,6 +453,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                     token1Coin: token1Coin,
                     token1Amount: token1Amount,
                     token1Fiat: token1Fiat,
+                    lpDetails: lpAddress,
                   })
                 }
                 containerStyle={styles.next_button_container}
