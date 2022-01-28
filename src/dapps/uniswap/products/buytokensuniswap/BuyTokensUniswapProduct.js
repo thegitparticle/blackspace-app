@@ -24,6 +24,7 @@ import {useNavigation} from '@react-navigation/native';
 import {useUSDCPrice} from '../../helpers/useUSDCPrice';
 import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
 import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
+import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -54,12 +55,18 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Fiat, setToken1Fiat] = useState(0);
 
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[1]);
-  const [token0Coin, setToken0Coin] = useState();
+  const [token0Coin, setToken0Coin] = useState(null);
 
   const {loadingDerivedETH, derivedETH} = useDerivedEthPrice(
     token1Coin.address,
   );
+
   const {loadingEth, priceEth} = useEthFiatPrice();
+
+  let {loadingLPAddress, lpAddress} = useLiquidityPoolAddress(
+    token0Coin === null ? '' : token0Coin.contractAddress,
+    token1Coin.address || '',
+  );
 
   const wallet_address =
     state_here.UserDetailsReducer.userdetails.wallet_address;

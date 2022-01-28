@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 
 export default function useDerivedEthPrice(token_address) {
-  // 0x1f9840a85d5af5bf1d1762f925bdaddc4201f984
   const [loadingDerivedETH, setLoading] = useState(true);
   const [derivedETH, setDerivedETH] = useState(null);
 
@@ -29,7 +28,6 @@ export default function useDerivedEthPrice(token_address) {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        console.log(response.data);
         setDerivedETH(response.data.data.token.derivedETH);
         setLoading(false);
       })
