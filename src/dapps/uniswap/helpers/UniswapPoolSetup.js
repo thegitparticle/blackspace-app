@@ -6,6 +6,7 @@ import {abi as IUniswapV3PoolABI} from '@uniswap/v3-core/artifacts/contracts/int
 import {Route} from '@uniswap/v3-sdk';
 import {Trade} from '@uniswap/v3-sdk';
 import {abi as QuoterABI} from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json';
+import {getPriceUniswapV3} from '@thanpolas/uniswap-chain-queries';
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
@@ -127,7 +128,7 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
     setPoolExample(poolExampleHere);
 
     // assign an input amount for the swap
-    const amountIn = 1;
+    const amountIn = 100;
 
     // call the quoter contract to determine the amount out of a swap, given an amount in
     const quotedAmountOut =
@@ -153,11 +154,21 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
       tradeType: TradeType.EXACT_INPUT,
     });
 
-    console.log('The quoted amount out is', quotedAmountOut.toString());
-    console.log('The unchecked trade object is', uncheckedTradeExample);
+    const tokenPairPrice = await getPriceUniswapV3(
+      lpDetails.id !== undefined || null ? lpDetails.id : '',
+      provider,
+      [18, 18],
+    );
+
+    console.log(tokenPairPrice);
+
+    // console.log('The quoted amount out is', quotedAmountOut.toString());
+    // console.log('The unchecked trade object is', uncheckedTradeExample);
+    // console.log(poolExample.token0Price);
+    // console.log(poolExample.token1Price);
   }
 
-  console.log(poolExample);
+  // console.log(poolExample);
 
   return {loadingPoolSetup, poolExample};
 

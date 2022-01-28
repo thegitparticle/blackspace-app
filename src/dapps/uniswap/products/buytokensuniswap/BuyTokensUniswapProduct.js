@@ -25,6 +25,7 @@ import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
 import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
 import useSetupUniswapPool from '../../helpers/UniswapPoolSetup';
+import usePoolPricesFromChain from '../../helpers/usePoolPricesFromChain';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -74,23 +75,17 @@ function BuyTokenUniswapProduct({dispatch}) {
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
   let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
 
-  console.log(wallet_address);
+  let {loadingPoolPrices, token0PoolPrice, token1PoolPrice} =
+    usePoolPricesFromChain(
+      // lpAddress,
+      token0Coin === null ? '' : token0Coin.contractAddress,
+      token1Coin.address || '',
+    );
 
-  let {loadingPoolSetup, poolExample} = useSetupUniswapPool(
-    lpAddress,
-    state_here.UserDetailsReducer.userdetails.wallet_address,
-  );
-
-  // useEffect(() => {
-  //   SetupUniswapPool(
-  //     // lpAddress === null || undefined
-  //     //   ? ''
-  //     //   : '0x88e6a0c2ddd26feeb64f039a2c41296fcb3f5640',
-  //     lpAddress,
-  //     state_here.UserDetailsReducer.userdetails.wallet_address,
-  //   );
-  //   console.log(lpAddress);
-  // }, [lpAddress]);
+  // let {loadingPoolSetup, poolExample} = useSetupUniswapPool(
+  //   lpAddress,
+  //   state_here.UserDetailsReducer.userdetails.wallet_address,
+  // );
 
   let ethTokenObject = {
     name: 'Ethereum',
@@ -405,6 +400,19 @@ function BuyTokenUniswapProduct({dispatch}) {
         ) {
           return (
             <View style={styles.order_info_view}>
+              <View
+                style={{
+                  ...styles.order_info_block_view,
+                  justifyContent: 'center',
+                  marginBottom: 40,
+                }}>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    1 {token1Coin.symbol} = {token0PoolPrice}{' '}
+                    {token0Coin.symbol}
+                  </Text>
+                </Text>
+              </View>
               <View style={styles.order_info_block_view}>
                 <Text style={styles.order_info_title_text}>you get</Text>
                 <Text style={styles.order_info_value_text}>
@@ -486,7 +494,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           );
         }
       },
-    [token0Coin, token1Amount],
+    [token0Coin, token1Amount, token1Coin, token1PoolPrice, token0PoolPrice],
   );
 
   return (
