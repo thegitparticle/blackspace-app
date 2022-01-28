@@ -82,11 +82,6 @@ function BuyTokenUniswapProduct({dispatch}) {
       token1Coin.address || '',
     );
 
-  // let {loadingPoolSetup, poolExample} = useSetupUniswapPool(
-  //   lpAddress,
-  //   state_here.UserDetailsReducer.userdetails.wallet_address,
-  // );
-
   let ethTokenObject = {
     name: 'Ethereum',
     symbol: 'ETH',
@@ -409,7 +404,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
                     1 {token1Coin.symbol} = {token0PoolPrice}{' '}
-                    {token0Coin.symbol}
+                    {token0Coin.symbol} - {String(derivedETH)}
                   </Text>
                 </Text>
               </View>
@@ -494,7 +489,14 @@ function BuyTokenUniswapProduct({dispatch}) {
           );
         }
       },
-    [token0Coin, token1Amount, token1Coin, token1PoolPrice, token0PoolPrice],
+    [
+      token0Coin,
+      token1Amount,
+      token1Coin,
+      token1PoolPrice,
+      token0PoolPrice,
+      lpAddress,
+    ],
   );
 
   return (
