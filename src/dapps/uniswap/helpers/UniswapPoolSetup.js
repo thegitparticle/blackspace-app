@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {ethers} from 'ethers';
+import {BigNumber, ethers} from 'ethers';
 import {Pool} from '@uniswap/v3-sdk';
-import {CurrencyAmount, Token, TradeType} from '@uniswap/sdk-core';
+import {CurrencyAmount, Percent, Token, TradeType} from '@uniswap/sdk-core';
 import {abi as IUniswapV3PoolABI} from '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json';
 import {Route} from '@uniswap/v3-sdk';
 import {Trade} from '@uniswap/v3-sdk';
 import {abi as QuoterABI} from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json';
 import {getPriceUniswapV3} from '@thanpolas/uniswap-chain-queries';
+import {AlphaRouter} from '@uniswap/smart-order-router';
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
@@ -152,13 +153,7 @@ export default async function SetupUniswapPool(
       tradeType: TradeType.EXACT_INPUT,
     });
 
-    const tokenPairPrice = await getPriceUniswapV3(
-      lpDetails.id !== undefined || null ? lpDetails.id : '',
-      provider,
-      [18, 18],
-    );
-
-    console.log(tokenPairPrice);
+    const router = new AlphaRouter({chainId: 1, provider: provider});
 
     let wallet = new ethers.Wallet(privateKey);
 
@@ -166,7 +161,23 @@ export default async function SetupUniswapPool(
 
     let gas_price = provider.getGasPrice();
 
-    walletSigner.sendTransaction(uncheckedTradeExample).then(transaction => {
+    const route = await router.route(amountIn, TokenB, 18, {
+      recipient: walletAddress,
+      slippageTolerance: new Percent(5, 100),
+      deadline: 100,
+    });
+
+    const V3_SWAP_ROUTER_ADDRESS = '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
+
+    const transaction = {
+      data: route.methodParameters.calldata,
+      to: V3_SWAP_ROUTER_ADDRESS,
+      value: BigNumber.from(route.methodParameters.value),
+      from: walletAddress,
+      gasPrice: BigNumber.from(route.gasPriceWei),
+    };
+
+    walletSigner.sendTransaction(transaction).then(transaction => {
       console.dir(transaction);
       alert('Send finished!');
     });
