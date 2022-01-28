@@ -74,6 +74,8 @@ function BuyTokenUniswapProduct({dispatch}) {
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
   let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
 
+  console.log(wallet_address);
+
   let {loadingPoolSetup, poolExample} = useSetupUniswapPool(
     lpAddress,
     state_here.UserDetailsReducer.userdetails.wallet_address,

@@ -23,7 +23,7 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
   );
 
   const quoterContract = new ethers.Contract(
-    walletAddress,
+    '0xb27308f9F90D607463bb33eA1BeBb41C27CE5AB6',
     QuoterABI,
     provider,
   );
@@ -125,37 +125,41 @@ export default async function useSetupUniswapPool(lpDetails, walletAddress) {
     );
 
     setPoolExample(poolExampleHere);
+
+    // assign an input amount for the swap
+    const amountIn = 1;
+
+    // call the quoter contract to determine the amount out of a swap, given an amount in
+    const quotedAmountOut =
+      await quoterContract.callStatic.quoteExactInputSingle(
+        immutables.token0,
+        immutables.token1,
+        immutables.fee,
+        amountIn.toString(),
+        0,
+      );
+
+    // create an instance of the route object in order to construct a trade object
+    const swapRoute = new Route([poolExample], TokenA, TokenB);
+
+    // create an unchecked trade instance
+    const uncheckedTradeExample = await Trade.createUncheckedTrade({
+      route: swapRoute,
+      inputAmount: CurrencyAmount.fromRawAmount(TokenA, amountIn.toString()),
+      outputAmount: CurrencyAmount.fromRawAmount(
+        TokenB,
+        quotedAmountOut.toString(),
+      ),
+      tradeType: TradeType.EXACT_INPUT,
+    });
+
+    console.log('The quoted amount out is', quotedAmountOut.toString());
+    console.log('The unchecked trade object is', uncheckedTradeExample);
   }
 
   console.log(poolExample);
 
   return {loadingPoolSetup, poolExample};
-
-  // // assign an input amount for the swap
-  // const amountIn = 1;
-  //
-  // // call the quoter contract to determine the amount out of a swap, given an amount in
-  // const quotedAmountOut = await quoterContract.callStatic.quoteExactInputSingle(
-  //   immutables.token0,
-  //   immutables.token1,
-  //   immutables.fee,
-  //   amountIn.toString(),
-  //   0,
-  // );
-  //
-  // // create an instance of the route object in order to construct a trade object
-  // const swapRoute = new Route([poolExample], TokenA, TokenB);
-
-  // // create an unchecked trade instance
-  // const uncheckedTradeExample = await Trade.createUncheckedTrade({
-  //   route: swapRoute,
-  //   inputAmount: CurrencyAmount.fromRawAmount(TokenA, amountIn.toString()),
-  //   outputAmount: CurrencyAmount.fromRawAmount(
-  //     TokenB,
-  //     quotedAmountOut.toString(),
-  //   ),
-  //   tradeType: TradeType.EXACT_INPUT,
-  // });
 
   // print the quote and the unchecked trade instance in the console
   // console.log('The quoted amount out is', quotedAmountOut.toString());
