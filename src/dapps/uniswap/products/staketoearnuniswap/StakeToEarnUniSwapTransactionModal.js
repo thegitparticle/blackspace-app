@@ -16,7 +16,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
-  const {info} = route.params;
+  const {info, lpStakeDetails} = route.params;
 
   const [renderScreen, setRenderScreen] = useState('EnterAmount');
 
@@ -28,6 +28,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
       return (
         <TransactionOngoingStakeUniSwap
           Info={info}
+          LPStakeDetails={lpStakeDetails}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
         />
@@ -36,6 +37,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
       return (
         <ConfirmStakeUniSwap
           Info={info}
+          LPStakeDetails={lpStakeDetails}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           Amount={amount}
@@ -46,6 +48,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
       return (
         <EnterAmountStakeUniSwap
           Info={info}
+          LPStakeDetails={lpStakeDetails}
           ChangeBody={changeBodyToConfirmEarn}
           State={state_here}
         />

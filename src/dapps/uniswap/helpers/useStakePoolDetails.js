@@ -16,11 +16,13 @@ export default function useStakePoolDetails(lpAddress) {
     token0 {
       symbol
       id
+      name
       decimals
     }
     token1 {
       symbol
       id
+      name
       decimals
     }
     feeTier

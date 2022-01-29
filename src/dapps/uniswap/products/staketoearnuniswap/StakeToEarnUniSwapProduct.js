@@ -128,6 +128,7 @@ function StakeToEarnUniswapProduct({dispatch}) {
             onPress={() =>
               navigation.navigate('StakeToEarnUniSwapTransactionModal', {
                 info: item,
+                lpStakeDetails: lpStakeDetails,
               })
             }
             containerStyle={styles.next_button_container}
