@@ -17,6 +17,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
+import UniswapStakeSetupAndExecute from '../../../helpers/UniswapStakeSetupAndExecute';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,6 +38,13 @@ function EnterAmountStakeUniSwap(props) {
   const [amount, setAmount] = useState('0');
   const [token0Amount, setToken0Amount] = useState('');
   const [token1Amount, setToken1Amount] = useState('');
+
+  /*
+  info,
+  lpStakeDetails,
+  walletAddress,
+  privateKey,
+   */
 
   return (
     <View style={styles.parent_view}>
@@ -110,7 +118,15 @@ function EnterAmountStakeUniSwap(props) {
           <Button
             title={'confirm staking'}
             type={'solid'}
-            onPress={() => props.ChangeBody(token0Amount, token1Amount)}
+            // onPress={() => props.ChangeBody(token0Amount, token1Amount)}
+            onPress={() =>
+              UniswapStakeSetupAndExecute(
+                props.Info,
+                props.LPStakeDetails,
+                props.State.WDeetsReducer.wdeets.wallet_address,
+                props.State.WDeetsReducer.wdeets.wallet_privateKey,
+              )
+            }
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
