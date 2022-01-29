@@ -202,24 +202,24 @@ function StakeToEarnUniswapProduct({dispatch}) {
           <View style={styles.token_item_view}>
             <FastImage
               source={{
-                uri: item.token0_icon,
+                uri: item.profile_pic_token0,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
               style={styles.token_item_logo}
             />
-            <Text style={styles.token_item_symbol}>{item.token0_symbol}</Text>
+            <Text style={styles.token_item_symbol}>{item.pool_name}</Text>
           </View>
           <View style={styles.token_item_view}>
             <FastImage
               source={{
-                uri: item.token1_icon,
+                uri: item.profile_pic_token1,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
               style={styles.token_item_logo}
             />
-            <Text style={styles.token_item_symbol}>{item.token1_symbol}</Text>
+            <Text style={styles.token_item_symbol}>{item.pool_name}</Text>
           </View>
         </View>
         <View style={styles.pool_item_bottom_part_view}>
@@ -229,35 +229,33 @@ function StakeToEarnUniswapProduct({dispatch}) {
               <Text style={styles.info_title_subtext}>(varies over time)</Text>
             </View>
             <View style={styles.info_right_side_view}>
-              <Text style={styles.info_value_text}>
-                {item.expected_returns}
-              </Text>
+              <Text style={styles.info_value_text}>{item.apy_calculation}</Text>
               <Text style={styles.info_title_subtext}>APY%</Text>
             </View>
           </View>
         </View>
-        <View style={styles.pool_item_bottom_part_view}>
-          <View style={styles.info_block_view}>
-            <View style={styles.info_left_side_view}>
-              <Text style={styles.info_title_text}>total liquidity locked</Text>
-            </View>
-            <View style={styles.info_right_side_view}>
-              <Text style={styles.info_value_text}>$ 31,600,900</Text>
-              <Text style={styles.info_title_subtext}></Text>
-            </View>
-          </View>
-        </View>
-        <View style={styles.pool_item_bottom_part_view}>
-          <View style={styles.info_block_view}>
-            <View style={styles.info_left_side_view}>
-              <Text style={styles.info_title_text}>volume (24h)</Text>
-            </View>
-            <View style={styles.info_right_side_view}>
-              <Text style={styles.info_value_text}>$ 2,600,900</Text>
-              <Text style={styles.info_title_subtext}></Text>
-            </View>
-          </View>
-        </View>
+        {/*<View style={styles.pool_item_bottom_part_view}>*/}
+        {/*  <View style={styles.info_block_view}>*/}
+        {/*    <View style={styles.info_left_side_view}>*/}
+        {/*      <Text style={styles.info_title_text}>total liquidity locked</Text>*/}
+        {/*    </View>*/}
+        {/*    <View style={styles.info_right_side_view}>*/}
+        {/*      <Text style={styles.info_value_text}>$ 31,600,900</Text>*/}
+        {/*      <Text style={styles.info_title_subtext}></Text>*/}
+        {/*    </View>*/}
+        {/*  </View>*/}
+        {/*</View>*/}
+        {/*<View style={styles.pool_item_bottom_part_view}>*/}
+        {/*  <View style={styles.info_block_view}>*/}
+        {/*    <View style={styles.info_left_side_view}>*/}
+        {/*      <Text style={styles.info_title_text}>volume (24h)</Text>*/}
+        {/*    </View>*/}
+        {/*    <View style={styles.info_right_side_view}>*/}
+        {/*      <Text style={styles.info_value_text}>$ 2,600,900</Text>*/}
+        {/*      <Text style={styles.info_title_subtext}></Text>*/}
+        {/*    </View>*/}
+        {/*  </View>*/}
+        {/*</View>*/}
         <Button
           title={'start buy process'}
           type={'solid'}

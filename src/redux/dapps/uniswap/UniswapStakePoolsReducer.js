@@ -7,9 +7,9 @@ const INITIAL_STATE = {
 const UniswapStakePoolsReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case ADD_UNISWAPSTAKEPOOLS:
-      const token_list = action.payload;
+      const stakePools = action.payload;
 
-      const newState = {token_list};
+      const newState = {stakePools};
 
       return newState;
 
