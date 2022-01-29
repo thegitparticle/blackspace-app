@@ -1,7 +1,7 @@
 export const FamousTokensList = [
   {
     chainId: 1,
-    address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     name: 'ETH',
     symbol: 'ETH',
     decimals: 18,
@@ -38,6 +38,7 @@ export const FamousTokensList = [
   {
     chainId: 1,
     address: '0x6b175474e89094c44da98b954eedeac495271d0f',
+    // address: '0x5592EC0cfb4dbc12D3aB100b257153436a1f0FEa',
     name: 'Dai',
     symbol: 'DAI',
     decimals: 18,
@@ -46,7 +47,7 @@ export const FamousTokensList = [
   },
   {
     chainId: 1,
-    address: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    address: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2',
     name: 'WETH',
     symbol: 'WETH',
     decimals: 18,

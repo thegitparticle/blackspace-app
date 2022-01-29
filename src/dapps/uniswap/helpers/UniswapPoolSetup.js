@@ -161,7 +161,7 @@ export default async function SetupUniswapPool(
 
     let gas_price = provider.getGasPrice();
 
-    const route = await router.route(amountIn, TokenB, 18, {
+    const route = await router.route(amountIn, TokenA, 18, {
       recipient: walletAddress,
       slippageTolerance: new Percent(5, 100),
       deadline: 100,
