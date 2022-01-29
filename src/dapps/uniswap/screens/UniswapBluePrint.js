@@ -118,7 +118,8 @@ function UniswapBluePrint() {
                 width: 25,
                 height: 5,
                 borderRadius: 2.5,
-                backgroundColor: 'red',
+                backgroundColor: 'mid_ground',
+                opacity: 0.5,
                 mx: '$1',
               }}
             />
@@ -127,8 +128,7 @@ function UniswapBluePrint() {
                 width: 25,
                 height: 5,
                 borderRadius: 2.5,
-                backgroundColor: 'mid_ground',
-                opacity: 0.5,
+                backgroundColor: 'red',
                 mx: '$1',
               }}
             />
