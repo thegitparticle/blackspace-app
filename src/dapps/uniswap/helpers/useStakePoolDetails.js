@@ -1,0 +1,58 @@
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import _ from 'lodash';
+
+export default function useStakePoolDetails(lpAddress) {
+  const [loadingLPStakeDetails, setLoadingLPStakeDetails] = useState(true);
+  const [lpStakeDetails, setLPStakeDetails] = useState(null);
+
+  const data = JSON.stringify({
+    query: `
+  {
+  pool(id: "${lpAddress}") {
+    tick
+    token0 {
+      symbol
+      id
+      decimals
+    }
+    token1 {
+      symbol
+      id
+      decimals
+    }
+    feeTier
+    sqrtPrice
+    liquidity
+  }
+}`,
+    variables: {address: lpAddress},
+  });
+
+  const config = {
+    method: 'post',
+    url: 'https://api.thegraph.com/subgraphs/name/uniswap/uniswap-v3',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    data: data,
+  };
+
+  const fetchInfo = () => {
+    axios(config)
+      .then(function (response) {
+        setLPStakeDetails(response.data.data.pool);
+        // console.log(_.last(response.data.data.pools));
+        setLoadingLPStakeDetails(false);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, [lpAddress]);
+
+  return {loadingLPStakeDetails, lpStakeDetails};
+}
