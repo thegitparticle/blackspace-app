@@ -6,6 +6,8 @@ export default function useStakePoolDetails(lpAddress) {
   const [loadingLPStakeDetails, setLoadingLPStakeDetails] = useState(true);
   const [lpStakeDetails, setLPStakeDetails] = useState(null);
 
+  console.log(lpAddress);
+
   const data = JSON.stringify({
     query: `
   {
@@ -23,7 +25,7 @@ export default function useStakePoolDetails(lpAddress) {
     }
     feeTier
     sqrtPrice
-    liquidity
+    totalValueLockedUSD
   }
 }`,
     variables: {address: lpAddress},

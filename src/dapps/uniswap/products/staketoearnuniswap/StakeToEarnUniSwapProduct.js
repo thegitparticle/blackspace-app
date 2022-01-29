@@ -9,168 +9,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {GetUniswapStakePools} from '../../../../redux/dapps/uniswap/UniswapStakePoolsActions';
+import useStakePoolDetails from '../../helpers/useStakePoolDetails';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
-
-const dummy_pools = [
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-  {
-    pool_id: 1,
-    token0_symbol: 'WETH',
-    token0_icon:
-      'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png',
-    token1_symbol: 'MATIC',
-    token1_icon:
-      'https://assets.coingecko.com/coins/images/4713/thumb_2x/matic-token-icon.png',
-    expected_returns: '131.03%',
-    fee_level: '0.3%',
-  },
-];
 
 /*
 blocks
@@ -196,91 +41,113 @@ function StakeToEarnUniswapProduct({dispatch}) {
   let stakePools = state_here.UniswapStakePoolsReducer.stakePools;
 
   function PoolItem(item) {
-    return (
-      <View style={styles.pool_item_view}>
-        <View style={styles.pool_item_top_part_view}>
-          <View style={styles.token_item_view}>
-            <FastImage
-              source={{
-                uri: item.profile_pic_token0,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-              style={styles.token_item_logo}
-            />
-            <Text style={styles.token_item_symbol}>{item.pool_name}</Text>
-          </View>
-          <View style={styles.token_item_view}>
-            <FastImage
-              source={{
-                uri: item.profile_pic_token1,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-              style={styles.token_item_logo}
-            />
-            <Text style={styles.token_item_symbol}>{item.pool_name}</Text>
-          </View>
-        </View>
-        <View style={styles.pool_item_bottom_part_view}>
-          <View style={styles.info_block_view}>
-            <View style={styles.info_left_side_view}>
-              <Text style={styles.info_title_text}>expected returns</Text>
-              <Text style={styles.info_title_subtext}>(varies over time)</Text>
-            </View>
-            <View style={styles.info_right_side_view}>
-              <Text style={styles.info_value_text}>{item.apy_calculation}</Text>
-              <Text style={styles.info_title_subtext}>APY%</Text>
-            </View>
-          </View>
-        </View>
-        {/*<View style={styles.pool_item_bottom_part_view}>*/}
-        {/*  <View style={styles.info_block_view}>*/}
-        {/*    <View style={styles.info_left_side_view}>*/}
-        {/*      <Text style={styles.info_title_text}>total liquidity locked</Text>*/}
-        {/*    </View>*/}
-        {/*    <View style={styles.info_right_side_view}>*/}
-        {/*      <Text style={styles.info_value_text}>$ 31,600,900</Text>*/}
-        {/*      <Text style={styles.info_title_subtext}></Text>*/}
-        {/*    </View>*/}
-        {/*  </View>*/}
-        {/*</View>*/}
-        {/*<View style={styles.pool_item_bottom_part_view}>*/}
-        {/*  <View style={styles.info_block_view}>*/}
-        {/*    <View style={styles.info_left_side_view}>*/}
-        {/*      <Text style={styles.info_title_text}>volume (24h)</Text>*/}
-        {/*    </View>*/}
-        {/*    <View style={styles.info_right_side_view}>*/}
-        {/*      <Text style={styles.info_value_text}>$ 2,600,900</Text>*/}
-        {/*      <Text style={styles.info_title_subtext}></Text>*/}
-        {/*    </View>*/}
-        {/*  </View>*/}
-        {/*</View>*/}
-        <Button
-          title={'start buy process'}
-          type={'solid'}
-          onPress={() =>
-            navigation.navigate('StakeToEarnUniSwapTransactionModal', {
-              info: item,
-            })
-          }
-          containerStyle={styles.next_button_container}
-          buttonStyle={styles.next_button_style}
-          titleStyle={styles.next_button_title}
-          ViewComponent={LinearGradient}
-          linearGradientProps={{
-            colors: [
-              themeHere.colors.success_green,
-              themeHere.colors.success_green_dark,
-            ],
-          }}
-        />
-        <Divider
-          style={{...styles.pool_item_end_divider}}
-          color={themeHere.colors.foreground + '75'}
-        />
-      </View>
+    const {loadingLPStakeDetails, lpStakeDetails} = useStakePoolDetails(
+      item.contract_address,
     );
+
+    if (loadingLPStakeDetails) {
+      return (
+        <View>
+          <DoubleBounce size={10} color="#1CAFF6" />
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.pool_item_view}>
+          <View style={styles.pool_item_top_part_view}>
+            <View style={styles.token_item_view}>
+              <FastImage
+                source={{
+                  uri: item.profile_pic_token0,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.token_item_logo}
+              />
+              <Text style={styles.token_item_symbol}>{item.pool_name}</Text>
+            </View>
+            <View style={styles.token_item_view}>
+              <FastImage
+                source={{
+                  uri: item.profile_pic_token1,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.token_item_logo}
+              />
+              <Text style={styles.token_item_symbol}>{item.pool_name}</Text>
+            </View>
+          </View>
+          <View style={styles.pool_item_bottom_part_view}>
+            <View style={styles.info_block_view}>
+              <View style={styles.info_left_side_view}>
+                <Text style={styles.info_title_text}>expected returns</Text>
+                <Text style={styles.info_title_subtext}>
+                  (varies over time)
+                </Text>
+              </View>
+              <View style={styles.info_right_side_view}>
+                <Text style={styles.info_value_text}>
+                  {item.apy_calculation}
+                </Text>
+                <Text style={styles.info_title_subtext}>APY%</Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.pool_item_bottom_part_view}>
+            <View style={styles.info_block_view}>
+              <View style={styles.info_left_side_view}>
+                <Text style={styles.info_title_text}>
+                  total liquidity locked
+                </Text>
+              </View>
+              <View style={styles.info_right_side_view}>
+                <Text style={styles.info_value_text}>
+                  $ {Number(lpStakeDetails.totalValueLockedUSD).toFixed(0)}
+                </Text>
+                <Text style={styles.info_title_subtext}></Text>
+              </View>
+            </View>
+          </View>
+          <View style={styles.pool_item_bottom_part_view}>
+            <View style={styles.info_block_view}>
+              <View style={styles.info_left_side_view}>
+                <Text style={styles.info_title_text}>fee Tier</Text>
+              </View>
+              <View style={styles.info_right_side_view}>
+                <Text style={styles.info_value_text}>
+                  {lpStakeDetails.feeTier}
+                </Text>
+                <Text style={styles.info_title_subtext}></Text>
+              </View>
+            </View>
+          </View>
+          <Button
+            title={'start buy process'}
+            type={'solid'}
+            onPress={() =>
+              navigation.navigate('StakeToEarnUniSwapTransactionModal', {
+                info: item,
+              })
+            }
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [
+                themeHere.colors.success_green,
+                themeHere.colors.success_green_dark,
+              ],
+            }}
+          />
+          <Divider
+            style={{...styles.pool_item_end_divider}}
+            color={themeHere.colors.foreground + '75'}
+          />
+        </View>
+      );
+    }
   }
 
   return (
