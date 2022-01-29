@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
@@ -7,6 +7,8 @@ import {FamousTokensList} from '../../helpers/FamousTokensList';
 import {Button, Divider} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import {GetUniswapStakePools} from '../../../../redux/dapps/uniswap/UniswapStakePoolsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -182,8 +184,16 @@ blocks
 
 */
 
-function StakeToEarnUniswapProduct() {
+let state_here = {};
+
+function StakeToEarnUniswapProduct({dispatch}) {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    dispatch(GetUniswapStakePools());
+  }, []);
+
+  let stakePools = state_here.UniswapStakePoolsReducer.stakePools;
 
   function PoolItem(item) {
     return (
@@ -277,12 +287,17 @@ function StakeToEarnUniswapProduct() {
 
   return (
     <View style={styles.parent_view}>
-      {dummy_pools.map(item => PoolItem(item))}
+      {stakePools.map(item => PoolItem(item))}
     </View>
   );
 }
 
-export default StakeToEarnUniswapProduct;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(StakeToEarnUniswapProduct);
 
 const styles = StyleSheet.create({
   parent_view: {},

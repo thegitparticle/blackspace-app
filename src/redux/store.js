@@ -13,6 +13,7 @@ import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
 import MyEmojiColorReducer from './appcore/MyEmojiColorReducer';
 import UserDetailsReducer from './appcore/UserDetailsReducer';
 import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
+import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -66,6 +67,11 @@ export const persistConfigUniswapTokenList = {
   storage: AsyncStorage,
 };
 
+export const persistConfigUniswapStakePools = {
+  key: 'uniswap_stakepools',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
@@ -97,6 +103,11 @@ const rootReducer = combineReducers({
   UniswapTokenListReducer: persistReducer(
     persistConfigUniswapTokenList,
     UniswapTokenListReducer,
+  ),
+
+  UniswapStakePoolsReducer: persistReducer(
+    persistConfigUniswapStakePools,
+    UniswapStakePoolsReducer,
   ),
 });
 
