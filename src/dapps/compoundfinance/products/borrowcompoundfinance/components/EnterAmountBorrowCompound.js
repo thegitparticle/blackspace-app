@@ -7,6 +7,8 @@ import {
 import VirtualKeyboard from 'react-native-virtual-keyboard';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
+import Compound from '@compound-finance/compound-js';
+import useGetFiatPrice from '../../../../../helpers/useGetFiatPrices';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -16,6 +18,24 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function EnterAmountBorrowCompound(props) {
   const [amount, setAmount] = useState('0');
 
+  let tokenID = '';
+
+  if (props.Symbol === 'ETH') {
+    tokenID = 'ethereum';
+  } else if (props.Symbol === 'DAI') {
+    tokenID = 'dai';
+  } else if (props.Symbol === 'BAT') {
+    tokenID = 'basic-attention-token';
+  } else if (props.Symbol === 'USDC') {
+    tokenID = 'usd-coin';
+  } else if (props.Symbol === 'USDT') {
+    tokenID = 'tether';
+  } else {
+    tokenID = '';
+  }
+
+  const {loadingGetAnyFiat, priceAnyFiat} = useGetFiatPrice(tokenID);
+
   return (
     <View style={styles.parent_view}>
       <View style={styles.top_part_view}>
@@ -24,17 +44,17 @@ function EnterAmountBorrowCompound(props) {
           {amount}{' '}
           <Text style={styles.enter_amount_text_symbol}>
             {props.Info.cToken[0].underlying_symbol}{' '}
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+            <Text style={styles.enter_amount_text_fiat}></Text>
           </Text>
         </Text>
         <View>
           <Text style={styles.collateral_text}>
-            collateral needed -{' '}
-            {5000 *
-              (100 /
-                Number(
-                  props.Info.cToken[0].collateral_factor.value * 100,
-                ))}{' '}
+            collateral needed ~ $
+            {(
+              Number(priceAnyFiat) *
+              Number(amount) *
+              (100 / Number(props.Info.cToken[0].collateral_factor.value * 100))
+            ).toFixed(4)}{' '}
             (approx)
           </Text>
           <Button

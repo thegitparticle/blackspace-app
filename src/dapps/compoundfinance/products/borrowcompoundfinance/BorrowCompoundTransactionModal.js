@@ -48,6 +48,7 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
           Info={info}
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
+          Symbol={info.cToken[0].underlying_symbol}
         />
       );
     }
