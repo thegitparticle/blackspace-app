@@ -25,7 +25,9 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function TrendingTokensProductDetailsModal({route, dispatch}) {
   const navigation = useNavigation();
-  const {token} = route.params;
+  const {name, symbol, logoUri, token, tokenIdString} = route.params;
+
+  console.log(token);
 
   let refinedChartInfo = [];
 
@@ -299,7 +301,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
       method: 'get',
       url:
         'https://api.coingecko.com/api/v3/coins/' +
-        'bitcoin' +
+        tokenIdString +
         '/market_chart?vs_currency=usd&days=10',
       headers: {
         'Content-Type': 'application/json',
@@ -334,25 +336,21 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         <View style={styles.token_details_left_side_view}>
           <FastImage
             source={{
-              uri: token.token_icon,
+              uri: logoUri,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.contain}
             style={styles.token_details_coin_logo_image}
           />
           <View style={styles.token_details_name_ticker_view}>
-            <Text style={styles.token_details_name_text}>
-              {token.token_name}
-            </Text>
+            <Text style={styles.token_details_name_text}>{name}</Text>
             <Text style={styles.token_details_ticker_text}>
-              {token.token_symbol.toUpperCase()}
+              {symbol.toUpperCase()}
             </Text>
           </View>
         </View>
         <View style={styles.token_details_price_change_view}>
-          <Text style={styles.token_details_price_text}>
-            {token.current_price}
-          </Text>
+          <Text style={styles.token_details_price_text}>{token.usd}</Text>
         </View>
       </View>
     );
@@ -369,36 +367,36 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
             <Text
               style={{
                 color:
-                  token._24h_change < 0
+                  token.usd_24h_change < 0
                     ? themeHere.colors.danger_red
                     : themeHere.colors.success_green,
               }}>
-              {token._24h_change.substring(0, 5)} %
+              {String(token.usd_24h_change).substring(0, 5)} %
             </Text>
           </Text>
         </View>
-        <View style={styles.price_details_block_view}>
-          <Text style={styles.price_details_title_text}>
-            last 7 days change (%)
-          </Text>
-          <Text style={styles.price_details_value_text}>
-            <Text
-              style={{
-                color:
-                  token._24h_change < 0
-                    ? themeHere.colors.danger_red
-                    : themeHere.colors.success_green,
-              }}>
-              {token._7d_change.substring(0, 5)} %
-            </Text>
-          </Text>
-        </View>
+        {/*<View style={styles.price_details_block_view}>*/}
+        {/*  <Text style={styles.price_details_title_text}>*/}
+        {/*    last 7 days change (%)*/}
+        {/*  </Text>*/}
+        {/*  <Text style={styles.price_details_value_text}>*/}
+        {/*    <Text*/}
+        {/*      style={{*/}
+        {/*        color:*/}
+        {/*          token._24h_change < 0*/}
+        {/*            ? themeHere.colors.danger_red*/}
+        {/*            : themeHere.colors.success_green,*/}
+        {/*      }}>*/}
+        {/*      {token._7d_change.substring(0, 5)} %*/}
+        {/*    </Text>*/}
+        {/*  </Text>*/}
+        {/*</View>*/}
         <View style={styles.price_details_block_view}>
           <Text style={styles.price_details_title_text}>market cap ($)</Text>
           <Text style={styles.price_details_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
               ${' '}
-              {token.market_cap
+              {token.usd_market_cap
                 .toString()
                 .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
             </Text>

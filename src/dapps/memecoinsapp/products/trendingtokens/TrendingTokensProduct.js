@@ -52,17 +52,12 @@ function TrendingTokensProduct() {
     },
   ];
 
-  function DogeCoinCard(token) {
+  function DogeCoinCard() {
     const {loadingGetDogeCoin, priceDogeCoin} = useDogeCoinPrice();
 
     if (loadingGetDogeCoin) {
       return (
-        <Pressable
-          onPress={() =>
-            navigation.navigate('TrendingTokensProductDetailsModal', {
-              token: priceDogeCoin,
-            })
-          }>
+        <Pressable>
           <SquircleView
             style={styles.squircle_view_wrap}
             squircleParams={{
@@ -79,7 +74,12 @@ function TrendingTokensProduct() {
         <Pressable
           onPress={() =>
             navigation.navigate('TrendingTokensProductDetailsModal', {
-              token: token,
+              name: 'Doge Coin',
+              symbol: 'DOGE',
+              logoUri:
+                'https://assets.coingecko.com/coins/images/5/thumb_2x/dogecoin.png',
+              token: priceDogeCoin,
+              tokenIdString: 'dogecoin',
             })
           }>
           <SquircleView
@@ -122,17 +122,12 @@ function TrendingTokensProduct() {
     }
   }
 
-  function ShibaInuCard(token) {
+  function ShibaInuCard() {
     const {loadingGetShibaInu, priceShibaInu} = useShibaInuPrice();
 
     if (loadingGetShibaInu) {
       return (
-        <Pressable
-          onPress={() =>
-            navigation.navigate('TrendingTokensProductDetailsModal', {
-              token: priceShibaInu,
-            })
-          }>
+        <Pressable>
           <SquircleView
             style={styles.squircle_view_wrap}
             squircleParams={{
@@ -149,7 +144,11 @@ function TrendingTokensProduct() {
         <Pressable
           onPress={() =>
             navigation.navigate('TrendingTokensProductDetailsModal', {
-              token: token,
+              name: 'Shiba Inu',
+              symbol: 'SHIB',
+              logoUri: 'https://i.postimg.cc/VkRVsPWV/download-42.jpg',
+              token: priceShibaInu,
+              tokenIdString: 'shiba-inu',
             })
           }>
           <SquircleView
