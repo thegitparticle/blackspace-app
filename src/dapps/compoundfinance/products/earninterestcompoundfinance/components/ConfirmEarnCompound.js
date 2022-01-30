@@ -90,6 +90,8 @@ function ConfirmEarnCompound(props) {
               TransactEarnCompound(
                 props.State.WDeetsReducer.wdeets.wallet_address,
                 props.State.WDeetsReducer.wdeets.wallet_privateKey,
+                props.Amount,
+                props.Info.cToken[0].underlying_symbol,
               )
             }
             containerStyle={styles.next_button_container}
