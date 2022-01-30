@@ -12,6 +12,9 @@ import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
+import useShibaInuPrice from '../../helpers/useShibaInuPrice';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import useDogeCoinPrice from '../../helpers/useDogeCoinPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -48,6 +51,146 @@ function TrendingTokensProduct() {
       token_gecko_id: 'shiba-inu',
     },
   ];
+
+  function DogeCoinCard(token) {
+    const {loadingGetDogeCoin, priceDogeCoin} = useDogeCoinPrice();
+
+    if (loadingGetDogeCoin) {
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate('TrendingTokensProductDetailsModal', {
+              token: priceDogeCoin,
+            })
+          }>
+          <SquircleView
+            style={styles.squircle_view_wrap}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
+            <Bars size={10} color="#FDAAFF" />
+          </SquircleView>
+        </Pressable>
+      );
+    } else {
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate('TrendingTokensProductDetailsModal', {
+              token: token,
+            })
+          }>
+          <SquircleView
+            style={styles.squircle_view_wrap}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
+            <View style={styles.left_side_view}>
+              <FastImage
+                source={{
+                  uri: 'https://assets.coingecko.com/coins/images/5/thumb_2x/dogecoin.png',
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.coin_logo_image}
+              />
+              <View style={styles.name_ticker_view}>
+                <Text style={styles.name_text}>Doge Coin</Text>
+                <Text style={styles.ticker_text}>DOGE</Text>
+              </View>
+            </View>
+            <View style={styles.price_change_view}>
+              <Text style={styles.price_text}>{priceDogeCoin.usd}</Text>
+              {/*<Text*/}
+              {/*  style={{*/}
+              {/*    ...styles.change_percent_text,*/}
+              {/*    color:*/}
+              {/*      token._24h_change < 0*/}
+              {/*        ? themeHere.colors.danger_red*/}
+              {/*        : themeHere.colors.success_green,*/}
+              {/*  }}>*/}
+              {/*  {token._24h_change.substring(0, 5)} %*/}
+              {/*</Text>*/}
+            </View>
+          </SquircleView>
+        </Pressable>
+      );
+    }
+  }
+
+  function ShibaInuCard(token) {
+    const {loadingGetShibaInu, priceShibaInu} = useShibaInuPrice();
+
+    if (loadingGetShibaInu) {
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate('TrendingTokensProductDetailsModal', {
+              token: priceShibaInu,
+            })
+          }>
+          <SquircleView
+            style={styles.squircle_view_wrap}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
+            <Bars size={10} color="#FDAAFF" />
+          </SquircleView>
+        </Pressable>
+      );
+    } else {
+      return (
+        <Pressable
+          onPress={() =>
+            navigation.navigate('TrendingTokensProductDetailsModal', {
+              token: token,
+            })
+          }>
+          <SquircleView
+            style={styles.squircle_view_wrap}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}>
+            <View style={styles.left_side_view}>
+              <FastImage
+                source={{
+                  uri: 'https://i.postimg.cc/VkRVsPWV/download-42.jpg',
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.coin_logo_image}
+              />
+              <View style={styles.name_ticker_view}>
+                <Text style={styles.name_text}>Shiba Inu</Text>
+                <Text style={styles.ticker_text}>SHIB</Text>
+              </View>
+            </View>
+            <View style={styles.price_change_view}>
+              <Text style={styles.price_text}>{priceShibaInu.usd}</Text>
+              {/*<Text*/}
+              {/*  style={{*/}
+              {/*    ...styles.change_percent_text,*/}
+              {/*    color:*/}
+              {/*      token._24h_change < 0*/}
+              {/*        ? themeHere.colors.danger_red*/}
+              {/*        : themeHere.colors.success_green,*/}
+              {/*  }}>*/}
+              {/*  {token._24h_change.substring(0, 5)} %*/}
+              {/*</Text>*/}
+            </View>
+          </SquircleView>
+        </Pressable>
+      );
+    }
+  }
 
   function TokenCard(token) {
     return (
@@ -100,6 +243,8 @@ function TrendingTokensProduct() {
 
   return (
     <View style={styles.parent_view}>
+      <DogeCoinCard />
+      <ShibaInuCard />
       {tokens_list.map(item => TokenCard(item))}
     </View>
   );
@@ -124,6 +269,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    marginVertical: 20,
   },
   left_side_view: {
     marginHorizontal: 20,
