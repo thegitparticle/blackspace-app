@@ -30,11 +30,10 @@ export default function TransactBorrowCompound(
   });
 
   (async function () {
-    const daiScaledUp = String(Number(amount) * (10 ^ 18));
-    const trxOptions = {mantissa: true};
+    const trxOptions = {mantissa: false};
 
     console.log('Borrowing Asset from the Compound Protocol...');
-    const trx = await compound.borrow(compoundAsset, daiScaledUp, trxOptions);
+    const trx = await compound.borrow(compoundAsset, amount, trxOptions);
     console.log('Ethers.js transaction object', trx);
   })().catch(console.error);
 }
