@@ -10,6 +10,7 @@ import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
+import TransactEarnCompound from '../../helpers/TransactEarnCompound';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -85,7 +86,12 @@ function ConfirmEarnCompound(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() =>
+              TransactEarnCompound(
+                props.State.WDeetsReducer.wdeets.wallet_address,
+                props.State.WDeetsReducer.wdeets.wallet_privateKey,
+              )
+            }
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -102,7 +108,12 @@ function ConfirmEarnCompound(props) {
           <Button
             title={'start staking process'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() =>
+              TransactEarnCompound(
+                props.State.WDeetsReducer.wdeets.wallet_address,
+                props.State.WDeetsReducer.wdeets.wallet_privateKey,
+              )
+            }
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

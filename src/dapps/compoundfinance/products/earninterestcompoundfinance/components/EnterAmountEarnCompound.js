@@ -7,6 +7,7 @@ import {
 import VirtualKeyboard from 'react-native-virtual-keyboard';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,6 +16,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function EnterAmountEarnCompound(props) {
   const [amount, setAmount] = useState('0');
+  const {loadingPriceEth, priceEth} = useEthFiatPrice();
 
   return (
     <View style={styles.parent_view}>
@@ -24,7 +26,7 @@ function EnterAmountEarnCompound(props) {
           {amount}{' '}
           <Text style={styles.enter_amount_text_symbol}>
             {props.Info.cToken[0].underlying_symbol}{' '}
-            <Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>
+            {/*<Text style={styles.enter_amount_text_fiat}>= $5000 (approx)</Text>*/}
           </Text>
         </Text>
         <View>
