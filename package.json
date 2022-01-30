@@ -99,6 +99,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "rn-bounceable": "^1.1.0",
+    "simple-uniswap-sdk": "^3.6.2",
     "stream-browserify": "^1.0.0",
     "timers-browserify": "^1.0.1",
     "tty-browserify": "0.0.0",

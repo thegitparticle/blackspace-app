@@ -15,8 +15,14 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function BuyTokensUniswapTransactionModal({route, dispatch}) {
-  const {token0Coin, token1Coin, token1Amount, token1Fiat, lpDetails} =
-    route.params;
+  const {
+    token0Coin,
+    token1Coin,
+    token1Amount,
+    token1Fiat,
+    lpDetails,
+    token0Amount,
+  } = route.params;
 
   const [renderScreen, setRenderScreen] = useState('ConfirmBorrow');
 
@@ -30,6 +36,7 @@ function BuyTokensUniswapTransactionModal({route, dispatch}) {
           // Info={info}
           Token0Coin={token0Coin}
           Token1Coin={token1Coin}
+          Token0Amount={token0Amount}
           Token1Amount={token1Amount}
           Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToEnterAmount}
@@ -42,6 +49,7 @@ function BuyTokensUniswapTransactionModal({route, dispatch}) {
           // Info={info}
           Token0Coin={token0Coin}
           Token1Coin={token1Coin}
+          Token0Amount={token0Amount}
           Token1Amount={token1Amount}
           Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToTransaction}

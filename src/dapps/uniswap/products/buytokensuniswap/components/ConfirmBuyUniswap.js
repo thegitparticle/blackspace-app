@@ -11,6 +11,7 @@ import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import SetupUniswapPool from '../../../helpers/UniswapPoolSetup';
+import ExecuteASwap from '../../../helpers/ExecuteASwap';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,6 +40,12 @@ function ConfirmBuyUniswap(props) {
       setRenderContext('WalletHasAmount');
     }, 2000);
   }, []);
+
+  // console.log(typeof props.Token1Amount);
+  // console.log(props.Token1Amount);
+  // console.log(props.Token0Coin);
+  // console.log(props.Token1Coin);
+  // console.log(props.lpDetails);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -125,7 +132,16 @@ function ConfirmBuyUniswap(props) {
             title={'confirm buy'}
             type={'solid'}
             onPress={() => {
-              SetupUniswapPool(
+              // SetupUniswapPool(
+              //   props.lpDetails,
+              //   props.walletReducer.wallet_address,
+              //   props.walletReducer.wallet_privateKey,
+              // );
+              ExecuteASwap(
+                props.Token0Amount,
+                props.Token1Amount,
+                props.Token0Coin,
+                props.Token1Coin,
                 props.lpDetails,
                 props.walletReducer.wallet_address,
                 props.walletReducer.wallet_privateKey,

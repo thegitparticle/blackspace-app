@@ -451,6 +451,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                   navigation.navigate('BuyTokensUniswapTransactionModal', {
                     token0Coin: token0Coin,
                     token1Coin: token1Coin,
+                    token0Amount:
+                      Number(token1Amount) * Number(token1PoolPrice),
                     token1Amount: token1Amount,
                     token1Fiat: token1Fiat,
                     lpDetails: lpAddress,
