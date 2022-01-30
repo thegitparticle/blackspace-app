@@ -63,7 +63,8 @@ function EnterAmountBorrowCompound(props) {
             onPress={() =>
               props.ChangeBody(
                 amount,
-                5000 *
+                Number(priceAnyFiat) *
+                  Number(amount) *
                   (100 /
                     Number(props.Info.cToken[0].collateral_factor.value * 100)),
               )

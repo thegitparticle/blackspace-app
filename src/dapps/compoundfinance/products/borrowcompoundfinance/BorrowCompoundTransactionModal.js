@@ -21,7 +21,7 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
   const [renderScreen, setRenderScreen] = useState('EnterAmount');
 
   const [amount, setAmount] = useState('0');
-  const [collNeededFiat, setCollNeededFiat] = useState('0');
+  const [collNeededFiat, setCollNeededFiat] = useState(0);
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {

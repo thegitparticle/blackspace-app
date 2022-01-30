@@ -10,6 +10,9 @@ import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
+import TransactEarnCompound from '../../helpers/TransactEarnCompound';
+import TransactBorrowCompound from '../../helpers/TransactBorrowCompound';
+import EnterMarketsCompound from '../../helpers/EnterMarketsCompound';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -60,7 +63,7 @@ function ConfirmBorrowCompound(props) {
     })().catch(console.error);
   }, []);
 
-  const [renderContext, setRenderContext] = useState('NoColl');
+  const [renderContext, setRenderContext] = useState('WalletHasColl');
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -218,7 +221,18 @@ function ConfirmBorrowCompound(props) {
           <Button
             title={'start borrow process'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => {
+              // EnterMarketsCompound(
+              //   props.State.WDeetsReducer.wdeets.wallet_address,
+              //   props.State.WDeetsReducer.wdeets.wallet_privateKey,
+              // );
+              TransactBorrowCompound(
+                props.State.WDeetsReducer.wdeets.wallet_address,
+                props.State.WDeetsReducer.wdeets.wallet_privateKey,
+                props.Amount,
+                props.Info.cToken[0].underlying_symbol,
+              );
+            }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
