@@ -28,6 +28,7 @@ import BuyTokensUniswapTransactionModal from '../dapps/uniswap/products/buytoken
 import StakeToEarnUniSwapTransactionModal from '../dapps/uniswap/products/staketoearnuniswap/StakeToEarnUniSwapTransactionModal';
 import BorrowLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/BorrowLiquityTransactionModal';
 import TrendingTokensTransactionModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensTransactionModal';
+import SupportScreen from '../buckets/support/screens/SupportScreen';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -135,6 +136,18 @@ function HomeAndAppsStack() {
           options={{
             gestureEnabled: true,
             headerShown: false,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="SupportScreen"
+          component={SupportScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
           }}
         />
         <HomeAndAppMain.Screen
