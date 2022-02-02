@@ -20,6 +20,7 @@ import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import BottomSpacer from '../../../bits/BottomSpacer';
 import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenListActions';
 import _ from 'lodash';
+import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,14 +40,14 @@ function HomeMainPage({dispatch}) {
       need_add_myapps_button: false,
       show_in_use_tab: false,
       in_use_tab_function_name: '',
-      in_use_tab_name: 'Usage',
+      in_use_tab_name: '',
     },
     {
       app_name: 'Support',
       app_icon: 'https://i.postimg.cc/Rh85M2TN/download-39.jpg',
       app_cover: '',
       extra_message: 'Talk to us about the app or anything crypto',
-      landing_blueprint_function_name: 'SupportSpecialScreen',
+      landing_blueprint_function_name: 'SupportScreen',
       need_add_myapps_button: false,
       show_in_use_tab: false,
       in_use_tab_function_name: '',
@@ -79,7 +80,11 @@ function HomeMainPage({dispatch}) {
     () =>
       function ThumbnailItem({item, section}) {
         if (section.title === 'MY APP SUITE') {
-          return MyAppThumbnail(item);
+          if (item.app_name === 'Tips' || 'Support') {
+            return DefaultAppThumbnail(item);
+          } else {
+            return MyAppThumbnail(item);
+          }
         } else {
           return DiscoverAppThumbnail(item);
         }
