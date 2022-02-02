@@ -53,6 +53,7 @@
     "react-native": "0.66.4",
     "react-native-code-push": "^7.0.4",
     "react-native-collapsible": "^1.6.0",
+    "react-native-crisp-chat-sdk": "^0.9.1",
     "react-native-crypto": "^2.2.0",
     "react-native-custom-icon": "^0.0.3",
     "react-native-dotenv": "^3.3.1",

@@ -10786,6 +10786,11 @@ react-native-color@0.0.10:
     react-native-slider "^0.11.0"
     tinycolor2 "^1.4.1"
 
+react-native-crisp-chat-sdk@^0.9.1:
+  version "0.9.1"
+  resolved "https://registry.npmjs.org/react-native-crisp-chat-sdk/-/react-native-crisp-chat-sdk-0.9.1.tgz#a635af797f6892c166f1a7432c87daf96ead5d5a"
+  integrity sha512-Wpm+3pYJiT9u51iW94nQOlX5lLav05zQos/3EBNtj+cidqisE6Gy4I7WEHoSlJIeBnlp2jGoXmFlGpAnsF8FQw==
+
 react-native-crypto@^2.2.0:
   version "2.2.0"
   resolved "https://registry.npmjs.org/react-native-crypto/-/react-native-crypto-2.2.0.tgz#c999ed7c96064f830e1f958687f53d0c44025770"

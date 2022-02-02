@@ -9,6 +9,7 @@ PODS:
     - JWT (~> 3.0.0-beta.12)
     - React-Core
     - SSZipArchive (~> 2.2.2)
+  - Crisp (1.1.0)
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.66.4)
   - FBReactNativeSpec (0.66.4):
@@ -297,6 +298,9 @@ PODS:
     - glog
   - react-native-blur (0.8.0):
     - React
+  - react-native-crisp-chat-sdk (0.9.1):
+    - Crisp (= 1.1.0)
+    - React
   - react-native-get-random-values (1.7.2):
     - React-Core
   - react-native-netinfo (7.1.7):
@@ -492,6 +496,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - "react-native-blur (from `../node_modules/@react-native-community/blur`)"
+  - react-native-crisp-chat-sdk (from `../node_modules/react-native-crisp-chat-sdk`)
   - react-native-get-random-values (from `../node_modules/react-native-get-random-values`)
   - "react-native-netinfo (from `../node_modules/@react-native-community/netinfo`)"
   - react-native-pager-view (from `../node_modules/react-native-pager-view`)
@@ -532,6 +537,7 @@ SPEC REPOS:
   trunk:
     - Base64
     - CocoaAsyncSocket
+    - Crisp
     - Flipper
     - Flipper-Boost-iOSX
     - Flipper-DoubleConversion
@@ -596,6 +602,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-blur:
     :path: "../node_modules/@react-native-community/blur"
+  react-native-crisp-chat-sdk:
+    :path: "../node_modules/react-native-crisp-chat-sdk"
   react-native-get-random-values:
     :path: "../node_modules/react-native-get-random-values"
   react-native-netinfo:
@@ -673,6 +681,7 @@ SPEC CHECKSUMS:
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 065fd1e645c7abab64f7a6a2007a48038fdc6a99
   CodePush: b51b7ac64c07d4eacfc8cc5750a1dd28adbf2528
+  Crisp: b88f081c87566254e603d885dcdbc97596ade755
   DoubleConversion: 831926d9b8bf8166fd87886c4abab286c2422662
   FBLazyVector: e5569e42a1c79ca00521846c223173a57aca1fe1
   FBReactNativeSpec: fe08c1cd7e2e205718d77ad14b34957cce949b58
@@ -706,6 +715,7 @@ SPEC CHECKSUMS:
   React-jsinspector: d0374f7509d407d2264168b6d0fad0b54e300b85
   React-logger: 933f80c97c633ee8965d609876848148e3fef438
   react-native-blur: cad4d93b364f91e7b7931b3fa935455487e5c33c
+  react-native-crisp-chat-sdk: 3f2fa95a995c17daa765587d597cb187176ad60f
   react-native-get-random-values: 30b3f74ca34e30e2e480de48e4add2706a40ac8f
   react-native-netinfo: 27f287f2d191693f3b9d01a4273137fcf91c3b5d
   react-native-pager-view: 3ee7d4c7697fb3ef788346e834a60cca97ed8540
