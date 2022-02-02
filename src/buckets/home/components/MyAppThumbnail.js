@@ -30,7 +30,7 @@ function MyAppThumbnail(app_details: {
 
   return (
     <Bounceable
-      key={app_details.app_id.toString()}
+      // key={app_details.app_id.toString()}
       onPress={() =>
         navigation.navigate('MiniAppLanding', {
           app_details,

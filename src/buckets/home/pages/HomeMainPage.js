@@ -19,6 +19,7 @@ import {SectionGrid} from 'react-native-super-grid';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import BottomSpacer from '../../../bits/BottomSpacer';
 import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenListActions';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,7 +29,32 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function HomeMainPage({dispatch}) {
-  let my_apps = state_here.MyAppsReducer.myapps;
+  let default_my_apps = [
+    {
+      app_name: 'Tips',
+      app_icon: 'https://i.postimg.cc/RVy49JPX/download-14.png',
+      app_cover: '',
+      extra_message: 'Get amazing tips',
+      landing_blueprint_function_name: 'TipsSpecialScreen',
+      need_add_myapps_button: false,
+      show_in_use_tab: false,
+      in_use_tab_function_name: '',
+      in_use_tab_name: 'Usage',
+    },
+    {
+      app_name: 'Support',
+      app_icon: 'https://i.postimg.cc/Rh85M2TN/download-39.jpg',
+      app_cover: '',
+      extra_message: 'Talk to us about the app or anything crypto',
+      landing_blueprint_function_name: 'SupportSpecialScreen',
+      need_add_myapps_button: false,
+      show_in_use_tab: false,
+      in_use_tab_function_name: '',
+      in_use_tab_name: '',
+    },
+  ];
+
+  let my_apps = _.union(state_here.MyAppsReducer.myapps, default_my_apps);
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
   useEffect(() => {
@@ -36,7 +62,6 @@ function HomeMainPage({dispatch}) {
     dispatch(GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.id));
     dispatch(GetMarketPrices());
     dispatch(GetUniswapTokenList());
-    console.log('apps page is now focused!');
   }, []);
 
   const DATA = [
