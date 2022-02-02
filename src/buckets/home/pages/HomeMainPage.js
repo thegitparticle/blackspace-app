@@ -21,6 +21,7 @@ import BottomSpacer from '../../../bits/BottomSpacer';
 import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenListActions';
 import _ from 'lodash';
 import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
+import SupportAppThumbnail from '../components/SupportAppThumbnail';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -80,8 +81,10 @@ function HomeMainPage({dispatch}) {
     () =>
       function ThumbnailItem({item, section}) {
         if (section.title === 'MY APP SUITE') {
-          if (item.app_name === 'Tips' || 'Support') {
+          if (item.app_name === 'Tips') {
             return DefaultAppThumbnail(item);
+          } else if (item.app_name === 'Support') {
+            return <SupportAppThumbnail />;
           } else {
             return MyAppThumbnail(item);
           }
