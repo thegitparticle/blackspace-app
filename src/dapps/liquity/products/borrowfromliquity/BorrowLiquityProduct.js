@@ -15,6 +15,7 @@ import {FamousTokensList} from '../../../uniswap/helpers/FamousTokensList';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
+import useLUSDFiatPrice from '../../helpers/useLUSDFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,6 +39,8 @@ blocks
 function BorrowLiquityProduct() {
   const [borrowAmount, setBorrowAmount] = useState('');
   const [amount1Fiat, setAmount1Fiat] = useState(0);
+
+  const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
 
   const navigation = useNavigation();
 
@@ -174,7 +177,7 @@ function BorrowLiquityProduct() {
         </TouchableOpacity>
       </View>
       <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
-        ~ $ {amount1Fiat}
+        ~ $ {Number(borrowAmount) * Number(priceLUSD)}
       </Text>
       <CollateralNeededBlock />
       <RenderOrderInfo />
