@@ -16,6 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import useLUSDFiatPrice from '../../helpers/useLUSDFiatPrice';
+import {EthersLiquity, ReadableEthersLiquity} from '@liquity/lib-ethers';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,9 +39,10 @@ blocks
 
 function BorrowLiquityProduct() {
   const [borrowAmount, setBorrowAmount] = useState('');
-  const [amount1Fiat, setAmount1Fiat] = useState(0);
 
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
+
+  let feesResponseTest = EthersLiquity.console.log(feesResponseTest);
 
   const navigation = useNavigation();
 
@@ -121,7 +123,7 @@ function BorrowLiquityProduct() {
           type={'solid'}
           onPress={() =>
             navigation.navigate('BorrowLiquityTransactionModal', {
-              amount1Fiat: amount1Fiat,
+              amount1Fiat: Number(borrowAmount) * Number(priceLUSD),
               borrowAmount: borrowAmount,
             })
           }

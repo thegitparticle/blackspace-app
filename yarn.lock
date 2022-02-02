@@ -898,6 +898,15 @@
     "@ethersproject/bytes" "^5.5.0"
     "@ethersproject/properties" "^5.5.0"
 
+"@ethersproject/bignumber@5.0.15":
+  version "5.0.15"
+  resolved "https://registry.npmjs.org/@ethersproject/bignumber/-/bignumber-5.0.15.tgz#b089b3f1e0381338d764ac1c10512f0c93b184ed"
+  integrity sha512-MTADqnyacvdRwtKh7o9ujwNDSM1SDJjYDMYAzjIgjoi9rh6TY4suMbhCa3i2vh3SUXiXSICyTI8ui+NPdrZ9Lw==
+  dependencies:
+    "@ethersproject/bytes" "^5.0.9"
+    "@ethersproject/logger" "^5.0.8"
+    bn.js "^4.4.0"
+
 "@ethersproject/bignumber@5.5.0", "@ethersproject/bignumber@^5.0.7", "@ethersproject/bignumber@^5.1.1", "@ethersproject/bignumber@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npmjs.org/@ethersproject/bignumber/-/bignumber-5.5.0.tgz#875b143f04a216f4f8b96245bde942d42d279527"
@@ -907,7 +916,7 @@
     "@ethersproject/logger" "^5.5.0"
     bn.js "^4.11.9"
 
-"@ethersproject/bytes@5.5.0", "@ethersproject/bytes@^5.0.4", "@ethersproject/bytes@^5.5.0":
+"@ethersproject/bytes@5.5.0", "@ethersproject/bytes@^5.0.4", "@ethersproject/bytes@^5.0.9", "@ethersproject/bytes@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npmjs.org/@ethersproject/bytes/-/bytes-5.5.0.tgz#cb11c526de657e7b45d2e0f0246fb3b9d29a601c"
   integrity sha512-ABvc7BHWhZU9PNM/tANm/Qx4ostPGadAuQzWTr3doklZOhDlmcBqclrQe/ZXUIj3K8wC28oYeuRa+A37tX9kog==
@@ -996,7 +1005,7 @@
     "@ethersproject/bytes" "^5.5.0"
     js-sha3 "0.8.0"
 
-"@ethersproject/logger@5.5.0", "@ethersproject/logger@^5.0.5", "@ethersproject/logger@^5.5.0":
+"@ethersproject/logger@5.5.0", "@ethersproject/logger@^5.0.5", "@ethersproject/logger@^5.0.8", "@ethersproject/logger@^5.5.0":
   version "5.5.0"
   resolved "https://registry.npmjs.org/@ethersproject/logger/-/logger-5.5.0.tgz#0c2caebeff98e10aefa5aef27d7441c7fd18cf5d"
   integrity sha512-rIY/6WPm7T8n3qS2vuHTUBPdXHl+rGxWxW5okDfo9J4Z0+gRRZT0msvUdIJkE4/HS29GUMziwGaaKO2bWONBrg==
@@ -1458,6 +1467,18 @@
     "@types/node" "*"
     "@types/yargs" "^16.0.0"
     chalk "^4.0.0"
+
+"@liquity/lib-base@^3.0.0":
+  version "3.0.0"
+  resolved "https://registry.npmjs.org/@liquity/lib-base/-/lib-base-3.0.0.tgz#3a2c1ccf7d147d59ffc48e1b8eb775b363124735"
+  integrity sha512-iSSTb8eAK50zBEaM4bP48rFzARwlqohMXtNWKQZUrjqFvpTwZF4OZp1o0LxAU8CcbFAm7SLv4IVzSsmK4t3xFw==
+  dependencies:
+    "@ethersproject/bignumber" "5.0.15"
+
+"@liquity/lib-ethers@^3.3.1":
+  version "3.3.1"
+  resolved "https://registry.npmjs.org/@liquity/lib-ethers/-/lib-ethers-3.3.1.tgz#86f8c5498f434ca4db29eb34af0882b18a7f2067"
+  integrity sha512-o0IZ/k67MwDnFuuZjWn+iHNpk1SzBnikbx5oz1DgFW5Gcxz2n5shysS7lKMdDcapukLCoZzeC2xd0QrPtR6KaQ==
 
 "@makerdao/currency@^0.9.10":
   version "0.9.10"
