@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {
   ButterThemeDark,
@@ -12,25 +12,73 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function TransactionOngoingBorrowLiquity() {
-  return (
-    <View style={styles.parent_view}>
-      <Text style={styles.text_highlighted}>
-        Keep phone aside and relax while we finish the borrowing process
-      </Text>
-      <LottieView
-        source={require('../../../../../../assets/doge_tail_lottie.json')}
-        autoPlay
-        loop
-        style={{
-          marginVertical: 20,
-          width: windowWidth * 0.25,
-          height: windowWidth * 0.5,
-        }}
-        resizeMode="cover"
-      />
-      <Text style={styles.text_highlighted}>it will take about a minute</Text>
-    </View>
-  );
+  const [renderContext, setRenderContext] = useState('TransactionError');
+  /*
+  All render states: TransactionHappening | TransactionSuccess | TransactionError
+   */
+
+  if (renderContext === 'TransactionHappening') {
+    return (
+      <View style={styles.parent_view}>
+        <Text style={styles.text_highlighted}>
+          Keep phone aside and relax while we finish the borrowing process
+        </Text>
+        <LottieView
+          source={require('../../../../../../assets/doge_tail_lottie.json')}
+          autoPlay
+          loop
+          style={{
+            marginVertical: 20,
+            width: windowWidth * 0.25,
+            height: windowWidth * 0.5,
+          }}
+          resizeMode="cover"
+        />
+        <Text style={styles.text_highlighted}>it will take about a minute</Text>
+      </View>
+    );
+  } else if (renderContext === 'TransactionSuccess') {
+    return (
+      <View style={styles.parent_view}>
+        <LottieView
+          source={require('../../../../../../assets/success_tick_lottie.json')}
+          autoPlay
+          loop
+          style={{
+            marginVertical: 20,
+            width: windowWidth * 0.25,
+            height: windowWidth * 0.5,
+          }}
+          resizeMode="cover"
+        />
+        <Text style={styles.text_highlighted}>
+          Loan amount will reflect in your wallet in few moments
+        </Text>
+      </View>
+    );
+  } else if (renderContext === 'TransactionError') {
+    return (
+      <View style={styles.parent_view}>
+        <Text style={styles.text_highlighted}>Borrow transaction failed</Text>
+        <LottieView
+          source={require('../../../../../../assets/error_exclamation_lottie.json')}
+          autoPlay
+          style={{
+            marginVertical: 20,
+            width: windowWidth * 0.2,
+            height: windowWidth * 0.2,
+            marginBottom: 100,
+          }}
+          resizeMode="cover"
+        />
+        <Text style={styles.text_highlighted}>
+          Please try again & make sure you have enough extra ETH for gas
+        </Text>
+      </View>
+    );
+  } else {
+    return <View />;
+  }
 }
 
 export default TransactionOngoingBorrowLiquity;
