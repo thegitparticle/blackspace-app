@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -17,6 +17,9 @@ import {Button} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import useLUSDFiatPrice from '../../helpers/useLUSDFiatPrice';
 import {EthersLiquity, ReadableEthersLiquity} from '@liquity/lib-ethers';
+import {Fees} from '@liquity/lib-base';
+import {connect} from 'react-redux';
+import {BigNumber, ethers} from 'ethers';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,12 +40,54 @@ blocks
 
 */
 
-function BorrowLiquityProduct() {
-  const [borrowAmount, setBorrowAmount] = useState('');
+let state_here = {};
 
+const prov = new ethers.providers.JsonRpcProvider(
+  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
+function BorrowLiquityProduct() {
+  let wallet = new ethers.Wallet(
+    state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  );
+  let walletSigner = wallet.connect(prov);
+
+  const [borrowAmount, setBorrowAmount] = useState('');
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
 
-  let feesResponseTest = EthersLiquity.console.log(feesResponseTest);
+  const [liquity, setLiquity] = useState();
+  const [liquityFees, setLiquityFees] = useState(null);
+  const [borrowRate, setBorrowRate] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      setLiquity(await EthersLiquity.connect(walletSigner));
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      console.log('liquity change, effect triggered');
+
+      let liquityFeesHere = await liquity.getFees();
+
+      setLiquityFees(liquityFeesHere);
+      console.log(
+        ethers.utils.formatEther(
+          liquityFeesHere._baseRateWithoutDecay._bigNumber,
+        ),
+      );
+      console.log(
+        ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
+      );
+
+      setBorrowRate(
+        Number(
+          ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
+        ) * 100,
+      );
+    })();
+  }, [liquity]);
 
   const navigation = useNavigation();
 
@@ -187,7 +232,12 @@ function BorrowLiquityProduct() {
   );
 }
 
-export default BorrowLiquityProduct;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(BorrowLiquityProduct);
 
 const styles = StyleSheet.create({
   parent_view: {},

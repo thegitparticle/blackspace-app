@@ -14,7 +14,6 @@ export default function useLUSDFiatPrice() {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        console.log(response.data);
         setPriceLUSD(response.data['liquity-usd'].usd);
         setLoading(false);
       })
