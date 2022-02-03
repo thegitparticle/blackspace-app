@@ -95,8 +95,11 @@ function ConfirmBorrowLiquity(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            you will get {props.Token1Amount} {props.Token1Coin.symbol} for
-            paying {props.Token0Coin.symbol}
+            Your wallet has {Number(props.CollateralNeededEth).toFixed(2)} ETH
+            as collateral
+          </Text>
+          <Text style={styles.text_highlighted}>
+            Borrow {props.BorrowAmount} LUSD
           </Text>
         </View>
       );
@@ -155,7 +158,7 @@ function ConfirmBorrowLiquity(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'confirm buy'}
+            title={'confirm borrow'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
