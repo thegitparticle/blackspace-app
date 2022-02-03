@@ -1,21 +1,82 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../theme/ButterTheme';
 import LottieView from 'lottie-react-native';
+import {ethers} from 'ethers/src.ts/index';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function TransactionOngoingBorrowLiquity() {
+/*
+ ChangeBody={changeBodyToConfirmBorrow}
+          State={state_here}
+          BorrowAmount={borrowAmount}
+          CollateralNeededEth={collateralNeededEth}
+          FixedLoanCharges={fixedLoanCharges}
+ */
+
+const prov = new ethers.providers.JsonRpcProvider(
+  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
+function TransactionOngoingBorrowLiquity(props) {
+  let wallet = new ethers.Wallet(
+    props.State.WDeetsReducer.wdeets.wallet_privateKey,
+  );
+  let walletSigner = wallet.connect(prov);
+
+  let borrowAmountBigNumber = ethers.utils.parseEther(props.BorrowAmount);
+  let collateralAmountBigNumber = ethers.utils.parseEther(
+    String(props.CollateralNeededEth),
+  );
+
+  const maxFee = '5'.concat('0'.repeat(16)); // Slippage protection: 5%
+
+  const [liquity, setLiquity] = useState();
+  const [newTrove, setNewTrove] = useState();
+
+  async function openTrove() {
+    // liquity.openTrove(maxFee, borrowAmountBigNumber, {
+    //   value: collateralAmountBigNumber,
+    // });
+
+    console.log(ethers.utils.formatEther(LUSD_MINIMUM_DEBT._bigNumber));
+
+    setNewTrove(
+      await liquity
+        .openTrove({
+          depositCollateral: Number(props.CollateralNeededEth), // ETH
+          borrowLUSD: Number(props.BorrowAmount),
+
+          // depositCollateral: 0.18, // ETH
+          // borrowLUSD: 100,
+        })
+        .then(() => console.log(' opening trove works'))
+        .catch(e => console.log(e + ' ----- does not work')),
+    );
+  }
+
+  useEffect(() => {
+    (async () => {
+      setLiquity(await EthersLiquity.connect(walletSigner));
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      openTrove();
+    })();
+  }, [liquity]);
+
   const [renderContext, setRenderContext] = useState('TransactionError');
-  /*
-  All render states: TransactionHappening | TransactionSuccess | TransactionError
-   */
+  // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
   if (renderContext === 'TransactionHappening') {
     return (
