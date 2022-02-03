@@ -55,7 +55,7 @@ function ConfirmBorrowLiquity(props) {
 
   function checkIfWalletHasBalance() {
     if (Number(props.CollateralNeededEth) < Number(ethBalanceInWallet)) {
-      setRenderContext('WalletHasNoETHButERCs');
+      setRenderContext('WalletHasAmount');
     } else {
       if (
         Number(props.CollateralNeededEth) * Number(priceEth) <
@@ -123,8 +123,8 @@ function ConfirmBorrowLiquity(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have {props.Token0Coin.symbol}, reduce amount and
-            try again
+            your wallet does have {props.CollateralNeededEth} ETH as collateral,
+            reduce loan amount and try again
           </Text>
         </View>
       );
@@ -194,7 +194,7 @@ function ConfirmBorrowLiquity(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
