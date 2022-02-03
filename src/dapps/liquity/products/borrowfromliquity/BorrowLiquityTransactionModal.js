@@ -24,8 +24,6 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
 
   const [renderScreen, setRenderScreen] = useState('ConfirmBorrow');
 
-  const [collNeededFiat, setCollNeededFiat] = useState('0');
-
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
@@ -43,6 +41,7 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
           BorrowAmount={borrowAmount}
           CollateralNeededEth={collateralNeededEth}
           FixedLoanCharges={fixedLoanCharges}
+          Max={'go go'}
         />
       );
     } else {

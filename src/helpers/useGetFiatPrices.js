@@ -19,7 +19,6 @@ export default function useGetFiatPrice(token_id) {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        console.log(response.data);
         setPriceAnyFiat(response.data[token_id].usd);
         setLoading(false);
       })

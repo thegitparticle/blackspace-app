@@ -11,6 +11,7 @@ import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,16 +40,37 @@ e. "NoAmount" - you do not have the needed collateral - reduce the borrow accord
           FixedLoanCharges={fixedLoanCharges}
  */
 
-function ConfirmBorrowLiquity({props, dispatch}) {
-  const [renderContext, setRenderContext] = useState('Checking');
+function ConfirmBorrowLiquity(props) {
   const navigation = useNavigation();
+  const {loadingEth, priceEth} = useEthFiatPrice();
 
-  // function checkIfWalletHasBalance() {
-  //
-  //   if (props.CollateralNeededEth < )
-  // }
+  const [renderContext, setRenderContext] = useState('Checking');
+  /*
+  All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
+   */
 
-  useEffect(() => {}, []);
+  let ethBalanceInWallet =
+    Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
+    10 ** -18;
+
+  function checkIfWalletHasBalance() {
+    if (Number(props.CollateralNeededEth) < Number(ethBalanceInWallet)) {
+      setRenderContext('WalletHasNoETHButERCs');
+    } else {
+      if (
+        Number(props.CollateralNeededEth) * Number(priceEth) <
+        Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
+      ) {
+        setRenderContext('WalletHasNoETHButERCs');
+      } else {
+        setRenderContext('NoAmount');
+      }
+    }
+  }
+
+  useEffect(() => {
+    checkIfWalletHasBalance();
+  }, []);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -78,7 +100,7 @@ function ConfirmBorrowLiquity({props, dispatch}) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasNoETHGas') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -87,7 +109,8 @@ function ConfirmBorrowLiquity({props, dispatch}) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your do not have enough ETH for gas, get ETH and try again
+            your do not have enough ETH but have the needed collateral in
+            tokens.
           </Text>
         </View>
       );
@@ -148,11 +171,11 @@ function ConfirmBorrowLiquity({props, dispatch}) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasNoETHGas') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'go back'}
+            title={'convert to ETH on Uniswap'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -160,10 +183,7 @@ function ConfirmBorrowLiquity({props, dispatch}) {
             titleStyle={styles.next_button_title}
             ViewComponent={LinearGradient}
             linearGradientProps={{
-              colors: [
-                themeHere.colors.danger_red_dark,
-                themeHere.colors.danger_red,
-              ],
+              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
             }}
           />
         </View>
@@ -225,6 +245,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     maxWidth: windowWidth * 0.7,
     textAlign: 'center',
+    lineHeight: 30,
   },
   text_not_highlighted: {
     ...themeHere.text.body_medium,
@@ -232,6 +253,7 @@ const styles = StyleSheet.create({
     marginVertical: 30,
     maxWidth: windowWidth * 0.7,
     textAlign: 'center',
+    lineHeight: 30,
   },
   unsupported_coins_context_suggestions_view: {
     flexDirection: 'column',
