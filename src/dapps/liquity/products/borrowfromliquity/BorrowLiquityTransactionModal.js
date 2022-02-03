@@ -28,9 +28,11 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
     if (renderScreen === 'TransactionOngoing') {
       return (
         <TransactionOngoingBorrowLiquity
-          // Info={info}
-          ChangeBody={changeBodyToEnterAmount}
+          ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
+          BorrowAmount={borrowAmount}
+          CollateralNeededEth={collateralNeededEth}
+          FixedLoanCharges={fixedLoanCharges}
         />
       );
     } else if (renderScreen === 'ConfirmBorrow') {
@@ -41,7 +43,6 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
           BorrowAmount={borrowAmount}
           CollateralNeededEth={collateralNeededEth}
           FixedLoanCharges={fixedLoanCharges}
-          Max={'go go'}
         />
       );
     } else {
@@ -53,8 +54,8 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
     setRenderScreen('TransactionOngoing');
   }
 
-  function changeBodyToEnterAmount() {
-    // setRenderScreen('EnterAmount');
+  function changeBodyToConfirmBorrow() {
+    setRenderScreen('ConfirmBorrow');
   }
 
   return (
