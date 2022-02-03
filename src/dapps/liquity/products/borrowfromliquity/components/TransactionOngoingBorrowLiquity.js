@@ -32,10 +32,8 @@ function TransactionOngoingBorrowLiquity(props) {
   );
   let walletSigner = wallet.connect(prov);
 
-  let borrowAmountBigNumber = ethers.utils.parseEther(props.BorrowAmount);
-  let collateralAmountBigNumber = ethers.utils.parseEther(
-    String(props.CollateralNeededEth),
-  );
+  const [renderContext, setRenderContext] = useState('TransactionHappening');
+  // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
   const maxFee = '5'.concat('0'.repeat(16)); // Slippage protection: 5%
 
@@ -43,23 +41,20 @@ function TransactionOngoingBorrowLiquity(props) {
   const [newTrove, setNewTrove] = useState();
 
   async function openTrove() {
-    // liquity.openTrove(maxFee, borrowAmountBigNumber, {
-    //   value: collateralAmountBigNumber,
-    // });
-
-    console.log(ethers.utils.formatEther(LUSD_MINIMUM_DEBT._bigNumber));
-
     setNewTrove(
       await liquity
         .openTrove({
           depositCollateral: Number(props.CollateralNeededEth), // ETH
           borrowLUSD: Number(props.BorrowAmount),
-
-          // depositCollateral: 0.18, // ETH
-          // borrowLUSD: 100,
         })
-        .then(() => console.log(' opening trove works'))
-        .catch(e => console.log(e + ' ----- does not work')),
+        .then(() => {
+          console.log(' opening trove works');
+          setRenderContext('TransactionSuccess');
+        })
+        .catch(e => {
+          console.log(e + ' ----- does not work');
+          setRenderContext('TransactionError');
+        }),
     );
   }
 
@@ -74,9 +69,6 @@ function TransactionOngoingBorrowLiquity(props) {
       openTrove();
     })();
   }, [liquity]);
-
-  const [renderContext, setRenderContext] = useState('TransactionError');
-  // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
   if (renderContext === 'TransactionHappening') {
     return (
