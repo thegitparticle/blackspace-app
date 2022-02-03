@@ -10,6 +10,7 @@ import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,6 +33,7 @@ e. "NoAmount" - you do not have the needed collateral - reduce the borrow accord
 
 function ConfirmBorrowLiquity(props) {
   const [renderContext, setRenderContext] = useState('Checking');
+  const navigation = useNavigation();
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -100,7 +102,7 @@ function ConfirmBorrowLiquity(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
