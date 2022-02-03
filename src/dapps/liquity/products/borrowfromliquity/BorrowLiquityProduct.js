@@ -20,6 +20,7 @@ import {EthersLiquity, ReadableEthersLiquity} from '@liquity/lib-ethers';
 import {Fees} from '@liquity/lib-base';
 import {connect} from 'react-redux';
 import {BigNumber, ethers} from 'ethers';
+import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -52,12 +53,24 @@ function BorrowLiquityProduct() {
   );
   let walletSigner = wallet.connect(prov);
 
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
   const [borrowAmount, setBorrowAmount] = useState('');
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
 
   const [liquity, setLiquity] = useState();
-  const [liquityFees, setLiquityFees] = useState(null);
-  const [borrowRate, setBorrowRate] = useState(null);
+
+  const [liquityFees, setLiquityFees] = useState();
+  const [borrowRate, setBorrowRate] = useState(0);
+
+  const [collateralNeededEth, setCollateralNeededEth] = useState();
+  const [fixedLoadCharges, setFixedLoadCharges] = useState();
+
+  const liquidationReserveGasFeeLUSD = 200;
+  const collateralRatio = 1.43;
+  const collateralRatioPercentString = '143%';
+  const liquidationRatio = 1.1;
+  const liquidationRatioPercentString = '110%';
 
   useEffect(() => {
     (async () => {
@@ -67,27 +80,45 @@ function BorrowLiquityProduct() {
 
   useEffect(() => {
     (async () => {
-      console.log('liquity change, effect triggered');
-
       let liquityFeesHere = await liquity.getFees();
 
       setLiquityFees(liquityFeesHere);
-      console.log(
-        ethers.utils.formatEther(
-          liquityFeesHere._baseRateWithoutDecay._bigNumber,
-        ),
-      );
-      console.log(
-        ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
-      );
+      // console.log(
+      //   ethers.utils.formatEther(
+      //     liquityFeesHere._baseRateWithoutDecay._bigNumber,
+      //   ),
+      // );
+      // console.log(
+      //   ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
+      // );
 
       setBorrowRate(
         Number(
           ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
-        ) * 100,
+        ),
       );
     })();
   }, [liquity]);
+
+  useEffect(() => {
+    setCollateralNeededEth(
+      (
+        (Number(borrowAmount) +
+          Number(borrowAmount) * Number(borrowRate) +
+          liquidationReserveGasFeeLUSD) /
+        Number(priceEth)
+      ).toFixed(2) * collateralRatio,
+    );
+  }, [borrowAmount, priceEth]);
+
+  useEffect(() => {
+    setFixedLoadCharges(
+      (
+        Number(borrowAmount) * Number(borrowRate) +
+        liquidationReserveGasFeeLUSD
+      ).toFixed(2),
+    );
+  }, [borrowAmount, priceEth]);
 
   const navigation = useNavigation();
 
@@ -116,7 +147,7 @@ function BorrowLiquityProduct() {
             marginTop: 30,
             marginHorizontal: 5,
           }}>
-          2.53 ETH
+          {Number(collateralNeededEth).toFixed(2)} ETH
         </Text>
         <FastImage
           style={styles.itemholding_icon}
@@ -134,27 +165,32 @@ function BorrowLiquityProduct() {
     return (
       <View style={styles.order_info_view}>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>you get</Text>
+          <Text style={styles.order_info_title_text}>loan amount</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              6,573.88 DAI ($6573)
+              {borrowAmount === '' ? 0 : borrowAmount} LUSD
             </Text>
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>by paying</Text>
+          <Text style={styles.order_info_title_text}>fixed loan charges</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              0.45 ETH ($6643.1)
+              {borrowAmount === '' ? 0 : fixedLoadCharges} LUSD
             </Text>
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
           <Text style={styles.order_info_title_text}>
-            max expected slippage
+            total debt to be repayed
           </Text>
           <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>0.76%</Text>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {borrowAmount === ''
+                ? 0
+                : Number(borrowAmount) + Number(fixedLoadCharges)}{' '}
+              LUSD
+            </Text>
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
