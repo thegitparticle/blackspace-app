@@ -64,7 +64,7 @@ function BorrowLiquityProduct() {
   const [borrowRate, setBorrowRate] = useState(0);
 
   const [collateralNeededEth, setCollateralNeededEth] = useState();
-  const [fixedLoadCharges, setFixedLoadCharges] = useState();
+  const [fixedLoanCharges, setFixedLoanCharges] = useState();
 
   const liquidationReserveGasFeeLUSD = 200;
   const collateralRatio = 1.43;
@@ -112,7 +112,7 @@ function BorrowLiquityProduct() {
   }, [borrowAmount, priceEth]);
 
   useEffect(() => {
-    setFixedLoadCharges(
+    setFixedLoanCharges(
       (
         Number(borrowAmount) * Number(borrowRate) +
         liquidationReserveGasFeeLUSD
@@ -176,7 +176,7 @@ function BorrowLiquityProduct() {
           <Text style={styles.order_info_title_text}>fixed loan charges</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {borrowAmount === '' ? 0 : fixedLoadCharges} LUSD
+              {borrowAmount === '' ? 0 : fixedLoanCharges} LUSD
             </Text>
           </Text>
         </View>
@@ -188,7 +188,7 @@ function BorrowLiquityProduct() {
             <Text style={{color: themeHere.colors.foreground}}>
               {borrowAmount === ''
                 ? 0
-                : Number(borrowAmount) + Number(fixedLoadCharges)}{' '}
+                : Number(borrowAmount) + Number(fixedLoanCharges)}{' '}
               LUSD
             </Text>
           </Text>
@@ -204,8 +204,9 @@ function BorrowLiquityProduct() {
           type={'solid'}
           onPress={() =>
             navigation.navigate('BorrowLiquityTransactionModal', {
-              amount1Fiat: Number(borrowAmount) * Number(priceLUSD),
               borrowAmount: borrowAmount,
+              collateralNeededEth: collateralNeededEth,
+              fixedLoanCharges: fixedLoanCharges,
             })
           }
           containerStyle={styles.next_button_container}

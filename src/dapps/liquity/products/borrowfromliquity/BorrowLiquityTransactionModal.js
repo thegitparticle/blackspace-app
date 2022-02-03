@@ -14,12 +14,16 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
+/*
+ borrowAmount: borrowAmount,
+              collateralNeededEth: collateralNeededEth,
+              fixedLoanCharges: fixedLoanCharges,
+ */
 function BorrowLiquityTransactionModal({route, dispatch}) {
-  const {token0Coin, token1Coin, token1Amount, token1Fiat} = route.params;
+  const {borrowAmount, collateralNeededEth, fixedLoanCharges} = route.params;
 
   const [renderScreen, setRenderScreen] = useState('ConfirmBorrow');
 
-  const [amount, setAmount] = useState('0');
   const [collNeededFiat, setCollNeededFiat] = useState('0');
 
   function RenderBody() {
@@ -27,10 +31,6 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
       return (
         <TransactionOngoingBorrowLiquity
           // Info={info}
-          Token0Coin={token0Coin}
-          Token1Coin={token1Coin}
-          Token1Amount={token1Amount}
-          Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
         />
@@ -38,15 +38,11 @@ function BorrowLiquityTransactionModal({route, dispatch}) {
     } else if (renderScreen === 'ConfirmBorrow') {
       return (
         <ConfirmBorrowLiquity
-          // Info={info}
-          Token0Coin={token0Coin}
-          Token1Coin={token1Coin}
-          Token1Amount={token1Amount}
-          Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
-          Amount={amount}
-          CollNeededFiat={collNeededFiat}
+          BorrowAmount={borrowAmount}
+          CollateralNeededEth={collateralNeededEth}
+          FixedLoanCharges={fixedLoanCharges}
         />
       );
     } else {

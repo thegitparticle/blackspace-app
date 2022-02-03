@@ -31,9 +31,24 @@ e. "NoAmount" - you do not have the needed collateral - reduce the borrow accord
 
  */
 
-function ConfirmBorrowLiquity(props) {
+/*
+          ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          BorrowAmount={borrowAmount}
+          CollateralNeededEth={collateralNeededEth}
+          FixedLoanCharges={fixedLoanCharges}
+ */
+
+function ConfirmBorrowLiquity({props, dispatch}) {
   const [renderContext, setRenderContext] = useState('Checking');
   const navigation = useNavigation();
+
+  // function checkIfWalletHasBalance() {
+  //
+  //   if (props.CollateralNeededEth < )
+  // }
+
+  useEffect(() => {}, []);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
