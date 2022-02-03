@@ -16,6 +16,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Text, View, Image, useSx, styled} from 'dripsy';
 import {StyledFastImage25} from '../../../theme/DripsyTheme';
 import {Bounceable} from 'rn-bounceable';
+import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,6 +31,10 @@ function AccordianPortfolio() {
 
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
 
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
+  console.log(state_here.MyProfileReducer.myProfileDetails.eth_balance);
+
   const SECTIONS = [
     {
       id: 0,
@@ -41,14 +46,14 @@ function AccordianPortfolio() {
           symbol: 'ETH',
           logoURI:
             'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png?1595348880',
-          tokenBalance_decimal:
-            (Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
-              10) ^
-            18,
+          tokenBalance_decimal: (
+            Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
+            10 ** -18
+          ).toFixed(4),
           token_price_usd:
-            (Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
-              10) ^
-            (18 * 2400),
+            Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
+            10 ** -18 *
+            Number(priceEth),
         },
       ],
     },
