@@ -14,6 +14,7 @@ import TransactEarnCompound from '../../helpers/TransactEarnCompound';
 import TransactBorrowCompound from '../../helpers/TransactBorrowCompound';
 import EnterMarketsCompound from '../../helpers/EnterMarketsCompound';
 import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -43,41 +44,39 @@ Info={info}
           ChangeBodyEnterAmount={changeBodyToEnterAmount}
           State={state_here}
           Amount={amount}
-          CollNeededFiat={collNeededFiat}
+          CollNeededFiat={collNeededFiat}   - in $ USD Fiat
  */
 
 function ConfirmBorrowCompound(props) {
   const navigation = useNavigation();
-  const [renderContext, setRenderContext] = useState('WalletHasNoETHButERCs');
+  const [renderContext, setRenderContext] = useState('CheckingCompound');
   /*
-    All render states: CheckingCompound | CompoundHasEnough | CheckingWallet | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
+    All render states: CheckingCompound | CompoundHasEnough | CheckingWallet | WalletHasAmount | WalletHasNoETHButERCs | NoCollAmount
   */
 
-  // useEffect(() => {
-  //   (async function () {
-  //     const account = await Compound.api.account({
-  //       addresses: props.State.WDeetsReducer.wdeets.wallet_address,
-  //       network: 'rinkeby',
-  //     });
-  //
-  //     let daiBorrowBalance = 0;
-  //     if (Object.isExtensible(account) && account.accounts) {
-  //       account.accounts.forEach(acc => {
-  //         acc.tokens.forEach(tok => {
-  //           if (tok.symbol === Compound.cDAI) {
-  //             daiBorrowBalance = +tok.borrow_balance_underlying.value;
-  //
-  //             // 1. check if props.CollNeededFiat is > or < than this borrowbalance here
-  //             // 2.1. if compound itself has the needed coll - then
-  //             // 2.2. else balance is not fully there - then check wallet balances and see if it works
-  //           }
-  //         });
-  //       });
-  //     }
-  //
-  //     console.log('daiBorrowBalance', daiBorrowBalance);
-  //   })().catch(console.error);
-  // }, []);
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
+  useEffect(() => {
+    if (priceEth) {
+      if (
+        props.CollNeededFiat / Number(priceEth) <
+        Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
+          10 ** -18
+      ) {
+        console.log('you have enoug coll');
+        setRenderContext('WalletHasAmount');
+      } else if (
+        props.CollNeededFiat <
+        Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
+      ) {
+        console.log('it does not have enough coll');
+        setRenderContext('WalletHasNoETHButERCs');
+      } else {
+        console.log('it does not have enough coll');
+        setRenderContext('NoCollAmount');
+      }
+    }
+  }, [priceEth]);
 
   function MainBlockConfirmBorrowCompound() {
     if (renderContext === 'CheckingCompound') {
@@ -172,7 +171,7 @@ function ConfirmBorrowCompound(props) {
           </View>
         </View>
       );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'NoCollAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -277,13 +276,13 @@ function ConfirmBorrowCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'NoCollAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
