@@ -11,6 +11,7 @@ import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import TransactEarnCompound from '../../helpers/TransactEarnCompound';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -25,13 +26,21 @@ e. "WalletBalanceNotEnough" - you do not have the needed in wallet - reduce stak
  */
 
 function ConfirmEarnCompound(props) {
+  const [renderContext, setRenderContext] = useState('Checking');
+  /*
+    All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
+  */
+
+  const navigation = useNavigation();
+
   useEffect(() => {
     // 1. check if wallet has the supply amount said
     // 2.1. if not, invoke - "WalletBalanceNotEnough" - in that particular token chosen
     // 2.2. else invoke - "WalletHasEnough" - in that particular token chosen
-  }, []);
 
-  const [renderContext, setRenderContext] = useState('Checking');
+    console.log(props.Amount);
+    console.log(props.Info);
+  }, []);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -86,14 +95,7 @@ function ConfirmEarnCompound(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() =>
-              TransactEarnCompound(
-                props.State.WDeetsReducer.wdeets.wallet_address,
-                props.State.WDeetsReducer.wdeets.wallet_privateKey,
-                props.Amount,
-                props.Info.cToken[0].underlying_symbol,
-              )
-            }
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

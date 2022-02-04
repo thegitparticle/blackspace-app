@@ -12,6 +12,14 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+/*
+ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          BorrowAmount={borrowAmount}
+          CollateralNeededEth={collateralNeededEth}
+          FixedLoanCharges={fixedLoanCharges}
+ */
+
 let state_here = {};
 
 function EarnInterestCompoundTransactionModal({route, dispatch}) {
@@ -20,7 +28,6 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
   const [renderScreen, setRenderScreen] = useState('EnterAmount');
 
   const [amount, setAmount] = useState('0');
-  const [collNeededFiat, setCollNeededFiat] = useState('0');
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
@@ -38,7 +45,6 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           Amount={amount}
-          CollNeededFiat={collNeededFiat}
         />
       );
     } else {
@@ -63,7 +69,6 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
   function changeBodyToConfirmEarn(amount, collNeededFiat) {
     setRenderScreen('ConfirmEarn');
     setAmount(amount);
-    setCollNeededFiat(collNeededFiat);
   }
 
   return (
