@@ -42,7 +42,8 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
       return (
         <ConfirmEarnCompound
           Info={info}
-          ChangeBody={changeBodyToTransaction}
+          ChangeBodyTransaction={changeBodyToTransaction}
+          ChangeBodyEnterAmount={changeBodyToEnterAmount}
           State={state_here}
           Amount={amount}
         />

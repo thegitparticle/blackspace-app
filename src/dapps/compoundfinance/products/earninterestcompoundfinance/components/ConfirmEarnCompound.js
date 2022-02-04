@@ -12,6 +12,7 @@ import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import TransactEarnCompound from '../../helpers/TransactEarnCompound';
 import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,14 +33,33 @@ function ConfirmEarnCompound(props) {
   */
 
   const navigation = useNavigation();
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
+  let ethBalanceInWallet =
+    Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
+    10 ** -18;
+
+  function checkIfWalletHasBalance() {
+    if (Number(props.Amount) < Number(ethBalanceInWallet)) {
+      setRenderContext('WalletHasAmount');
+    } else {
+      if (
+        Number(props.Amount) * Number(priceEth) <
+        Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
+      ) {
+        setRenderContext('WalletHasNoETHButERCs');
+      } else {
+        setRenderContext('NoAmount');
+      }
+    }
+  }
 
   useEffect(() => {
     // 1. check if wallet has the supply amount said
     // 2.1. if not, invoke - "WalletBalanceNotEnough" - in that particular token chosen
     // 2.2. else invoke - "WalletHasEnough" - in that particular token chosen
 
-    console.log(props.Amount);
-    console.log(props.Info);
+    checkIfWalletHasBalance();
   }, []);
 
   function MainBlock() {
@@ -170,7 +190,7 @@ function ConfirmEarnCompound(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            // onPress={() => }  // uniswap redirect logic
+            onPress={() => props.ChangeBodyEnterAmount()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
