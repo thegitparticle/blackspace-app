@@ -81,34 +81,34 @@ function CompoundFinanceBluePrint(props) {
       );
     } else if (index === 1) {
       return (
-        <GestureDetector gesture={composed}>
-          <View style={styles.product_view}>
-            <Text style={styles.product_title}>
-              Borrow Cryptos{' '}
-              <Text
-                style={{
-                  ...themeHere.text.body_medium,
-                  color: themeHere.colors.foreground,
-                }}>
-                (2/2)
-              </Text>
+        // <GestureDetector gesture={composed}>
+        <View style={styles.product_view}>
+          <Text style={styles.product_title}>
+            Borrow Cryptos{' '}
+            <Text
+              style={{
+                ...themeHere.text.body_medium,
+                color: themeHere.colors.foreground,
+              }}>
+              (2/2)
             </Text>
-            <View style={styles.product_focused_indicator_view}>
-              <View style={styles.product_unfocused_indicator} />
-              <View style={styles.product_focused_indicator} />
-            </View>
-
-            <SquircleView
-              squircleParams={{
-                cornerSmoothing: 1,
-                cornerRadius: 15,
-                fillColor: themeHere.colors.mid_ground + '25',
-              }}
-              style={styles.product_tile_view}>
-              <BorrowCompoundFinance />
-            </SquircleView>
+          </Text>
+          <View style={styles.product_focused_indicator_view}>
+            <View style={styles.product_unfocused_indicator} />
+            <View style={styles.product_focused_indicator} />
           </View>
-        </GestureDetector>
+
+          <SquircleView
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: themeHere.colors.mid_ground + '25',
+            }}
+            style={styles.product_tile_view}>
+            <BorrowCompoundFinance />
+          </SquircleView>
+        </View>
+        // </GestureDetector>
       );
     } else {
       return (

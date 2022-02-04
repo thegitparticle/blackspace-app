@@ -13,6 +13,7 @@ import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import TransactEarnCompound from '../../helpers/TransactEarnCompound';
 import TransactBorrowCompound from '../../helpers/TransactBorrowCompound';
 import EnterMarketsCompound from '../../helpers/EnterMarketsCompound';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -36,37 +37,50 @@ e. "NoColl" - you do not have the needed collateral - reduce the borrow accordin
 
  */
 
+/*
+Info={info}
+          ChangeBodyTransaction={changeBodyToTransaction}
+          ChangeBodyEnterAmount={changeBodyToEnterAmount}
+          State={state_here}
+          Amount={amount}
+          CollNeededFiat={collNeededFiat}
+ */
+
 function ConfirmBorrowCompound(props) {
-  useEffect(() => {
-    (async function () {
-      const account = await Compound.api.account({
-        addresses: props.State.WDeetsReducer.wdeets.wallet_address,
-        network: 'ropsten',
-      });
+  const navigation = useNavigation();
+  const [renderContext, setRenderContext] = useState('WalletHasNoETHButERCs');
+  /*
+    All render states: CheckingCompound | CompoundHasEnough | CheckingWallet | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
+  */
 
-      let daiBorrowBalance = 0;
-      if (Object.isExtensible(account) && account.accounts) {
-        account.accounts.forEach(acc => {
-          acc.tokens.forEach(tok => {
-            if (tok.symbol === Compound.cDAI) {
-              daiBorrowBalance = +tok.borrow_balance_underlying.value;
+  // useEffect(() => {
+  //   (async function () {
+  //     const account = await Compound.api.account({
+  //       addresses: props.State.WDeetsReducer.wdeets.wallet_address,
+  //       network: 'rinkeby',
+  //     });
+  //
+  //     let daiBorrowBalance = 0;
+  //     if (Object.isExtensible(account) && account.accounts) {
+  //       account.accounts.forEach(acc => {
+  //         acc.tokens.forEach(tok => {
+  //           if (tok.symbol === Compound.cDAI) {
+  //             daiBorrowBalance = +tok.borrow_balance_underlying.value;
+  //
+  //             // 1. check if props.CollNeededFiat is > or < than this borrowbalance here
+  //             // 2.1. if compound itself has the needed coll - then
+  //             // 2.2. else balance is not fully there - then check wallet balances and see if it works
+  //           }
+  //         });
+  //       });
+  //     }
+  //
+  //     console.log('daiBorrowBalance', daiBorrowBalance);
+  //   })().catch(console.error);
+  // }, []);
 
-              // 1. check if props.CollNeededFiat is > or < than this borrowbalance here
-              // 2.1. if compound itself has the needed coll - then
-              // 2.2. else balance is not fully there - then check wallet balances and see if it works
-            }
-          });
-        });
-      }
-
-      console.log('daiBorrowBalance', daiBorrowBalance);
-    })().catch(console.error);
-  }, []);
-
-  const [renderContext, setRenderContext] = useState('WalletHasColl');
-
-  function MainBlock() {
-    if (renderContext === 'Checking') {
+  function MainBlockConfirmBorrowCompound() {
+    if (renderContext === 'CheckingCompound') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -79,7 +93,7 @@ function ConfirmBorrowCompound(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'CompoundHasEnough') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -92,7 +106,7 @@ function ConfirmBorrowCompound(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -105,7 +119,7 @@ function ConfirmBorrowCompound(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletNeedsSwap') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -129,29 +143,29 @@ function ConfirmBorrowCompound(props) {
                 }
               />
               <TokenWithIconBadge
-                symbol={'DAI'}
+                symbol={'ETH'}
                 icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                  'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png?1595348880'
                 }
               />
               <TokenWithIconBadge
-                symbol={'DAI'}
+                symbol={'USDC'}
                 icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                  'https://assets.coingecko.com/coins/images/6319/thumb_2x/USD_Coin_icon.png?1547042389'
                 }
               />
             </View>
             <View style={styles.supported_coins_view}>
               <TokenWithIconBadge
-                symbol={'DAI'}
+                symbol={'USDT'}
                 icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                  'https://assets.coingecko.com/coins/images/325/thumb_2x/Tether-logo.png?1598003707'
                 }
               />
               <TokenWithIconBadge
-                symbol={'DAI'}
+                symbol={'BAT'}
                 icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
+                  'https://assets.coingecko.com/coins/images/677/thumb_2x/basic-attention-token.png?1547034427'
                 }
               />
             </View>
@@ -177,14 +191,14 @@ function ConfirmBorrowCompound(props) {
     }
   }
 
-  function ButtonBlock() {
-    if (renderContext === 'Checking') {
+  function ButtonBlockConfirmBorrowCompound() {
+    if (renderContext === 'CheckingCompound') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -195,13 +209,13 @@ function ConfirmBorrowCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'CompoundHasEnough') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'start borrow process'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => props.ChangeBodyTransaction()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -215,11 +229,11 @@ function ConfirmBorrowCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'start borrow process'}
+            title={'pay collateral & borrow'}
             type={'solid'}
             onPress={() => {
               // EnterMarketsCompound(
@@ -246,7 +260,7 @@ function ConfirmBorrowCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletNeedsSwap') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.button_block_view}>
           <Button
@@ -291,8 +305,8 @@ function ConfirmBorrowCompound(props) {
   return (
     <View style={styles.parent_view}>
       <View />
-      <MainBlock />
-      <ButtonBlock />
+      <MainBlockConfirmBorrowCompound />
+      <ButtonBlockConfirmBorrowCompound />
     </View>
   );
 }

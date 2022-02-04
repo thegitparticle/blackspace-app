@@ -166,7 +166,10 @@ function BorrowCompoundFinance() {
           <Text style={styles.order_info_title_text}>collateral needed</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {(100 / (infoHere.cToken[0].collateral_factor.value * 100)) * 100}{' '}
+              {Number(
+                (100 / (infoHere.cToken[0].collateral_factor.value * 100)) *
+                  100,
+              ).toFixed(2)}{' '}
               %
             </Text>
           </Text>

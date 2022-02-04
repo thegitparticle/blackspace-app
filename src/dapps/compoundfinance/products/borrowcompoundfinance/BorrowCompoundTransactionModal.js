@@ -36,7 +36,8 @@ function BorrowCompoundTransactionModal({route, dispatch}) {
       return (
         <ConfirmBorrowCompound
           Info={info}
-          ChangeBody={changeBodyToTransaction}
+          ChangeBodyTransaction={changeBodyToTransaction}
+          ChangeBodyEnterAmount={changeBodyToEnterAmount}
           State={state_here}
           Amount={amount}
           CollNeededFiat={collNeededFiat}
