@@ -16,7 +16,11 @@ function RenderAppBluePrintHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
     return <MakerDaoBluePrint />;
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
-    return <CompoundFinanceBluePrint />;
+    return (
+      <CompoundFinanceBluePrint
+        SwipeNavigateFunction={props.swipe_navigate_function}
+      />
+    );
   } else if (props.function_name === 'UniswapLandingBluePrint') {
     return <UniswapBluePrint />;
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {

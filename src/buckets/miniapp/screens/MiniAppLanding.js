@@ -11,6 +11,7 @@ import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header
 import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
 import LottieView from 'lottie-react-native';
 import {useSx, View, Image, Text} from 'dripsy';
+import {runOnJS} from 'react-native-reanimated';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,6 +29,7 @@ function MiniAppLanding({route}) {
           <HScrollView index={0}>
             <RenderAppBluePrintHelper
               function_name={app_details.landing_blueprint_function_name}
+              swipe_navigate_function={changeIndexToOne}
             />
           </HScrollView>
         );
@@ -185,6 +187,10 @@ function MiniAppLanding({route}) {
       tabStyle={{backgroundColor: themeHere.colors.background}}
     />
   );
+
+  function changeIndexToOne() {
+    runOnJS(setIndex(1));
+  }
 
   return (
     <CollapsibleHeaderTabView
