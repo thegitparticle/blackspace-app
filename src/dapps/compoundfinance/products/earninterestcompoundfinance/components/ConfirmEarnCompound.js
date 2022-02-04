@@ -146,14 +146,7 @@ function ConfirmEarnCompound(props) {
           <Button
             title={'start staking process'}
             type={'solid'}
-            onPress={() =>
-              TransactEarnCompound(
-                props.State.WDeetsReducer.wdeets.wallet_address,
-                props.State.WDeetsReducer.wdeets.wallet_privateKey,
-                props.Amount,
-                props.Info.cToken[0].underlying_symbol,
-              )
-            }
+            onPress={() => props.ChangeBodyTransaction()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

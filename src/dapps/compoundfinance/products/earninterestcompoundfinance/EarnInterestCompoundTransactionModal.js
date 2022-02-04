@@ -34,8 +34,9 @@ function EarnInterestCompoundTransactionModal({route, dispatch}) {
       return (
         <TransactionOngoingEarnCompound
           Info={info}
-          ChangeBody={changeBodyToEnterAmount}
+          ChangeBodyEnterAmount={changeBodyToEnterAmount}
           State={state_here}
+          Amount={amount}
         />
       );
     } else if (renderScreen === 'ConfirmEarn') {
