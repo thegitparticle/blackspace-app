@@ -26,7 +26,7 @@ e. "WalletBalanceNotEnough" - you do not have the needed in wallet - reduce stak
  */
 
 function ConfirmEarnCompound(props) {
-  const [renderContext, setRenderContext] = useState('Checking');
+  const [renderContext, setRenderContext] = useState('NoAmount');
   /*
     All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
   */
@@ -56,7 +56,7 @@ function ConfirmEarnCompound(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasEnough') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -69,7 +69,7 @@ function ConfirmEarnCompound(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletBalanceNotEnough') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -78,8 +78,22 @@ function ConfirmEarnCompound(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough amount, reduce borrow amount and try
-            again
+            your do not have enough ETH but have the needed collateral in
+            tokens. buy ETH on uniswap
+          </Text>
+        </View>
+      );
+    } else if (renderContext === 'NoAmount') {
+      return (
+        <View style={styles.main_block_view}>
+          <EmojiIcon
+            color={themeHere.colors.danger_red}
+            size={80}
+            emoji={'⚠️'}
+          />
+          <Text style={styles.text_highlighted}>
+            your do not have enough balance in your wallet. reduce amount and
+            try again
           </Text>
         </View>
       );
@@ -106,7 +120,7 @@ function ConfirmEarnCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasEnough') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
@@ -133,22 +147,36 @@ function ConfirmEarnCompound(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletBalanceNotEnough') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'go back'}
+            title={'buy on uniswap'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            // onPress={() => }  // uniswap redirect logic
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
             ViewComponent={LinearGradient}
             linearGradientProps={{
-              colors: [
-                themeHere.colors.danger_red_dark,
-                themeHere.colors.danger_red,
-              ],
+              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
+            }}
+          />
+        </View>
+      );
+    } else if (renderContext === 'NoAmount') {
+      return (
+        <View style={styles.button_block_view}>
+          <Button
+            title={'go back'}
+            type={'solid'}
+            // onPress={() => }  // uniswap redirect logic
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [themeHere.colors.mid_ground + '50'],
             }}
           />
         </View>
