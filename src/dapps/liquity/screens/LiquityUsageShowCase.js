@@ -1,5 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
 import {Text, View, Image, useSx, styled} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
@@ -20,6 +26,7 @@ import {EthersLiquity} from '@liquity/lib-ethers';
 import {ethers} from 'ethers';
 import {connect} from 'react-redux';
 import useLUSDFiatPrice from '../helpers/useLUSDFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -59,6 +66,9 @@ function LiquityUsageShowCase() {
 
   const {loadingEth, priceEth} = useEthFiatPrice();
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
+
+  const [showEnterCollPopup, setShowEnterCollPopup] = useState(false);
+  const [collAmount, setCollAmount] = useState('');
 
   const [liquity, setLiquity] = useState();
   const [trove, setTrove] = useState(null);
@@ -343,7 +353,7 @@ function LiquityUsageShowCase() {
             <Button
               title={'add collateral'}
               type={'solid'}
-              onPress={() => navigation.goBack()}
+              onPress={() => setShowEnterCollPopup(true)}
               containerStyle={{alignSelf: 'center', marginBottom: 30}}
               buttonStyle={{
                 width: windowWidth * 0.5,
@@ -362,7 +372,105 @@ function LiquityUsageShowCase() {
     }
   }
 
-  return <RenderBody />;
+  return (
+    <View>
+      <RenderBody />
+      <Modal
+        visible={showEnterCollPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowEnterCollPopup(false);
+        }}>
+        <ModalContent>
+          <View variant="layout.info_popup">
+            <View
+              sx={{
+                flexDirection: 'row',
+                marginBottom: '$4',
+                marginTop: '$6',
+              }}>
+              <TextInput
+                numberOfLines={1}
+                onChangeText={setCollAmount}
+                value={collAmount}
+                style={{
+                  backgroundColor: 'transparent',
+                  ...themeHere.text.header_bold,
+                  color: themeHere.colors.foreground,
+                  width: (windowWidth - 40) / 2,
+                  height: 50,
+                  marginHorizontal: 20,
+                }}
+                placeholder={'0.0 LUSD'}
+                placeholderTextColor={themeHere.colors.foreground + 50}
+                keyboardType={'decimal-pad'}
+                onEndEditing={() => {}}
+              />
+              <TouchableOpacity style={{color: 'transparent'}}>
+                <SquircleView
+                  style={{
+                    width: (windowWidth - 80) / 3,
+                    height: 50,
+                    alignItems: 'center',
+                    flexDirection: 'row',
+                    marginHorizontal: 10,
+                  }}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: themeHere.colors.mid_ground + '25',
+                  }}>
+                  <FastImage
+                    source={{
+                      uri: 'https://i.postimg.cc/4d53xMqN/128-lusd-icon.png',
+                      priority: FastImage.priority.normal,
+                    }}
+                    resizeMode={FastImage.resizeMode.contain}
+                    style={{
+                      width: 20,
+                      height: 20,
+                      borderRadius: 10,
+                      marginHorizontal: 10,
+                    }}
+                  />
+                  <Text
+                    style={{
+                      ...themeHere.text.subhead_bold,
+                      color: themeHere.colors.foreground,
+                      textAlign: 'center',
+                      marginHorizontal: 10,
+                    }}>
+                    LUSD
+                  </Text>
+                </SquircleView>
+              </TouchableOpacity>
+            </View>
+            <View>
+              <Button
+                title={'add collateral'}
+                type={'solid'}
+                onPress={() => setShowEnterCollPopup(true)}
+                containerStyle={{alignSelf: 'center', marginBottom: 30}}
+                buttonStyle={{
+                  width: windowWidth * 0.5,
+                  height: 50,
+                  borderRadius: 25,
+                }}
+                titleStyle={{...themeHere.text.body_medium, color: 'white'}}
+                ViewComponent={LinearGradient}
+                linearGradientProps={{
+                  colors: [themeHere.colors.mid_ground + '50'],
+                }}
+              />
+            </View>
+          </View>
+        </ModalContent>
+      </Modal>
+    </View>
+  );
 }
 
 const mapStateToProps = state => {
