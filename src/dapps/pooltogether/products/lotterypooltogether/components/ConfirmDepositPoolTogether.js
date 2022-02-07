@@ -13,6 +13,8 @@ import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useUSDCFiatPrice from '../../../helpers/useUSDCFiatPrice';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,58 +22,69 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 /*
-1. checks if wallet has enough of token1 + gas (ETH only)?
-3. if yes in wallet : show "x amount of this" will be paid to get "y of this" + gas fees (approx) = ....
-4. if no gas (ETH) in wallet : ETH needed for gas is not there. First buy ETH
-5. if no amount in wallet : you do not have required amount, reduce and try again
-
-All states of this component
-a. "Checking" - checking your compound history and wallet balances to assess collateral - useEffect runs during this time
-c. "WalletHasAmount" - your have the needed collateral in <symbol> - you can borrow <amount><token_symbol> now
-d. "WalletHasNoETHGas" - you have collateral amount in wallet in unsupported coins - convert them to either of these - give those 5 options
-e. "NoAmount" - you do not have the needed collateral - reduce the borrow accordingly
-
- */
-
-/*
           ChangeBody={changeBodyToTransaction}
           State={state_here}
-          BorrowAmount={borrowAmount}
-          CollateralNeededEth={collateralNeededEth}
-          FixedLoanCharges={fixedLoanCharges}
+          DepositAmount={depositAmount}
  */
 
 function ConfirmDepositPoolTogether(props) {
   const navigation = useNavigation();
-  const {loadingEth, priceEth} = useEthFiatPrice();
 
   const [renderContext, setRenderContext] = useState('Checking');
   /*
-  All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
+    All render states: Checking | WalletHasAmount (usdc and gas) | WalletHasNoUSDCButOthers | WalletHasNoGas | NoAmount
    */
+
+  let allErcBalances = props.State.MyTokenBalancesReducer.tokens;
 
   let ethBalanceInWallet =
     Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
     10 ** -18;
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
+  const gas = 100; // (in $)
+
+  const [usdcBalance, setUSDCBalance] = useState(0);
+  const [usdcBalanceObject, setUSDCBalanceObject] = useState(null);
+
+  const {loadingPriceUSDC, priceUSDC} = useUSDCFiatPrice();
+
+  function grabUSDCBalance() {
+    const x = _.findIndex(allErcBalances, {symbol: 'VIBE'});
+
+    if (x > 0) {
+      setUSDCBalanceObject(allErcBalances[x]);
+      setUSDCBalance(Number(allErcBalances[x].tokenBalance_decimal));
+    } else {
+      setUSDCBalanceObject({});
+      setUSDCBalance(0);
+    }
+  }
 
   function checkIfWalletHasBalance() {
-    if (Number(props.CollateralNeededEth) < Number(ethBalanceInWallet)) {
-      setRenderContext('WalletHasAmount');
-    } else {
-      if (
-        Number(props.CollateralNeededEth) * Number(priceEth) <
-        Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
-      ) {
-        setRenderContext('WalletHasNoETHButERCs');
+    if (Number(props.DepositAmount) < usdcBalance) {
+      if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
+        setRenderContext('WalletHasAmount');
       } else {
-        setRenderContext('NoAmount');
+        setRenderContext('WalletHasNoGas');
       }
+    } else if (
+      Number(props.DepositAmount) * Number(priceUSDC) <
+      Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
+    ) {
+      setRenderContext('WalletHasNoETHButERCs');
+    } else {
+      setRenderContext('NoAmount');
     }
   }
 
   useEffect(() => {
-    checkIfWalletHasBalance();
+    grabUSDCBalance();
   }, []);
+
+  useEffect(() => {
+    checkIfWalletHasBalance();
+  }, [usdcBalance]);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
