@@ -29,12 +29,10 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function LotteryPoolTogetherProduct() {
+function IndexCoopProduct() {
   return (
     <View style={styles.parent_view}>
-      <Text style={{...styles.block_sub_title, marginTop: 40}}>
-        how much do you wanna bet on here to lot lot
-      </Text>
+      <Text style={{...styles.block_sub_title, marginTop: 40}}>discover</Text>
     </View>
   );
 }
@@ -44,7 +42,7 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(LotteryPoolTogetherProduct);
+export default connect(mapStateToProps)(IndexCoopProduct);
 
 const styles = StyleSheet.create({
   parent_view: {},
