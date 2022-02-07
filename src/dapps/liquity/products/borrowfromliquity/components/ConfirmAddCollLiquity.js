@@ -79,7 +79,7 @@ function ConfirmAddCollLiquity(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            Your wallet has enough ETH as collateral
+            Your wallet has enough ETH to add as collateral
           </Text>
         </View>
       );
@@ -105,8 +105,8 @@ function ConfirmAddCollLiquity(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have {props.CollateralNeededEth} ETH as collateral,
-            reduce collateral amount and try again
+            your wallet does have enough ETH to add collateral, reduce
+            collateral amount and try again
           </Text>
         </View>
       );
@@ -137,7 +137,7 @@ function ConfirmAddCollLiquity(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'confirm borrow'}
+            title={'confirm adding collateral'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}

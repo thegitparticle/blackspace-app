@@ -334,7 +334,7 @@ function LiquityUsageShowCase() {
               title={'payback debt'}
               type={'solid'}
               onPress={() =>
-                navigation('PaybackLiquityTransactionModal', {
+                navigation.navigate('PaybackLiquityTransactionModal', {
                   collAmount: collAmount,
                   borrowAmount: Number(
                     ethers.utils.formatEther(trove.debt._bigNumber),
@@ -459,11 +459,12 @@ function LiquityUsageShowCase() {
               <Button
                 title={'add collateral'}
                 type={'solid'}
-                onPress={() =>
-                  navigation('AddCollTransactionModal', {
+                onPress={() => {
+                  setShowEnterCollPopup(false);
+                  navigation.navigate('AddCollTransactionModal', {
                     collAmount: collAmount,
-                  })
-                }
+                  });
+                }}
                 containerStyle={{alignSelf: 'center', marginBottom: 30}}
                 buttonStyle={{
                   width: windowWidth * 0.5,
