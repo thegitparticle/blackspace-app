@@ -109,15 +109,11 @@ function ConfirmDepositPoolTogether(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            Your wallet has {Number(props.CollateralNeededEth).toFixed(2)} ETH
-            as collateral
-          </Text>
-          <Text style={styles.text_highlighted}>
-            Borrow {props.BorrowAmount} LUSD
+            Your wallet has enough USDC to deposit
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasNoETHButERCs') {
+    } else if (renderContext === 'WalletHasNoUSDCButOthers') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -126,8 +122,21 @@ function ConfirmDepositPoolTogether(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your do not have enough ETH but have the needed collateral in
+            you do not have enough USDC but have needed deposit amount in other
             tokens.
+          </Text>
+        </View>
+      );
+    } else if (renderContext === 'WalletHasNoGas') {
+      return (
+        <View style={styles.main_block_view}>
+          <EmojiIcon
+            color={themeHere.colors.danger_red}
+            size={80}
+            emoji={'⚠️'}
+          />
+          <Text style={styles.text_highlighted}>
+            you do not have enough ETH to pay gas
           </Text>
         </View>
       );
@@ -140,8 +149,8 @@ function ConfirmDepositPoolTogether(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have {props.CollateralNeededEth} ETH as collateral,
-            reduce loan amount and try again
+            your wallet does have {props.DepositAmount} USDC to deposit, reduce
+            amount and try again
           </Text>
         </View>
       );
@@ -172,7 +181,7 @@ function ConfirmDepositPoolTogether(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'confirm borrow'}
+            title={'confirm deposit'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -188,11 +197,28 @@ function ConfirmDepositPoolTogether(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasNoETHButERCs') {
+    } else if (renderContext === 'WalletHasNoUSDCButOthers') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'convert to ETH on Uniswap'}
+            title={'buy USDC on Uniswap'}
+            type={'solid'}
+            onPress={() => props.ChangeBody()}
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
+            }}
+          />
+        </View>
+      );
+    } else if (renderContext === 'WalletHasNoGas') {
+      return (
+        <View style={styles.button_block_view}>
+          <Button
+            title={'buy ETH on Uniswap'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
