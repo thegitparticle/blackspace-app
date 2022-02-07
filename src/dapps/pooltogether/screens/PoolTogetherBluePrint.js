@@ -12,6 +12,7 @@ import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthP
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import BorrowLiquityProduct from '../products/borrowfromliquity/BorrowLiquityProduct';
+import LotteryPoolTogetherProduct from '../products/lotterypooltogether/LotteryPoolTogetherProduct';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
