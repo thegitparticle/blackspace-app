@@ -23,6 +23,7 @@ import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -104,6 +105,9 @@ function ConfirmBorrowCompound(props) {
   const {loadingEth, priceEth} = useEthFiatPrice();
 
   const [renderButton, setRenderButton] = useState(true);
+  const [showAssetCheckPopup, setShowAssetCheckPopup] = useState(false);
+
+  function checkBalanceOfAsset() {}
 
   function OneCollateralAsset(item) {
     const [selected, setSelected] = useState(false);
@@ -450,6 +454,38 @@ function ConfirmBorrowCompound(props) {
       </Text>
       {poolsHeadersBorrowProduct.map(item => OneCollateralAsset(item))}
       <NextButton />
+      <Modal
+        visible={showAssetCheckPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowAssetCheckPopup(false);
+        }}>
+        <ModalContent>
+          <View variant="layout.info_popup">
+            <Text
+              variant="header_bold"
+              sx={{color: 'foreground', mt: '$4', mb: '$8'}}>
+              Base Currency
+            </Text>
+            <Text variant="subhead_medium" sx={{color: 'foreground', mb: '$4'}}>
+              $ US Dollar
+            </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              ₹ Indian Rupee (coming soon)
+            </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              € Euro (coming soon)
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
       {/*<MainBlockConfirmBorrowCompound />*/}
       {/*<ButtonBlockConfirmBorrowCompound />*/}
     </View>
