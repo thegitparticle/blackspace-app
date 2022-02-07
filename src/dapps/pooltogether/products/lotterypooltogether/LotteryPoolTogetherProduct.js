@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   Appearance,
   Dimensions,
@@ -16,6 +16,9 @@ import useUSDCFiatPrice from '../../helpers/useUSDCFiatPrice';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
+import {ethers} from 'ethers';
+import {mainnet} from '@pooltogether/v4-pool-data';
+import {PrizePoolNetwork} from '@pooltogether/v4-client-js';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,10 +27,39 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
+const prov = new ethers.providers.JsonRpcProvider(
+  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
 function LotteryPoolTogetherProduct() {
   const navigation = useNavigation();
   const [borrowAmount, setBorrowAmount] = useState('');
   const {loadingPriceUSDC, priceUSDC} = useUSDCFiatPrice();
+
+  const [poolNetwork, setPoolNetwork] = useState();
+  const [ptBalance, setPtBalance] = useState();
+
+  const PrizePoolNtk = new PrizePoolNetwork(prov, mainnet);
+
+  const prizePool = PrizePoolNtk.getPrizePool(
+    1,
+    '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
+  );
+
+  // useEffect(() => {
+  //   const PrizePoolNtk = new PrizePoolNetwork(prov, mainnet);
+  //   setPoolNetwork(PrizePoolNtk);
+  // }, []);
+  //
+  // useEffect(() => {
+  //   (async function () {
+  //     const prizePool = poolNetwork
+  //       .getPrizePool(1, '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be')
+  //       .catch(e => console.log(e));
+  //     setPtBalance(prizePool);
+  //     console.log(prizePool);
+  //   })().catch(console.error);
+  // }, [poolNetwork]);
 
   function RenderOrderInfo() {
     return (
