@@ -8,6 +8,7 @@ import LottieView from 'lottie-react-native';
 import {ethers} from 'ethers/src.ts/index';
 import {EthersLiquity} from '@liquity/lib-ethers';
 import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
+import {BigNumber} from 'ethers';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,7 +39,7 @@ function TransactionOngoingPaybackLiquity(props) {
 
   async function paybackDebt() {
     let x_here = await liquity
-      .closeTrove()
+      .closeTrove({gasLimit: BigNumber.from('21000000')})
       .then(() => {
         console.log(' closing trove works');
         setRenderContext('TransactionSuccess');

@@ -64,14 +64,14 @@ function ConfirmPaybackLiquity(props) {
   }
 
   function checkIfWalletHasBalance() {
-    if (Number(props.DepositAmount) < lusdBalance) {
+    if (Number(props.BorrowAmount) < lusdBalance) {
       if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
         setRenderContext('WalletHasAmount');
       } else {
         setRenderContext('WalletHasNoGas');
       }
     } else if (
-      Number(props.DepositAmount) * Number(priceLUSD) <
+      Number(props.BorrowAmount) * Number(priceLUSD) <
       Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
     ) {
       setRenderContext('WalletHasNoLUSDButOthers');
@@ -86,7 +86,7 @@ function ConfirmPaybackLiquity(props) {
 
   useEffect(() => {
     checkIfWalletHasBalance();
-  }, [lusdBalance]);
+  }, [lusdBalance, priceEth]);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -182,7 +182,7 @@ function ConfirmPaybackLiquity(props) {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'confirm borrow'}
+            title={'confirm pay debt'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}

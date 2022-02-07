@@ -4,6 +4,8 @@ import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import ConfirmAddCollLiquity from './components/ConfirmAddCollLiquity';
 import TransactionOngoingAddCollLiquity from './components/TransactionOngoingAddCollLiquity';
+import ConfirmPaybackLiquity from './components/ConfirmPaybackLiquity';
+import TransactionOngoingPaybackLiquity from './components/TransactionOngoingPaybackLiquity';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,7 +22,7 @@ function PaybackLiquityTransactionModal({route, dispatch}) {
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
-        <TransactionOngoingAddCollLiquity
+        <TransactionOngoingPaybackLiquity
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
           CollateralNeededEth={collAmount}
@@ -29,7 +31,7 @@ function PaybackLiquityTransactionModal({route, dispatch}) {
       );
     } else if (renderScreen === 'ConfirmBorrow') {
       return (
-        <ConfirmAddCollLiquity
+        <ConfirmPaybackLiquity
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           CollateralNeededEth={collAmount}
