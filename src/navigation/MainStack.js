@@ -30,6 +30,8 @@ import BorrowLiquityTransactionModal from '../dapps/liquity/products/borrowfroml
 import TrendingTokensTransactionModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensTransactionModal';
 import LotteryPoolTogetherTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/LotteryPoolTogetherTransactionModal';
 import IndexCoopTransactionModal from '../dapps/indexfunds/products/indexcoopfunds/IndexCoopTransactionModal';
+import AddCollTransactionModal from '../dapps/liquity/products/borrowfromliquity/AddCollTransactionModal';
+import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/PaybackLiquityTransactionModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -261,6 +263,30 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="BorrowLiquityTransactionModal"
           component={BorrowLiquityTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="AddCollTransactionModal"
+          component={AddCollTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="PaybackLiquityTransactionModal"
+          component={PaybackLiquityTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,

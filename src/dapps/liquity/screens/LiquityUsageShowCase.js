@@ -333,7 +333,14 @@ function LiquityUsageShowCase() {
             <Button
               title={'payback debt'}
               type={'solid'}
-              onPress={() => navigation.goBack()}
+              onPress={() =>
+                navigation('PaybackLiquityTransactionModal', {
+                  collAmount: collAmount,
+                  borrowAmount: Number(
+                    ethers.utils.formatEther(trove.debt._bigNumber),
+                  ),
+                })
+              }
               containerStyle={{alignSelf: 'center', marginBottom: 30}}
               buttonStyle={{
                 width: windowWidth * 0.5,
@@ -425,7 +432,7 @@ function LiquityUsageShowCase() {
                   }}>
                   <FastImage
                     source={{
-                      uri: 'https://i.postimg.cc/4d53xMqN/128-lusd-icon.png',
+                      uri: 'https://assets.coingecko.com/coins/images/279/thumb_2x/ethereum.png?1595348880',
                       priority: FastImage.priority.normal,
                     }}
                     resizeMode={FastImage.resizeMode.contain}
@@ -443,7 +450,7 @@ function LiquityUsageShowCase() {
                       textAlign: 'center',
                       marginHorizontal: 10,
                     }}>
-                    LUSD
+                    ETH
                   </Text>
                 </SquircleView>
               </TouchableOpacity>
@@ -452,7 +459,11 @@ function LiquityUsageShowCase() {
               <Button
                 title={'add collateral'}
                 type={'solid'}
-                onPress={() => setShowEnterCollPopup(true)}
+                onPress={() =>
+                  navigation('AddCollTransactionModal', {
+                    collAmount: collAmount,
+                  })
+                }
                 containerStyle={{alignSelf: 'center', marginBottom: 30}}
                 buttonStyle={{
                   width: windowWidth * 0.5,
