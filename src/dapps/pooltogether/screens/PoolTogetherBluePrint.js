@@ -31,7 +31,7 @@ function PoolTogetherBluePrint() {
       return (
         <View style={styles.product_view}>
           <Text style={styles.product_title}>
-            No loss lottery
+            No loss lottery{' '}
             <Text
               style={{
                 ...themeHere.text.body_medium,
