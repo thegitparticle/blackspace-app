@@ -1,6 +1,8 @@
-import {makeTheme, styled} from 'dripsy';
+import {makeTheme, styled, useSx} from 'dripsy';
 import {Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
+import {SquircleView} from 'react-native-figma-squircle';
+import {Button} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -224,6 +226,20 @@ export const dripsytheme = makeTheme({
   },
 });
 
+// Images
+
+export const StyledFastImage60 = styled(FastImage)({
+  width: 60,
+  height: 60,
+  borderRadius: 30,
+});
+
+export const StyledFastImage50 = styled(FastImage)({
+  width: 50,
+  height: 50,
+  borderRadius: 25,
+});
+
 export const StyledFastImage30 = styled(FastImage)({
   width: 30,
   height: 30,
@@ -234,4 +250,9 @@ export const StyledFastImage25 = styled(FastImage)({
   width: 25,
   height: 25,
   borderRadius: 12.5,
+});
+
+// Squircles - Cards, Tiles
+export const SquircleCard = styled(SquircleView)({
+  width: windowWidth - 40,
 });
