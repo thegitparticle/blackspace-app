@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {
   ButterThemeDark,
@@ -8,6 +8,8 @@ import LottieView from 'lottie-react-native';
 import {ethers} from 'ethers/src.ts/index';
 import {EthersLiquity} from '@liquity/lib-ethers';
 import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
+import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
+import {mainnet} from '@pooltogether/v4-pool-data';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,8 +25,17 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
  */
 
 const prov = new ethers.providers.JsonRpcProvider(
-  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+  'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
+
+const providers = {
+  1: prov,
+  137: new ethers.providers.JsonRpcProvider('https://polygon-rpc.com'),
+  // Avalanche
+  43114: new ethers.providers.JsonRpcProvider(
+    'https://api.avax.network/ext/bc/C/rpc',
+  ),
+};
 
 function TransactionOngoingDepositPoolTogether(props) {
   let wallet = new ethers.Wallet(
@@ -32,43 +43,69 @@ function TransactionOngoingDepositPoolTogether(props) {
   );
   let walletSigner = wallet.connect(prov);
 
+  const PrizePoolNtk = useMemo(
+    () => new PrizePoolNetwork(providers, mainnet),
+    [],
+  );
+
+  const prizePool = PrizePoolNtk.getPrizePool(
+    1,
+    '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
+  );
+
+  const user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
+
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
-  const maxFee = '5'.concat('0'.repeat(16)); // Slippage protection: 5%
+  const [isApproved, setIsApproved] = useState(null);
 
-  const [liquity, setLiquity] = useState();
-  const [newTrove, setNewTrove] = useState();
-
-  async function openTrove() {
-    setNewTrove(
-      await liquity
-        .openTrove({
-          depositCollateral: Number(props.CollateralNeededEth), // ETH
-          borrowLUSD: Number(props.BorrowAmount),
-        })
-        .then(() => {
-          console.log(' opening trove works');
-          setRenderContext('TransactionSuccess');
-        })
-        .catch(e => {
-          console.log(e + ' ----- does not work');
-          setRenderContext('TransactionError');
-        }),
-    );
-  }
+  const [checkForApproved, setCheckForApproved] = useState(false);
 
   useEffect(() => {
     (async () => {
-      setLiquity(await EthersLiquity.connect(walletSigner));
+      const {allowanceUnformatted, isApproved} =
+        await user.getDepositAllowance();
+      setIsApproved(isApproved);
     })();
-  }, []);
+  }, [checkForApproved]);
 
   useEffect(() => {
-    (async () => {
-      openTrove();
-    })();
-  }, [liquity]);
+    if (isApproved === true || false) {
+      console.log('not resolved');
+    } else {
+      if (isApproved) {
+        console.log('approve resolved - and can deposit');
+        (async () => {
+          const txResponse = await user
+            .deposit(ethers.utils.parseUnits(Number(props.DepositAmount), 6))
+            .then(() => {
+              setRenderContext('TransactionSuccess');
+            })
+            .catch(e => {
+              console.log(e + ' ----- does not work');
+              setRenderContext('TransactionError');
+            });
+          console.log(txResponse);
+        })();
+      } else {
+        console.log('approve resolved, but can not deposit - false');
+        (async () => {
+          const txResponse = await user
+            .approveDeposits(
+              ethers.utils.parseUnits(Number(props.DepositAmount) + 1, 6),
+            )
+            .then(() => {
+              setCheckForApproved(true);
+            })
+            .catch(e => {
+              console.log(e + ' ----- approval does not work');
+            });
+          console.log(txResponse);
+        })();
+      }
+    }
+  }, [isApproved]);
 
   if (renderContext === 'TransactionHappening') {
     return (
@@ -105,7 +142,7 @@ function TransactionOngoingDepositPoolTogether(props) {
           resizeMode="cover"
         />
         <Text style={styles.text_highlighted}>
-          Loan amount will reflect in your wallet in few moments
+          Deposit will reflect in your Activity in few moments
         </Text>
       </View>
     );
@@ -125,7 +162,8 @@ function TransactionOngoingDepositPoolTogether(props) {
           resizeMode="cover"
         />
         <Text style={styles.text_highlighted}>
-          Please try again & make sure you have enough extra ETH for gas
+          Some error occurred. Please try again & make sure you have enough
+          extra ETH for gas
         </Text>
       </View>
     );
