@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
@@ -10,7 +10,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function PoolTogetherJargonBuster() {
   return (
     <View style={styles.parent_view}>
-      <Text style={{color: 'orange'}}>jargons will be slayed</Text>
+      <Text style={{color: 'orange'}}>jargons will be slayed pool</Text>
     </View>
   );
 }

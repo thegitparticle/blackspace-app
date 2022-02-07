@@ -7,7 +7,7 @@ export const GetMyApps = user_id => {
 
     axios
       // .get('www.suprblack.xyz/api/users/my_dapps/' + String(user_id) + '/')
-      .get('https://run.mocky.io/v3/ce81300d-5eb0-4d50-96d0-b76f48b67df4')
+      .get('https://run.mocky.io/v3/6041abb8-faad-4126-91e9-c363f89c5bb5')
       .then(response => (res = response.data))
       .then(() =>
         dispatch({

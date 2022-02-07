@@ -5,8 +5,9 @@ import MakerDaoJargonBuster from '../../../dapps/makerdao/screens/MakerDaoJargon
 import CompoundFinanceJargonBuster from '../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
 import UniswapJargonBuster from '../../../dapps/uniswap/screens/UniswapJargonBuster';
 import MemeCoinsJargonBuster from '../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster';
-import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
 import LiquityJargonBuster from '../../../dapps/liquity/screens/LiquityJargonBuster';
+import PoolTogetherJargonBuster from '../../../dapps/pooltogether/screens/PoolTogetherJargonBuster';
+import IndexFundsJargonBuster from '../../../dapps/indexfunds/screens/IndexFundsJargonBuster';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,6 +25,10 @@ function RenderAppJargonBusterHelper(props) {
     return <MemeCoinsJargonBuster />;
   } else if (props.function_name === 'LiquityLandingBluePrint') {
     return <LiquityJargonBuster />;
+  } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
+    return <PoolTogetherJargonBuster />;
+  } else if (props.function_name === 'IndexFundsLandingBluePrint') {
+    return <IndexFundsJargonBuster />;
   } else {
     return (
       <View style={styles.parent_view}>

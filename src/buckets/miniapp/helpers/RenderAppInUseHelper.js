@@ -1,16 +1,13 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MakerDaoJargonBuster from '../../../dapps/makerdao/screens/MakerDaoJargonBuster';
-import CompoundFinanceJargonBuster from '../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
-import UniswapJargonBuster from '../../../dapps/uniswap/screens/UniswapJargonBuster';
-import MemeCoinsJargonBuster from '../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster';
 import MakerDaoUsageShowCase from '../../../dapps/makerdao/screens/MakerDaoUsageShowCase';
 import CompoundFinanceUsageShowCase from '../../../dapps/compoundfinance/screens/CompoundFinanceUsageShowCase';
 import UniswapUsageShowCase from '../../../dapps/uniswap/screens/UniswapUsageShowCase';
 import MemeCoinsUsageShowCase from '../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
-import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
 import LiquityUsageShowCase from '../../../dapps/liquity/screens/LiquityUsageShowCase';
+import PoolTogetherUsageShowCase from '../../../dapps/pooltogether/screens/PoolTogetherUsageShowCase';
+import IndexFundsUsageShowCase from '../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,6 +25,10 @@ function RenderAppInUseHelper(props) {
     return <MemeCoinsUsageShowCase />;
   } else if (props.function_name === 'LiquityLandingBluePrint') {
     return <LiquityUsageShowCase />;
+  } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
+    return <PoolTogetherUsageShowCase />;
+  } else if (props.function_name === 'IndexFundsLandingBluePrint') {
+    return <IndexFundsUsageShowCase />;
   } else {
     return (
       <View style={styles.parent_view}>

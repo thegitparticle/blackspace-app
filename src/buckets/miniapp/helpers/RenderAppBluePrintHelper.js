@@ -6,6 +6,8 @@ import CompoundFinanceBluePrint from '../../../dapps/compoundfinance/screens/Com
 import UniswapBluePrint from '../../../dapps/uniswap/screens/UniswapBluePrint';
 import MemeCoinsAppBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint';
 import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
+import PoolTogetherBluePrint from '../../../dapps/pooltogether/screens/PoolTogetherBluePrint';
+import IndexFundsBluePrint from '../../../dapps/indexfunds/screens/IndexFundsBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -27,6 +29,10 @@ function RenderAppBluePrintHelper(props) {
     return <MemeCoinsAppBluePrint />;
   } else if (props.function_name === 'LiquityLandingBluePrint') {
     return <LiquityBluePrint />;
+  } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
+    return <PoolTogetherBluePrint />;
+  } else if (props.function_name === 'IndexFundsLandingBluePrint') {
+    return <IndexFundsBluePrint />;
   } else {
     return (
       <View style={styles.parent_view}>

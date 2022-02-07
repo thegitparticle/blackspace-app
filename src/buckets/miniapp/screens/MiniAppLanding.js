@@ -90,7 +90,7 @@ function MiniAppLanding({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'red'}}>
-              Products
+              Keyboard
             </Text>
           </View>
         );
@@ -98,7 +98,7 @@ function MiniAppLanding({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              Products
+              Keyboard
             </Text>
           </View>
         );
