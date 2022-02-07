@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import TransactionOngoingBorrowLiquity from './components/TransactionOngoingBorrowLiquity';
-import ConfirmBorrowLiquity from './components/ConfirmBorrowLiquity';
+import TransactionOngoingBorrowLiquity from './../../../liquity/products/borrowfromliquity/components/TransactionOngoingBorrowLiquity';
+import ConfirmBorrowLiquity from './../../../liquity/products/borrowfromliquity/components/ConfirmBorrowLiquity';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

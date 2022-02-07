@@ -28,6 +28,8 @@ import BuyTokensUniswapTransactionModal from '../dapps/uniswap/products/buytoken
 import StakeToEarnUniSwapTransactionModal from '../dapps/uniswap/products/staketoearnuniswap/StakeToEarnUniSwapTransactionModal';
 import BorrowLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/BorrowLiquityTransactionModal';
 import TrendingTokensTransactionModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensTransactionModal';
+import LotteryPoolTogetherTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/LotteryPoolTogetherTransactionModal';
+import IndexCoopTransactionModal from '../dapps/indexfunds/products/indexcoopfunds/IndexCoopTransactionModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -259,6 +261,30 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="BorrowLiquityTransactionModal"
           component={BorrowLiquityTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="LotteryPoolTogetherTransactionModal"
+          component={LotteryPoolTogetherTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="IndexCoopTransactionModal"
+          component={IndexCoopTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,

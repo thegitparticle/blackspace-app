@@ -33,7 +33,7 @@ const prov = new ethers.providers.JsonRpcProvider(
 
 function LotteryPoolTogetherProduct() {
   const navigation = useNavigation();
-  const [borrowAmount, setBorrowAmount] = useState('');
+  const [depositAmount, setDepositAmount] = useState('');
   const {loadingPriceUSDC, priceUSDC} = useUSDCFiatPrice();
 
   const [poolNetwork, setPoolNetwork] = useState();
@@ -57,10 +57,10 @@ function LotteryPoolTogetherProduct() {
     return (
       <View style={styles.order_info_view}>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>despoit amount</Text>
+          <Text style={styles.order_info_title_text}>deposit amount</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {borrowAmount === '' ? 0 : borrowAmount} USDC
+              {depositAmount === '' ? 0 : depositAmount} USDC
             </Text>
           </Text>
         </View>
@@ -74,7 +74,9 @@ function LotteryPoolTogetherProduct() {
           title={'start depositing'}
           type={'solid'}
           onPress={() =>
-            navigation.navigate('BorrowLiquityTransactionModal', {})
+            navigation.navigate('LotteryPoolTogetherTransactionModal', {
+              depositAmount: depositAmount,
+            })
           }
           containerStyle={styles.next_button_container}
           buttonStyle={styles.next_button_style}
@@ -96,8 +98,8 @@ function LotteryPoolTogetherProduct() {
       <View style={styles.borrow_input_view}>
         <TextInput
           numberOfLines={1}
-          onChangeText={setBorrowAmount}
-          value={borrowAmount}
+          onChangeText={setDepositAmount}
+          value={depositAmount}
           style={styles.enter_amount_input}
           placeholder={'0.0 USDC'}
           placeholderTextColor={themeHere.colors.foreground + 50}
@@ -125,7 +127,7 @@ function LotteryPoolTogetherProduct() {
         </TouchableOpacity>
       </View>
       <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
-        ~ $ {Number(borrowAmount) * Number(priceUSDC)}
+        ~ $ {Number(depositAmount) * Number(priceUSDC)}
       </Text>
       <RenderOrderInfo />
     </View>
