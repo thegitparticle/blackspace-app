@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {StyleSheet, Dimensions, Appearance} from 'react-native';
 import {Text, View, Image, useSx, styled} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
@@ -16,6 +16,10 @@ import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import BottomSpacer from '../../../bits/BottomSpacer';
 import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import {ethers} from 'ethers';
+import {connect} from 'react-redux';
+import useLUSDFiatPrice from '../helpers/useLUSDFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,10 +43,39 @@ what to track?
     - withdraw button (show -> payback debt first - will auto withdraw your coll)
  */
 
+let state_here = {};
+
+const prov = new ethers.providers.JsonRpcProvider(
+  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
 function LiquityUsageShowCase() {
   const navigation = useNavigation();
+  let walletAddress = state_here.WDeetsReducer.wdeets.wallet_address;
+  let wallet = new ethers.Wallet(
+    state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  );
+  let walletSigner = wallet.connect(prov);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
+  const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
+
+  const [liquity, setLiquity] = useState();
+  const [trove, setTrove] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      setLiquity(await EthersLiquity.connect(walletSigner));
+    })();
+  }, []);
+
+  useEffect(() => {
+    (async () => {
+      let troves = await liquity.getTrove(walletAddress);
+      setTrove(troves);
+      console.log(ethers.utils.formatEther(troves.debt._bigNumber));
+    })();
+  }, [liquity]);
 
   function DebtCard() {
     return (
@@ -90,7 +123,9 @@ function LiquityUsageShowCase() {
                   textAlign: 'center',
                   marginHorizontal: '$2',
                 }}>
-                15300
+                {Number(
+                  ethers.utils.formatEther(trove.debt._bigNumber),
+                ).toFixed(2)}
               </Text>
               <Text
                 variant="header_bold"
@@ -116,7 +151,11 @@ function LiquityUsageShowCase() {
                   textAlign: 'center',
                   opacity: 0.75,
                 }}>
-                ~ $ 15300
+                ~ ${' '}
+                {(
+                  Number(ethers.utils.formatEther(trove.debt._bigNumber)) *
+                  Number(priceLUSD)
+                ).toFixed(0)}
               </Text>
             </View>
           </View>
@@ -171,7 +210,9 @@ function LiquityUsageShowCase() {
                   textAlign: 'center',
                   marginHorizontal: '$2',
                 }}>
-                5.3
+                {Number(
+                  ethers.utils.formatEther(trove.collateral._bigNumber),
+                ).toFixed(2)}
               </Text>
               <Text
                 variant="header_bold"
@@ -196,7 +237,12 @@ function LiquityUsageShowCase() {
                   textAlign: 'center',
                   opacity: 0.75,
                 }}>
-                ~ $ 15300
+                ~ ${' '}
+                {(
+                  Number(
+                    ethers.utils.formatEther(trove.collateral._bigNumber),
+                  ) * Number(priceEth)
+                ).toFixed(0)}
               </Text>
             </View>
           </View>
@@ -224,7 +270,12 @@ function LiquityUsageShowCase() {
                 textAlign: 'center',
                 marginHorizontal: '$4',
               }}>
-              ~ $ 15300
+              ~ ${' '}
+              {(
+                (1.11 *
+                  Number(ethers.utils.formatEther(trove.debt._bigNumber))) /
+                Number(ethers.utils.formatEther(trove.collateral._bigNumber))
+              ).toFixed(0)}
             </Text>
           </View>
           <View
@@ -251,7 +302,7 @@ function LiquityUsageShowCase() {
                 textAlign: 'center',
                 marginHorizontal: '$4',
               }}>
-              ~ $ {priceEth}
+              ~ $ {Number(priceEth).toFixed(0)}
             </Text>
           </View>
         </View>
@@ -259,43 +310,64 @@ function LiquityUsageShowCase() {
     );
   }
 
-  return (
-    <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-      <BottomSpacer height={20} />
-      <DebtCard />
-      <BottomSpacer height={20} />
-      <View>
-        <Button
-          title={'payback debt'}
-          type={'solid'}
-          onPress={() => navigation.goBack()}
-          containerStyle={{alignSelf: 'center', marginBottom: 30}}
-          buttonStyle={{width: windowWidth * 0.5, height: 50, borderRadius: 25}}
-          titleStyle={{...themeHere.text.body_medium, color: 'white'}}
-          ViewComponent={LinearGradient}
-          linearGradientProps={{
-            colors: [themeHere.colors.red, themeHere.colors.red_dark],
-          }}
-        />
-      </View>
-      <CollateralCard />
-      <BottomSpacer height={20} />
-      <View>
-        <Button
-          title={'add collateral'}
-          type={'solid'}
-          onPress={() => navigation.goBack()}
-          containerStyle={{alignSelf: 'center', marginBottom: 30}}
-          buttonStyle={{width: windowWidth * 0.5, height: 50, borderRadius: 25}}
-          titleStyle={{...themeHere.text.body_medium, color: 'white'}}
-          ViewComponent={LinearGradient}
-          linearGradientProps={{
-            colors: [themeHere.colors.mid_ground + '50'],
-          }}
-        />
-      </View>
-    </View>
-  );
+  function RenderBody() {
+    if (trove === null) {
+      return <View />;
+    } else {
+      return (
+        <View sx={{alignItems: 'center', justifyContent: 'center'}}>
+          <BottomSpacer height={20} />
+          <DebtCard />
+          <BottomSpacer height={20} />
+          <View>
+            <Button
+              title={'payback debt'}
+              type={'solid'}
+              onPress={() => navigation.goBack()}
+              containerStyle={{alignSelf: 'center', marginBottom: 30}}
+              buttonStyle={{
+                width: windowWidth * 0.5,
+                height: 50,
+                borderRadius: 25,
+              }}
+              titleStyle={{...themeHere.text.body_medium, color: 'white'}}
+              ViewComponent={LinearGradient}
+              linearGradientProps={{
+                colors: [themeHere.colors.red, themeHere.colors.red_dark],
+              }}
+            />
+          </View>
+          <CollateralCard />
+          <BottomSpacer height={20} />
+          <View>
+            <Button
+              title={'add collateral'}
+              type={'solid'}
+              onPress={() => navigation.goBack()}
+              containerStyle={{alignSelf: 'center', marginBottom: 30}}
+              buttonStyle={{
+                width: windowWidth * 0.5,
+                height: 50,
+                borderRadius: 25,
+              }}
+              titleStyle={{...themeHere.text.body_medium, color: 'white'}}
+              ViewComponent={LinearGradient}
+              linearGradientProps={{
+                colors: [themeHere.colors.mid_ground + '50'],
+              }}
+            />
+          </View>
+        </View>
+      );
+    }
+  }
+
+  return <RenderBody />;
 }
 
-export default LiquityUsageShowCase;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(LiquityUsageShowCase);
