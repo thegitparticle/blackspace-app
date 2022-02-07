@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import TransactionOngoingBorrowLiquity from './../../../liquity/products/borrowfromliquity/components/TransactionOngoingBorrowLiquity';
-import ConfirmBorrowLiquity from './../../../liquity/products/borrowfromliquity/components/ConfirmBorrowLiquity';
+import TransactionOngoingDepositPoolTogether from './components/TransactionOngoingDepositPoolTogether';
+import ConfirmDepositPoolTogether from './components/ConfirmDepositPoolTogether';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,20 +15,20 @@ let state_here = {};
 function LotteryPoolTogetherTransactionModal({route, dispatch}) {
   const {depositAmount} = route.params;
 
-  const [renderScreen, setRenderScreen] = useState('ConfirmBorrow');
+  const [renderScreen, setRenderScreen] = useState('ConfirmDeposit');
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
-        <TransactionOngoingBorrowLiquity
+        <TransactionOngoingDepositPoolTogether
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
           DepositAmount={depositAmount}
         />
       );
-    } else if (renderScreen === 'ConfirmBorrow') {
+    } else if (renderScreen === 'ConfirmDeposit') {
       return (
-        <ConfirmBorrowLiquity
+        <ConfirmDepositPoolTogether
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           DepositAmount={depositAmount}
@@ -44,7 +44,7 @@ function LotteryPoolTogetherTransactionModal({route, dispatch}) {
   }
 
   function changeBodyToConfirmBorrow() {
-    setRenderScreen('ConfirmBorrow');
+    setRenderScreen('ConfirmDeposit');
   }
 
   return (
