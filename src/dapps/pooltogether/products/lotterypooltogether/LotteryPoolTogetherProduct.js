@@ -18,7 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {ethers} from 'ethers';
 import {mainnet} from '@pooltogether/v4-pool-data';
-import {PrizePoolNetwork} from '@pooltogether/v4-client-js';
+import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -46,20 +46,12 @@ function LotteryPoolTogetherProduct() {
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
   );
 
-  // useEffect(() => {
-  //   const PrizePoolNtk = new PrizePoolNetwork(prov, mainnet);
-  //   setPoolNetwork(PrizePoolNtk);
-  // }, []);
-  //
-  // useEffect(() => {
-  //   (async function () {
-  //     const prizePool = poolNetwork
-  //       .getPrizePool(1, '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be')
-  //       .catch(e => console.log(e));
-  //     setPtBalance(prizePool);
-  //     console.log(prizePool);
-  //   })().catch(console.error);
-  // }, [poolNetwork]);
+  let wallet = new ethers.Wallet(
+    state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  );
+  let walletSigner = wallet.connect(prov);
+
+  let user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
 
   function RenderOrderInfo() {
     return (

@@ -13,7 +13,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function LotteryPoolTogetherTransactionModal({route, dispatch}) {
-  const {borrowAmount, collateralNeededEth, fixedLoanCharges} = route.params;
+  const {depositAmount} = route.params;
 
   const [renderScreen, setRenderScreen] = useState('ConfirmBorrow');
 
@@ -23,9 +23,7 @@ function LotteryPoolTogetherTransactionModal({route, dispatch}) {
         <TransactionOngoingBorrowLiquity
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
-          BorrowAmount={borrowAmount}
-          CollateralNeededEth={collateralNeededEth}
-          FixedLoanCharges={fixedLoanCharges}
+          DepositAmount={depositAmount}
         />
       );
     } else if (renderScreen === 'ConfirmBorrow') {
@@ -33,9 +31,7 @@ function LotteryPoolTogetherTransactionModal({route, dispatch}) {
         <ConfirmBorrowLiquity
           ChangeBody={changeBodyToTransaction}
           State={state_here}
-          BorrowAmount={borrowAmount}
-          CollateralNeededEth={collateralNeededEth}
-          FixedLoanCharges={fixedLoanCharges}
+          DepositAmount={depositAmount}
         />
       );
     } else {
