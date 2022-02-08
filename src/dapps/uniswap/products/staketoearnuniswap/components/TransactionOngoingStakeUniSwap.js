@@ -97,4 +97,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text_highlighted: {
+    ...themeHere.text.header,
+    color: themeHere.colors.foreground,
+    marginVertical: 30,
+    maxWidth: windowWidth * 0.7,
+    textAlign: 'center',
+    lineHeight: 30,
+  },
+  text_not_highlighted: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
+    marginVertical: 30,
+    maxWidth: windowWidth * 0.7,
+    textAlign: 'center',
+    lineHeight: 30,
+  },
 });

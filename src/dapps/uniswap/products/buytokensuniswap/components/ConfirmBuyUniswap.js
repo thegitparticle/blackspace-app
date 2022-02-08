@@ -37,16 +37,16 @@ function ConfirmBuyUniswap(props) {
   const navigation = useNavigation();
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  const [renderContext, setRenderContext] = useState('NoAmount');
+  const [renderContext, setRenderContext] = useState('Checking');
   /*
     Checking | WalletHasEnough | WalletHasNoGas | NoAmount
    */
 
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     setRenderContext('WalletHasAmount');
-  //   }, 2000);
-  // }, []);
+  useEffect(() => {
+    setTimeout(() => {
+      setRenderContext('WalletHasEnough');
+    }, 2000);
+  }, []);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -132,11 +132,12 @@ function ConfirmBuyUniswap(props) {
             title={'confirm buy'}
             type={'solid'}
             onPress={() => {
-              SetupUniswapPool(
-                props.lpDetails,
-                props.walletReducer.wallet_address,
-                props.walletReducer.wallet_privateKey,
-              );
+              props.ChangeBody();
+              // SetupUniswapPool(
+              //   props.lpDetails,
+              //   props.walletReducer.wallet_address,
+              //   props.walletReducer.wallet_privateKey,
+              // );
               // ExecuteASwap(
               //   props.Token0Amount,
               //   props.Token1Amount,
