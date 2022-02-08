@@ -59,7 +59,11 @@ function TrendingTokensProduct() {
       return (
         <Pressable>
           <SquircleView
-            style={styles.squircle_view_wrap}
+            style={{
+              ...styles.squircle_view_wrap,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
@@ -129,7 +133,11 @@ function TrendingTokensProduct() {
       return (
         <Pressable>
           <SquircleView
-            style={styles.squircle_view_wrap}
+            style={{
+              ...styles.squircle_view_wrap,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
@@ -244,7 +252,7 @@ function TrendingTokensProduct() {
     <View style={styles.parent_view}>
       <DogeCoinCard />
       <ShibaInuCard />
-      {tokens_list.map(item => TokenCard(item))}
+      {/*{tokens_list.map(item => TokenCard(item))}*/}
     </View>
   );
 }
