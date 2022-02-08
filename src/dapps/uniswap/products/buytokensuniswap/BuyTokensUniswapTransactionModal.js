@@ -41,6 +41,9 @@ function BuyTokensUniswapTransactionModal({route, dispatch}) {
           Token1Fiat={token1Fiat}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
+          Amount={amount}
+          walletReducer={state_here.WDeetsReducer.wdeets}
+          lpDetails={lpDetails}
         />
       );
     } else if (renderScreen === 'ConfirmBorrow') {

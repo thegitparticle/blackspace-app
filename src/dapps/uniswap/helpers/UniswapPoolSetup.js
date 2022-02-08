@@ -178,6 +178,7 @@ export default async function SetupUniswapPool(
     };
 
     walletSigner.sendTransaction(transaction).then(transaction => {
+      console.log('uniswap pool setup file has this ');
       console.dir(transaction);
       alert('Send finished!');
     });

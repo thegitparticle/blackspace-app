@@ -13,6 +13,7 @@ export default async function ExecuteASwap(
   lpDetails,
   walletAddress,
   privateKey,
+  txHashCallback,
 ) {
   const uniswapPair = new UniswapPair({
     // the contract address of the token you want to convert FROM
@@ -64,9 +65,11 @@ export default async function ExecuteASwap(
   }
 
   const tradeTransaction = await wallet.sendTransaction(trade.transaction);
-  console.log('trade txHash', tradeTransaction.hash);
+  console.log('trade txHash in execute a swap file', tradeTransaction.hash);
   const tradeReceipt = await tradeTransaction.wait();
   console.log('trade receipt', tradeReceipt);
+
+  txHashCallback(tradeTransaction.hash);
 
   // once done with trade aka they have sent it and you don't need it anymore call
   trade.destroy();
