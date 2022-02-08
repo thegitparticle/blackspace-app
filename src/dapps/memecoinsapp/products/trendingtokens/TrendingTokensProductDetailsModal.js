@@ -25,7 +25,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function TrendingTokensProductDetailsModal({route, dispatch}) {
   const navigation = useNavigation();
-  const {name, symbol, logoUri, token, tokenIdString} = route.params;
+  const {name, symbol, logoUri, tokenDetails, tokenIdString} = route.params;
 
   console.log(token);
 

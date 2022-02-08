@@ -15,6 +15,7 @@ import {useNavigation} from '@react-navigation/native';
 import useShibaInuPrice from '../../helpers/useShibaInuPrice';
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 import useDogeCoinPrice from '../../helpers/useDogeCoinPrice';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -57,7 +58,7 @@ function TrendingTokensProduct() {
 
     if (loadingGetDogeCoin) {
       return (
-        <Pressable>
+        <Bounceable>
           <SquircleView
             style={{
               ...styles.squircle_view_wrap,
@@ -71,18 +72,18 @@ function TrendingTokensProduct() {
             }}>
             <Bars size={10} color="#FDAAFF" />
           </SquircleView>
-        </Pressable>
+        </Bounceable>
       );
     } else {
       return (
-        <Pressable
+        <Bounceable
           onPress={() =>
             navigation.navigate('TrendingTokensProductDetailsModal', {
               name: 'Doge Coin',
               symbol: 'DOGE',
               logoUri:
                 'https://assets.coingecko.com/coins/images/5/thumb_2x/dogecoin.png',
-              token: priceDogeCoin,
+              tokenDetails: priceDogeCoin,
               tokenIdString: 'dogecoin',
             })
           }>
@@ -121,7 +122,7 @@ function TrendingTokensProduct() {
               </Text>
             </View>
           </SquircleView>
-        </Pressable>
+        </Bounceable>
       );
     }
   }
@@ -133,7 +134,7 @@ function TrendingTokensProduct() {
 
     if (loadingGetShibaInu) {
       return (
-        <Pressable>
+        <Bounceable>
           <SquircleView
             style={{
               ...styles.squircle_view_wrap,
@@ -147,17 +148,17 @@ function TrendingTokensProduct() {
             }}>
             <Bars size={10} color="#FDAAFF" />
           </SquircleView>
-        </Pressable>
+        </Bounceable>
       );
     } else {
       return (
-        <Pressable
+        <Bounceable
           onPress={() =>
             navigation.navigate('TrendingTokensProductDetailsModal', {
               name: 'Shiba Inu',
               symbol: 'SHIB',
               logoUri: 'https://i.postimg.cc/VkRVsPWV/download-42.jpg',
-              token: priceShibaInu,
+              tokenDetails: priceShibaInu,
               tokenIdString: 'shiba-inu',
             })
           }>
@@ -196,7 +197,7 @@ function TrendingTokensProduct() {
               </Text>
             </View>
           </SquircleView>
-        </Pressable>
+        </Bounceable>
       );
     }
   }
