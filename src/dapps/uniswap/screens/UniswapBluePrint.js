@@ -137,7 +137,7 @@ function UniswapBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '00',
             }}
             style={sxCustom({width: windowWidth - 40})}>
             <StakeToEarnUniswapProduct />
