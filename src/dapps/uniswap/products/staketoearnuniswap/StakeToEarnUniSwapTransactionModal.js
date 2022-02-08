@@ -20,7 +20,8 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
 
   const [renderScreen, setRenderScreen] = useState('EnterAmount');
 
-  const [amount, setAmount] = useState('0');
+  const [amount0, setAmount0] = useState('0');
+  const [amount1, setAmount1] = useState('0');
   const [collNeededFiat, setCollNeededFiat] = useState('0');
 
   function RenderBody() {
@@ -31,6 +32,8 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
           LPStakeDetails={lpStakeDetails}
           ChangeBody={changeBodyToEnterAmount}
           State={state_here}
+          Token0Amount={amount0}
+          Token1Amount={amount1}
         />
       );
     } else if (renderScreen === 'ConfirmStake') {
@@ -40,8 +43,8 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
           LPStakeDetails={lpStakeDetails}
           ChangeBody={changeBodyToTransaction}
           State={state_here}
-          Amount={amount}
-          CollNeededFiat={collNeededFiat}
+          Token0Amount={amount0}
+          Token1Amount={amount1}
         />
       );
     } else {
@@ -64,16 +67,17 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
     setRenderScreen('EnterAmount');
   }
 
-  function changeBodyToConfirmEarn(amount, collNeededFiat) {
+  function changeBodyToConfirmEarn(amount0, amount1, collNeededFiat) {
     setRenderScreen('ConfirmStake');
-    setAmount(amount);
+    setAmount0(amount0);
+    setAmount1(amount1);
     setCollNeededFiat(collNeededFiat);
   }
 
   return (
     <View style={styles.parent_view}>
       <ModalGoBackHeader
-        title={`Stake & Earn ${info.token0_symbol} - ${info.token1_symbol}`}
+        title={`Stake & Earn ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
       />
       <RenderBody />
     </View>
