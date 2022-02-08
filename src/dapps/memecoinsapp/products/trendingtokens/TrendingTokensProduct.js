@@ -130,8 +130,6 @@ function TrendingTokensProduct() {
   function ShibaInuCard() {
     const {loadingGetShibaInu, priceShibaInu} = useShibaInuPrice();
 
-    console.log(priceShibaInu);
-
     if (loadingGetShibaInu) {
       return (
         <Bounceable>
