@@ -12,6 +12,8 @@ import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import SetupUniswapPool from '../../../helpers/UniswapPoolSetup';
 import ExecuteASwap from '../../../helpers/ExecuteASwap';
+import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,33 +21,32 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 /*
-1. checks if wallet has enough of token1 + gas (ETH only)?
-3. if yes in wallet : show "x amount of this" will be paid to get "y of this" + gas fees (approx) = ....
-4. if no gas (ETH) in wallet : ETH needed for gas is not there. First buy ETH
-5. if no amount in wallet : you do not have required amount, reduce and try again
-
-All states of this component
-a. "Checking" - checking your compound history and wallet balances to assess collateral - useEffect runs during this time
-c. "WalletHasAmount" - your have the needed collateral in <symbol> - you can borrow <amount><token_symbol> now
-d. "WalletHasNoETHGas" - you have collateral amount in wallet in unsupported coins - convert them to either of these - give those 5 options
-e. "NoAmount" - you do not have the needed collateral - reduce the borrow accordingly
-
+Token0Coin={token0Coin}
+          Token1Coin={token1Coin}
+          Token0Amount={token0Amount}
+          Token1Amount={token1Amount}
+          Token1Fiat={token1Fiat}
+          ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          Amount={amount}
+          walletReducer={state_here.WDeetsReducer.wdeets}
+          lpDetails={lpDetails}
  */
 
 function ConfirmBuyUniswap(props) {
-  const [renderContext, setRenderContext] = useState('Checking');
+  const navigation = useNavigation();
+  const {loadingEth, priceEth} = useEthFiatPrice();
 
-  useEffect(() => {
-    setTimeout(() => {
-      setRenderContext('WalletHasAmount');
-    }, 2000);
-  }, []);
+  const [renderContext, setRenderContext] = useState('NoAmount');
+  /*
+    Checking | WalletHasEnough | WalletHasNoGas | NoAmount
+   */
 
-  // console.log(typeof props.Token1Amount);
-  // console.log(props.Token1Amount);
-  // console.log(props.Token0Coin);
-  // console.log(props.Token1Coin);
-  // console.log(props.lpDetails);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     setRenderContext('WalletHasAmount');
+  //   }, 2000);
+  // }, []);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -61,7 +62,7 @@ function ConfirmBuyUniswap(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasAmount') {
+    } else if (renderContext === 'WalletHasEnough') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -70,12 +71,11 @@ function ConfirmBuyUniswap(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            you will get {props.Token1Amount} {props.Token1Coin.symbol} for
-            paying {props.Token0Coin.symbol}
+            your wallet verification succeeded
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasNoETHGas') {
+    } else if (renderContext === 'WalletHasNoGas') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -84,7 +84,7 @@ function ConfirmBuyUniswap(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your do not have enough ETH for gas, get ETH and try again
+            you do not have enough ETH to pay gas
           </Text>
         </View>
       );
@@ -114,7 +114,7 @@ function ConfirmBuyUniswap(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -125,27 +125,27 @@ function ConfirmBuyUniswap(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasAmount') {
+    } else if (renderContext === 'WalletHasEnough') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'confirm buy'}
             type={'solid'}
             onPress={() => {
-              // SetupUniswapPool(
-              //   props.lpDetails,
-              //   props.walletReducer.wallet_address,
-              //   props.walletReducer.wallet_privateKey,
-              // );
-              ExecuteASwap(
-                props.Token0Amount,
-                props.Token1Amount,
-                props.Token0Coin,
-                props.Token1Coin,
+              SetupUniswapPool(
                 props.lpDetails,
                 props.walletReducer.wallet_address,
                 props.walletReducer.wallet_privateKey,
               );
+              // ExecuteASwap(
+              //   props.Token0Amount,
+              //   props.Token1Amount,
+              //   props.Token0Coin,
+              //   props.Token1Coin,
+              //   props.lpDetails,
+              //   props.walletReducer.wallet_address,
+              //   props.walletReducer.wallet_privateKey,
+              // );
             }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
@@ -160,13 +160,13 @@ function ConfirmBuyUniswap(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasNoETHGas') {
+    } else if (renderContext === 'WalletHasNoGas') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -186,7 +186,7 @@ function ConfirmBuyUniswap(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
