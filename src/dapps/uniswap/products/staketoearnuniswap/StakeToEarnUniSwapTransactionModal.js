@@ -77,7 +77,7 @@ function StakeToEarnUniSwapTransactionModal({route, dispatch}) {
   return (
     <View style={styles.parent_view}>
       <ModalGoBackHeader
-        title={`Stake & Earn ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
+        title={`Stake in ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
       />
       <RenderBody />
     </View>

@@ -8,6 +8,8 @@ import {
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import {StyledFastImage30} from '../../../../../theme/DripsyTheme';
+import {Bounceable} from 'rn-bounceable';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,85 +37,94 @@ uniswap pool data
  */
 
 function StakePoolTile(props) {
+  const navigation = useNavigation();
   const sxCustom = useSx();
 
   return (
-    <View
-      sx={{
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: 'transparent',
-        width: windowWidth - 40,
-        height: 75,
-        my: '$2',
-        alignSelf: 'center',
-      }}>
-      <SquircleView
-        style={sxCustom({
+    <Bounceable
+      onPress={() =>
+        navigation.navigate('StakeToEarnUniSwapTransactionModal', {
+          info: props.Pool,
+          lpStakeDetails: props.PoolUniswapData,
+        })
+      }>
+      <View
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'transparent',
           width: windowWidth - 40,
           height: 75,
-          flexDirection: 'row',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-        })}
-        squircleParams={{
-          cornerSmoothing: 1,
-          cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          my: '$2',
+          alignSelf: 'center',
         }}>
-        <View sx={{mx: '$4', flexDirection: 'row', alignItems: 'center'}}>
-          <StyledFastImage30
-            source={{
-              uri: props.Pool.profile_pic_token0,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            height: 75,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <View sx={{mx: '$4', flexDirection: 'row', alignItems: 'center'}}>
+            <StyledFastImage30
+              source={{
+                uri: props.Pool.profile_pic_token0,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+            <View
+              sx={{
+                flexDirection: 'row',
+                justifyContent: 'center',
+                alignItems: 'center',
+                height: 50,
+                mx: '$4',
+              }}>
+              <Text variant="subhead_medium" sx={{color: 'foreground'}}>
+                {props.PoolUniswapData.token0.symbol}
+              </Text>
+              <Text variant="subhead_medium" sx={{color: 'foreground'}}>
+                {' '}
+                -{' '}
+              </Text>
+              <Text variant="subhead_medium" sx={{color: 'foreground'}}>
+                {props.PoolUniswapData.token1.symbol}
+              </Text>
+            </View>
+            <StyledFastImage30
+              source={{
+                uri: props.Pool.profile_pic_token1,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          </View>
           <View
             sx={{
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
+              flexDirection: 'column',
+              justifyContent: 'space-around',
               height: 50,
-              mx: '$4',
+              mx: 20,
             }}>
-            <Text variant="subhead_medium" sx={{color: 'foreground'}}>
-              {props.PoolUniswapData.token0.symbol}
-            </Text>
-            <Text variant="subhead_medium" sx={{color: 'foreground'}}>
-              {' '}
-              -{' '}
-            </Text>
-            <Text variant="subhead_medium" sx={{color: 'foreground'}}>
-              {props.PoolUniswapData.token1.symbol}
+            <Text
+              variant="header_bold"
+              sx={{
+                textAlign: 'right',
+                color: 'success_green',
+              }}>
+              {Number(props.Pool.apy_calculation).toFixed(0)} %
             </Text>
           </View>
-          <StyledFastImage30
-            source={{
-              uri: props.Pool.profile_pic_token1,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-        </View>
-        <View
-          sx={{
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            height: 50,
-            mx: 20,
-          }}>
-          <Text
-            variant="header_bold"
-            sx={{
-              textAlign: 'right',
-              color: 'success_green',
-            }}>
-            {Number(props.Pool.apy_calculation).toFixed(0)} %
-          </Text>
-        </View>
-      </SquircleView>
-    </View>
+        </SquircleView>
+      </View>
+    </Bounceable>
   );
 }
 

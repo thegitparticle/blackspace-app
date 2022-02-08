@@ -44,6 +44,13 @@ function EnterAmountStakeUniSwap(props) {
   lpStakeDetails,
   walletAddress,
   privateKey,
+
+   Info={info}
+          LPStakeDetails={lpStakeDetails}
+          ChangeBody={changeBodyToConfirmEarn}
+          State={state_here}
+
+  title={`Stake & Earn ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
    */
 
   return (
@@ -57,7 +64,7 @@ function EnterAmountStakeUniSwap(props) {
               onChangeText={setToken0Amount}
               value={token0Amount}
               style={styles.enter_amount_text}
-              placeholder={`0.0 ${props.Info.token0_symbol}`}
+              placeholder={`0.0 ${props.LPStakeDetails.token0.symbol}`}
               placeholderTextColor={themeHere.colors.foreground + 50}
               keyboardType={'decimal-pad'}
               onEndEditing={() => {}}
@@ -71,14 +78,14 @@ function EnterAmountStakeUniSwap(props) {
               }}>
               <FastImage
                 source={{
-                  uri: props.Info.token0_icon,
+                  uri: props.Info.profile_pic_token0,
                   priority: FastImage.priority.normal,
                 }}
                 resizeMode={FastImage.resizeMode.contain}
                 style={styles.token_item_logo}
               />
               <Text style={styles.token_item_symbol}>
-                {props.Info.token0_symbol}
+                {props.LPStakeDetails.token0.symbol}
               </Text>
             </SquircleView>
           </View>
@@ -88,10 +95,12 @@ function EnterAmountStakeUniSwap(props) {
               onChangeText={setToken1Amount}
               value={token1Amount}
               style={styles.enter_amount_text}
-              placeholder={`0.0 ${props.Info.token1_symbol}`}
+              placeholder={`0.0 ${props.LPStakeDetails.token1.symbol}`}
               placeholderTextColor={themeHere.colors.foreground + 50}
               keyboardType={'decimal-pad'}
               onEndEditing={() => {}}
+              onPressIn={() => console.log('token1 is pressed')}
+              editable={false}
             />
             <SquircleView
               style={styles.token_item_view}
@@ -102,14 +111,14 @@ function EnterAmountStakeUniSwap(props) {
               }}>
               <FastImage
                 source={{
-                  uri: props.Info.token1_icon,
+                  uri: props.Info.profile_pic_token1,
                   priority: FastImage.priority.normal,
                 }}
                 resizeMode={FastImage.resizeMode.contain}
                 style={styles.token_item_logo}
               />
               <Text style={styles.token_item_symbol}>
-                {props.Info.token1_symbol}
+                {props.LPStakeDetails.token1.symbol}
               </Text>
             </SquircleView>
           </View>
