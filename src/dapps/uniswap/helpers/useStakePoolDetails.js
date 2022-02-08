@@ -18,12 +18,14 @@ export default function useStakePoolDetails(lpAddress) {
       id
       name
       decimals
+      derivedETH
     }
     token1 {
       symbol
       id
       name
       decimals
+      derivedETH
     }
     feeTier
     sqrtPrice

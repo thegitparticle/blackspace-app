@@ -10,6 +10,9 @@ import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
+import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,10 +26,132 @@ c. "WalletHasEnough" - your have the needed amount in token0 + token1 - combined
 e. "WalletBalanceNotEnough" - you do not have the needed in wallet - reduce stake amount as per
  */
 
+/*
+ Info={info}
+          LPStakeDetails={lpStakeDetails}
+          ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          Token0Amount={amount0}
+          Token1Amount={amount1}
+ */
+
 function ConfirmStakeUniSwap(props) {
+  const navigation = useNavigation();
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
   useEffect(() => {}, []);
 
   const [renderContext, setRenderContext] = useState('Checking');
+
+  /*
+    Checking | WalletHasEnough | WalletHasLessOfTheseTokensButHasOthers | WalletHasNoGas | NoAmount
+   */
+
+  let allErcBalances = props.State.MyTokenBalancesReducer.tokens;
+
+  let ethBalanceInWallet =
+    Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
+    10 ** -18;
+
+  const [t0Balance, setT0Balance] = useState(0);
+  const [t0BalanceObject, setT0BalanceObject] = useState(null);
+
+  function grabToken0Balance() {
+    const x = _.findIndex(allErcBalances, {
+      symbol: props.LPStakeDetails.token0.symbol,
+    });
+
+    if (x > 0) {
+      setT0BalanceObject(allErcBalances[x]);
+      setT0Balance(Number(allErcBalances[x].tokenBalance_decimal));
+    } else {
+      setT0BalanceObject({});
+      setT0Balance(0);
+    }
+  }
+
+  const [t1Balance, setT1Balance] = useState(0);
+  const [t1BalanceObject, setT1BalanceObject] = useState(null);
+
+  function grabToken1Balance() {
+    const x = _.findIndex(allErcBalances, {
+      symbol: props.LPStakeDetails.token1.symbol,
+    });
+
+    if (x > 0) {
+      setT1BalanceObject(allErcBalances[x]);
+      setT1Balance(Number(allErcBalances[x].tokenBalance_decimal));
+    } else {
+      setT1BalanceObject({});
+      setT1Balance(0);
+    }
+  }
+
+  const [totalFiatValueNeeded, setTotalFiatValueNeeded] = useState(); // in $
+  const [totalFiatValueInWallet, setTotalFiatValueInWallet] = useState(); // in $ only token0 & token1
+
+  function calculateTotalFiatValueNeeded() {
+    let token0FiatNeeded =
+      Number(props.Token0Amount) *
+      Number(props.LPStakeDetails.token0.derivedETH) *
+      priceEth;
+
+    let token1FiatNeeded =
+      Number(props.Token1Amount) *
+      Number(props.LPStakeDetails.token1.derivedETH) *
+      priceEth;
+
+    setTotalFiatValueNeeded(token0FiatNeeded + token1FiatNeeded);
+  }
+
+  function calculateTotalFiatValueInWallet() {
+    let token0FiatInWallet =
+      Number(t0Balance) *
+      Number(props.LPStakeDetails.token0.derivedETH) *
+      priceEth;
+
+    let token1FiatInWallet =
+      Number(t1Balance) *
+      Number(props.LPStakeDetails.token1.derivedETH) *
+      priceEth;
+
+    setTotalFiatValueInWallet(token0FiatInWallet + token1FiatInWallet);
+  }
+
+  const gas = 100; // (in $)
+
+  function checkIfWalletHasBalance() {
+    if (Number(totalFiatValueInWallet) > Number(totalFiatValueNeeded)) {
+      if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
+        setRenderContext('WalletHasAmount');
+      } else {
+        setRenderContext('WalletHasNoGas');
+      }
+    } else {
+      if (
+        Number(totalFiatValueNeeded) <
+        Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
+      ) {
+        setRenderContext('WalletHasLessOfTheseTokensButHasOthers');
+      } else {
+        setRenderContext('NoAmount');
+      }
+    }
+  }
+
+  useEffect(() => {
+    grabToken0Balance();
+    grabToken1Balance();
+  }, []);
+
+  useEffect(() => {
+    calculateTotalFiatValueNeeded();
+    calculateTotalFiatValueInWallet();
+  }, [t0Balance, t1Balance]);
+
+  useEffect(() => {
+    checkIfWalletHasBalance();
+  }, [totalFiatValueNeeded, totalFiatValueInWallet]);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -55,7 +180,7 @@ function ConfirmStakeUniSwap(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletBalanceNotEnough') {
+    } else if (renderContext === 'WalletHasLessOfTheseTokensButHasOthers') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -64,9 +189,74 @@ function ConfirmStakeUniSwap(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough amount, reduce borrow amount and try
-            again
+            your wallet does have enough amount of{' '}
+            {props.LPStakeDetails.token0.symbol} or{' '}
+            {props.LPStakeDetails.token1.symbol}, reduce amount and try again or
+            buy the needed tokens on uniswap
           </Text>
+        </View>
+      );
+    } else if (renderContext === 'WalletHasNoGas') {
+      return (
+        <View style={styles.main_block_view}>
+          <EmojiIcon
+            color={themeHere.colors.danger_red}
+            size={80}
+            emoji={'⚠️'}
+          />
+          <Text style={styles.text_highlighted}>
+            you do not have enough ETH to pay gas
+          </Text>
+        </View>
+      );
+    } else if (renderContext === 'NoAmount') {
+      return (
+        <View style={styles.main_block_view}>
+          <EmojiIcon
+            color={themeHere.colors.danger_red}
+            size={80}
+            emoji={'⚠️'}
+          />
+          <Text style={styles.text_highlighted}>
+            your wallet does have enough balance, try again later
+          </Text>
+        </View>
+      );
+    } else if (renderContext === 'WalletHasNoGas') {
+      return (
+        <View style={styles.button_block_view}>
+          <Button
+            title={'buy ETH on Uniswap'}
+            type={'solid'}
+            onPress={() => props.ChangeBody()}
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
+            }}
+          />
+        </View>
+      );
+    } else if (renderContext === 'NoAmount') {
+      return (
+        <View style={styles.button_block_view}>
+          <Button
+            title={'go back'}
+            type={'solid'}
+            onPress={() => navigation.goBack()}
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [
+                themeHere.colors.danger_red_dark,
+                themeHere.colors.danger_red,
+              ],
+            }}
+          />
         </View>
       );
     } else {
@@ -81,7 +271,7 @@ function ConfirmStakeUniSwap(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -112,13 +302,50 @@ function ConfirmStakeUniSwap(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletBalanceNotEnough') {
+    } else if (renderContext === 'WalletHasLessOfTheseTokensButHasOthers') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'go back'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [
+                themeHere.colors.danger_red_dark,
+                themeHere.colors.danger_red,
+              ],
+            }}
+          />
+        </View>
+      );
+    } else if (renderContext === 'WalletHasNoGas') {
+      return (
+        <View style={styles.button_block_view}>
+          <Button
+            title={'buy ETH on Uniswap'}
+            type={'solid'}
+            onPress={() => props.ChangeBody()}
+            containerStyle={styles.next_button_container}
+            buttonStyle={styles.next_button_style}
+            titleStyle={styles.next_button_title}
+            ViewComponent={LinearGradient}
+            linearGradientProps={{
+              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
+            }}
+          />
+        </View>
+      );
+    } else if (renderContext === 'NoAmount') {
+      return (
+        <View style={styles.button_block_view}>
+          <Button
+            title={'go back'}
+            type={'solid'}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

@@ -127,15 +127,15 @@ function EnterAmountStakeUniSwap(props) {
           <Button
             title={'confirm staking'}
             type={'solid'}
-            // onPress={() => props.ChangeBody(token0Amount, token1Amount)}
-            onPress={() =>
-              UniswapStakeSetupAndExecute(
-                props.Info,
-                props.LPStakeDetails,
-                props.State.WDeetsReducer.wdeets.wallet_address,
-                props.State.WDeetsReducer.wdeets.wallet_privateKey,
-              )
-            }
+            onPress={() => props.ChangeBody(token0Amount, token1Amount)}
+            // onPress={() =>
+            //   UniswapStakeSetupAndExecute(
+            //     props.Info,
+            //     props.LPStakeDetails,
+            //     props.State.WDeetsReducer.wdeets.wallet_address,
+            //     props.State.WDeetsReducer.wdeets.wallet_privateKey,
+            //   )
+            // }
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
