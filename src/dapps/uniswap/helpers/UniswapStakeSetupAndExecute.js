@@ -29,6 +29,7 @@ export default async function UniswapStakeSetupAndExecute(
   lpStakeDetails,
   walletAddress,
   privateKey,
+  txHashCallback,
 ) {
   const poolContract = new ethers.Contract(
     info.contract_address !== undefined || null ? info.contract_address : '',
@@ -203,7 +204,8 @@ export default async function UniswapStakeSetupAndExecute(
       .sendTransaction(transaction)
       .then(transaction => {
         console.dir(transaction);
-        alert('Send finished!');
+        txHashCallback(transaction);
+        console.log('Stake finished!');
       })
       .catch(e => console.log(e + 'transaction failed bruh!'));
   }

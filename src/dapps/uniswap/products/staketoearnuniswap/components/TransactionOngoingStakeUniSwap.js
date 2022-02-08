@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {
   ButterThemeDark,
@@ -6,6 +6,8 @@ import {
 } from '../../../../../theme/ButterTheme';
 import {ethers} from 'ethers/src.ts';
 import LottieView from 'lottie-react-native';
+import ExecuteASwap from '../../../helpers/ExecuteASwap';
+import UniswapStakeSetupAndExecute from '../../../helpers/UniswapStakeSetupAndExecute';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -16,6 +18,15 @@ const prov = new ethers.providers.JsonRpcProvider(
   'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
+/*
+UniswapStakeSetupAndExecute(
+                props.Info,
+                props.LPStakeDetails,
+                props.State.WDeetsReducer.wdeets.wallet_address,
+                props.State.WDeetsReducer.wdeets.wallet_privateKey,
+              )
+ */
+
 function TransactionOngoingStakeUniSwap(props) {
   let wallet = new ethers.Wallet(
     props.State.WDeetsReducer.wdeets.wallet_privateKey,
@@ -24,6 +35,26 @@ function TransactionOngoingStakeUniSwap(props) {
 
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError
+
+  const [txHash, setTxHash] = useState(null);
+
+  function changeTxHash(hash) {
+    setTxHash(hash);
+  }
+
+  useEffect(() => {
+    UniswapStakeSetupAndExecute(
+      props.Info,
+      props.LPStakeDetails,
+      props.State.WDeetsReducer.wdeets.wallet_address,
+      props.State.WDeetsReducer.wdeets.wallet_privateKey,
+      changeTxHash,
+    );
+  }, []);
+
+  useEffect(() => {
+    console.log(txHash + 'tx hash via callback function');
+  }, [txHash]);
 
   if (renderContext === 'TransactionHappening') {
     return (
