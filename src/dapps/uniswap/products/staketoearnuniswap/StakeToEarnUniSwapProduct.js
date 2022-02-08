@@ -44,8 +44,8 @@ function StakeToEarnUniswapProduct({dispatch}) {
       item.contract_address,
     );
 
-    // if (loadingLPStakeDetails) {
-    if (1 === 1) {
+    if (loadingLPStakeDetails) {
+      // if (1 === 1) {
       return (
         <View
           sx={{

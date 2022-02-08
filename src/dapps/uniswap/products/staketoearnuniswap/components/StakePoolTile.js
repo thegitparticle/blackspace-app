@@ -23,6 +23,15 @@ Base Tile:
 
 Expanded Tile:
 1.
+
+uniswap pool data
+{"feeTier": "3000", "sqrtPrice": "1980595144200428976234839206",
+"tick": "-73783",
+"token0": {"decimals": "18", "id": "0x7d1afa7b718fb893db30a3abc0cfc608aacfebb0",
+  "name": "Matic Token", "symbol": "MATIC"},
+  "token1": {"decimals": "18", "id": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+  "name": "Wrapped Ether", "symbol": "WETH"},
+  "totalValueLockedUSD": "31607450.05733802402935138612877398"}
  */
 
 function StakePoolTile(props) {
@@ -62,18 +71,30 @@ function StakePoolTile(props) {
           />
           <View
             sx={{
-              flexDirection: 'column',
-              justifyContent: 'space-around',
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center',
               height: 50,
               mx: '$4',
             }}>
             <Text variant="subhead_medium" sx={{color: 'foreground'}}>
-              {props.Pool.pool_name}
+              {props.PoolUniswapData.token0.symbol}
             </Text>
             <Text variant="subhead_medium" sx={{color: 'foreground'}}>
-              {props.Pool.pool_name}
+              {' '}
+              -{' '}
+            </Text>
+            <Text variant="subhead_medium" sx={{color: 'foreground'}}>
+              {props.PoolUniswapData.token1.symbol}
             </Text>
           </View>
+          <StyledFastImage30
+            source={{
+              uri: props.Pool.profile_pic_token1,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
         </View>
         <View
           sx={{
@@ -83,7 +104,7 @@ function StakePoolTile(props) {
             mx: 20,
           }}>
           <Text
-            variant="header_medium"
+            variant="header_bold"
             sx={{
               textAlign: 'right',
               color: 'success_green',
