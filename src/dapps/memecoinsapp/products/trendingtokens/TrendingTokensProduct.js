@@ -109,16 +109,16 @@ function TrendingTokensProduct() {
             </View>
             <View style={styles.price_change_view}>
               <Text style={styles.price_text}>{priceDogeCoin.usd}</Text>
-              {/*<Text*/}
-              {/*  style={{*/}
-              {/*    ...styles.change_percent_text,*/}
-              {/*    color:*/}
-              {/*      token._24h_change < 0*/}
-              {/*        ? themeHere.colors.danger_red*/}
-              {/*        : themeHere.colors.success_green,*/}
-              {/*  }}>*/}
-              {/*  {token._24h_change.substring(0, 5)} %*/}
-              {/*</Text>*/}
+              <Text
+                style={{
+                  ...styles.change_percent_text,
+                  color:
+                    priceDogeCoin.usd_24h_change < 0
+                      ? themeHere.colors.danger_red
+                      : themeHere.colors.success_green,
+                }}>
+                {String(priceDogeCoin.usd_24h_change).substring(0, 5)} %
+              </Text>
             </View>
           </SquircleView>
         </Pressable>
@@ -128,6 +128,8 @@ function TrendingTokensProduct() {
 
   function ShibaInuCard() {
     const {loadingGetShibaInu, priceShibaInu} = useShibaInuPrice();
+
+    console.log(priceShibaInu);
 
     if (loadingGetShibaInu) {
       return (
@@ -182,16 +184,16 @@ function TrendingTokensProduct() {
             </View>
             <View style={styles.price_change_view}>
               <Text style={styles.price_text}>{priceShibaInu.usd}</Text>
-              {/*<Text*/}
-              {/*  style={{*/}
-              {/*    ...styles.change_percent_text,*/}
-              {/*    color:*/}
-              {/*      token._24h_change < 0*/}
-              {/*        ? themeHere.colors.danger_red*/}
-              {/*        : themeHere.colors.success_green,*/}
-              {/*  }}>*/}
-              {/*  {token._24h_change.substring(0, 5)} %*/}
-              {/*</Text>*/}
+              <Text
+                style={{
+                  ...styles.change_percent_text,
+                  color:
+                    priceShibaInu.usd_24h_change < 0
+                      ? themeHere.colors.danger_red
+                      : themeHere.colors.success_green,
+                }}>
+                {String(priceShibaInu.usd_24h_change).substring(0, 5)} %
+              </Text>
             </View>
           </SquircleView>
         </Pressable>
