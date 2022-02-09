@@ -630,6 +630,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                     logoUri: logoUri,
                     tokenIdString: tokenIdString,
                     contractAddress: contractAddress,
+                    amountToBuy: amountToBuy,
                   });
                 } else {
                 }

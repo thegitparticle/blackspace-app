@@ -13,43 +13,62 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+/*
+ tokenDetails: tokenDetails,
+                    name: name,
+                    symbol: symbol,
+                    logoUri: logoUri,
+                    tokenIdString: tokenIdString,
+                    contractAddress: contractAddress,
+                    amountToBuy: amountToBuy,
+ */
+
 let state_here = {};
 
 function TrendingTokensTransactionModal({route, dispatch}) {
-  const {token} = route.params;
+  const {
+    name,
+    symbol,
+    logoUri,
+    tokenIdString,
+    contractAddress,
+    tokenDetails,
+    amountToBuy,
+  } = route.params;
 
-  const [renderScreen, setRenderScreen] = useState('EnterAmount');
-
-  const [amount, setAmount] = useState('0');
-  const [collNeededFiat, setCollNeededFiat] = useState('0');
+  const [renderScreen, setRenderScreen] = useState('ConfirmBuy');
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
         <TransactionOngoingBuyTrendingMemeCoins
-          Info={token}
-          ChangeBody={changeBodyToEnterAmount}
+          Name={name}
+          Symbol={symbol}
+          LogoUri={logoUri}
+          TokenIdString={tokenIdString}
+          ContractAddress={contractAddress}
+          TokenDetails={tokenDetails}
+          AmountToBuy={amountToBuy}
+          ChangeBody={changeBodyToConfirmBuy}
           State={state_here}
         />
       );
-    } else if (renderScreen === 'ConfirmBorrow') {
+    } else if (renderScreen === 'ConfirmBuy') {
       return (
         <ConfirmBuyTrendingMemeCoins
-          Info={token}
-          ChangeBody={changeBodyToTransaction}
+          Name={name}
+          Symbol={symbol}
+          LogoUri={logoUri}
+          TokenIdString={tokenIdString}
+          ContractAddress={contractAddress}
+          TokenDetails={tokenDetails}
+          AmountToBuy={amountToBuy}
+          ChangeBody={changeBodyToConfirmBuy}
           State={state_here}
-          Amount={amount}
-          CollNeededFiat={collNeededFiat}
         />
       );
     } else {
-      return (
-        <EnterAmountBuyTrendingMemeCoins
-          Info={token}
-          ChangeBody={changeBodyToConfirmBorrow}
-          State={state_here}
-        />
-      );
+      return <View />;
     }
   }
 
@@ -57,19 +76,13 @@ function TrendingTokensTransactionModal({route, dispatch}) {
     setRenderScreen('TransactionOngoing');
   }
 
-  function changeBodyToEnterAmount() {
-    setRenderScreen('EnterAmount');
-  }
-
-  function changeBodyToConfirmBorrow(amount, collNeededFiat) {
-    setRenderScreen('ConfirmBorrow');
-    setAmount(amount);
-    setCollNeededFiat(collNeededFiat);
+  function changeBodyToConfirmBuy() {
+    setRenderScreen('ConfirmBuy');
   }
 
   return (
     <View style={styles.parent_view}>
-      <ModalGoBackHeader title={`Borrow ${info.cToken[0].underlying_symbol}`} />
+      <ModalGoBackHeader title={''} />
       <RenderBody />
     </View>
   );
