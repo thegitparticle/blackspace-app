@@ -44,12 +44,21 @@ function ConfirmBuyTrendingMemeCoins(props) {
     Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
     10 ** -18;
 
+  // convert needed amount to ETH, take 10% premium (for gas) and calculate the needed math below
   function checkIfWalletHasBalance() {
-    if (Number(props.CollateralNeededEth) < Number(ethBalanceInWallet)) {
+    // console.log(Number(props.AmountToBuy));
+    // console.log(Number(props.TokenDetails.usd));
+    // console.log(Number(ethBalanceInWallet));
+    // console.log(Number(priceEth));
+
+    if (
+      Number(props.AmountToBuy) * Number(props.TokenDetails.usd) * 1.1 <
+      Number(ethBalanceInWallet) * Number(priceEth)
+    ) {
       setRenderContext('WalletHasAmount');
     } else {
       if (
-        Number(props.CollateralNeededEth) * Number(priceEth) <
+        Number(props.AmountToBuy) * Number(props.TokenDetails.usd) * 1.1 <
         Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
       ) {
         setRenderContext('WalletHasNoETHButERCs');
@@ -61,7 +70,7 @@ function ConfirmBuyTrendingMemeCoins(props) {
 
   useEffect(() => {
     checkIfWalletHasBalance();
-  }, []);
+  }, [priceEth]);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
