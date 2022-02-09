@@ -19,6 +19,7 @@ import BottomSpacer from '../../../../bits/BottomSpacer';
 import {useNavigation} from '@react-navigation/native';
 import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -29,6 +30,9 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
   const navigation = useNavigation();
   const {name, symbol, logoUri, tokenDetails, tokenIdString, contractAddress} =
     route.params;
+
+  const [showDogePopup, setShowDogePopup] = useState(false);
+  const [showBuyPopup, setShowBuyPopup] = useState(false);
 
   const [loadingChartData, setLoadingChartData] = useState(true);
   const [currentChartRange, setCurrentChartRange] = useState(1);
@@ -484,10 +488,18 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         title={'buy'}
         type={'solid'}
         onPress={() =>
-          navigation.navigate('TrendingTokensTransactionModal', {
-            tokenDetails: tokenDetails,
-            contractAddress,
-          })
+          // navigation.navigate('TrendingTokensTransactionModal', {
+          //   tokenDetails: tokenDetails,
+          //   contractAddress,
+          // })
+
+          {
+            if (tokenIdString === 'dogecoin') {
+              setShowDogePopup(true);
+            } else {
+              setShowBuyPopup(true);
+            }
+          }
         }
         containerStyle={styles.buy_button_container}
         buttonStyle={styles.buy_button_style}
@@ -500,6 +512,62 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
           ],
         }}
       />
+      <Modal
+        visible={showDogePopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowDogePopup(false);
+        }}>
+        <ModalContent>
+          <View
+            style={{
+              backgroundColor: themeHere.colors.off_background,
+              borderColor: themeHere.colors.off_background,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: windowWidth - 40,
+              borderRadius: 15,
+            }}>
+            <Text
+              style={{
+                color: themeHere.colors.foreground,
+                marginVertical: 40,
+                ...themeHere.text.header,
+              }}>
+              Doge Coin buying coming soon
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
+      <Modal
+        visible={showBuyPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowBuyPopup(false);
+        }}>
+        <ModalContent>
+          <View
+            style={{
+              backgroundColor: themeHere.colors.off_background,
+              borderColor: themeHere.colors.off_background,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: windowWidth - 40,
+              borderRadius: 15,
+            }}>
+            <Text
+              style={{color: themeHere.colors.foreground, mt: '$4', mb: '$8'}}>
+              OTHER COIN
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }
