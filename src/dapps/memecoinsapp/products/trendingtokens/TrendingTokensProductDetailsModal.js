@@ -6,6 +6,8 @@ import {
   Dimensions,
   Appearance,
   ScrollView,
+  TextInput,
+  TouchableOpacity,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import axios from 'axios';
@@ -20,6 +22,7 @@ import {useNavigation} from '@react-navigation/native';
 import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import {SquircleView} from 'react-native-figma-squircle';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -33,6 +36,13 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
 
   const [showDogePopup, setShowDogePopup] = useState(false);
   const [showBuyPopup, setShowBuyPopup] = useState(false);
+
+  const [amountToBuy, setAmountToBuy] = useState('');
+  const [amountToBuyFiat, setAmountToBuyFiat] = useState('');
+
+  function computeFiatToken(value) {
+    setAmountToBuyFiat(Number(value) * Number(tokenDetails.usd));
+  }
 
   const [loadingChartData, setLoadingChartData] = useState(true);
   const [currentChartRange, setCurrentChartRange] = useState(1);
@@ -560,11 +570,81 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
               alignItems: 'center',
               width: windowWidth - 40,
               borderRadius: 15,
+              paddingVertical: 30,
             }}>
             <Text
-              style={{color: themeHere.colors.foreground, mt: '$4', mb: '$8'}}>
-              OTHER COIN
+              style={{
+                color: themeHere.colors.foreground,
+                marginBottom: 40,
+                ...themeHere.text.header,
+              }}>
+              How much do you wanna buy?
             </Text>
+            <View style={styles.want_token_view}>
+              <TextInput
+                numberOfLines={1}
+                onChangeText={value => {
+                  setAmountToBuy(value);
+                  computeFiatToken(value);
+                }}
+                value={amountToBuy}
+                style={styles.enter_amount_input}
+                placeholder={'0.0'}
+                placeholderTextColor={themeHere.colors.foreground + 50}
+                keyboardType={'decimal-pad'}
+                onEndEditing={() => {}}
+              />
+
+              <SquircleView
+                style={styles.famous_token_item_view}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 15,
+                  fillColor: themeHere.colors.mid_ground + '25',
+                }}>
+                <FastImage
+                  source={{
+                    uri: logoUri,
+                    priority: FastImage.priority.normal,
+                  }}
+                  resizeMode={FastImage.resizeMode.contain}
+                  style={styles.famous_token_item_logo}
+                />
+                <Text style={styles.famous_token_item_symbol}>{symbol}</Text>
+              </SquircleView>
+            </View>
+            <View style={{flexDirection: 'row', width: windowWidth - 40}}>
+              <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
+                ~ $ {Number(amountToBuyFiat).toFixed(0)}
+              </Text>
+            </View>
+            <Button
+              title={'buy'}
+              type={'solid'}
+              onPress={() => {
+                if (amountToBuy.length > 0) {
+                  navigation.navigate('TrendingTokensTransactionModal', {
+                    tokenDetails: tokenDetails,
+                    name: name,
+                    symbol: symbol,
+                    logoUri: logoUri,
+                    tokenIdString: tokenIdString,
+                    contractAddress: contractAddress,
+                  });
+                } else {
+                }
+              }}
+              containerStyle={{alignSelf: 'center'}}
+              buttonStyle={styles.buy_button_style}
+              titleStyle={styles.buy_button_title}
+              ViewComponent={LinearGradient}
+              linearGradientProps={{
+                colors: [
+                  themeHere.colors.success_green_dark,
+                  themeHere.colors.success_green,
+                ],
+              }}
+            />
           </View>
         </ModalContent>
       </Modal>
@@ -663,5 +743,51 @@ const styles = StyleSheet.create({
   buy_button_title: {
     ...themeHere.text.body_medium,
     color: 'white',
+  },
+  want_token_view: {
+    flexDirection: 'row',
+    marginTop: 30,
+  },
+  enter_amount_input: {
+    backgroundColor: 'transparent',
+    ...themeHere.text.header_bold,
+    color: themeHere.colors.foreground,
+    width: (windowWidth - 40) / 2,
+    height: 50,
+    marginHorizontal: 20,
+  },
+  fiat_price_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
+    marginHorizontal: 20,
+  },
+  famous_token_item_view: {
+    width: (windowWidth - 80) / 3,
+    height: 50,
+    alignItems: 'center',
+    flexDirection: 'row',
+    marginHorizontal: 10,
+  },
+  famous_token_item_logo: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    marginHorizontal: 10,
+  },
+  famous_token_item_symbol: {
+    ...themeHere.text.subhead_bold,
+    color: themeHere.colors.foreground,
+    textAlign: 'center',
+    marginHorizontal: 10,
+  },
+  famous_tokens_wrap_view: {
+    marginVertical: 15,
+  },
+  famous_tokens_line_view: {
+    width: windowWidth - 40,
+    alignItems: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginVertical: 5,
   },
 });
