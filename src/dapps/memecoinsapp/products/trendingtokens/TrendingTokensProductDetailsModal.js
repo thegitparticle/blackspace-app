@@ -322,7 +322,6 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                 style={{
                   width: 40,
                   height: 40,
-                  backgroundColor: 'pink',
                   alignItems: 'center',
                   justifyContent: 'center',
                 }}>
@@ -623,6 +622,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
               type={'solid'}
               onPress={() => {
                 if (amountToBuy.length > 0) {
+                  setShowBuyPopup(false);
                   navigation.navigate('TrendingTokensTransactionModal', {
                     tokenDetails: tokenDetails,
                     name: name,
