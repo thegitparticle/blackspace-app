@@ -6,7 +6,6 @@ import {connect} from 'react-redux';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
 import TransactionOngoingBuyTrendingMemeCoins from './components/TransactionOngoingBuyTrendingMemeCoins';
 import ConfirmBuyTrendingMemeCoins from './components/ConfirmBuyTrendingMemeCoins';
-import EnterAmountBuyTrendingMemeCoins from './components/EnterAmountBuyTrendingMemeCoins';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
