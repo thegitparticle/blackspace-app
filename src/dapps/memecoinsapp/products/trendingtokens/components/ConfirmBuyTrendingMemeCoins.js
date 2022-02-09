@@ -10,6 +10,8 @@ import Compound from '@compound-finance/compound-js';
 import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
+import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -17,50 +19,49 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 /*
-1. checks if the wallet has enough collateral?
--> checking your wallet for collateral - must come when this happens
-2. if compound already has the free collateral - then, show this much is there - extra needed? do wallet check - if not
-compound supply exists - then perform full wallet check
-3. if yes in wallet : then show - coll of this much will be deducted from account
-4. if no in wallet : you do not have enough collateral in wallet - go back button show
-
-All states of this component
-a. "Checking" - checking your compound history and wallet balances to assess collateral - useEffect runs during this time
-b. "CompoundHasColl" - your compound finance account has the needed collateral - you can borrow <amount><token_symbol> now
-c. "WalletHasColl" - your have the needed collateral in <symbol> - you can borrow <amount><token_symbol> now
-d. "WalletNeedsSwap" - you have collateral amount in wallet in unsupported coins - convert them to either of these - give those 5 options
-e. "NoColl" - you do not have the needed collateral - reduce the borrow accordingly
+ Name={name}
+          Symbol={symbol}
+          LogoUri={logoUri}
+          TokenIdString={tokenIdString}
+          ContractAddress={contractAddress}
+          TokenDetails={tokenDetails}
+          AmountToBuy={amountToBuy}
+          ChangeBody={changeBodyToConfirmBuy}
+          State={state_here}
 
  */
 
 function ConfirmBuyTrendingMemeCoins(props) {
-  useEffect(() => {
-    (async function () {
-      const account = await Compound.api.account({
-        addresses: props.State.WDeetsReducer.wdeets.wallet_address,
-        network: 'ropsten',
-      });
+  const navigation = useNavigation();
+  const {loadingEth, priceEth} = useEthFiatPrice();
 
-      let daiBorrowBalance = 0;
-      if (Object.isExtensible(account) && account.accounts) {
-        account.accounts.forEach(acc => {
-          acc.tokens.forEach(tok => {
-            if (tok.symbol === Compound.cDAI) {
-              daiBorrowBalance = +tok.borrow_balance_underlying.value;
+  const [renderContext, setRenderContext] = useState('Checking');
+  /*
+  All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
+   */
 
-              // 1. check if props.CollNeededFiat is > or < than this borrowbalance here
-              // 2.1. if compound itself has the needed coll - then
-              // 2.2. else balance is not fully there - then check wallet balances and see if it works
-            }
-          });
-        });
+  let ethBalanceInWallet =
+    Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
+    10 ** -18;
+
+  function checkIfWalletHasBalance() {
+    if (Number(props.CollateralNeededEth) < Number(ethBalanceInWallet)) {
+      setRenderContext('WalletHasAmount');
+    } else {
+      if (
+        Number(props.CollateralNeededEth) * Number(priceEth) <
+        Number(props.State.MyProfileReducer.myProfileDetails.portfolio_value)
+      ) {
+        setRenderContext('WalletHasNoETHButERCs');
+      } else {
+        setRenderContext('NoAmount');
       }
+    }
+  }
 
-      console.log('daiBorrowBalance', daiBorrowBalance);
-    })().catch(console.error);
+  useEffect(() => {
+    checkIfWalletHasBalance();
   }, []);
-
-  const [renderContext, setRenderContext] = useState('NoColl');
 
   function MainBlock() {
     if (renderContext === 'Checking') {
@@ -72,11 +73,11 @@ function ConfirmBuyTrendingMemeCoins(props) {
             emoji={'⌛'}
           />
           <Text style={styles.text_highlighted}>
-            checking your compound history & wallet to assess collateral
+            checking your wallet for balances
           </Text>
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -85,24 +86,11 @@ function ConfirmBuyTrendingMemeCoins(props) {
             emoji={'👍'}
           />
           <Text style={styles.text_highlighted}>
-            your Compound account has the collateral needed
+            Your wallet has enough ETH to buy {props.AmountToBuy} {props.Symbol}
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
-      return (
-        <View style={styles.main_block_view}>
-          <EmojiIcon
-            color={themeHere.colors.success_green_dark}
-            size={80}
-            emoji={'👍'}
-          />
-          <Text style={styles.text_highlighted}>
-            your wallet has the collateral needed
-          </Text>
-        </View>
-      );
-    } else if (renderContext === 'WalletNeedsSwap') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -111,51 +99,11 @@ function ConfirmBuyTrendingMemeCoins(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet has collateral in unsupported coins
+            you do not have enough ETH but have the needed amount in tokens.
           </Text>
-          <View style={styles.unsupported_coins_context_suggestions_view}>
-            <Text style={styles.text_not_highlighted}>
-              convert your balances into these supported coins shown below and
-              try again
-            </Text>
-            <View style={styles.supported_coins_view}>
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-            </View>
-            <View style={styles.supported_coins_view}>
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-              <TokenWithIconBadge
-                symbol={'DAI'}
-                icon={
-                  'https://assets.coingecko.com/coins/images/9956/thumb/4943.png'
-                }
-              />
-            </View>
-          </View>
         </View>
       );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -164,8 +112,8 @@ function ConfirmBuyTrendingMemeCoins(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough collateral, reduce borrow amount and
-            try again
+            your wallet does have enough ETH to buy {props.AmountToBuy}{' '}
+            {props.Symbol}, reduce borrow amount and try again
           </Text>
         </View>
       );
@@ -181,7 +129,7 @@ function ConfirmBuyTrendingMemeCoins(props) {
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -192,11 +140,11 @@ function ConfirmBuyTrendingMemeCoins(props) {
           />
         </View>
       );
-    } else if (renderContext === 'CompoundHasColl') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'start borrow process'}
+            title={'confirm buy'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -212,11 +160,11 @@ function ConfirmBuyTrendingMemeCoins(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasColl') {
+    } else if (renderContext === 'WalletHasNoETHButERCs') {
       return (
         <View style={styles.button_block_view}>
           <Button
-            title={'start borrow process'}
+            title={'convert to ETH on Uniswap'}
             type={'solid'}
             onPress={() => props.ChangeBody()}
             containerStyle={styles.next_button_container}
@@ -224,38 +172,18 @@ function ConfirmBuyTrendingMemeCoins(props) {
             titleStyle={styles.next_button_title}
             ViewComponent={LinearGradient}
             linearGradientProps={{
-              colors: [
-                themeHere.colors.success_green_dark,
-                themeHere.colors.success_green,
-              ],
+              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
             }}
           />
         </View>
       );
-    } else if (renderContext === 'WalletNeedsSwap') {
-      return (
-        <View style={styles.button_block_view}>
-          <Button
-            title={'swap coins'}
-            type={'solid'}
-            onPress={() => props.ChangeBody()}
-            containerStyle={styles.next_button_container}
-            buttonStyle={styles.next_button_style}
-            titleStyle={styles.next_button_title}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [themeHere.colors.mid_ground + '50'],
-            }}
-          />
-        </View>
-      );
-    } else if (renderContext === 'NoColl') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'go back'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => navigation.goBack()}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
