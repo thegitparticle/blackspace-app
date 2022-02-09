@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -27,24 +27,24 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function TrendingTokensProductDetailsModal({route, dispatch}) {
   const navigation = useNavigation();
-  const {name, symbol, logoUri, tokenDetails, tokenIdString} = route.params;
+  const {name, symbol, logoUri, tokenDetails, tokenIdString, contractAddress} =
+    route.params;
 
   const [loadingChartData, setLoadingChartData] = useState(true);
-  const [currentChartData, setCurrentChartData] = useState([]);
   const [currentChartRange, setCurrentChartRange] = useState(1);
 
-  let refinedChartInfo = [];
+  const [currentChartData1, setCurrentChartData1] = useState([]);
+  const [currentChartData7, setCurrentChartData7] = useState([]);
+  const [currentChartData30, setCurrentChartData30] = useState([]);
+  const [currentChartData365, setCurrentChartData365] = useState([]);
 
-  function getCoinChartInfo(coin_id) {
-    let chartInfo = [];
-
+  function getCoinChartInfo1() {
     const config = {
       method: 'get',
       url:
         'https://api.coingecko.com/api/v3/coins/' +
         tokenIdString +
-        '/market_chart?vs_currency=usd&days=' +
-        String(currentChartRange),
+        '/market_chart?vs_currency=usd&days=1',
       headers: {
         'Content-Type': 'application/json',
       },
@@ -52,15 +52,16 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
 
     axios(config)
       .then(response => {
-        chartInfo = response.data.prices;
-      })
-      .then(() => {
-        for (let i = 0; i < chartInfo.length; i++) {
+        let refinedChartInfo = [];
+        for (let i = 0; i < response.data.prices.length; i++) {
           // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
-          let x_here = {timestamp: chartInfo[i][0], value: chartInfo[i][1]};
+          let x_here = {
+            timestamp: response.data.prices[i][0],
+            value: response.data.prices[i][1],
+          };
           refinedChartInfo.push(x_here);
         }
-        setCurrentChartData(refinedChartInfo);
+        setCurrentChartData1(refinedChartInfo);
       })
       .then(() => setLoadingChartData(false))
       .catch(function (error) {
@@ -68,207 +69,437 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
       });
   }
 
+  function getCoinChartInfo7() {
+    const config = {
+      method: 'get',
+      url:
+        'https://api.coingecko.com/api/v3/coins/' +
+        tokenIdString +
+        '/market_chart?vs_currency=usd&days=7',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    axios(config)
+      .then(response => {
+        let refinedChartInfo = [];
+        for (let i = 0; i < response.data.prices.length; i++) {
+          // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
+          let x_here = {
+            timestamp: response.data.prices[i][0],
+            value: response.data.prices[i][1],
+          };
+          refinedChartInfo.push(x_here);
+        }
+        setCurrentChartData7(refinedChartInfo);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  function getCoinChartInfo30() {
+    const config = {
+      method: 'get',
+      url:
+        'https://api.coingecko.com/api/v3/coins/' +
+        tokenIdString +
+        '/market_chart?vs_currency=usd&days=30',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    axios(config)
+      .then(response => {
+        let refinedChartInfo = [];
+        for (let i = 0; i < response.data.prices.length; i++) {
+          // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
+          let x_here = {
+            timestamp: response.data.prices[i][0],
+            value: response.data.prices[i][1],
+          };
+          refinedChartInfo.push(x_here);
+        }
+        setCurrentChartData30(refinedChartInfo);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
+  // function getCoinChartInfo365() {
+  //   const config = {
+  //     method: 'get',
+  //     url:
+  //       'https://api.coingecko.com/api/v3/coins/' +
+  //       tokenIdString +
+  //       '/market_chart?vs_currency=usd&days=365',
+  //     headers: {
+  //       'Content-Type': 'application/json',
+  //     },
+  //   };
+  //
+  //   axios(config)
+  //     .then(response => {
+  //       let refinedChartInfo = [];
+  //       for (let i = 0; i < response.data.prices.length; i++) {
+  //         // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
+  //         let x_here = {
+  //           timestamp: response.data.prices[i][0],
+  //           value: response.data.prices[i][1],
+  //         };
+  //         refinedChartInfo.push(x_here);
+  //       }
+  //       setCurrentChartData365(refinedChartInfo);
+  //     })
+  //     .catch(function (error) {
+  //       console.log(error);
+  //     });
+  // }
+
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    getCoinChartInfo(tokenIdString);
-  }, [currentChartRange]);
+    getCoinChartInfo1();
+    getCoinChartInfo7();
+    getCoinChartInfo30();
+    // getCoinChartInfo365();
+  }, []);
 
-  function RenderChartView() {
-    if (loadingChartData) {
-      return (
-        <View
-          style={{
-            width: windowWidth,
-            height: windowHeight * 0.4,
-            alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Bars size={10} color="#FDAAFF" />
-        </View>
-      );
-    } else {
-      return (
-        <LineChart.Provider data={currentChartData}>
-          <LineChart>
-            <LineChart.Path
-              color={
-                _.last(currentChartData).value -
-                  _.head(currentChartData).value >
-                0
-                  ? themeHere.colors.success_green
-                  : themeHere.colors.danger_red
-              }>
-              <LineChart.Gradient
-                color={
-                  _.last(currentChartData).value -
-                    _.head(currentChartData).value >
-                  0
-                    ? themeHere.colors.success_green
-                    : themeHere.colors.danger_red
-                }
-              />
-            </LineChart.Path>
-          </LineChart>
-        </LineChart.Provider>
-      );
-    }
-  }
-
-  function RenderChartRangeButtons() {
-    return (
-      <View
-        style={{
-          width: windowWidth,
-          justifyContent: 'space-evenly',
-          marginVertical: 30,
-          flexDirection: 'row',
-        }}>
-        <Bounceable onPress={() => setCurrentChartRange(1)}>
-          <Text
-            style={{
-              ...themeHere.text.subhead_medium,
-              color: themeHere.colors.foreground,
-            }}>
-            24h
-          </Text>
-        </Bounceable>
-        <Bounceable onPress={() => setCurrentChartRange(7)}>
-          <Text
-            style={{
-              ...themeHere.text.subhead_medium,
-              color: themeHere.colors.foreground,
-            }}>
-            7d
-          </Text>
-        </Bounceable>
-        <Bounceable onPress={() => setCurrentChartRange(30)}>
-          <Text
-            style={{
-              ...themeHere.text.subhead_medium,
-              color: themeHere.colors.foreground,
-            }}>
-            30d
-          </Text>
-        </Bounceable>
-        <Bounceable onPress={() => setCurrentChartRange(365)}>
-          <Text
-            style={{
-              ...themeHere.text.subhead_medium,
-              color: themeHere.colors.foreground,
-            }}>
-            1y
-          </Text>
-        </Bounceable>
-      </View>
-    );
-  }
-
-  function RenderTokenDetails() {
-    return (
-      <View style={styles.token_details_view_wrap}>
-        <View style={styles.token_details_left_side_view}>
-          <FastImage
-            source={{
-              uri: logoUri,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.token_details_coin_logo_image}
-          />
-          <View style={styles.token_details_name_ticker_view}>
-            <Text style={styles.token_details_name_text}>{name}</Text>
-            <Text style={styles.token_details_ticker_text}>
-              {symbol.toUpperCase()}
-            </Text>
-          </View>
-        </View>
-        <View style={styles.token_details_price_change_view}>
-          <Text style={styles.token_details_price_text}>{token.usd}</Text>
-        </View>
-      </View>
-    );
-  }
-
-  function RenderPriceDetails() {
-    return (
-      <View style={styles.price_details_view_wrap}>
-        <View style={styles.price_details_block_view}>
-          <Text style={styles.price_details_title_text}>
-            last 24 hours change (%)
-          </Text>
-          <Text style={styles.price_details_value_text}>
-            <Text
+  const RenderChartView = useMemo(
+    () =>
+      function RenderChartView() {
+        if (loadingChartData) {
+          return (
+            <View
               style={{
-                color:
-                  token.usd_24h_change < 0
-                    ? themeHere.colors.danger_red
-                    : themeHere.colors.success_green,
+                width: windowWidth,
+                height: windowHeight * 0.4,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
-              {String(token.usd_24h_change).substring(0, 5)} %
-            </Text>
-          </Text>
-        </View>
-        {/*<View style={styles.price_details_block_view}>*/}
-        {/*  <Text style={styles.price_details_title_text}>*/}
-        {/*    last 7 days change (%)*/}
-        {/*  </Text>*/}
-        {/*  <Text style={styles.price_details_value_text}>*/}
-        {/*    <Text*/}
-        {/*      style={{*/}
-        {/*        color:*/}
-        {/*          token._24h_change < 0*/}
-        {/*            ? themeHere.colors.danger_red*/}
-        {/*            : themeHere.colors.success_green,*/}
-        {/*      }}>*/}
-        {/*      {token._7d_change.substring(0, 5)} %*/}
-        {/*    </Text>*/}
-        {/*  </Text>*/}
-        {/*</View>*/}
-        <View style={styles.price_details_block_view}>
-          <Text style={styles.price_details_title_text}>market cap ($)</Text>
-          <Text style={styles.price_details_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>
-              ${' '}
-              {token.usd_market_cap
-                .toString()
-                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-            </Text>
-          </Text>
-        </View>
-      </View>
-    );
-  }
+              <Bars size={10} color="#FDAAFF" />
+            </View>
+          );
+        } else {
+          if (currentChartRange === 1) {
+            return (
+              <LineChart.Provider data={currentChartData1}>
+                <LineChart>
+                  <LineChart.Path
+                    color={
+                      _.last(currentChartData1).value -
+                        _.head(currentChartData1).value >
+                      0
+                        ? themeHere.colors.success_green
+                        : themeHere.colors.danger_red
+                    }>
+                    <LineChart.Gradient
+                      color={
+                        _.last(currentChartData1).value -
+                          _.head(currentChartData1).value >
+                        0
+                          ? themeHere.colors.success_green
+                          : themeHere.colors.danger_red
+                      }
+                    />
+                  </LineChart.Path>
+                </LineChart>
+              </LineChart.Provider>
+            );
+          } else if (currentChartRange === 7) {
+            return (
+              <LineChart.Provider data={currentChartData7}>
+                <LineChart>
+                  <LineChart.Path
+                    color={
+                      _.last(currentChartData7).value -
+                        _.head(currentChartData7).value >
+                      0
+                        ? themeHere.colors.success_green
+                        : themeHere.colors.danger_red
+                    }>
+                    <LineChart.Gradient
+                      color={
+                        _.last(currentChartData7).value -
+                          _.head(currentChartData7).value >
+                        0
+                          ? themeHere.colors.success_green
+                          : themeHere.colors.danger_red
+                      }
+                    />
+                  </LineChart.Path>
+                </LineChart>
+              </LineChart.Provider>
+            );
+          } else if (currentChartRange === 30) {
+            return (
+              <LineChart.Provider data={currentChartData7}>
+                <LineChart>
+                  <LineChart.Path
+                    color={
+                      _.last(currentChartData30).value -
+                        _.head(currentChartData30).value >
+                      0
+                        ? themeHere.colors.success_green
+                        : themeHere.colors.danger_red
+                    }>
+                    <LineChart.Gradient
+                      color={
+                        _.last(currentChartData30).value -
+                          _.head(currentChartData30).value >
+                        0
+                          ? themeHere.colors.success_green
+                          : themeHere.colors.danger_red
+                      }
+                    />
+                  </LineChart.Path>
+                </LineChart>
+              </LineChart.Provider>
+            );
+          } else {
+            return (
+              <View />
+              // <LineChart.Provider data={currentChartData365}>
+              //   <LineChart>
+              //     <LineChart.Path
+              //       color={
+              //         _.last(currentChartData365).value -
+              //           _.head(currentChartData365).value >
+              //         0
+              //           ? themeHere.colors.success_green
+              //           : themeHere.colors.danger_red
+              //       }>
+              //       <LineChart.Gradient
+              //         color={
+              //           _.last(currentChartData365).value -
+              //             _.head(currentChartData365).value >
+              //           0
+              //             ? themeHere.colors.success_green
+              //             : themeHere.colors.danger_red
+              //         }
+              //       />
+              //     </LineChart.Path>
+              //   </LineChart>
+              // </LineChart.Provider>
+            );
+          }
+        }
+      },
+    [],
+  );
+
+  const RenderChartRangeButtons = useMemo(
+    () =>
+      function RenderChartRangeButtons() {
+        return (
+          <View
+            style={{
+              width: windowWidth,
+              justifyContent: 'space-evenly',
+              marginVertical: 30,
+              flexDirection: 'row',
+            }}>
+            <Bounceable
+              onPress={() => {
+                setCurrentChartRange(1);
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  backgroundColor: 'pink',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 1
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  24h
+                </Text>
+              </View>
+            </Bounceable>
+            <Bounceable
+              onPress={() => {
+                setCurrentChartRange(7);
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 7
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  7d
+                </Text>
+              </View>
+            </Bounceable>
+            <Bounceable
+              onPress={() => {
+                setCurrentChartRange(30);
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 30
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  30d
+                </Text>
+              </View>
+            </Bounceable>
+            {/*<Bounceable onPress={() => setCurrentChartRange(365)}>*/}
+            {/*  <View*/}
+            {/*    style={{*/}
+            {/*      width: 40,*/}
+            {/*      height: 40,*/}
+            {/*      alignItems: 'center',*/}
+            {/*      justifyContent: 'center',*/}
+            {/*    }}>*/}
+            {/*    <Text*/}
+            {/*      style={{*/}
+            {/*        ...themeHere.text.subhead_medium,*/}
+            {/*        color:*/}
+            {/*          currentChartRange === 365*/}
+            {/*            ? themeHere.colors.success_green_light*/}
+            {/*            : themeHere.colors.foreground,*/}
+            {/*      }}>*/}
+            {/*      1y*/}
+            {/*    </Text>*/}
+            {/*  </View>*/}
+            {/*</Bounceable>*/}
+          </View>
+        );
+      },
+    [currentChartRange],
+  );
+
+  const RenderTokenDetails = useMemo(
+    () =>
+      function RenderTokenDetails() {
+        return (
+          <View style={styles.token_details_view_wrap}>
+            <View style={styles.token_details_left_side_view}>
+              <FastImage
+                source={{
+                  uri: logoUri,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.token_details_coin_logo_image}
+              />
+              <View style={styles.token_details_name_ticker_view}>
+                <Text style={styles.token_details_name_text}>{name}</Text>
+                <Text style={styles.token_details_ticker_text}>
+                  {symbol.toUpperCase()}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.token_details_price_change_view}>
+              <Text style={styles.token_details_price_text}>
+                {tokenDetails.usd}
+              </Text>
+            </View>
+          </View>
+        );
+      },
+    [],
+  );
+
+  const RenderPriceDetails = useMemo(
+    () =>
+      function RenderPriceDetails() {
+        return (
+          <View style={styles.price_details_view_wrap}>
+            <View style={styles.price_details_block_view}>
+              <Text style={styles.price_details_title_text}>
+                last 24 hours change (%)
+              </Text>
+              <Text style={styles.price_details_value_text}>
+                <Text
+                  style={{
+                    color:
+                      tokenDetails.usd_24h_change < 0
+                        ? themeHere.colors.danger_red
+                        : themeHere.colors.success_green,
+                  }}>
+                  {String(tokenDetails.usd_24h_change).substring(0, 5)} %
+                </Text>
+              </Text>
+            </View>
+            <View style={styles.price_details_block_view}>
+              <Text style={styles.price_details_title_text}>
+                market cap ($)
+              </Text>
+              <Text style={styles.price_details_value_text}>
+                <Text style={{color: themeHere.colors.foreground}}>
+                  ${' '}
+                  {Number(tokenDetails.usd_market_cap)
+                    .toFixed(0)
+                    .toString()
+                    .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                </Text>
+              </Text>
+            </View>
+          </View>
+        );
+      },
+    [],
+  );
 
   return (
     <View style={styles.parent_view}>
       <ModalGoBackHeader />
       <ScrollView showsVerticalScrollIndicator={false}>
         <Text>...</Text>
+        <RenderTokenDetails />
         <RenderChartView />
         <RenderChartRangeButtons />
-        {/*<RenderTokenDetails />*/}
-        {/*<RenderPriceDetails />*/}
-        {/*<Button*/}
-        {/*  title={'buy'}*/}
-        {/*  type={'solid'}*/}
-        {/*  onPress={() =>*/}
-        {/*    navigation.navigate('TrendingTokensTransactionModal', {*/}
-        {/*      token: token,*/}
-        {/*    })*/}
-        {/*  }*/}
-        {/*  containerStyle={styles.buy_button_container}*/}
-        {/*  buttonStyle={styles.buy_button_style}*/}
-        {/*  titleStyle={styles.buy_button_title}*/}
-        {/*  ViewComponent={LinearGradient}*/}
-        {/*  linearGradientProps={{*/}
-        {/*    colors: [*/}
-        {/*      themeHere.colors.success_green_dark,*/}
-        {/*      themeHere.colors.success_green,*/}
-        {/*    ],*/}
-        {/*  }}*/}
-        {/*/>*/}
-        <BottomSpacer height={50} />
+        <RenderPriceDetails />
+        <BottomSpacer height={150} />
       </ScrollView>
+      <Button
+        title={'buy'}
+        type={'solid'}
+        onPress={() =>
+          navigation.navigate('TrendingTokensTransactionModal', {
+            tokenDetails: tokenDetails,
+            contractAddress,
+          })
+        }
+        containerStyle={styles.buy_button_container}
+        buttonStyle={styles.buy_button_style}
+        titleStyle={styles.buy_button_title}
+        ViewComponent={LinearGradient}
+        linearGradientProps={{
+          colors: [
+            themeHere.colors.success_green_dark,
+            themeHere.colors.success_green,
+          ],
+        }}
+      />
     </View>
   );
 }
@@ -281,7 +512,7 @@ const styles = StyleSheet.create({
     backgroundColor: themeHere.colors.background,
   },
   token_details_view_wrap: {
-    marginTop: 60,
+    marginTop: 5,
     marginBottom: 30,
     width: windowWidth - 40,
     height: 75,
@@ -351,8 +582,10 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground + '50',
   },
   buy_button_container: {
-    marginVertical: 30,
+    marginVertical: 50,
     alignSelf: 'center',
+    position: 'absolute',
+    bottom: 0,
   },
   buy_button_style: {
     width: windowWidth * 0.5,

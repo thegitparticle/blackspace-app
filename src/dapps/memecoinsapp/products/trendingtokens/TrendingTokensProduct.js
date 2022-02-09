@@ -40,19 +40,6 @@ f. market cap
 function TrendingTokensProduct() {
   const navigation = useNavigation();
 
-  const tokens_list = [
-    {
-      token_name: 'Shiba Inu',
-      token_icon: 'https://i.postimg.cc/VkRVsPWV/download-42.jpg',
-      token_symbol: 'SHIB',
-      current_price: '$0.00003202',
-      _24h_change: '15.04%',
-      _7d_change: '20.77%',
-      market_cap: '17575124678',
-      token_gecko_id: 'shiba-inu',
-    },
-  ];
-
   function DogeCoinCard() {
     const {loadingGetDogeCoin, priceDogeCoin} = useDogeCoinPrice();
 
@@ -85,6 +72,7 @@ function TrendingTokensProduct() {
                 'https://assets.coingecko.com/coins/images/5/thumb_2x/dogecoin.png',
               tokenDetails: priceDogeCoin,
               tokenIdString: 'dogecoin',
+              contractAddress: '',
             })
           }>
           <SquircleView
@@ -158,6 +146,7 @@ function TrendingTokensProduct() {
               logoUri: 'https://i.postimg.cc/VkRVsPWV/download-42.jpg',
               tokenDetails: priceShibaInu,
               tokenIdString: 'shiba-inu',
+              contractAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
             })
           }>
           <SquircleView
