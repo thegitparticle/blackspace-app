@@ -38,7 +38,7 @@ export default async function ExecuteASwap(
   // the amount is the proper entered amount
   // so if they enter 10 pass in 10
   // it will work it all out for you
-  const trade = await uniswapPairFactory.trade(amountPaid);
+  const trade = await uniswapPairFactory.trade(String(amountPaid));
 
   // if (!trade.fromBalance.hasEnough) {
   //   console.log('You do not have enough from balance to execute this swap');

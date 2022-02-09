@@ -7,6 +7,7 @@ import {
 import {ethers} from 'ethers/src.ts';
 import ExecuteASwap from '../../../../uniswap/helpers/ExecuteASwap';
 import LottieView from 'lottie-react-native';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,6 +33,8 @@ const prov = new ethers.providers.JsonRpcProvider(
 );
 
 function TransactionOngoingBuyTrendingMemeCoins(props) {
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
   let wallet = new ethers.Wallet(
     props.State.WDeetsReducer.wdeets.wallet_privateKey,
   );
@@ -46,9 +49,8 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     setTxHash(hash);
   }
 
-  useEffect(() => {
-    ExecuteASwap(
-      props.Token0Amount,
+  /*
+  props.Token0Amount,
       props.Token1Amount,
       props.Token0Coin,
       props.Token1Coin,
@@ -56,8 +58,21 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
       props.walletReducer.wallet_address,
       props.walletReducer.wallet_privateKey,
       changeTxHash,
+   */
+
+  useEffect(() => {
+    ExecuteASwap(
+      (Number(props.AmountToBuy) * Number(props.TokenDetails.usd)) /
+        Number(priceEth),
+      props.Token1Amount,
+      props.Token0Coin,
+      props.Token1Coin,
+      props.lpDetails,
+      props.State.WDeetsReducer.wallet_address,
+      props.State.WDeetsReducer.wallet_privateKey,
+      changeTxHash,
     );
-  }, []);
+  }, [priceEth]);
 
   useEffect(() => {
     console.log(txHash + 'tx hash via callback function');

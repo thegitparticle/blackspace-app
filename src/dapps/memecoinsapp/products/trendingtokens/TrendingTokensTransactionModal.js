@@ -62,7 +62,7 @@ function TrendingTokensTransactionModal({route, dispatch}) {
           ContractAddress={contractAddress}
           TokenDetails={tokenDetails}
           AmountToBuy={amountToBuy}
-          ChangeBody={changeBodyToConfirmBuy}
+          ChangeBody={changeBodyToTransaction}
           State={state_here}
         />
       );
