@@ -17,6 +17,9 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LinearGradient from 'react-native-linear-gradient';
 import SquircleButton from '../../../bits/SquircleButton';
 import {useSharedValue} from 'react-native-reanimated';
+import {Bars} from 'react-native-loader';
+import LottieView from 'lottie-react-native';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,8 +35,6 @@ function MakeWalletScreen({dispatch, navigation}) {
   const [walletDetails, setWalletDetails] = useState(wallet);
   const [walletCreated, setWalletCreated] = useState(false);
   const waitingText1Opacity = useSharedValue(1);
-  const waitingText2Opacity = useSharedValue(0);
-  const waitingText3Opacity = useSharedValue(0);
   const [waitingTextOverallOpacity, setWaitingTextOverallOpacity] = useState(1);
   const [
     walletCreatedTextAndButtonOpacity,
@@ -41,12 +42,15 @@ function MakeWalletScreen({dispatch, navigation}) {
   ] = useState(0);
 
   useEffect(() => {
-    WaitingTextChanger();
     createWallet();
   }, []);
 
+  const hapticOptions = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
+  };
+
   function createWallet() {
-    console.log('create wallet called');
     const walletCreated = ethers.Wallet.createRandom();
     wallet.wallet_address = walletCreated.address;
     wallet.wallet_privateKey = walletCreated.privateKey;
@@ -59,6 +63,7 @@ function MakeWalletScreen({dispatch, navigation}) {
     dispatch(AddWDeets(wallet));
     setWaitingTextOverallOpacity(0);
     setWalletCreatedTextAndButtonOpacity(1);
+    ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
   }
 
   function WaitingTextShowCase() {
@@ -71,7 +76,7 @@ function MakeWalletScreen({dispatch, navigation}) {
         }}>
         <Text
           style={{
-            ...themeHere.text.body,
+            ...themeHere.text.header_bold,
             position: 'absolute',
             textAlign: 'center',
             opacity: waitingText1Opacity.value,
@@ -79,40 +84,8 @@ function MakeWalletScreen({dispatch, navigation}) {
           }}>
           creating new wallet ...
         </Text>
-        <Text
-          style={{
-            ...themeHere.text.body,
-            position: 'absolute',
-            textAlign: 'center',
-            opacity: waitingText2Opacity.value,
-            color: 'white',
-          }}>
-          fetching details from blockchain ...
-        </Text>
-        <Text
-          style={{
-            ...themeHere.text.body,
-            position: 'absolute',
-            textAlign: 'center',
-            opacity: waitingText3Opacity.value,
-            color: 'white',
-          }}>
-          how long? you could be asking!!!
-        </Text>
       </View>
     );
-  }
-
-  function WaitingTextChanger() {
-    setTimeout(() => {
-      console.log('1 sec done');
-      waitingText1Opacity.value = 0;
-      waitingText2Opacity.value = 1;
-    }, 1000);
-    setTimeout(() => {
-      waitingText2Opacity.value = 0;
-      waitingText3Opacity.value = 1;
-    }, 2000);
   }
 
   function CenterText() {
@@ -120,15 +93,29 @@ function MakeWalletScreen({dispatch, navigation}) {
       return <WaitingTextShowCase />;
     } else {
       return (
-        <Text
-          style={{
-            ...themeHere.text.body,
-            color: 'white',
-            marginVertical: windowHeight * 0.1,
-            opacity: walletCreatedTextAndButtonOpacity,
-          }}>
-          finally, created!
-        </Text>
+        <View>
+          <LottieView
+            source={require('../../../../assets/success_tick_lottie.json')}
+            autoPlay
+            loop
+            style={{
+              marginVertical: 20,
+              width: windowWidth * 0.25,
+              height: windowWidth * 0.5,
+            }}
+            resizeMode="cover"
+          />
+          <Text
+            style={{
+              ...themeHere.text.header_bold,
+              color: 'white',
+              marginVertical: windowHeight * 0.1,
+              opacity: walletCreatedTextAndButtonOpacity,
+              alignSelf: 'center',
+            }}>
+            your new wallet, created!
+          </Text>
+        </View>
       );
     }
   }
@@ -151,7 +138,11 @@ function MakeWalletScreen({dispatch, navigation}) {
             });
           }}>
           <SquircleButton
-            buttonColor={themeHere.colors.red_light}
+            buttonColor={
+              walletCreatedTextAndButtonOpacity === 0
+                ? themeHere.colors.red_light + '00'
+                : themeHere.colors.red_light + '99'
+            }
             width={windowWidth * 0.7}
             height={50}
             buttonText={
@@ -159,9 +150,6 @@ function MakeWalletScreen({dispatch, navigation}) {
             }
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
-            style={{
-              opacity: walletCreatedTextAndButtonOpacity,
-            }}
           />
         </TouchableOpacity>
       </LinearGradient>
