@@ -129,28 +129,30 @@ function MakeWalletScreen({dispatch, navigation}) {
         style={styles.gradient_background}>
         <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
         <CenterText />
-        <Bounceable
-          style={{
-            marginVertical: windowHeight * 0.1,
-          }}
-          onPress={() => {
-            navigation.navigate('SaveSeedPhraseScreen');
-          }}>
-          <SquircleButton
-            buttonColor={
-              walletCreatedTextAndButtonOpacity === 0
-                ? themeHere.colors.red_light + '00'
-                : themeHere.colors.red_light + '99'
-            }
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={
-              walletCreatedTextAndButtonOpacity === 0 ? '' : 'next ✈️'
-            }
-            font={themeHere.text.subhead_medium}
-            textColor={themeHere.colors.light}
-          />
-        </Bounceable>
+        <View style={{marginVertical: windowHeight * 0.1}}>
+          <Bounceable
+            style={{
+              marginVertical: windowHeight * 0.1,
+            }}
+            onPress={() => {
+              navigation.navigate('SaveSeedPhraseScreen');
+            }}>
+            <SquircleButton
+              buttonColor={
+                walletCreatedTextAndButtonOpacity === 0
+                  ? themeHere.colors.red_light + '00'
+                  : themeHere.colors.red_light + '99'
+              }
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={
+                walletCreatedTextAndButtonOpacity === 0 ? '' : 'next ✈️'
+              }
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </Bounceable>
+        </View>
       </LinearGradient>
     </View>
   );

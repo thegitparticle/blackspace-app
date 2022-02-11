@@ -20,6 +20,7 @@ import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';
 import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
 import {Bounceable} from 'rn-bounceable';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -33,11 +34,8 @@ function ImportWalletScreen({dispatch, navigation}) {
     wallet_phrase: null,
   };
   const [walletDetails, setWalletDetails] = useState(wallet);
-  const [walletCreated, setWalletCreated] = useState(false);
+  const [walletCreating, setWalletCreating] = useState(false);
   const [phrase, setPhrase] = useState('');
-  const waitingText1Opacity = useSharedValue(1);
-  const waitingText2Opacity = useSharedValue(0);
-  const waitingText3Opacity = useSharedValue(0);
   const [waitingTextOverallOpacity, setWaitingTextOverallOpacity] = useState(1);
   const [
     walletCreatedTextAndButtonOpacity,
@@ -46,20 +44,27 @@ function ImportWalletScreen({dispatch, navigation}) {
   const [renderInputBody, setRenderInputBody] = useState(true);
   const [renderErrorBody, setRenderErrorBody] = useState(false);
 
+  const hapticOptions = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
+  };
+
   function importWallet() {
     try {
       const walletCreated = ethers.Wallet.fromMnemonic(phrase);
       wallet.wallet_address = walletCreated.address;
       wallet.wallet_privateKey = walletCreated.privateKey;
-      wallet.wallet_phrase = walletCreated.mnemonicCiphertext;
+      wallet.wallet_phrase = walletCreated.mnemonic;
       setWalletDetails(wallet);
-      setWalletCreated(true);
+      setWalletCreating(false);
       console.log(wallet);
       dispatch(AddWDeets(wallet));
       setWaitingTextOverallOpacity(0);
       setWalletCreatedTextAndButtonOpacity(1);
+      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
     } catch (e) {
       console.log(e.toString());
+      setWalletCreating(false);
       setRenderErrorBody(true);
     }
   }
@@ -73,33 +78,41 @@ function ImportWalletScreen({dispatch, navigation}) {
               backgroundColor: 'transparent',
               maxWidth: windowWidth * 0.7,
               color: 'white',
+              ...themeHere.text.subhead_medium,
             }}
             onChangeText={setPhrase}
             value={phrase}
             multiline={true}
             autoFocus={true}
             textAlign={'center'}
-            placeholder={'type seed phrase words with space'}
+            placeholder={'type seed phrase words with space in between them'}
             placeholderTextColor={'#FFFFFF50'}
           />
         </View>
-        <Bounceable
+        <View
           style={{
             marginVertical: windowHeight * 0.1,
-          }}
-          onPress={() => {
-            setRenderInputBody(false);
-            importWallet();
           }}>
-          <SquircleButton
-            buttonColor={'#282828'}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'import wallet'}
-            font={themeHere.text.subhead_medium}
-            textColor={themeHere.colors.light}
-          />
-        </Bounceable>
+          <Bounceable
+            onPress={() => {
+              setWalletCreating(true);
+              setRenderInputBody(false);
+              setTimeout(() => {
+                importWallet();
+              }, 1000);
+            }}>
+            <SquircleButton
+              buttonColor={walletCreating === true ? '#28282800' : '#282828'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={
+                walletCreating === true ? 'importing ...' : 'import wallet'
+              }
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </Bounceable>
+        </View>
       </View>
     );
   }
@@ -162,40 +175,50 @@ function ImportWalletScreen({dispatch, navigation}) {
           cannot find wallet with the typed seed phrase, try again!
         </Text>
         <View style={{marginVertical: windowHeight * 0.1}}>
-          <Bounceable
+          <View
             style={{
               marginBottom: windowHeight * 0.01,
-            }}
-            onPress={() => {
-              setRenderErrorBody(false);
-              setRenderInputBody(true);
             }}>
-            <SquircleButton
-              buttonColor={'#282828'}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'try again'}
-              font={themeHere.text.subhead_medium}
-              textColor={themeHere.colors.light}
-            />
-          </Bounceable>
-          <Bounceable
+            <Bounceable
+              style={{
+                marginBottom: windowHeight * 0.01,
+              }}
+              onPress={() => {
+                setRenderErrorBody(false);
+                setRenderInputBody(true);
+              }}>
+              <SquircleButton
+                buttonColor={'#282828'}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'try again'}
+                font={themeHere.text.subhead_medium}
+                textColor={themeHere.colors.light}
+              />
+            </Bounceable>
+          </View>
+          <View
             style={{
-              marginTop: windowHeight * 0.01,
-            }}
-            onPress={() => {
-              setRenderErrorBody(false);
-              navigation.navigate('MakeWalletScreen');
+              marginBottom: windowHeight * 0.01,
             }}>
-            <SquircleButton
-              buttonColor={themeHere.colors.red + '75'}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'create new wallet'}
-              font={themeHere.text.subhead_medium}
-              textColor={themeHere.colors.light}
-            />
-          </Bounceable>
+            <Bounceable
+              style={{
+                marginTop: windowHeight * 0.01,
+              }}
+              onPress={() => {
+                setRenderErrorBody(false);
+                navigation.navigate('MakeWalletScreen');
+              }}>
+              <SquircleButton
+                buttonColor={themeHere.colors.red + '75'}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'create new wallet'}
+                font={themeHere.text.subhead_medium}
+                textColor={themeHere.colors.light}
+              />
+            </Bounceable>
+          </View>
         </View>
       </>
     );

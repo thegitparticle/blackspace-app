@@ -39,8 +39,9 @@ function WhileImportingProcessShowcase() {
         style={{
           ...styles.text_style,
           opacity: waitingText1Opacity.value,
+          maxWidth: windowWidth * 0.75,
         }}>
-        creating new wallet ...
+        importing your wallet ... will take about 30 secs
       </Text>
       <Text
         style={{
@@ -65,6 +66,8 @@ export default WhileImportingProcessShowcase;
 const styles = StyleSheet.create({
   parent_view: {
     marginVertical: windowHeight * 0.1,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text_style: {
     ...themeHere.text.body,
