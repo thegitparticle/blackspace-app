@@ -44,6 +44,14 @@ function WelcomeStack() {
         }}
       />
       <StackMain.Screen
+        name="SeedPhraseScreen"
+        component={SeedPhraseScreen}
+        options={{
+          gestureEnabled: true,
+          headerShown: false,
+        }}
+      />
+      <StackMain.Screen
         name="UserDetailsInputScreen"
         component={UserDetailsInputScreen}
         options={{
