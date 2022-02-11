@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import TransactionOngoingDepositPoolTogether from './components/TransactionOngoingDepositPoolTogether';
 import ConfirmDepositPoolTogether from './components/ConfirmDepositPoolTogether';
 import ConfirmWithdrawPoolTogether from './components/ConfirmWithdrawPoolTogether';
+import TransactionOngoingWithdrawPoolTogether from './components/TransactionOngoingWithdrawPoolTogether';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,7 +23,7 @@ function PTDepositWithdrawTransactionModal({route, dispatch}) {
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
       return (
-        <TransactionOngoingDepositPoolTogether
+        <TransactionOngoingWithdrawPoolTogether
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
           WithdrawAmount={withdrawAmount}
