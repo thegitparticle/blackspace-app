@@ -54,28 +54,28 @@ function Welcome1Screen({dispatch, navigation}) {
           <View>
             <BackgroundNftsAnimation />
           </View>
-          {/*<View>*/}
-          {/*  <IntroTextsAnimation />*/}
-          {/*  <Animated.View style={[animatedButton]}>*/}
-          {/*    <TouchableOpacity*/}
-          {/*      style={{*/}
-          {/*        marginVertical: windowHeight * 0.1,*/}
-          {/*        alignSelf: 'center',*/}
-          {/*      }}*/}
-          {/*      onPress={() => {*/}
-          {/*        navigation.navigate('WalletSetupOptionsScreen');*/}
-          {/*      }}>*/}
-          {/*      <SquircleButton*/}
-          {/*        buttonColor={themeHere.colors.light}*/}
-          {/*        width={windowWidth * 0.7}*/}
-          {/*        height={50}*/}
-          {/*        buttonText={'LFG! 🚀'}*/}
-          {/*        font={themeHere.text.title_3}*/}
-          {/*        textColor={themeHere.colors.red}*/}
-          {/*      />*/}
-          {/*    </TouchableOpacity>*/}
-          {/*  </Animated.View>*/}
-          {/*</View>*/}
+          <View>
+            <IntroTextsAnimation />
+            <Animated.View style={[animatedButton]}>
+              <TouchableOpacity
+                style={{
+                  marginVertical: windowHeight * 0.1,
+                  alignSelf: 'center',
+                }}
+                onPress={() => {
+                  navigation.navigate('WalletSetupOptionsScreen');
+                }}>
+                <SquircleButton
+                  buttonColor={themeHere.colors.light}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'LFG! 🚀'}
+                  font={themeHere.text.title_3}
+                  textColor={themeHere.colors.red}
+                />
+              </TouchableOpacity>
+            </Animated.View>
+          </View>
         </View>
       </ImageBackground>
     </View>

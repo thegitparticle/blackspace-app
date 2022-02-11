@@ -14,6 +14,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -53,11 +54,17 @@ function IntroTextsAnimation() {
     AnimationRunner();
   }, []);
 
+  const hapticOptions = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
+  };
+
   function AnimationRunner() {
     setTimeout(() => {
       offsetText1.value = withSpring(windowHeight * 0.075);
       text1Opacity.value = 0.5;
       text2Opacity.value = withTiming(1);
+      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
     }, 2500);
     setTimeout(() => {
       offsetText1.value = withSpring(windowHeight * 0.15);
@@ -65,10 +72,12 @@ function IntroTextsAnimation() {
       text1Opacity.value = 0.1;
       text2Opacity.value = withTiming(0.5);
       text3Opacity.value = withTiming(1);
+      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
     }, 5000);
     setTimeout(() => {
       text1Opacity.value = 0;
       text2Opacity.value = withTiming(0);
+      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
     }, 7500);
   }
 
