@@ -21,6 +21,8 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
+import BackgroundNftsAnimation from '../components/BackgroundNftsAnimation';
+import BottomSpacer from '../../../bits/BottomSpacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -49,23 +51,28 @@ function Welcome1Screen({dispatch, navigation}) {
         source={require('../../../../assets/space_bg_1.jpeg')}
         style={styles.background_image}>
         <View style={styles.bottom_block}>
-          <IntroTextsAnimation />
-          <Animated.View style={[animatedButton]}>
-            <TouchableOpacity
-              style={{marginVertical: windowHeight * 0.1}}
-              onPress={() => {
-                navigation.navigate('WalletSetupOptionsScreen');
-              }}>
-              <SquircleButton
-                buttonColor={themeHere.colors.light}
-                width={windowWidth * 0.7}
-                height={50}
-                buttonText={'LFG! 🚀'}
-                font={themeHere.text.title_3}
-                textColor={themeHere.colors.red}
-              />
-            </TouchableOpacity>
-          </Animated.View>
+          <View>
+            <BackgroundNftsAnimation />
+          </View>
+          <View>
+            <IntroTextsAnimation />
+            <Animated.View style={[animatedButton]}>
+              <TouchableOpacity
+                style={{marginVertical: windowHeight * 0.1}}
+                onPress={() => {
+                  navigation.navigate('WalletSetupOptionsScreen');
+                }}>
+                <SquircleButton
+                  buttonColor={themeHere.colors.light}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'LFG! 🚀'}
+                  font={themeHere.text.title_3}
+                  textColor={themeHere.colors.red}
+                />
+              </TouchableOpacity>
+            </Animated.View>
+          </View>
         </View>
       </ImageBackground>
     </View>
@@ -97,12 +104,12 @@ const styles = StyleSheet.create({
   },
   bottom_block: {
     width: windowWidth,
-    height: windowHeight * 0.5,
+    height: windowHeight,
     position: 'absolute',
     bottom: 0,
     backgroundColor: 'transparent',
     alignItems: 'center',
     flexDirection: 'column',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
   },
 });
