@@ -32,6 +32,7 @@ import LotteryPoolTogetherTransactionModal from '../dapps/pooltogether/products/
 import IndexCoopTransactionModal from '../dapps/indexfunds/products/indexcoopfunds/IndexCoopTransactionModal';
 import AddCollTransactionModal from '../dapps/liquity/products/borrowfromliquity/AddCollTransactionModal';
 import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/PaybackLiquityTransactionModal';
+import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/PTDepositWithdrawTransactionModal';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -299,6 +300,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="LotteryPoolTogetherTransactionModal"
           component={LotteryPoolTogetherTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="PTDepositWithdrawTransactionModal"
+          component={PTDepositWithdrawTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,

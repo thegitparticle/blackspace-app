@@ -275,7 +275,13 @@ function PoolTogetherUsageShowCase() {
             <Button
               title={'withdraw deposit'}
               type={'solid'}
-              onPress={() => setShowEnterCollPopup(true)}
+              onPress={() =>
+                navigation.navigate('PTDepositWithdrawTransactionModal', {
+                  withdrawAmount: Number(
+                    ethers.utils.formatUnits(ptBalance, 6),
+                  ).toFixed(2),
+                })
+              }
               containerStyle={{alignSelf: 'center', marginBottom: 30}}
               buttonStyle={{
                 width: windowWidth * 0.5,
