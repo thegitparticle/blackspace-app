@@ -21,6 +21,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
 import {Bounceable} from 'rn-bounceable';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -136,16 +138,50 @@ function ImportWalletScreen({dispatch, navigation}) {
   }
 
   function NextButtonWhenDone() {
+    const [checkingUserExists, setCheckingUserExists] = useState(false);
+    const [userStatus, setUserStatus] = useState('');
+
+    function checkUserExistsOrNot() {
+      const config = {
+        method: 'get',
+        url:
+          'https://suprblack.xyz/api/users/check_wallet_address_presence/' +
+          walletDetails.wallet_address,
+        headers: {},
+      };
+
+      axios(config)
+        .then(function (response) {
+          if (response.data.user_exists === 'False') {
+            navigation.navigate('UserDetailsInputScreen');
+          } else {
+            navigation.navigate('SettingUpAppScreen');
+          }
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+
+    function ShowBars() {
+      if (checkingUserExists) {
+        return <Bars size={10} color="#FDAAFF" />;
+      } else {
+        return <View />;
+      }
+    }
+
     return (
       <TouchableOpacity
         style={{
           marginVertical: windowHeight * 0.1,
+          alignItems: 'center',
         }}
         onPress={() => {
-          navigation.navigate('UserDetailsInputScreen', {
-            wallet_address: walletDetails.wallet_address,
-          });
+          setCheckingUserExists(true);
+          checkUserExistsOrNot();
         }}>
+        <ShowBars />
         <SquircleButton
           buttonColor={'#282828'}
           width={windowWidth * 0.7}
