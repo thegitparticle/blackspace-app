@@ -19,14 +19,16 @@ import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import {showMessage, hideMessage} from 'react-native-flash-message';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+let state_here = {};
+
 function UserDetailsInputScreen({route, dispatch, navigation}) {
-  const {wallet_address} = route.params;
   const [username, setUsername] = useState('');
   const [renderInputBody, setRenderInputBody] = useState(true);
   const [showError, setShowError] = useState(false);
@@ -38,25 +40,21 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
     setShowSetupDoneOverlay(!showSetupDoneOverlay);
   };
 
-  function SetUserDetails() {
+  function SetUserDetailsToServer() {
     const config = {
       method: 'post',
       url: 'https://af61ab05-edce-441a-9dec-1ffa83307433.mock.pstmn.io/setuserdetails',
       headers: {'content-type': 'application/json'},
       data: {
         username: username,
-        wallet_address: wallet_address,
       },
     };
 
     axios(config)
       .then(res => {
-        // myProfileDetails.username = username;
-        // myProfileDetails.userid = res.data.userid;
-        // dispatch(AddMyProfileDetails(myProfileDetails));
         Keyboard.dismiss();
         setShowSetupDoneOverlay(true);
-        NavigateToMainStack();
+        // NavigateToMainStack();
       })
       .catch(error => {
         console.log(error);
@@ -72,13 +70,13 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
   function SaveButton() {
     if (renderInputBody) {
       return (
-        <TouchableOpacity
+        <Bounceable
           style={{
             marginVertical: windowHeight * 0.1,
           }}
           onPress={() => {
             setRenderInputBody(false);
-            SetUserDetails();
+            SetUserDetailsToServer();
           }}>
           <SquircleButton
             buttonColor={'#282828'}
@@ -88,11 +86,11 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
           />
-        </TouchableOpacity>
+        </Bounceable>
       );
     } else {
       return (
-        <TouchableOpacity
+        <Bounceable
           style={{
             marginVertical: windowHeight * 0.1,
           }}>
@@ -104,9 +102,13 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
           />
-        </TouchableOpacity>
+        </Bounceable>
       );
     }
+  }
+
+  function handleUserNameTyping(value) {
+    setUsername(value.replace(/\s/g, ''));
   }
 
   function RenderBody() {
@@ -115,7 +117,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
         <View style={styles.input_wrap_view}>
           <TextInput
             style={styles.username_text_input}
-            onChangeText={setUsername}
+            onChangeText={handleUserNameTyping}
             value={username}
             multiline={true}
             autoFocus={true}
@@ -139,11 +141,11 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
     );
   }
 
-  function NavigateToMainStack() {
-    setTimeout(() => {
-      dispatch({type: LOGIN});
-    }, 3000);
-  }
+  // function NavigateToMainStack() {
+  //   setTimeout(() => {
+  //     dispatch({type: LOGIN});
+  //   }, 3000);
+  // }
 
   return (
     <View style={styles.parent_view}>
@@ -151,11 +153,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       <LinearGradient
         colors={['#050505', '#1F1F1F']}
         style={styles.gradient_background}>
-        <TouchableOpacity
-          onPress={() => {
-            setRenderInputBody(false);
-            SetUserDetails();
-          }}>
+        <TouchableOpacity>
           <Text style={styles.screen_header_text}>PICK A USERNAME</Text>
         </TouchableOpacity>
         <RenderBody />
@@ -171,15 +169,12 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
   );
 }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onLogInClick: () => {
-      dispatch({type: LOGIN});
-    },
-  };
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
 };
 
-export default connect(mapDispatchToProps)(UserDetailsInputScreen);
+export default connect(mapStateToProps)(UserDetailsInputScreen);
 
 const styles = StyleSheet.create({
   parent_view: {

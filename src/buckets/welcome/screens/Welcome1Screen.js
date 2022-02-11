@@ -58,23 +58,25 @@ function Welcome1Screen({dispatch, navigation}) {
           <View>
             <IntroTextsAnimation />
             <Animated.View style={[animatedButton]}>
-              <Bounceable
+              <View
                 style={{
                   marginVertical: windowHeight * 0.1,
                   alignSelf: 'center',
-                }}
-                onPress={() => {
-                  navigation.navigate('WalletSetupOptionsScreen');
                 }}>
-                <SquircleButton
-                  buttonColor={themeHere.colors.light}
-                  width={windowWidth * 0.7}
-                  height={50}
-                  buttonText={'LFG! 🚀'}
-                  font={themeHere.text.title_3}
-                  textColor={themeHere.colors.red}
-                />
-              </Bounceable>
+                <Bounceable
+                  onPress={() => {
+                    navigation.navigate('WalletSetupOptionsScreen');
+                  }}>
+                  <SquircleButton
+                    buttonColor={themeHere.colors.light}
+                    width={windowWidth * 0.7}
+                    height={50}
+                    buttonText={'LFG! 🚀'}
+                    font={themeHere.text.title_3}
+                    textColor={themeHere.colors.red}
+                  />
+                </Bounceable>
+              </View>
             </Animated.View>
           </View>
         </View>

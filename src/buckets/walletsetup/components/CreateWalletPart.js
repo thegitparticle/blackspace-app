@@ -33,7 +33,8 @@ function CreateWalletPart() {
           </Text>
           <Bounceable
             onPress={() => {
-              navigation.navigate('MakeWalletScreen');
+              // navigation.navigate('MakeWalletScreen');
+              navigation.navigate('UserDetailsInputScreen');
             }}>
             <SquircleButton
               buttonColor={themeHere.colors.red_light}
