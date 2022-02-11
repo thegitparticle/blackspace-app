@@ -15,6 +15,7 @@ import axios from 'axios';
 import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
 import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
 import {AddUserDetails} from '../../../redux/appcore/UserDetailsActions';
+import {LOGIN} from '../../../redux/types';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -57,6 +58,12 @@ function SettingUpAppScreen({dispatch}) {
       dispatch(
         GetTokenBalances(state_here.WDeetsReducer.wdeets.wallet_address),
       );
+      setTimeout(() => {
+        setAPIDone(true);
+      }, 7500);
+      setTimeout(() => {
+        dispatch({type: LOGIN});
+      }, 12500);
     }
   }, [userId]);
 
