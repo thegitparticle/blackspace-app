@@ -109,8 +109,8 @@ function MiscTile({dispatch}) {
     return (
       <TouchableOpacity
         onPress={() => {
-          dispatch({type: LOGOUT});
           AsyncStorage.clear();
+          dispatch({type: LOGOUT});
         }}>
         <View
           sx={{
