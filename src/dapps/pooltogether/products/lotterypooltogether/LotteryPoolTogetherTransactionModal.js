@@ -15,7 +15,7 @@ let state_here = {};
 function LotteryPoolTogetherTransactionModal({route, dispatch}) {
   const {depositAmount} = route.params;
 
-  const [renderScreen, setRenderScreen] = useState('TransactionOngoing');
+  const [renderScreen, setRenderScreen] = useState('ConfirmDeposit');
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {

@@ -12,6 +12,7 @@ import FastImage from 'react-native-fast-image';
 import BottomSpacer from '../../../bits/BottomSpacer';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,6 +38,8 @@ function PoolTogetherUsageShowCase() {
   const [poolNetwork, setPoolNetwork] = useState();
   const [ptBalance, setPtBalance] = useState(null);
   const [drawIds, setDrawIds] = useState(null);
+
+  const navigation = useNavigation();
 
   let walletAddress = state_here.WDeetsReducer.wdeets.wallet_address;
   let wallet = new ethers.Wallet(

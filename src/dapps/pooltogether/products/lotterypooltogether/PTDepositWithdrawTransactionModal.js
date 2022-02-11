@@ -18,7 +18,7 @@ let state_here = {};
 function PTDepositWithdrawTransactionModal({route, dispatch}) {
   const {withdrawAmount} = route.params;
 
-  const [renderScreen, setRenderScreen] = useState('TransactionOngoing');
+  const [renderScreen, setRenderScreen] = useState('ConfirmWithdraw');
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
