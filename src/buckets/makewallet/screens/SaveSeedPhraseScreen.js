@@ -22,6 +22,7 @@ import LottieView from 'lottie-react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import _ from 'lodash';
 import {Chip} from 'react-native-elements';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -193,7 +194,7 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
         style={styles.gradient_background}>
         <Text style={styles.heading_text}>SEED PHRASE</Text>
         <CenterText />
-        <TouchableOpacity
+        <Bounceable
           style={{
             marginVertical: windowHeight * 0.1,
           }}
@@ -208,7 +209,7 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
           />
-        </TouchableOpacity>
+        </Bounceable>
       </LinearGradient>
     </View>
   );

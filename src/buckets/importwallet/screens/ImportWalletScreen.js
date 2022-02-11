@@ -19,6 +19,7 @@ import {useSharedValue} from 'react-native-reanimated';
 import SquircleButton from '../../../bits/SquircleButton';
 import LinearGradient from 'react-native-linear-gradient';
 import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -82,7 +83,7 @@ function ImportWalletScreen({dispatch, navigation}) {
             placeholderTextColor={'#FFFFFF50'}
           />
         </View>
-        <TouchableOpacity
+        <Bounceable
           style={{
             marginVertical: windowHeight * 0.1,
           }}
@@ -98,7 +99,7 @@ function ImportWalletScreen({dispatch, navigation}) {
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
           />
-        </TouchableOpacity>
+        </Bounceable>
       </View>
     );
   }
@@ -161,7 +162,7 @@ function ImportWalletScreen({dispatch, navigation}) {
           cannot find wallet with the typed seed phrase, try again!
         </Text>
         <View style={{marginVertical: windowHeight * 0.1}}>
-          <TouchableOpacity
+          <Bounceable
             style={{
               marginBottom: windowHeight * 0.01,
             }}
@@ -177,8 +178,8 @@ function ImportWalletScreen({dispatch, navigation}) {
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
             />
-          </TouchableOpacity>
-          <TouchableOpacity
+          </Bounceable>
+          <Bounceable
             style={{
               marginTop: windowHeight * 0.01,
             }}
@@ -194,7 +195,7 @@ function ImportWalletScreen({dispatch, navigation}) {
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
             />
-          </TouchableOpacity>
+          </Bounceable>
         </View>
       </>
     );

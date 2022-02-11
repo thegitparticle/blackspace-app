@@ -23,6 +23,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import BackgroundNftsAnimation from '../components/BackgroundNftsAnimation';
 import BottomSpacer from '../../../bits/BottomSpacer';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -57,7 +58,7 @@ function Welcome1Screen({dispatch, navigation}) {
           <View>
             <IntroTextsAnimation />
             <Animated.View style={[animatedButton]}>
-              <TouchableOpacity
+              <Bounceable
                 style={{
                   marginVertical: windowHeight * 0.1,
                   alignSelf: 'center',
@@ -73,7 +74,7 @@ function Welcome1Screen({dispatch, navigation}) {
                   font={themeHere.text.title_3}
                   textColor={themeHere.colors.red}
                 />
-              </TouchableOpacity>
+              </Bounceable>
             </Animated.View>
           </View>
         </View>

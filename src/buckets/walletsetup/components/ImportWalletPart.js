@@ -11,6 +11,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import LinearGradient from 'react-native-linear-gradient';
 import SquircleButton from '../../../bits/SquircleButton';
 import {useNavigation} from '@react-navigation/native';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,7 +31,7 @@ function ImportWalletPart() {
           <Text style={styles.explanation_text}>
             import your wallet from rainbow, metamask, trust wallet, etc...
           </Text>
-          <TouchableOpacity
+          <Bounceable
             onPress={() => {
               navigation.navigate('ImportWalletScreen');
             }}>
@@ -42,7 +43,7 @@ function ImportWalletPart() {
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
             />
-          </TouchableOpacity>
+          </Bounceable>
         </View>
       </LinearGradient>
     </View>

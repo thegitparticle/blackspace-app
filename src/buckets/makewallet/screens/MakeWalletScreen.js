@@ -20,6 +20,7 @@ import {useSharedValue} from 'react-native-reanimated';
 import {Bars} from 'react-native-loader';
 import LottieView from 'lottie-react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -128,7 +129,7 @@ function MakeWalletScreen({dispatch, navigation}) {
         style={styles.gradient_background}>
         <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
         <CenterText />
-        <TouchableOpacity
+        <Bounceable
           style={{
             marginVertical: windowHeight * 0.1,
           }}
@@ -149,7 +150,7 @@ function MakeWalletScreen({dispatch, navigation}) {
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
           />
-        </TouchableOpacity>
+        </Bounceable>
       </LinearGradient>
     </View>
   );
