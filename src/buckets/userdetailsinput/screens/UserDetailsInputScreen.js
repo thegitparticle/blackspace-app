@@ -41,13 +41,24 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
   };
 
   function SetUserDetailsToServer() {
+    const data = new FormData();
+
+    data.append(
+      'wallet_address',
+      state_here.WDeetsReducer.wdeets.wallet_address,
+    );
+    data.append('username', username);
+    data.append('wallet_profile.erc20_token_holdings', '');
+    data.append('wallet_profile.eth_balance', '');
+    data.append('wallet_profile.portfolio_value', '');
+
     const config = {
       method: 'post',
-      url: 'https://af61ab05-edce-441a-9dec-1ffa83307433.mock.pstmn.io/setuserdetails',
-      headers: {'content-type': 'application/json'},
-      data: {
-        username: username,
+      url: 'https://suprblack.xyz/api/users/register/',
+      headers: {
+        ...data.getHeaders(),
       },
+      data: data,
     };
 
     axios(config)
