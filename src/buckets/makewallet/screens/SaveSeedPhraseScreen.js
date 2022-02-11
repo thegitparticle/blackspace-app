@@ -21,6 +21,7 @@ import {Bubbles} from 'react-native-loader';
 import LottieView from 'lottie-react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import _ from 'lodash';
+import {Chip} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -29,12 +30,13 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function SeedPhraseScreen({dispatch, navigation}) {
+function SaveSeedPhraseScreen({dispatch, navigation}) {
   const [seedPhraseList, setSeedPhraseList] = useState([]);
 
   useEffect(() => {
+    console.log(state_here.WDeetsReducer.wdeets.wallet_phrase);
     setSeedPhraseList(
-      _.split(state_here.WDeetsReducer.wdeets.wallet_phrase, ' '),
+      _.split(state_here.WDeetsReducer.wdeets.wallet_phrase.phrase, ' '),
     );
   }, []);
 
@@ -44,35 +46,140 @@ function SeedPhraseScreen({dispatch, navigation}) {
   };
 
   function CenterText() {
-    if (walletCreatedTextAndButtonOpacity === 0) {
+    if (seedPhraseList.length === 0) {
       return <Bubbles size={10} color="#FFF" />;
     } else {
       return (
         <View style={{marginVertical: windowHeight * 0.1}}>
           <Text
             style={{
-              ...themeHere.text.header_bold,
+              ...themeHere.text.subhead_i,
               color: 'white',
               alignSelf: 'center',
               textAlign: 'center',
+              marginBottom: windowHeight * 0.1,
+              maxWidth: windowWidth * 0.8,
             }}>
-            note your seed phrase down carefully and put it in securely. this is
-            all you need to access your wallet from blackSpace or any other
-            Ethereum wallet app
+            note your seed phrase down carefully in the exact order and put it
+            in securely. this is all you need to access your wallet from
+            blackSpace or any other Ethereum wallet app
           </Text>
-          {seedPhraseList.map(item => (
-            <View style={{backgroundColor: themeHere.colors.blue, padding: 10}}>
-              <Text
+          <View
+            style={{
+              marginVertical: windowHeight * 0.01,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            {seedPhraseList.slice(0, 3).map((item, id) => (
+              <View
                 style={{
-                  ...themeHere.text.header_bold,
-                  color: 'white',
-                  alignSelf: 'center',
-                  textAlign: 'center',
+                  backgroundColor: themeHere.colors.red_light,
+                  height: 40,
+                  borderRadius: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 120,
+                  marginHorizontal: 5,
                 }}>
-                {item}
-              </Text>
-            </View>
-          ))}
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_bold,
+                    color: 'white',
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  {id + 1}. {item}
+                </Text>
+              </View>
+            ))}
+          </View>
+          <View
+            style={{
+              marginVertical: windowHeight * 0.01,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            {seedPhraseList.slice(3, 6).map((item, id) => (
+              <View
+                style={{
+                  backgroundColor: themeHere.colors.red_light,
+                  height: 40,
+                  borderRadius: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 120,
+                  marginHorizontal: 5,
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_bold,
+                    color: 'white',
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  {id + 4}. {item}
+                </Text>
+              </View>
+            ))}
+          </View>
+          <View
+            style={{
+              marginVertical: windowHeight * 0.01,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            {seedPhraseList.slice(6, 9).map((item, id) => (
+              <View
+                style={{
+                  backgroundColor: themeHere.colors.red_light,
+                  height: 40,
+                  borderRadius: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 120,
+                  marginHorizontal: 5,
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_bold,
+                    color: 'white',
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  {id + 7}. {item}
+                </Text>
+              </View>
+            ))}
+          </View>
+          <View
+            style={{
+              marginVertical: windowHeight * 0.01,
+              flexDirection: 'row',
+              justifyContent: 'center',
+            }}>
+            {seedPhraseList.slice(9, 12).map((item, id) => (
+              <View
+                style={{
+                  backgroundColor: themeHere.colors.red_light,
+                  height: 40,
+                  borderRadius: 20,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 120,
+                  marginHorizontal: 5,
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_bold,
+                    color: 'white',
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  {id + 10}. {item}
+                </Text>
+              </View>
+            ))}
+          </View>
         </View>
       );
     }
@@ -112,7 +219,7 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(SeedPhraseScreen);
+export default connect(mapStateToProps)(SaveSeedPhraseScreen);
 
 const styles = StyleSheet.create({
   parent_view: {
@@ -135,6 +242,6 @@ const styles = StyleSheet.create({
   heading_text: {
     ...themeHere.text.title_3,
     color: 'white',
-    marginVertical: windowHeight * 0.1,
+    marginTop: windowHeight * 0.1,
   },
 });

@@ -54,7 +54,7 @@ function MakeWalletScreen({dispatch, navigation}) {
     const walletCreated = ethers.Wallet.createRandom();
     wallet.wallet_address = walletCreated.address;
     wallet.wallet_privateKey = walletCreated.privateKey;
-    wallet.wallet_phrase = walletCreated.mnemonicCiphertext;
+    wallet.wallet_phrase = walletCreated.mnemonic;
     console.log(walletCreated.privateKey);
     console.log(walletCreated.address);
     console.log(walletCreated.mnemonic);

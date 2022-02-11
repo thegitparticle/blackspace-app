@@ -4,6 +4,7 @@ import Welcome1Screen from '../buckets/welcome/screens/Welcome1Screen';
 import WalletSetupOptionsScreen from '../buckets/walletsetup/screens/WalletSetupOptionsScreen';
 import ImportWalletScreen from '../buckets/importwallet/screens/ImportWalletScreen';
 import MakeWalletScreen from '../buckets/makewallet/screens/MakeWalletScreen';
+import SaveSeedPhraseScreen from '../buckets/makewallet/screens/SaveSeedPhraseScreen';
 import UserDetailsInputScreen from '../buckets/userdetailsinput/screens/UserDetailsInputScreen';
 
 const StackMain = createStackNavigator();
@@ -44,8 +45,8 @@ function WelcomeStack() {
         }}
       />
       <StackMain.Screen
-        name="SeedPhraseScreen"
-        component={SeedPhraseScreen}
+        name="SaveSeedPhraseScreen"
+        component={SaveSeedPhraseScreen}
         options={{
           gestureEnabled: true,
           headerShown: false,
