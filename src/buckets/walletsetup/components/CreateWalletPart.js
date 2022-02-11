@@ -32,8 +32,7 @@ function CreateWalletPart() {
           </Text>
           <TouchableOpacity
             onPress={() => {
-              // navigation.navigate('MakeWalletScreen');
-              navigation.navigate('SaveSeedPhraseScreen');
+              navigation.navigate('MakeWalletScreen');
             }}>
             <SquircleButton
               buttonColor={themeHere.colors.red_light}

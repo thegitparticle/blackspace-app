@@ -133,9 +133,7 @@ function MakeWalletScreen({dispatch, navigation}) {
             marginVertical: windowHeight * 0.1,
           }}
           onPress={() => {
-            navigation.navigate('UserDetailsInputScreen', {
-              wallet_address: walletDetails.wallet_address,
-            });
+            navigation.navigate('SaveSeedPhraseScreen');
           }}>
           <SquircleButton
             buttonColor={
