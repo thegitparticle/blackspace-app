@@ -18,6 +18,7 @@ import FlashMessage from 'react-native-flash-message';
 import {LogBox} from 'react-native';
 import {DripsyProvider, makeTheme} from 'dripsy';
 import {dripsytheme} from './src/theme/DripsyTheme';
+import OneSignal from 'react-native-onesignal';
 
 const App: () => Node = () => {
   LogBox.ignoreLogs([
@@ -25,6 +26,37 @@ const App: () => Node = () => {
   ]);
 
   const theme = makeTheme(dripsytheme);
+
+  //OneSignal Init Code
+  OneSignal.setLogLevel(6, 0);
+  OneSignal.setAppId('96444dbd-88fe-4408-bf7c-c22eeda3ea3b');
+  //END OneSignal Init Code
+
+  //Prompt for push on iOS
+  OneSignal.promptForPushNotificationsWithUserResponse(response => {
+    console.log('Prompt response:', response);
+  });
+
+  //Method for handling notifications received while app in foreground
+  OneSignal.setNotificationWillShowInForegroundHandler(
+    notificationReceivedEvent => {
+      console.log(
+        'OneSignal: notification will show in foreground:',
+        notificationReceivedEvent,
+      );
+      let notification = notificationReceivedEvent.getNotification();
+      console.log('notification: ', notification);
+      const data = notification.additionalData;
+      console.log('additionalData: ', data);
+      // Complete with null means don't show a notification.
+      notificationReceivedEvent.complete(notification);
+    },
+  );
+
+  //Method for handling notifications opened
+  OneSignal.setNotificationOpenedHandler(notification => {
+    console.log('OneSignal: notification opened:', notification);
+  });
 
   return (
     <Provider store={storehere}>

@@ -11256,6 +11256,13 @@ react-native-network-logger@^1.12.0:
   resolved "https://registry.npmjs.org/react-native-network-logger/-/react-native-network-logger-1.12.0.tgz#a82528b3ac3cc2c7ded09ac37a0bba2e6030d032"
   integrity sha512-3Esss/+caz0d53vuKOYS5i9YtNn76O2AvnKMwQovtXbpJs0Fc4oyJhNJ50YWNQBCKJ5aHqWUEYNE4Ryp5GLmeQ==
 
+react-native-onesignal@^4.3.7:
+  version "4.3.7"
+  resolved "https://registry.npmjs.org/react-native-onesignal/-/react-native-onesignal-4.3.7.tgz#488319cd1912958613feef81c83b2b720a38a88e"
+  integrity sha512-oBTja1n2puwF5XuYPbEaBpvaWGiV5lkVX+zWndQe/dRcIgtIEJzVZqeaqxZ3u30ImxFoyCXqUzup2BiuQFewFw==
+  dependencies:
+    invariant "^2.2.2"
+
 react-native-os@^1.0.1:
   version "1.2.6"
   resolved "https://registry.npmjs.org/react-native-os/-/react-native-os-1.2.6.tgz#1bb16d78ccad1143972183a04f443cf1af9fbefa"

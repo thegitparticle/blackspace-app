@@ -11,6 +11,7 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
+		1E50F035B64AA86F1390C613 /* libPods-OneSignalNotifications.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B89933DB1862AA4AE3F53DE0 /* libPods-OneSignalNotifications.a */; };
 		2627D968276BB36F0090823E /* GothamRounded-LightItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D960276BB36E0090823E /* GothamRounded-LightItalic.otf */; };
 		2627D969276BB36F0090823E /* GothamRounded-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D961276BB36E0090823E /* GothamRounded-Light.otf */; };
 		2627D96A276BB36F0090823E /* GothamRounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D962276BB36E0090823E /* GothamRounded-Bold.otf */; };
@@ -20,6 +21,8 @@
 		2627D96E276BB36F0090823E /* GothamRounded-BookItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D966276BB36E0090823E /* GothamRounded-BookItalic.otf */; };
 		2627D96F276BB36F0090823E /* GothamRounded-MediumItalic.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2627D967276BB36F0090823E /* GothamRounded-MediumItalic.otf */; };
 		26386A72279DF4EE00829C2E /* libReactNativeART.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26386A71279DF4EE00829C2E /* libReactNativeART.a */; };
+		266A26A927BC08FE005E2D0B /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 266A26A827BC08FE005E2D0B /* NotificationService.swift */; };
+		266A26AD27BC08FE005E2D0B /* OneSignalNotifications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 266A26A627BC08FE005E2D0B /* OneSignalNotifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		26BBEFEE27AA9A6B00D594AA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BBEFED27AA9A6B00D594AA /* File.swift */; };
 		26DF3F88276BA985007A19E8 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DF3F86276BA2B1007A19E8 /* icomoon.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
@@ -35,7 +38,28 @@
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
 			remoteInfo = soupapp;
 		};
+		266A26AB27BC08FE005E2D0B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 266A26A527BC08FE005E2D0B;
+			remoteInfo = OneSignalNotifications;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		266A26A127BC08CE005E2D0B /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				266A26AD27BC08FE005E2D0B /* OneSignalNotifications.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		00E356EE1AD99517003FC87E /* soupappTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = soupappTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -58,9 +82,15 @@
 		2627D967276BB36F0090823E /* GothamRounded-MediumItalic.otf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "GothamRounded-MediumItalic.otf"; path = "../assets/fonts/GothamRounded-MediumItalic.otf"; sourceTree = "<group>"; };
 		26344CE2922623C3DD6E286D /* libPods-soupapp-soupappTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-soupapp-soupappTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		26386A71279DF4EE00829C2E /* libReactNativeART.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libReactNativeART.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		266A269127BC0855005E2D0B /* soupapp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = soupapp.entitlements; path = soupapp/soupapp.entitlements; sourceTree = "<group>"; };
+		266A26A627BC08FE005E2D0B /* OneSignalNotifications.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = OneSignalNotifications.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		266A26A827BC08FE005E2D0B /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		266A26AA27BC08FE005E2D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		266A26B127BC0AD2005E2D0B /* OneSignalNotifications.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = OneSignalNotifications.entitlements; sourceTree = "<group>"; };
 		26BBEFEC27AA9A6B00D594AA /* soupapp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "soupapp-Bridging-Header.h"; sourceTree = "<group>"; };
 		26BBEFED27AA9A6B00D594AA /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		26DF3F86276BA2B1007A19E8 /* icomoon.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = icomoon.ttf; path = ../assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
+		28EA1B07941B8F617D3B6606 /* Pods-OneSignalNotifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotifications.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotifications/Pods-OneSignalNotifications.debug.xcconfig"; sourceTree = "<group>"; };
 		2BB9C7891BCF49D880CBC817 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2C00D947409A491BA9C48312 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
 		47DA8708BB124F5896275837 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
@@ -76,6 +106,7 @@
 		9BEA797D61A948768188E8E4 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		9CD7FED39ECC3083475ABDD2 /* Pods-soupapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.release.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.release.xcconfig"; sourceTree = "<group>"; };
 		A76E3A0370D449488D5FDD9B /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
+		B89933DB1862AA4AE3F53DE0 /* libPods-OneSignalNotifications.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotifications.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0BCA3B0903CF9351214FBD /* Pods-soupapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.debug.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.debug.xcconfig"; sourceTree = "<group>"; };
 		BD3F92AE7B7F4AFEBF68CD0E /* Octicons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Octicons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Octicons.ttf"; sourceTree = "<group>"; };
 		DE19C59A718149B9BA98D165 /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
@@ -83,6 +114,7 @@
 		E6C00285F8B5A5EA7E31EFA2 /* Pods-soupapp-soupappTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp-soupappTests.release.xcconfig"; path = "Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests.release.xcconfig"; sourceTree = "<group>"; };
 		EAD9FB07A4FF865D48E578A3 /* libPods-soupapp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-soupapp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FFD0D7016E88731A451B0619 /* Pods-OneSignalNotifications.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotifications.release.xcconfig"; path = "Target Support Files/Pods-OneSignalNotifications/Pods-OneSignalNotifications.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +132,14 @@
 			files = (
 				26386A72279DF4EE00829C2E /* libReactNativeART.a in Frameworks */,
 				8C864A26F229F7A3E0EC71D6 /* libPods-soupapp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		266A26A327BC08FE005E2D0B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1E50F035B64AA86F1390C613 /* libPods-OneSignalNotifications.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -126,6 +166,7 @@
 		13B07FAE1A68108700A75B9A /* soupapp */ = {
 			isa = PBXGroup;
 			children = (
+				266A269127BC0855005E2D0B /* soupapp.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -138,6 +179,16 @@
 			name = soupapp;
 			sourceTree = "<group>";
 		};
+		266A26A727BC08FE005E2D0B /* OneSignalNotifications */ = {
+			isa = PBXGroup;
+			children = (
+				266A26B127BC0AD2005E2D0B /* OneSignalNotifications.entitlements */,
+				266A26A827BC08FE005E2D0B /* NotificationService.swift */,
+				266A26AA27BC08FE005E2D0B /* Info.plist */,
+			);
+			path = OneSignalNotifications;
+			sourceTree = "<group>";
+		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -145,6 +196,7 @@
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				EAD9FB07A4FF865D48E578A3 /* libPods-soupapp.a */,
 				26344CE2922623C3DD6E286D /* libPods-soupapp-soupappTests.a */,
+				B89933DB1862AA4AE3F53DE0 /* libPods-OneSignalNotifications.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -171,6 +223,7 @@
 				13B07FAE1A68108700A75B9A /* soupapp */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* soupappTests */,
+				266A26A727BC08FE005E2D0B /* OneSignalNotifications */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				841B631218E7ABC54AAC571F /* Pods */,
@@ -186,6 +239,7 @@
 			children = (
 				13B07F961A680F5B00A75B9A /* soupapp.app */,
 				00E356EE1AD99517003FC87E /* soupappTests.xctest */,
+				266A26A627BC08FE005E2D0B /* OneSignalNotifications.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -197,6 +251,8 @@
 				9CD7FED39ECC3083475ABDD2 /* Pods-soupapp.release.xcconfig */,
 				98BDDC81DD638AA363134458 /* Pods-soupapp-soupappTests.debug.xcconfig */,
 				E6C00285F8B5A5EA7E31EFA2 /* Pods-soupapp-soupappTests.release.xcconfig */,
+				28EA1B07941B8F617D3B6606 /* Pods-OneSignalNotifications.debug.xcconfig */,
+				FFD0D7016E88731A451B0619 /* Pods-OneSignalNotifications.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -260,15 +316,35 @@
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				5D9F61D789C3A4C90A5A7600 /* [CP] Embed Pods Frameworks */,
 				002DB84D88A98E92C61B452B /* [CP] Copy Pods Resources */,
+				266A26A127BC08CE005E2D0B /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				266A26AC27BC08FE005E2D0B /* PBXTargetDependency */,
 			);
 			name = soupapp;
 			productName = soupapp;
 			productReference = 13B07F961A680F5B00A75B9A /* soupapp.app */;
 			productType = "com.apple.product-type.application";
+		};
+		266A26A527BC08FE005E2D0B /* OneSignalNotifications */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 266A26AE27BC08FE005E2D0B /* Build configuration list for PBXNativeTarget "OneSignalNotifications" */;
+			buildPhases = (
+				824C1254C68A0F2614569C5A /* [CP] Check Pods Manifest.lock */,
+				266A26A227BC08FE005E2D0B /* Sources */,
+				266A26A327BC08FE005E2D0B /* Frameworks */,
+				266A26A427BC08FE005E2D0B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OneSignalNotifications;
+			productName = OneSignalNotifications;
+			productReference = 266A26A627BC08FE005E2D0B /* OneSignalNotifications.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 /* End PBXNativeTarget section */
 
@@ -276,6 +352,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1320;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
@@ -284,6 +361,9 @@
 					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1320;
+					};
+					266A26A527BC08FE005E2D0B = {
+						CreatedOnToolsVersion = 13.2;
 					};
 				};
 			};
@@ -302,6 +382,7 @@
 			targets = (
 				13B07F861A680F5B00A75B9A /* soupapp */,
 				00E356ED1AD99517003FC87E /* soupappTests */,
+				266A26A527BC08FE005E2D0B /* OneSignalNotifications */,
 			);
 		};
 /* End PBXProject section */
@@ -329,6 +410,13 @@
 				26DF3F88276BA985007A19E8 /* icomoon.ttf in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		266A26A427BC08FE005E2D0B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,6 +510,28 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-soupapp/Pods-soupapp-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		824C1254C68A0F2614569C5A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-OneSignalNotifications-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		BA476671C58D4D23C006B166 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -501,6 +611,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		266A26A227BC08FE005E2D0B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				266A26A927BC08FE005E2D0B /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -508,6 +626,11 @@
 			isa = PBXTargetDependency;
 			target = 13B07F861A680F5B00A75B9A /* soupapp */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
+		};
+		266A26AC27BC08FE005E2D0B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 266A26A527BC08FE005E2D0B /* OneSignalNotifications */;
+			targetProxy = 266A26AB27BC08FE005E2D0B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -569,8 +692,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BA0BCA3B0903CF9351214FBD /* Pods-soupapp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = soupapp/soupapp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QC3CQ6SH8Y;
 				ENABLE_BITCODE = NO;
@@ -597,8 +722,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 9CD7FED39ECC3083475ABDD2 /* Pods-soupapp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = soupapp/soupapp.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = QC3CQ6SH8Y;
 				INFOPLIST_FILE = soupapp/Info.plist;
@@ -616,6 +743,86 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "soupapp-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		266A26AF27BC08FE005E2D0B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 28EA1B07941B8F617D3B6606 /* Pods-OneSignalNotifications.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotifications/OneSignalNotifications.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = QC3CQ6SH8Y;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotifications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotifications;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.soupapp.OneSignalNotifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		266A26B027BC08FE005E2D0B /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FFD0D7016E88731A451B0619 /* Pods-OneSignalNotifications.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = OneSignalNotifications/OneSignalNotifications.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = QC3CQ6SH8Y;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = OneSignalNotifications/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = OneSignalNotifications;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.soupapp.OneSignalNotifications;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -761,6 +968,15 @@
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
 				13B07F951A680F5B00A75B9A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		266A26AE27BC08FE005E2D0B /* Build configuration list for PBXNativeTarget "OneSignalNotifications" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				266A26AF27BC08FE005E2D0B /* Debug */,
+				266A26B027BC08FE005E2D0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

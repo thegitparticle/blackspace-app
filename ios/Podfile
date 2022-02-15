@@ -30,3 +30,7 @@ target 'soupapp' do
     __apply_Xcode_12_5_M1_post_install_workaround(installer)
   end
 end
+
+target 'OneSignalNotifications' do
+	pod 'OneSignalXCFramework', '>= 3.0', '< 4.0'
+end
