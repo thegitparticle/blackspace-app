@@ -20,6 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import axios from 'axios';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {Bounceable} from 'rn-bounceable';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,6 +36,11 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
   const [showSetupDoneOverlay, setShowSetupDoneOverlay] = useState(false);
 
   const myProfileDetails = {username: '', userid: null};
+
+  const hapticOptions = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
+  };
 
   const toggleSetupDoneOverlay = () => {
     setShowSetupDoneOverlay(!showSetupDoneOverlay);
@@ -64,11 +70,13 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
     axios(config)
       .then(res => {
         Keyboard.dismiss();
+        ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
         setShowSetupDoneOverlay(true);
         // NavigateToMainStack();
       })
       .catch(error => {
         console.log(error);
+        ReactNativeHapticFeedback.trigger('impactMedium', hapticOptions);
         showMessage({
           message: 'username already in use, try another',
           type: 'error',
