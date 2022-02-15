@@ -94,7 +94,7 @@ function SettingUpAppScreen({dispatch}) {
       return (
         <View style={{alignItems: 'center', justifyContent: 'center'}}>
           <Text style={styles.text_highlighted}>
-            Keep phone aside and relax while we finish the borrowing process
+            Setting up blackSpace for you
           </Text>
           <LottieView
             source={require('../../../../assets/doge_tail_lottie.json')}
@@ -159,5 +159,22 @@ const styles = StyleSheet.create({
     height: windowHeight,
     width: windowWidth,
     alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text_highlighted: {
+    ...themeHere.text.header,
+    color: themeHere.colors.foreground,
+    marginVertical: 30,
+    maxWidth: windowWidth * 0.7,
+    textAlign: 'center',
+    lineHeight: 30,
+  },
+  text_not_highlighted: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '75',
+    marginVertical: 30,
+    maxWidth: windowWidth * 0.7,
+    textAlign: 'center',
+    lineHeight: 30,
   },
 });
