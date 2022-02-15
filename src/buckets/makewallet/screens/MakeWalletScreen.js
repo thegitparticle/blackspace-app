@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
   StatusBar,
   Appearance,
+  Pressable,
 } from 'react-native';
 import {ADD_WDEETS, LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
@@ -21,6 +22,7 @@ import {Bars} from 'react-native-loader';
 import LottieView from 'lottie-react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Bounceable} from 'rn-bounceable';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -129,7 +131,36 @@ function MakeWalletScreen({dispatch, navigation}) {
       <LinearGradient
         colors={['#FF5B3A', '#FF3293']}
         style={styles.gradient_background}>
-        <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
+        <View
+          style={{
+            flexDirection: 'row',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            width: windowWidth * 0.9,
+          }}>
+          <Pressable
+            onPress={() => navigation.goBack()}
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 50,
+              height: 50,
+              borderRadius: 25,
+            }}>
+            <Iconly name="ChevronLeftBroken" color="#FFFFFF" size={30} />
+          </Pressable>
+          <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
+          <Pressable
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              width: 50,
+              height: 50,
+              borderRadius: 25,
+            }}>
+            <Iconly name="CloseSquareBold" color="#FFFFFF00" size={30} />
+          </Pressable>
+        </View>
         <CenterText />
         <View style={{marginVertical: windowHeight * 0.1}}>
           <Bounceable
