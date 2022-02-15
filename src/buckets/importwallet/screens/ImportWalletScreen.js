@@ -68,6 +68,7 @@ function ImportWalletScreen({dispatch, navigation}) {
       console.log(e.toString());
       setWalletCreating(false);
       setRenderErrorBody(true);
+      ReactNativeHapticFeedback.trigger('impactMedium', hapticOptions);
     }
   }
 
