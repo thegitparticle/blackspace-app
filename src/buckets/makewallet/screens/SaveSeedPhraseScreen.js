@@ -194,22 +194,27 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
         style={styles.gradient_background}>
         <Text style={styles.heading_text}>SEED PHRASE</Text>
         <CenterText />
-        <Bounceable
+        <View
           style={{
             marginVertical: windowHeight * 0.1,
-          }}
-          onPress={() => {
-            navigation.navigate('UserDetailsInputScreen');
           }}>
-          <SquircleButton
-            buttonColor={themeHere.colors.red_light}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'I have noted it down'}
-            font={themeHere.text.subhead_medium}
-            textColor={themeHere.colors.light}
-          />
-        </Bounceable>
+          <Bounceable
+            style={{
+              marginVertical: windowHeight * 0.1,
+            }}
+            onPress={() => {
+              navigation.navigate('UserDetailsInputScreen');
+            }}>
+            <SquircleButton
+              buttonColor={themeHere.colors.red_light}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'I have noted it down'}
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </Bounceable>
+        </View>
       </LinearGradient>
     </View>
   );
