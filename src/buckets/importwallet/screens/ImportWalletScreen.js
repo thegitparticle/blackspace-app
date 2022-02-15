@@ -53,17 +53,19 @@ function ImportWalletScreen({dispatch, navigation}) {
 
   function importWallet() {
     try {
-      const walletCreated = ethers.Wallet.fromMnemonic(phrase);
-      wallet.wallet_address = walletCreated.address;
-      wallet.wallet_privateKey = walletCreated.privateKey;
-      wallet.wallet_phrase = walletCreated.mnemonic;
-      setWalletDetails(wallet);
-      setWalletCreating(false);
-      console.log(wallet);
-      dispatch(AddWDeets(wallet));
-      setWaitingTextOverallOpacity(0);
-      setWalletCreatedTextAndButtonOpacity(1);
-      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+      setTimeout(() => {
+        const walletCreated = ethers.Wallet.fromMnemonic(phrase);
+        wallet.wallet_address = walletCreated.address;
+        wallet.wallet_privateKey = walletCreated.privateKey;
+        wallet.wallet_phrase = walletCreated.mnemonic;
+        setWalletDetails(wallet);
+        setWalletCreating(false);
+        console.log(wallet);
+        dispatch(AddWDeets(wallet));
+        setWaitingTextOverallOpacity(0);
+        setWalletCreatedTextAndButtonOpacity(1);
+        ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+      }, 500);
     } catch (e) {
       console.log(e.toString());
       setWalletCreating(false);

@@ -43,7 +43,9 @@ function MakeWalletScreen({dispatch, navigation}) {
   ] = useState(0);
 
   useEffect(() => {
-    createWallet();
+    setTimeout(() => {
+      createWallet();
+    }, 500);
   }, []);
 
   const hapticOptions = {
