@@ -48,6 +48,28 @@ function SettingUpAppScreen({dispatch}) {
 
   useEffect(() => {
     if (userId > 0) {
+      const dataJWT = JSON.stringify({
+        wallet_address: String(state_here.WDeetsReducer.wdeets.wallet_address),
+        password: '#some$#password$#that$#i$#chose$#',
+      });
+
+      const configJWT = {
+        method: 'post',
+        url: 'https://suprblack.xyz/api/auth/token/',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: dataJWT,
+      };
+
+      axios(configJWT)
+        .then(function (response) {
+          console.log(JSON.stringify(response.data));
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+
       dispatch(AddUserDetails(state_here.WDeetsReducer.wdeets.wallet_address));
       dispatch(
         GetMyProfileDetails(
