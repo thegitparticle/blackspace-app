@@ -33,18 +33,10 @@ let state_here = {};
 function UserDetailsInputScreen({route, dispatch, navigation}) {
   const [username, setUsername] = useState('');
   const [renderInputBody, setRenderInputBody] = useState(true);
-  const [showError, setShowError] = useState(false);
-  const [showSetupDoneOverlay, setShowSetupDoneOverlay] = useState(false);
-
-  const myProfileDetails = {username: '', userid: null};
 
   const hapticOptions = {
     enableVibrateFallback: true,
     ignoreAndroidSystemSettings: false,
-  };
-
-  const toggleSetupDoneOverlay = () => {
-    setShowSetupDoneOverlay(!showSetupDoneOverlay);
   };
 
   function SetUserDetailsToServer() {
@@ -72,8 +64,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       .then(res => {
         Keyboard.dismiss();
         ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
-        setShowSetupDoneOverlay(true);
-        // NavigateToMainStack();
+        navigation.navigate('SettingUpAppScreen');
       })
       .catch(error => {
         console.log(error);
@@ -160,22 +151,6 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
     );
   }
 
-  function SetupDoneOverlay() {
-    return (
-      <LinearGradient
-        colors={['#0ACF83', '#068756']}
-        style={styles.overlay_gradient_background}>
-        <Text style={styles.screen_header_text}>ALL DONE!</Text>
-      </LinearGradient>
-    );
-  }
-
-  // function NavigateToMainStack() {
-  //   setTimeout(() => {
-  //     dispatch({type: LOGIN});
-  //   }, 3000);
-  // }
-
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
@@ -187,13 +162,6 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
         </TouchableOpacity>
         <RenderBody />
       </LinearGradient>
-      <Overlay
-        isVisible={showSetupDoneOverlay}
-        fullScreen={true}
-        overlayStyle={styles.overlay_gradient_background}
-        onBackdropPress={toggleSetupDoneOverlay}>
-        <SetupDoneOverlay />
-      </Overlay>
     </View>
   );
 }
