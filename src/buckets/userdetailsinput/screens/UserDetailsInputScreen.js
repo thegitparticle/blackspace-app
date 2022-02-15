@@ -21,6 +21,7 @@ import axios from 'axios';
 import {showMessage, hideMessage} from 'react-native-flash-message';
 import {Bounceable} from 'rn-bounceable';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import FormData from 'form-data';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -62,7 +63,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       method: 'post',
       url: 'https://suprblack.xyz/api/users/register/',
       headers: {
-        ...data.getHeaders(),
+        ...data.getHeaders,
       },
       data: data,
     };
@@ -82,46 +83,55 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
           type: 'error',
           backgroundColor: themeHere.colors.danger_red,
         });
-        renderInputBody(true);
       });
   }
 
   function SaveButton() {
     if (renderInputBody) {
       return (
-        <Bounceable
+        <View
           style={{
             marginVertical: windowHeight * 0.1,
-          }}
-          onPress={() => {
-            setRenderInputBody(false);
-            SetUserDetailsToServer();
           }}>
-          <SquircleButton
-            buttonColor={'#282828'}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'save'}
-            font={themeHere.text.subhead_medium}
-            textColor={themeHere.colors.light}
-          />
-        </Bounceable>
+          <Bounceable
+            style={{
+              marginVertical: windowHeight * 0.1,
+            }}
+            onPress={() => {
+              setRenderInputBody(false);
+              SetUserDetailsToServer();
+            }}>
+            <SquircleButton
+              buttonColor={'#282828'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'save'}
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </Bounceable>
+        </View>
       );
     } else {
       return (
-        <Bounceable
+        <View
           style={{
             marginVertical: windowHeight * 0.1,
           }}>
-          <SquircleButton
-            buttonColor={'#28282800'}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'saving username ...'}
-            font={themeHere.text.subhead_medium}
-            textColor={themeHere.colors.light}
-          />
-        </Bounceable>
+          <Bounceable
+            style={{
+              marginVertical: windowHeight * 0.1,
+            }}>
+            <SquircleButton
+              buttonColor={'#28282825'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'saving username ...'}
+              font={themeHere.text.subhead_medium}
+              textColor={themeHere.colors.light}
+            />
+          </Bounceable>
+        </View>
       );
     }
   }
