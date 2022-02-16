@@ -439,6 +439,9 @@ PODS:
   - RNScreens (3.10.1):
     - React-Core
     - React-RCTImage
+  - RNSentry (3.2.13):
+    - React-Core
+    - Sentry (= 7.9.0)
   - RNSharedElement (0.8.3):
     - React-Core
   - RNSVG (12.1.1):
@@ -451,6 +454,9 @@ PODS:
   - SDWebImageWebPCoder (0.8.4):
     - libwebp (~> 1.0)
     - SDWebImage/Core (~> 5.10)
+  - Sentry (7.9.0):
+    - Sentry/Core (= 7.9.0)
+  - Sentry/Core (7.9.0)
   - SSZipArchive (2.2.3)
   - TcpSockets (3.3.2):
     - React
@@ -538,6 +544,7 @@ DEPENDENCIES:
   - RNReactNativeHapticFeedback (from `../node_modules/react-native-haptic-feedback`)
   - RNReanimated (from `../node_modules/react-native-reanimated`)
   - RNScreens (from `../node_modules/react-native-screens`)
+  - "RNSentry (from `../node_modules/@sentry/react-native`)"
   - RNSharedElement (from `../node_modules/react-native-shared-element`)
   - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
@@ -567,6 +574,7 @@ SPEC REPOS:
     - OpenSSL-Universal
     - SDWebImage
     - SDWebImageWebPCoder
+    - Sentry
     - SSZipArchive
     - YogaKit
 
@@ -681,6 +689,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-reanimated"
   RNScreens:
     :path: "../node_modules/react-native-screens"
+  RNSentry:
+    :path: "../node_modules/@sentry/react-native"
   RNSharedElement:
     :path: "../node_modules/react-native-shared-element"
   RNSVG:
@@ -767,11 +777,13 @@ SPEC CHECKSUMS:
   RNReactNativeHapticFeedback: b83bfb4b537bdd78eb4f6ffe63c6884f7b049ead
   RNReanimated: da3860204e5660c0dd66739936732197d359d753
   RNScreens: 522705f2e5c9d27efb17f24aceb2bf8335bc7b8e
+  RNSentry: 0aa1567f66c20390f3834637fc4f73380dcd0774
   RNSharedElement: 381b5e33366513cc3f449f2dc3a42c5df0f54021
   RNSVG: 551acb6562324b1d52a4e0758f7ca0ec234e278f
   RNVectorIcons: 4143ba35feebab8fdbe6bc43d1e776b393d47ac8
   SDWebImage: a7f831e1a65eb5e285e3fb046a23fcfbf08e696d
   SDWebImageWebPCoder: f93010f3f6c031e2f8fb3081ca4ee6966c539815
+  Sentry: 2f7e91f247cfb05b05bd01e0b5d0692557a7687b
   SSZipArchive: 62d4947b08730e4cda640473b0066d209ff033c9
   TcpSockets: 14306fb79f9750ea7d2ddd02d8bed182abb01797
   Yoga: e7dc4e71caba6472ff48ad7d234389b91dadc280

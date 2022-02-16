@@ -21,6 +21,12 @@ import {dripsytheme} from './src/theme/DripsyTheme';
 import OneSignal from 'react-native-onesignal';
 import {Amplitude} from '@amplitude/react-native';
 
+import * as Sentry from '@sentry/react-native';
+
+Sentry.init({
+  dsn: 'https://75dfb14196fb466a87028e482a9113bc@o578195.ingest.sentry.io/6212337',
+});
+
 const App: () => Node = () => {
   LogBox.ignoreLogs([
     'Warning: Each child in a list should have a unique "key" prop.',
