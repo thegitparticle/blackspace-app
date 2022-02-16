@@ -8,6 +8,7 @@ import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle/src/index';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -49,7 +50,12 @@ function HeaderOnHome() {
       function HeaderRightX() {
         return (
           <Pressable
-            onPress={() => navigation.navigate('MyProfileStack')}
+            onPress={() => {
+              Amplitude.getInstance().logEvent(
+                'PROFILE_WALLET_OPEN_BUTTON_CLICK',
+              );
+              navigation.navigate('MyProfileStack');
+            }}
             style={{paddingVertical: 10, paddingHorizontal: 20}}>
             <View
               variant="layout.round_icon_container_30"
@@ -69,7 +75,12 @@ function HeaderOnHome() {
   function HeaderMiddle() {
     return (
       <Pressable
-        onPress={() => navigation.navigate('TestStack')}
+        onPress={() => {
+          Amplitude.getInstance().logEvent(
+            'BLACKSPACE_SCREEN_OPEN_BUTTON_CLICK',
+          );
+          navigation.navigate('TestStack');
+        }}
         style={{
           paddingVertical: 10,
           paddingHorizontal: 20,

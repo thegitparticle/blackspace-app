@@ -33,7 +33,9 @@ function MyAppThumbnail(app_details: {
     <Bounceable
       // key={app_details.app_id.toString()}
       onPress={() => {
-        Amplitude.getInstance().logEvent('MYAPP_OPEN_BUTTON_CLICK');
+        Amplitude.getInstance().logEvent('MYAPP_OPEN_BUTTON_CLICK', {
+          'App Name': String(app_details.app_name),
+        });
         navigation.navigate('MiniAppLanding', {
           app_details,
         });
