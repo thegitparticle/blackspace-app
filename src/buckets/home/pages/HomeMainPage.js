@@ -37,7 +37,7 @@ function HomeMainPage({dispatch}) {
       app_icon: 'https://i.postimg.cc/RVy49JPX/download-14.png',
       app_cover: '',
       extra_message: 'Get amazing tips',
-      landing_blueprint_function_name: 'TipsSpecialScreen',
+      landing_blueprint_function_name: 'TipsAppLandingScreen',
       need_add_myapps_button: false,
       show_in_use_tab: false,
       in_use_tab_function_name: '',

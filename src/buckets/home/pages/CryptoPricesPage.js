@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
 import BottomSpacer from '../../../bits/BottomSpacer';
+import {useFocusEffect} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,6 +21,10 @@ const wait = timeout => {
 
 function CryptoPricesPage({dispatch}) {
   const [refreshing, setRefreshing] = useState(false);
+
+  useFocusEffect(() => {
+    console.log('is focused - crypto prices page is now being seen');
+  }, []);
 
   useEffect(() => {
     dispatch(GetMarketPrices());

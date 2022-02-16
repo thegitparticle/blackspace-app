@@ -33,6 +33,7 @@ import IndexCoopTransactionModal from '../dapps/indexfunds/products/indexcoopfun
 import AddCollTransactionModal from '../dapps/liquity/products/borrowfromliquity/AddCollTransactionModal';
 import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/PaybackLiquityTransactionModal';
 import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/PTDepositWithdrawTransactionModal';
+import TipsAppLandingScreen from '../buckets/tips/screens/TipsAppLandingScreen';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -152,6 +153,46 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="MiniAppLanding"
           component={MiniAppLanding}
+          sharedElements={(route, otherRoute, showing) => {
+            const {app_details} = route.params;
+            return [`item.${app_details.app_name}.app_icon`];
+          }}
+          options={{
+            gestureEnabled: true,
+            headerShown: true,
+            headerStyle: {
+              backgroundColor: 'transparent',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
+            headerTransparent: true,
+            headerTitle: '',
+            headerRight: () => (
+              <Pressable
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                }}
+                onPress={() => navigation.goBack()}>
+                <Iconly name="CloseSquareBold" color={'#FFFFFF'} size={30} />
+              </Pressable>
+            ),
+            headerLeft: () => <View />,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="TipsAppLandingScreen"
+          component={TipsAppLandingScreen}
           sharedElements={(route, otherRoute, showing) => {
             const {app_details} = route.params;
             return [`item.${app_details.app_name}.app_icon`];
