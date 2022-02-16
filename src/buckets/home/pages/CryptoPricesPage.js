@@ -22,10 +22,6 @@ const wait = timeout => {
 function CryptoPricesPage({dispatch}) {
   const [refreshing, setRefreshing] = useState(false);
 
-  useFocusEffect(() => {
-    console.log('is focused - crypto prices page is now being seen');
-  }, []);
-
   useEffect(() => {
     dispatch(GetMarketPrices());
   }, [refreshing]);

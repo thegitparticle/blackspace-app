@@ -5,6 +5,7 @@ import {
   Appearance,
   ScrollView,
   RefreshControl,
+  Pressable,
 } from 'react-native';
 import {Text, View, Image} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
@@ -23,6 +24,9 @@ import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import {connect} from 'react-redux';
 import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
 import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {useNavigation} from '@react-navigation/native';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -36,6 +40,7 @@ const wait = timeout => {
 };
 
 function MyProfileScreen({dispatch}) {
+  const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
 
   useEffect(() => {
@@ -52,9 +57,49 @@ function MyProfileScreen({dispatch}) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  function HeaderHere() {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: windowWidth,
+          flexDirection: 'row',
+          height: 75,
+        }}>
+        <Pressable
+          style={{padding: 20}}
+          onPress={() => {
+            Amplitude.getInstance().logEvent('SETTINGS_OPEN_BUTTON_CLICK');
+            navigation.navigate('SettingsStack');
+          }}>
+          <Iconly
+            name="SettingBold"
+            color={themeHere.colors.foreground}
+            size={25}
+          />
+        </Pressable>
+        <Text
+          style={{
+            ...themeHere.text.title_3,
+            color: themeHere.colors.foreground,
+          }}>
+          MY WALLET
+        </Text>
+        <Pressable style={{padding: 20}} onPress={() => navigation.goBack()}>
+          <Iconly
+            name="ChevronDownBroken"
+            color={themeHere.colors.foreground}
+            size={25}
+          />
+        </Pressable>
+      </View>
+    );
+  }
+
   return (
     <View variant="layout.full_screen">
-      <ModalGoBackHeader />
+      <HeaderHere />
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
