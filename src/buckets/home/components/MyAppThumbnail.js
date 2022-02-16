@@ -11,6 +11,7 @@ import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-native-shared-element';
 import {Bounceable} from 'rn-bounceable';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -31,11 +32,12 @@ function MyAppThumbnail(app_details: {
   return (
     <Bounceable
       // key={app_details.app_id.toString()}
-      onPress={() =>
+      onPress={() => {
+        Amplitude.getInstance().logEvent('MYAPP_OPEN_BUTTON_CLICK');
         navigation.navigate('MiniAppLanding', {
           app_details,
-        })
-      }>
+        });
+      }}>
       <View
         sx={{
           width: width,

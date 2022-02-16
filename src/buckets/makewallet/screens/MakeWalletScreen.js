@@ -23,6 +23,7 @@ import LottieView from 'lottie-react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Bounceable} from 'rn-bounceable';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -69,6 +70,7 @@ function MakeWalletScreen({dispatch, navigation}) {
     setWaitingTextOverallOpacity(0);
     setWalletCreatedTextAndButtonOpacity(1);
     ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
+    Amplitude.getInstance().logEvent('NEW_WALLET_CREATED');
   }
 
   function WaitingTextShowCase() {

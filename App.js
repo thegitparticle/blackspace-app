@@ -19,6 +19,7 @@ import {LogBox} from 'react-native';
 import {DripsyProvider, makeTheme} from 'dripsy';
 import {dripsytheme} from './src/theme/DripsyTheme';
 import OneSignal from 'react-native-onesignal';
+import {Amplitude} from '@amplitude/react-native';
 
 const App: () => Node = () => {
   LogBox.ignoreLogs([
@@ -57,6 +58,10 @@ const App: () => Node = () => {
   OneSignal.setNotificationOpenedHandler(notification => {
     console.log('OneSignal: notification opened:', notification);
   });
+
+  // Amplitude analytics setup
+  const ampInstance = Amplitude.getInstance();
+  ampInstance.init('3f8238f4e3a8c083393f5a5c86631f75');
 
   return (
     <Provider store={storehere}>

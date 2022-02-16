@@ -12,6 +12,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import SquircleButton from '../../../bits/SquircleButton';
 import {useNavigation} from '@react-navigation/native';
 import {Bounceable} from 'rn-bounceable';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -33,6 +34,7 @@ function ImportWalletPart() {
           </Text>
           <Bounceable
             onPress={() => {
+              Amplitude.getInstance().logEvent('IMPORT_WALLET_BUTTON_CLICKED');
               navigation.navigate('ImportWalletScreen');
             }}>
             <SquircleButton

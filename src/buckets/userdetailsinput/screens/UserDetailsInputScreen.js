@@ -22,6 +22,7 @@ import {showMessage, hideMessage} from 'react-native-flash-message';
 import {Bounceable} from 'rn-bounceable';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FormData from 'form-data';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -90,6 +91,9 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             }}
             onPress={() => {
               setRenderInputBody(false);
+              Amplitude.getInstance().logEvent(
+                'SET_USERNAME_NEW_USER_API_CALL_BUTTON_CLICKED',
+              );
               SetUserDetailsToServer();
             }}>
             <SquircleButton

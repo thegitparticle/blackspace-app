@@ -32,9 +32,6 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function Welcome1Screen({dispatch, navigation}) {
-  const ampInstance = Amplitude.getInstance();
-  ampInstance.init('3f8238f4e3a8c083393f5a5c86631f75');
-
   const buttonOpacity = useSharedValue(0);
 
   const animatedButton = useAnimatedStyle(() => {
@@ -70,7 +67,9 @@ function Welcome1Screen({dispatch, navigation}) {
                 <Bounceable
                   onPress={() => {
                     navigation.navigate('WalletSetupOptionsScreen');
-                    ampInstance.logEvent('BUTTON_CLICKED');
+                    Amplitude.getInstance().logEvent(
+                      'LFG_WELCOME_BUTTON_CLICKED',
+                    );
                   }}>
                   <SquircleButton
                     buttonColor={themeHere.colors.light}

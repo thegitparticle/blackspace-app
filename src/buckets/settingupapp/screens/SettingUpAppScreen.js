@@ -16,6 +16,7 @@ import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
 import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
 import {AddUserDetails} from '../../../redux/appcore/UserDetailsActions';
 import {LOGIN} from '../../../redux/types';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -81,6 +82,7 @@ function SettingUpAppScreen({dispatch}) {
         GetTokenBalances(state_here.WDeetsReducer.wdeets.wallet_address),
       );
       setTimeout(() => {
+        Amplitude.getInstance().logEvent('APP_SETUP_API_CALLS_FINISHED');
         setAPIDone(true);
       }, 7500);
       setTimeout(() => {

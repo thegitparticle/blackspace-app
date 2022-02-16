@@ -25,6 +25,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 import axios from 'axios';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -66,12 +67,14 @@ function ImportWalletScreen({dispatch, navigation}) {
         dispatch(AddWDeets(wallet));
         setWaitingTextOverallOpacity(0);
         setWalletCreatedTextAndButtonOpacity(1);
+        Amplitude.getInstance().logEvent('OLD_WALLET_IMPORT_SUCCESS');
         ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
       }, 500);
     } catch (e) {
       console.log(e.toString());
       setWalletCreating(false);
       setRenderErrorBody(true);
+      Amplitude.getInstance().logEvent('OLD_WALLET_IMPORT_FAILED');
       ReactNativeHapticFeedback.trigger('impactMedium', hapticOptions);
     }
   }
