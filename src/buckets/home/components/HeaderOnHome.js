@@ -26,19 +26,20 @@ function HeaderOnHome() {
       function HeaderLeftX() {
         return (
           <Pressable
-            onPress={() => navigation.navigate('SettingsStack')}
-            style={{paddingVertical: 10, paddingHorizontal: 20}}>
-            <View
-              variant="layout.round_icon_container_30"
-              sx={{
-                backgroundColor: 'icon_background',
-              }}>
-              <Iconly
-                name="SettingBold"
-                color={themeHere.colors.icon}
-                size={15}
-              />
-            </View>
+            onPress={() => {
+              Amplitude.getInstance().logEvent(
+                'BLACKSPACE_SCREEN_OPEN_BUTTON_CLICK',
+              );
+              navigation.navigate('TestStack');
+            }}
+            style={{
+              paddingVertical: 10,
+              paddingHorizontal: 20,
+            }}>
+            <Image
+              variant="images.small_icon_30_round"
+              source={require('../../../../assets/just_b_logo.png')}
+            />
           </Pressable>
         );
       },
@@ -75,21 +76,10 @@ function HeaderOnHome() {
   function HeaderMiddle() {
     return (
       <Pressable
-        onPress={() => {
-          Amplitude.getInstance().logEvent(
-            'BLACKSPACE_SCREEN_OPEN_BUTTON_CLICK',
-          );
-          navigation.navigate('TestStack');
-        }}
         style={{
           paddingVertical: 10,
           paddingHorizontal: 20,
-        }}>
-        <Image
-          variant="images.small_icon_30_round"
-          source={require('../../../../assets/just_b_logo.png')}
-        />
-      </Pressable>
+        }}></Pressable>
     );
   }
 
