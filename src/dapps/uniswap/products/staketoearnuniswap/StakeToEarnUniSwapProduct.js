@@ -39,7 +39,7 @@ function StakeToEarnUniswapProduct({dispatch}) {
 
   let stakePools = state_here.UniswapStakePoolsReducer.stakePools;
 
-  function PoolItem(item) {
+  function PoolItem({item}) {
     const {loadingLPStakeDetails, lpStakeDetails} = useStakePoolDetails(
       item.contract_address,
     );
@@ -79,7 +79,13 @@ function StakeToEarnUniswapProduct({dispatch}) {
     }
   }
 
-  return <View>{stakePools.map(item => PoolItem(item))}</View>;
+  return (
+    <View>
+      {stakePools.map(item => (
+        <PoolItem item={item} />
+      ))}
+    </View>
+  );
 }
 
 const mapStateToProps = state => {
