@@ -577,13 +577,22 @@ function BuyTokenUniswapProduct({dispatch}) {
             />
             <Text style={styles.itemholding_title}>{token0Coin.name}</Text>
           </View>
-          <View style={styles.itemholding_rightside_view}>
-            <Text style={styles.itemholding_balance}>
-              {token0Coin.tokenBalance_decimal.toFixed(4)}
-            </Text>
-            <Text style={styles.itemholding_converted_balance}>
-              ${token0Coin.token_price_usd}
-            </Text>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <View style={styles.itemholding_rightside_view}>
+              <Text style={styles.itemholding_balance}>
+                {token0Coin.tokenBalance_decimal.toFixed(4)}
+              </Text>
+              <Text style={styles.itemholding_converted_balance}>
+                ${token0Coin.token_price_usd}
+              </Text>
+            </View>
+            <View style={{paddingHorizontal: 10}}>
+              <Iconly
+                name="ChevronDownBroken"
+                color={themeHere.colors.foreground}
+                size={25}
+              />
+            </View>
           </View>
         </SquircleView>
       </TouchableOpacity>
@@ -814,7 +823,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'flex-end',
     justifyContent: 'flex-start',
-    marginHorizontal: 20,
+    marginHorizontal: 5,
   },
   itemholding_balance: {
     ...themeHere.text.body_medium,
