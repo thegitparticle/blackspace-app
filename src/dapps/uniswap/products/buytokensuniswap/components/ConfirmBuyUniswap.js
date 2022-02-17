@@ -40,7 +40,7 @@ function ConfirmBuyUniswap(props) {
 
   const [renderContext, setRenderContext] = useState('Checking');
   /*
-    Checking | WalletHasEnough | WalletHasNoGas | NoAmount
+    Checking | WalletHasAmount | WalletHasNoGas | NoAmount
    */
 
   let allErcBalances = props.State.MyTokenBalancesReducer.tokens;
@@ -112,7 +112,7 @@ function ConfirmBuyUniswap(props) {
           </Text>
         </View>
       );
-    } else if (renderContext === 'WalletHasEnough') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.main_block_view}>
           <EmojiIcon
@@ -175,7 +175,7 @@ function ConfirmBuyUniswap(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasEnough') {
+    } else if (renderContext === 'WalletHasAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
