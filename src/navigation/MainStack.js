@@ -34,6 +34,7 @@ import AddCollTransactionModal from '../dapps/liquity/products/borrowfromliquity
 import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/PaybackLiquityTransactionModal';
 import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/PTDepositWithdrawTransactionModal';
 import TipsAppLandingScreen from '../buckets/tips/screens/TipsAppLandingScreen';
+import BrandLandingScreen from '../buckets/brand/screens/BrandLandingScreen';
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -396,6 +397,18 @@ function MainStack() {
         <StackMain.Screen
           name="TestStack"
           component={TestStack}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="BrandLandingScreen"
+          component={BrandLandingScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,

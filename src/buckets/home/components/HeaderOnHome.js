@@ -30,7 +30,7 @@ function HeaderOnHome() {
               Amplitude.getInstance().logEvent(
                 'BLACKSPACE_SCREEN_OPEN_BUTTON_CLICK',
               );
-              navigation.navigate('TestStack');
+              navigation.navigate('BrandLandingScreen');
             }}
             style={{
               paddingVertical: 10,
