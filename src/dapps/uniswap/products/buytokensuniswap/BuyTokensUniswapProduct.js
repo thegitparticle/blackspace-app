@@ -26,6 +26,7 @@ import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
 import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
 import usePoolPricesFromChain from '../../helpers/usePoolPricesFromChain';
 import _ from 'lodash';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -612,7 +613,12 @@ function BuyTokenUniswapProduct({dispatch}) {
           style={{color: 'transparent'}}
           onPress={() => onOpenPickToken1()}>
           <SquircleView
-            style={styles.famous_token_item_view}
+            style={{
+              height: 50,
+              alignItems: 'center',
+              flexDirection: 'row',
+              marginRight: 10,
+            }}
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
@@ -629,6 +635,13 @@ function BuyTokenUniswapProduct({dispatch}) {
             <Text style={styles.famous_token_item_symbol}>
               {token1Coin.symbol}
             </Text>
+            <View style={{paddingHorizontal: 5}}>
+              <Iconly
+                name="ChevronDownBroken"
+                color={themeHere.colors.foreground}
+                size={25}
+              />
+            </View>
           </SquircleView>
         </TouchableOpacity>
       </View>
@@ -699,6 +712,7 @@ const styles = StyleSheet.create({
   },
   want_token_view: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     marginTop: 30,
   },
   enter_amount_input: {
@@ -707,7 +721,7 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
     width: (windowWidth - 40) / 2,
     height: 50,
-    marginHorizontal: 20,
+    marginLeft: 20,
   },
   fiat_price_text: {
     ...themeHere.text.body_medium,
@@ -742,7 +756,7 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground + '50',
   },
   famous_token_item_view: {
-    width: (windowWidth - 80) / 3,
+    width: (windowWidth - 80) / 2.75,
     height: 50,
     alignItems: 'center',
     flexDirection: 'row',
