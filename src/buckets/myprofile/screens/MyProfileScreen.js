@@ -43,6 +43,8 @@ function MyProfileScreen({dispatch}) {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
 
+  console.log(state_here.UserDetailsReducer.userdetails.wallet_address);
+
   useEffect(() => {
     dispatch(GetMyProfileDetails(state_here.UserDetailsReducer.userdetails.id));
     dispatch(

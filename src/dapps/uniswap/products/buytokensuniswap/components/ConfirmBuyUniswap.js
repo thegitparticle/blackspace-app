@@ -14,6 +14,7 @@ import SetupUniswapPool from '../../../helpers/UniswapPoolSetup';
 import ExecuteASwap from '../../../helpers/ExecuteASwap';
 import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,11 +43,60 @@ function ConfirmBuyUniswap(props) {
     Checking | WalletHasEnough | WalletHasNoGas | NoAmount
    */
 
+  let allErcBalances = props.State.MyTokenBalancesReducer.tokens;
+
+  let ethBalanceInWallet =
+    Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
+    10 ** -18;
+
+  const gas = 100; // (in $)
+
+  const [erc20Balance, setERC20Balance] = useState(0);
+  const [erc20BalanceObject, setERC20BalanceObject] = useState(null);
+
+  function grabERC20Balance() {
+    const x = _.findIndex(allErcBalances, {symbol: props.Token0Coin.symbol});
+
+    if (x > 0) {
+      setERC20BalanceObject(allErcBalances[x]);
+      setERC20Balance(Number(allErcBalances[x].tokenBalance_decimal));
+    } else {
+      setERC20BalanceObject({});
+      setERC20Balance(0);
+    }
+  }
+
+  function checkIfWalletHasBalance() {
+    if (props.Token0Coin.symbol === 'ETH') {
+      if (Number(props.Token0Amount) < Number(ethBalanceInWallet)) {
+        setRenderContext('WalletHasAmount');
+      } else {
+        setRenderContext('NoAmount');
+      }
+    } else {
+      if (Number(props.Token0Amount) < Number(erc20Balance)) {
+        if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
+          setRenderContext('WalletHasAmount');
+        } else {
+          setRenderContext('WalletHasNoGas');
+        }
+      } else {
+        setRenderContext('NoAmount');
+      }
+    }
+  }
+
+  useEffect(() => {
+    if (props.Token0Coin.symbol !== 'ETH') {
+      grabERC20Balance();
+    }
+  }, []);
+
   useEffect(() => {
     setTimeout(() => {
-      setRenderContext('WalletHasEnough');
-    }, 2000);
-  }, []);
+      checkIfWalletHasBalance();
+    }, 100);
+  }, [erc20Balance, priceEth]);
 
   function MainBlock() {
     if (renderContext === 'Checking') {
