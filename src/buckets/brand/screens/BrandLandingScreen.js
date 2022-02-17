@@ -24,9 +24,11 @@ function BrandLandingScreen() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Text variant="title_1" sx={{color: 'foreground'}}>
-          BLACKSPACE
-        </Text>
+        <Image
+          sx={{width: windowWidth * 0.6, height: windowWidth * 0.3}}
+          source={require('../../../../assets/blackSpace_logo_full.png')}
+          resizeMode="contain"
+        />
       </ImageBackground>
     </View>
   );
