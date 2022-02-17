@@ -559,7 +559,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                     textAlign: 'center',
                   }}>
                   <Text style={{color: themeHere.colors.blue_light}}>
-                    enter # of tokens you want & choose payment method
+                    enter # of tokens you want
                   </Text>
                 </Text>
               </View>
