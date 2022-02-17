@@ -38,7 +38,7 @@ function HeaderOnHome() {
             }}>
             <Image
               variant="images.small_icon_30_round"
-              source={require('../../../../assets/just_b_logo.png')}
+              source={require('../../../../assets/appicon_1024_white_bg.png')}
             />
           </Pressable>
         );
