@@ -12,6 +12,7 @@ import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {connect} from 'react-redux';
 import {LOGOUT} from '../../../redux/types';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {resetSession} from 'react-native-crisp-chat-sdk';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -110,6 +111,7 @@ function MiscTile({dispatch}) {
       <TouchableOpacity
         onPress={() => {
           AsyncStorage.clear();
+          resetSession();
           dispatch({type: LOGOUT});
         }}>
         <View

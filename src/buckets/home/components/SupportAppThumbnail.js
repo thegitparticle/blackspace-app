@@ -12,6 +12,7 @@ import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-native-shared-element';
 import {Bounceable} from 'rn-bounceable';
 import CrispChat, {
+  resetSession,
   setSessionString,
   setTokenId,
   setUserNickname,
@@ -33,7 +34,12 @@ function SupportAppThumbnail() {
 
   useEffect(() => {
     // this should be user ID that way app will load previous user chats
-    setTokenId(String(state_here.UserDetailsReducer.userdetails.id));
+    console.log(
+      state_here.UserDetailsReducer.userdetails.id + 'user id in support',
+    );
+    // setTokenId(String(state_here.UserDetailsReducer.userdetails.id));
+
+    setTokenId('1');
 
     // Set user's info
     setUserNickname(state_here.UserDetailsReducer.userdetails.username);
