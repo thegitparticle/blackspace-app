@@ -25,6 +25,7 @@ import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
 import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
 import usePoolPricesFromChain from '../../helpers/usePoolPricesFromChain';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -46,6 +47,9 @@ Order Info
 a. just write you get ...... this for  .....
 b. mini amount you'd get (after slippage) =
 c. estimated fees = .....
+
+payment method - token0
+token you wanna buy - token1
  */
 
 function BuyTokenUniswapProduct({dispatch}) {
@@ -54,8 +58,24 @@ function BuyTokenUniswapProduct({dispatch}) {
   const [token1Amount, setToken1Amount] = useState('');
   const [token1Fiat, setToken1Fiat] = useState(0);
 
+  const wallet_address =
+    state_here.UserDetailsReducer.userdetails.wallet_address;
+  const myProfileDetails = state_here.MyProfileReducer.myProfileDetails;
+  const myTokens = state_here.MyTokenBalancesReducer.tokens;
+  let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
+
+  let ethTokenObject = {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
+    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
+  };
+
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[4]);
-  const [token0Coin, setToken0Coin] = useState(null);
+  const [token0Coin, setToken0Coin] = useState(ethTokenObject);
 
   const {loadingDerivedETH, derivedETH} = useDerivedEthPrice(
     token1Coin.address,
@@ -68,28 +88,12 @@ function BuyTokenUniswapProduct({dispatch}) {
     token1Coin.address || '',
   );
 
-  const wallet_address =
-    state_here.UserDetailsReducer.userdetails.wallet_address;
-  const myProfileDetails = state_here.MyProfileReducer.myProfileDetails;
-  const myTokens = state_here.MyTokenBalancesReducer.tokens;
-  let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
-
   let {loadingPoolPrices, token0PoolPrice, token1PoolPrice} =
     usePoolPricesFromChain(
       lpAddress,
       token0Coin === null ? '' : token0Coin.contractAddress,
-      token1Coin.address || '',
+      token1Coin === null ? '' : token1Coin.address,
     );
-
-  let ethTokenObject = {
-    name: 'Ethereum',
-    symbol: 'ETH',
-    logoURI:
-      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
-    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
-    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
-  };
 
   function computeFiatToken1(value) {
     setToken1Fiat(Number(value) * derivedETH * priceEth);
@@ -108,6 +112,48 @@ function BuyTokenUniswapProduct({dispatch}) {
   const onClosePickToken1 = () => {
     modalizePickToken1CoinRef.current?.close();
   };
+
+  const modalizePickPaymentMethodCoinRef = useRef(null);
+
+  const onOpenPickPaymentMethod = () => {
+    modalizePickPaymentMethodCoinRef.current?.open();
+  };
+
+  const onClosePickPaymentMethod = () => {
+    modalizePickPaymentMethodCoinRef.current?.close();
+  };
+
+  function PickToken0Header() {
+    const [searchText, setSearchText] = useState('');
+
+    return (
+      <SquircleView
+        style={styles.pick_coin_overlay_view}
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: themeHere.colors.off_background,
+        }}>
+        <Text style={styles.pick_coin_overlay_title}>pay using?</Text>
+        <SquircleView
+          style={styles.pick_coin_overlay_input_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            onChangeText={setSearchText}
+            value={searchText}
+            style={styles.pick_coin_overlay_input}
+            placeholder={'search coins'}
+            placeholderTextColor={themeHere.colors.foreground + 50}
+          />
+        </SquircleView>
+      </SquircleView>
+    );
+  }
 
   function PickToken1Header() {
     const [searchText, setSearchText] = useState('');
@@ -502,6 +548,43 @@ function BuyTokenUniswapProduct({dispatch}) {
     ],
   );
 
+  function RenderPaymentOption() {
+    return (
+      <TouchableOpacity
+        onPress={() => {
+          onOpenPickPaymentMethod();
+        }}>
+        <SquircleView
+          style={styles.payment_option_item_view}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <View style={styles.itemholding_leftside_view}>
+            <FastImage
+              style={styles.itemholding_icon}
+              source={{
+                uri: token0Coin.logoURI,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+            <Text style={styles.itemholding_title}>{token0Coin.name}</Text>
+          </View>
+          <View style={styles.itemholding_rightside_view}>
+            <Text style={styles.itemholding_balance}>
+              {token0Coin.tokenBalance_decimal.toFixed(4)}
+            </Text>
+            <Text style={styles.itemholding_converted_balance}>
+              ${token0Coin.token_price_usd}
+            </Text>
+          </View>
+        </SquircleView>
+      </TouchableOpacity>
+    );
+  }
+
   return (
     <View style={styles.parent_view}>
       <Text style={{...styles.block_sub_title, marginTop: 40}}>
@@ -549,7 +632,7 @@ function BuyTokenUniswapProduct({dispatch}) {
         ~ $ {token1Fiat}
       </Text>
       <Text style={{...styles.block_sub_title, marginTop: 20}}>pay using</Text>
-      <RenderPaymentOptions />
+      <RenderPaymentOption />
       <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
       <RenderOrderInfo />
       <Portal>
@@ -566,6 +649,23 @@ function BuyTokenUniswapProduct({dispatch}) {
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickToken1Header(),
+          }}
+        />
+      </Portal>
+      <Portal>
+        <Modalize
+          ref={modalizePickPaymentMethodCoinRef}
+          modalStyle={{
+            backgroundColor: themeHere.colors.off_background,
+            width: windowWidth,
+            height: windowHeight * 0.5,
+          }}
+          flatListProps={{
+            data: _.concat(ethTokenObject, myTokens),
+            renderItem: RenderToken1ListItem,
+            keyExtractor: item => item.symbol,
+            showsVerticalScrollIndicator: false,
+            ListHeaderComponent: PickToken0Header(),
           }}
         />
       </Portal>
@@ -673,6 +773,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     marginVertical: 10,
+    alignSelf: 'center',
   },
 
   itemholding_leftside_view: {
