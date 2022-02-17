@@ -62,7 +62,12 @@ function BuyTokenUniswapProduct({dispatch}) {
     state_here.UserDetailsReducer.userdetails.wallet_address;
   const myProfileDetails = state_here.MyProfileReducer.myProfileDetails;
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
-  let uniswapTokens = state_here.UniswapTokenListReducer.token_list;
+  let uniswapTokensFromReduxState =
+    state_here.UniswapTokenListReducer.token_list;
+
+  const [uniswapTokens, setUniswapTokens] = useState(
+    uniswapTokensFromReduxState,
+  );
 
   let ethTokenObject = {
     name: 'Ethereum',
@@ -124,8 +129,6 @@ function BuyTokenUniswapProduct({dispatch}) {
   };
 
   function PickToken0Header() {
-    const [searchText, setSearchText] = useState('');
-
     return (
       <SquircleView
         style={styles.pick_coin_overlay_view}
@@ -135,28 +138,29 @@ function BuyTokenUniswapProduct({dispatch}) {
           fillColor: themeHere.colors.off_background,
         }}>
         <Text style={styles.pick_coin_overlay_title}>pay using?</Text>
-        <SquircleView
-          style={styles.pick_coin_overlay_input_view}
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
-          }}>
-          <TextInput
-            numberOfLines={1}
-            onChangeText={setSearchText}
-            value={searchText}
-            style={styles.pick_coin_overlay_input}
-            placeholder={'search coins'}
-            placeholderTextColor={themeHere.colors.foreground + 50}
-          />
-        </SquircleView>
       </SquircleView>
     );
   }
 
   function PickToken1Header() {
     const [searchText, setSearchText] = useState('');
+
+    const filter = e => {
+      const keyword = e.nativeEvent.text;
+
+      if (keyword !== '') {
+        const results = uniswapTokensFromReduxState.filter(token => {
+          return token.name.toLowerCase().startsWith(keyword.toLowerCase());
+          // Use the toLowerCase() method to make it case-insensitive
+        });
+        setUniswapTokens(results);
+      } else {
+        setUniswapTokens(uniswapTokensFromReduxState);
+        // If the text field is empty, show all users
+      }
+
+      setSearchText(keyword);
+    };
 
     return (
       <SquircleView
@@ -176,7 +180,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           }}>
           <TextInput
             numberOfLines={1}
-            onChangeText={setSearchText}
+            onChange={e => filter(e)}
             value={searchText}
             style={styles.pick_coin_overlay_input}
             placeholder={'search coins'}
