@@ -17,10 +17,10 @@ export default async function ExecuteASwap(
 ) {
   const uniswapPair = new UniswapPair({
     // the contract address of the token you want to convert FROM
-    //fromTokenContractAddress: token0.contractAddress,
+    // fromTokenContractAddress: token0.contractAddress,
     fromTokenContractAddress: ETH.RINKEBY().contractAddress,
     // the contract address of the token you want to convert TO
-    //toTokenContractAddress: token1.address,
+    // toTokenContractAddress: token1.address,
     toTokenContractAddress: '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea', // dai in rinkeby
     // the ethereum address of the user using this part of the dApp
     ethereumAddress: walletAddress,
