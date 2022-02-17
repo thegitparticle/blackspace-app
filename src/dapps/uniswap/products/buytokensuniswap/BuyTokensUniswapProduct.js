@@ -604,11 +604,11 @@ function BuyTokenUniswapProduct({dispatch}) {
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <View style={styles.itemholding_rightside_view}>
               <Text style={styles.itemholding_balance}>
-                {token0Coin.tokenBalance_decimal.toFixed(4)}
+                {Number(token0Coin.tokenBalance_decimal) * 10 ** -18}
               </Text>
-              <Text style={styles.itemholding_converted_balance}>
-                ${token0Coin.token_price_usd}
-              </Text>
+              {/*<Text style={styles.itemholding_converted_balance}>*/}
+              {/*  ${token0Coin.token_price_usd}*/}
+              {/*</Text>*/}
             </View>
             <View style={{paddingHorizontal: 10}}>
               <Iconly
