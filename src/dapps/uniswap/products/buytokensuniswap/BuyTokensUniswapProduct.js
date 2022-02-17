@@ -323,6 +323,30 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
+  function RenderToken0ListItem(item) {
+    return (
+      <TouchableOpacity
+        style={styles.render_token_item_view}
+        onPress={() => {
+          setToken0Coin(item.item);
+          onClosePickPaymentMethod();
+        }}>
+        <>
+          <FastImage
+            source={{
+              uri: item.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+            style={styles.render_token_item_logo}
+          />
+          <Text style={styles.render_token_item_title}>{item.item.name}</Text>
+        </>
+        <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
+      </TouchableOpacity>
+    );
+  }
+
   function RenderToken1ListItem(item) {
     return (
       <TouchableOpacity
@@ -688,7 +712,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           }}
           flatListProps={{
             data: _.concat(ethTokenObject, myTokens),
-            renderItem: RenderToken1ListItem,
+            renderItem: RenderToken0ListItem,
             keyExtractor: item => item.symbol,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickToken0Header(),
