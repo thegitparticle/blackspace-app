@@ -89,7 +89,7 @@ function HomeMainPage({dispatch}) {
             return MyAppThumbnail(item);
           }
         } else {
-          return DiscoverAppThumbnail(item);
+          return <DiscoverAppThumbnail app_details={item} />;
         }
       },
     [],

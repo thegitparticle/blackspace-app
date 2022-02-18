@@ -19,7 +19,7 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function MiniAppLanding({route}) {
-  const {app_details} = route.params;
+  const {app_details, discover_or_not} = route.params;
   const sxCustom = useSx();
 
   const Products = useMemo(
@@ -67,22 +67,29 @@ function MiniAppLanding({route}) {
 
   const [index, setIndex] = useState(0);
 
-  const renderSceneMiniApp = app_details.show_in_use_tab
+  const renderSceneMiniApp = discover_or_not
     ? SceneMap({
         first: Products,
-        second: UsageShowcase,
-        third: JargonBuster,
+        second: JargonBuster,
       })
     : SceneMap({
         first: Products,
-        second: JargonBuster,
+        second: UsageShowcase,
+        third: JargonBuster,
       });
 
-  const [routes] = React.useState([
-    {key: 'first', title: 'Products'},
-    {key: 'second', title: app_details.in_use_tab_name},
-    {key: 'third', title: 'Jargon Buster'},
-  ]);
+  const [routes] = discover_or_not
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      React.useState([
+        {key: 'first', title: 'Products'},
+        {key: 'second', title: 'Jargon Buster'},
+      ])
+    : // eslint-disable-next-line react-hooks/rules-of-hooks
+      React.useState([
+        {key: 'first', title: 'Products'},
+        {key: 'second', title: app_details.in_use_tab_name},
+        {key: 'third', title: 'Jargon Buster'},
+      ]);
 
   function renderLabelMiniApp({route, focused}) {
     if (route.title === 'Products') {

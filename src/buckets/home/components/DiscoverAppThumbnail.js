@@ -6,10 +6,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {Text, View, Image, useSx} from 'dripsy';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-native-shared-element';
@@ -23,24 +20,19 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 const width = (windowWidth - 80) / 3;
 
-function DiscoverAppThumbnail(app_details: {
-  app_id: number,
-  app_icon: string,
-  app_name: string,
-  extra_message: string,
-}) {
+function DiscoverAppThumbnail(props) {
   const navigation = useNavigation();
   const sxCustom = useSx();
 
   return (
     <Bounceable
-      key={app_details.app_id.toString()}
       onPress={() => {
         Amplitude.getInstance().logEvent('DISCOVERAPP_OPEN_BUTTON_CLICK', {
-          'App Name': String(app_details.app_name),
+          'App Name': String(props.app_details.app_name),
         });
         navigation.navigate('MiniAppLanding', {
-          app_details,
+          app_details: props.app_details,
+          discover_or_not: true,
         });
       }}>
       <View
@@ -53,10 +45,10 @@ function DiscoverAppThumbnail(app_details: {
           flexWrap: 'wrap',
           my: '$2',
         }}>
-        <SharedElement id={`item.${app_details.app_name}.app_icon`}>
+        <SharedElement id={`item.${props.app_details.app_name}.app_icon`}>
           <FastImage
             source={{
-              uri: app_details.app_icon,
+              uri: props.app_details.dapp_icon,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}
@@ -76,7 +68,7 @@ function DiscoverAppThumbnail(app_details: {
             justifyContent: 'center',
           }}>
           <Text sx={{color: 'foreground'}} variant="body_medium">
-            {app_details.app_name}
+            {props.app_details.name}
           </Text>
         </View>
       </View>
