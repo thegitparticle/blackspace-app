@@ -53,7 +53,7 @@ function TransactionOngoingBuyUniswap(props) {
     return (
       <View style={styles.parent_view}>
         <Text style={styles.text_highlighted}>
-          Keep phone aside and relax while we finish the borrowing process
+          Keep phone aside and relax while we finish buying
         </Text>
         <LottieView
           source={require('../../../../../../assets/doge_tail_lottie.json')}
@@ -84,14 +84,14 @@ function TransactionOngoingBuyUniswap(props) {
           resizeMode="cover"
         />
         <Text style={styles.text_highlighted}>
-          Loan amount will reflect in your wallet in few moments
+          New tokens will reflect in your wallet in few moments
         </Text>
       </View>
     );
   } else if (renderContext === 'TransactionError') {
     return (
       <View style={styles.parent_view}>
-        <Text style={styles.text_highlighted}>Borrow transaction failed</Text>
+        <Text style={styles.text_highlighted}>Buying transaction failed</Text>
         <LottieView
           source={require('../../../../../../assets/error_exclamation_lottie.json')}
           autoPlay
