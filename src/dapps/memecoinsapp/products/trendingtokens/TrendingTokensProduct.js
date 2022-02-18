@@ -146,7 +146,7 @@ function TrendingTokensProduct() {
               logoUri: 'https://i.postimg.cc/VkRVsPWV/download-42.jpg',
               tokenDetails: priceShibaInu,
               tokenIdString: 'shiba-inu',
-              contractAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce',
+              contractAddress: '0x95ad61b0a150d79219dcf64e1e6cc01f0b64c4ce', // erc-20 address
             })
           }>
           <SquircleView

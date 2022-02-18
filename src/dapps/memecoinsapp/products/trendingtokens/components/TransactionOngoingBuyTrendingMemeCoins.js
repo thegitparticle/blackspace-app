@@ -49,6 +49,18 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     setTxHash(hash);
   }
 
+  const myProfileDetails = props.State.MyProfileReducer.myProfileDetails;
+
+  let ethTokenObject = {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
+    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
+  };
+
   /*
   props.Token0Amount,
       props.Token1Amount,
@@ -60,18 +72,30 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
       changeTxHash,
    */
 
+  // console.log(
+  //   (Number(props.AmountToBuy) * Number(props.TokenDetails.usd)) /
+  //     Number(priceEth),
+  // );
+  //
+  // console.log(props.AmountToBuy);
+  // console.log(ethTokenObject);
+  // console.log({address: props.ContractAddress});
+  // console.log(props.lpDetails);
+
   useEffect(() => {
-    ExecuteASwap(
-      (Number(props.AmountToBuy) * Number(props.TokenDetails.usd)) /
-        Number(priceEth),
-      props.Token1Amount,
-      props.Token0Coin,
-      props.Token1Coin,
-      props.lpDetails,
-      props.State.WDeetsReducer.wallet_address,
-      props.State.WDeetsReducer.wallet_privateKey,
-      changeTxHash,
-    );
+    if (Number(priceEth) > 10) {
+      ExecuteASwap(
+        (Number(props.AmountToBuy) * Number(props.TokenDetails.usd)) /
+          Number(priceEth),
+        props.AmountToBuy,
+        ethTokenObject,
+        {address: props.ContractAddress},
+        props.lpDetails,
+        props.State.WDeetsReducer.wdeets.wallet_address,
+        props.State.WDeetsReducer.wdeets.wallet_privateKey,
+        changeTxHash,
+      );
+    }
   }, [priceEth]);
 
   useEffect(() => {
