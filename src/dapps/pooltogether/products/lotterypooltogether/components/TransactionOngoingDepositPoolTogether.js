@@ -10,6 +10,7 @@ import {EthersLiquity} from '@liquity/lib-ethers';
 import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
 import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
 import {mainnet} from '@pooltogether/v4-pool-data';
+import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -106,6 +107,18 @@ function TransactionOngoingDepositPoolTogether(props) {
       }
     }
   }, [isApproved]);
+
+  useEffect(() => {
+    axios
+      .get(
+        'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+          String(props.State.UserDepositChanged.userdetails.id) +
+          String(4),
+      )
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   if (renderContext === 'TransactionHappening') {
     return (

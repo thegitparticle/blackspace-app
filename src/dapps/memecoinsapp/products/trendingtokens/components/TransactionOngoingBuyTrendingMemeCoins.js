@@ -8,6 +8,7 @@ import {ethers} from 'ethers/src.ts';
 import ExecuteASwap from '../../../../uniswap/helpers/ExecuteASwap';
 import LottieView from 'lottie-react-native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -101,6 +102,18 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
   useEffect(() => {
     console.log(txHash + 'tx hash via callback function');
   }, [txHash]);
+
+  useEffect(() => {
+    axios
+      .get(
+        'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+          String(props.State.UserDepositChanged.userdetails.id) +
+          String(2),
+      )
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   if (renderContext === 'TransactionHappening') {
     return (

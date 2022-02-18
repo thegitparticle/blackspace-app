@@ -8,6 +8,8 @@ import LottieView from 'lottie-react-native';
 import {ethers} from 'ethers/src.ts/index';
 import {EthersLiquity} from '@liquity/lib-ethers';
 import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
+import axios from 'axios';
+import {ADD_USERDETAILS} from '../../../../../redux/types';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -69,6 +71,18 @@ function TransactionOngoingBorrowLiquity(props) {
       openTrove();
     })();
   }, [liquity]);
+
+  useEffect(() => {
+    axios
+      .get(
+        'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+          String(props.State.UserDepositChanged.userdetails.id) +
+          String(5),
+      )
+      .catch(err => {
+        console.log(err);
+      });
+  }, []);
 
   if (renderContext === 'TransactionHappening') {
     return (
