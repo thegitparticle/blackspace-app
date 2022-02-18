@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Appearance,
   TextInput,
   TouchableOpacity,
+  Keyboard,
 } from 'react-native';
 import {
   ButterThemeDark,
@@ -18,6 +19,9 @@ import {Button} from 'react-native-elements';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import UniswapStakeSetupAndExecute from '../../../helpers/UniswapStakeSetupAndExecute';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import BottomSpacer from '../../../../../bits/BottomSpacer';
+import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -34,24 +38,35 @@ things to render
 4. concentration range - fixes - picked by best performance
  */
 
+/*
+info,
+lpStakeDetails,
+walletAddress,
+privateKey,
+
+ Info={info}
+        LPStakeDetails={lpStakeDetails}
+        ChangeBody={changeBodyToConfirmEarn}
+        State={state_here}
+
+title={`Stake & Earn ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
+ */
+
 function EnterAmountStakeUniSwap(props) {
   const [amount, setAmount] = useState('0');
   const [token0Amount, setToken0Amount] = useState('');
-  const [token1Amount, setToken1Amount] = useState('');
+  const [token1Amount, setToken1Amount] = useState(0.0);
 
-  /*
-  info,
-  lpStakeDetails,
-  walletAddress,
-  privateKey,
+  const [showPopup, setShowPopup] = useState(false);
 
-   Info={info}
-          LPStakeDetails={lpStakeDetails}
-          ChangeBody={changeBodyToConfirmEarn}
-          State={state_here}
+  const {loadingEth, priceEth} = useEthFiatPrice();
 
-  title={`Stake & Earn ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
-   */
+  useEffect(() => {
+    setToken1Amount(
+      (Number(token0Amount) * Number(props.LPStakeDetails.token0.derivedETH)) /
+        Number(props.LPStakeDetails.token1.derivedETH),
+    );
+  }, [token0Amount]);
 
   return (
     <View style={styles.parent_view}>
@@ -68,6 +83,7 @@ function EnterAmountStakeUniSwap(props) {
               placeholderTextColor={themeHere.colors.foreground + 50}
               keyboardType={'decimal-pad'}
               onEndEditing={() => {}}
+              autoFocus={true}
             />
             <SquircleView
               style={styles.token_item_view}
@@ -90,18 +106,17 @@ function EnterAmountStakeUniSwap(props) {
             </SquircleView>
           </View>
           <View style={styles.token1_view}>
-            <TextInput
-              numberOfLines={1}
-              onChangeText={setToken1Amount}
-              value={token1Amount}
-              style={styles.enter_amount_text}
-              placeholder={`0.0 ${props.LPStakeDetails.token1.symbol}`}
-              placeholderTextColor={themeHere.colors.foreground + 50}
-              keyboardType={'decimal-pad'}
-              onEndEditing={() => {}}
-              onPressIn={() => console.log('token1 is pressed')}
-              editable={false}
-            />
+            <Text
+              style={{
+                backgroundColor: 'transparent',
+                ...themeHere.text.header_bold,
+                color: themeHere.colors.foreground,
+                width: (windowWidth - 40) / 2,
+                marginHorizontal: 20,
+                alignSelf: 'center',
+              }}>
+              {Number(token1Amount).toFixed(2)}
+            </Text>
             <SquircleView
               style={styles.token_item_view}
               squircleParams={{
@@ -125,17 +140,12 @@ function EnterAmountStakeUniSwap(props) {
         </View>
         <View>
           <Button
-            title={'confirm staking'}
+            title={'check details'}
             type={'solid'}
-            onPress={() => props.ChangeBody(token0Amount, token1Amount)}
-            // onPress={() =>
-            //   UniswapStakeSetupAndExecute(
-            //     props.Info,
-            //     props.LPStakeDetails,
-            //     props.State.WDeetsReducer.wdeets.wallet_address,
-            //     props.State.WDeetsReducer.wdeets.wallet_privateKey,
-            //   )
-            // }
+            onPress={() => {
+              Keyboard.dismiss();
+              setShowPopup(true);
+            }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -150,6 +160,128 @@ function EnterAmountStakeUniSwap(props) {
         </View>
       </View>
       <View style={styles.bottom_part_view}></View>
+      <Modal
+        visible={showPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowPopup(false);
+        }}>
+        <ModalContent>
+          <View
+            style={{
+              backgroundColor: themeHere.colors.off_background,
+              borderColor: themeHere.colors.off_background,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: windowWidth - 40,
+              borderRadius: 15,
+              paddingVertical: 30,
+            }}>
+            <View style={styles.order_info_block_view}>
+              <Text style={styles.order_info_title_text}>
+                {props.LPStakeDetails.token0.symbol} amount
+              </Text>
+              <Text style={styles.order_info_value_text}>
+                <Text style={{color: themeHere.colors.foreground}}>
+                  {Number(token0Amount).toFixed(2)}
+                </Text>
+              </Text>
+            </View>
+            <View style={styles.order_info_block_view}>
+              <Text style={styles.order_info_title_text}></Text>
+              <Text style={styles.order_info_value_text}>
+                <Text style={{color: themeHere.colors.foreground + '75'}}>
+                  ~ ${' '}
+                  {Number(
+                    Number(token0Amount).toFixed(2) *
+                      Number(props.LPStakeDetails.token0.derivedETH) *
+                      Number(priceEth),
+                  ).toFixed(2)}
+                </Text>
+              </Text>
+            </View>
+            <BottomSpacer height={20} />
+            <View style={styles.order_info_block_view}>
+              <Text style={styles.order_info_title_text}>
+                {props.LPStakeDetails.token1.symbol} amount
+              </Text>
+              <Text style={styles.order_info_value_text}>
+                <Text style={{color: themeHere.colors.foreground}}>
+                  {Number(token1Amount).toFixed(2)}
+                </Text>
+              </Text>
+            </View>
+            <View style={styles.order_info_block_view}>
+              <Text style={styles.order_info_title_text}></Text>
+              <Text style={styles.order_info_value_text}>
+                <Text style={{color: themeHere.colors.foreground + '75'}}>
+                  ~ ${' '}
+                  {Number(
+                    Number(token1Amount).toFixed(2) *
+                      Number(props.LPStakeDetails.token1.derivedETH) *
+                      Number(priceEth),
+                  ).toFixed(2)}
+                </Text>
+              </Text>
+            </View>
+            <BottomSpacer height={20} />
+            <View style={styles.order_info_block_view}>
+              <Text style={styles.order_info_title_text}>total amount</Text>
+              <Text style={styles.order_info_value_text}>
+                <Text style={{color: themeHere.colors.foreground}}>
+                  {Number(token0Amount).toFixed(2)}{' '}
+                  {props.LPStakeDetails.token0.symbol} +{' '}
+                  {Number(token1Amount).toFixed(2)}{' '}
+                  {props.LPStakeDetails.token1.symbol}
+                </Text>
+              </Text>
+            </View>
+            <View style={styles.order_info_block_view}>
+              <Text style={styles.order_info_title_text}></Text>
+              <Text style={styles.order_info_value_text}>
+                <Text style={{color: themeHere.colors.foreground + '75'}}>
+                  ~ ${' '}
+                  {Number(
+                    Number(token0Amount).toFixed(2) *
+                      Number(props.LPStakeDetails.token0.derivedETH) *
+                      Number(priceEth) +
+                      Number(token1Amount).toFixed(2) *
+                        Number(props.LPStakeDetails.token1.derivedETH) *
+                        Number(priceEth),
+                  ).toFixed(2)}
+                </Text>
+              </Text>
+            </View>
+            <BottomSpacer height={20} />
+            <Button
+              title={'confirm staking'}
+              type={'solid'}
+              onPress={() => props.ChangeBody(token0Amount, token1Amount)}
+              // onPress={() =>
+              //   UniswapStakeSetupAndExecute(
+              //     props.Info,
+              //     props.LPStakeDetails,
+              //     props.State.WDeetsReducer.wdeets.wallet_address,
+              //     props.State.WDeetsReducer.wdeets.wallet_privateKey,
+              //   )
+              // }
+              containerStyle={styles.next_button_container}
+              buttonStyle={styles.next_button_style}
+              titleStyle={styles.next_button_title}
+              ViewComponent={LinearGradient}
+              linearGradientProps={{
+                colors: [
+                  themeHere.colors.success_green_dark,
+                  themeHere.colors.success_green,
+                ],
+              }}
+            />
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }
@@ -239,5 +371,26 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
     textAlign: 'center',
     marginHorizontal: 10,
+  },
+  order_info_view: {
+    flexDirection: 'column',
+    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  order_info_block_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 20,
+    width: windowWidth - 80,
+  },
+  order_info_title_text: {
+    ...themeHere.text.body,
+    color: themeHere.colors.foreground + '50',
+  },
+  order_info_value_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
   },
 });

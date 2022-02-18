@@ -298,6 +298,8 @@ function PoolTogetherUsageShowCase() {
               }}
             />
           </View>
+          {/*<WinningsCard />*/}
+          <BottomSpacer height={20} />
         </View>
       );
     }
