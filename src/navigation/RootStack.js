@@ -7,8 +7,9 @@ import {connect} from 'react-redux';
 import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
 import MainStack from './MainStack';
 import WelcomeStack from './WelcomeStack';
+import SplashScreen from 'react-native-splash-screen';
 
-var state_here = {};
+let state_here = {};
 
 function RootStack() {
   const netinfo = NetInfo.addEventListener(state => {
@@ -24,9 +25,10 @@ function RootStack() {
 
   useEffect(() => {
     netinfo();
+    SplashScreen.hide();
   }, []);
 
-  var t_or_f = state_here.AuthStateReducer.logged_in_or_not;
+  const t_or_f = state_here.AuthStateReducer.logged_in_or_not;
 
   if (t_or_f === true) {
     return (

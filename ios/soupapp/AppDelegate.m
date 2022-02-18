@@ -15,6 +15,8 @@
 #import <CodePush/CodePush.h>
 #import <Crisp/Crisp.h>
 
+#import "RNSplashScreen.h"
+
 static void InitializeFlipper(UIApplication *application) {
   FlipperClient *client = [FlipperClient sharedClient];
   SKDescriptorMapper *layoutDescriptorMapper = [[SKDescriptorMapper alloc] initWithDefaults];
@@ -52,6 +54,11 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
   
   [CrispSDK configureWithWebsiteID:@"0eda352f-d9b6-4ca1-971b-04587305917d"];
+  
+  [RNSplashScreen show];  // here
+  // or
+  //[RNSplashScreen showSplash:@"LaunchScreen" inRootView:rootView];
+  
   return YES;
 }
 
