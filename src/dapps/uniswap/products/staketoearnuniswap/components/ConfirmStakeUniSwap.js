@@ -39,7 +39,27 @@ function ConfirmStakeUniSwap(props) {
   const navigation = useNavigation();
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  useEffect(() => {}, []);
+  const myProfileDetails = props.State.MyProfileReducer.myProfileDetails;
+
+  let ethTokenObject = {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
+    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
+  };
+
+  let wethTokenObject = {
+    name: 'Wrapped Ethereum',
+    symbol: 'WETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
+    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
+  };
 
   const [renderContext, setRenderContext] = useState('Checking');
 
@@ -47,7 +67,11 @@ function ConfirmStakeUniSwap(props) {
     Checking | WalletHasEnough | WalletHasLessOfTheseTokensButHasOthers | WalletHasNoGas | NoAmount
    */
 
-  let allErcBalances = props.State.MyTokenBalancesReducer.tokens;
+  let allErcBalances = _.concat(
+    props.State.MyTokenBalancesReducer.tokens,
+    ethTokenObject,
+    wethTokenObject,
+  );
 
   let ethBalanceInWallet =
     Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
@@ -121,9 +145,12 @@ function ConfirmStakeUniSwap(props) {
   const gas = 100; // (in $)
 
   function checkIfWalletHasBalance() {
+    // console.log('fiat in wall' + totalFiatValueInWallet);
+    // console.log('fiat needed' + totalFiatValueNeeded);
+
     if (Number(totalFiatValueInWallet) > Number(totalFiatValueNeeded)) {
       if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
-        setRenderContext('WalletHasAmount');
+        setRenderContext('WalletHasEnough');
       } else {
         setRenderContext('WalletHasNoGas');
       }
