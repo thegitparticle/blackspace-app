@@ -1,24 +1,14 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {BigNumber, ethers} from 'ethers';
-import {
-  CurrencyAmount,
-  Fraction,
-  Percent,
-  Token,
-  TradeType,
-} from '@uniswap/sdk-core';
+import {CurrencyAmount, Fraction, Percent, Token} from '@uniswap/sdk-core';
 import {
   nearestUsableTick,
-  Pool,
-  Route,
-  Trade,
-  Position,
   NonfungiblePositionManager,
+  Pool,
+  Position,
 } from '@uniswap/v3-sdk';
 import {AlphaRouter, SwapToRatioStatus} from '@uniswap/smart-order-router';
 import {abi as IUniswapV3PoolABI} from '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json';
-import {abi as QuoterABI} from '@uniswap/v3-periphery/artifacts/contracts/lens/Quoter.sol/Quoter.json';
-import {getPriceUniswapV3} from '@thanpolas/uniswap-chain-queries';
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
@@ -32,30 +22,10 @@ export default async function UniswapStakeSetupAndExecute(
   txHashCallback,
 ) {
   const poolContract = new ethers.Contract(
-    info.contract_address !== undefined || null ? info.contract_address : '',
+    info !== undefined || null ? info.contract_address : '',
     IUniswapV3PoolABI,
     provider,
   );
-
-  interface Immutables {
-    factory: string;
-    token0: string;
-    token1: string;
-    fee: number;
-    tickSpacing: number;
-    maxLiquidityPerTick: ethers.BigNumber;
-  }
-
-  interface State {
-    liquidity: ethers.BigNumber;
-    sqrtPriceX96: ethers.BigNumber;
-    tick: number;
-    observationIndex: number;
-    observationCardinality: number;
-    observationCardinalityNext: number;
-    feeProtocol: number;
-    unlocked: boolean;
-  }
 
   async function getPoolImmutables() {
     const [factory, token0, token1, fee, tickSpacing, maxLiquidityPerTick] =
@@ -68,7 +38,7 @@ export default async function UniswapStakeSetupAndExecute(
         poolContract.maxLiquidityPerTick(),
       ]);
 
-    const immutables: Immutables = {
+    const immutables = {
       factory,
       token0,
       token1,
@@ -86,7 +56,7 @@ export default async function UniswapStakeSetupAndExecute(
       poolContract.slot0(),
     ]);
 
-    const PoolState: State = {
+    const PoolState = {
       liquidity,
       sqrtPriceX96: slot[0],
       tick: slot[1],
@@ -132,81 +102,81 @@ export default async function UniswapStakeSetupAndExecute(
     state.tick,
   );
 
-  const position = new Position({
-    pool: poolExampleHere,
-    liquidity: state.liquidity * 0.0002,
-    tickLower:
-      nearestUsableTick(state.tick, immutables.tickSpacing) -
-      immutables.tickSpacing * 2,
-    tickUpper:
-      nearestUsableTick(state.tick, immutables.tickSpacing) +
-      immutables.tickSpacing * 2,
-  });
+  // const position = new Position({
+  //   pool: poolExampleHere,
+  //   liquidity: state.liquidity * 0.0002,
+  //   tickLower:
+  //     nearestUsableTick(state.tick, immutables.tickSpacing) -
+  //     immutables.tickSpacing * 2,
+  //   tickUpper:
+  //     nearestUsableTick(state.tick, immutables.tickSpacing) +
+  //     immutables.tickSpacing * 2,
+  // });
+  //
+  // const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+  //
+  // const {calldata, value} = NonfungiblePositionManager.addCallParameters(
+  //   position,
+  //   {
+  //     slippageTolerance: new Percent(50, 10_000),
+  //     recipient: walletAddress,
+  //     deadline: deadline,
+  //   },
+  // );
 
-  const deadline = Math.floor(Date.now() / 1000) + 60 * 20;
+  // const router = new AlphaRouter({chainId: 1, provider: provider});
+  //
+  // const token0Balance = CurrencyAmount.fromRawAmount(TokenA, '5000000000');
+  // const token1Balance = CurrencyAmount.fromRawAmount(TokenB, '0');
+  //
+  // const swapAndAddConfig = {
+  //   ratioErrorTolerance: new Fraction(1, 100),
+  //   maxIterations: 6,
+  // };
+  //
+  // const swapAndAddOptions = {
+  //   swapConfig: {
+  //     recipient: {myAddress: walletAddress},
+  //     slippage: new Percent(5, 100),
+  //     deadline: 100,
+  //   },
+  //   addLiquidityOptions: {
+  //     tokenId: 10,
+  //   },
+  // };
 
-  const {calldata, value} = NonfungiblePositionManager.addCallParameters(
-    position,
-    {
-      slippageTolerance: new Percent(50, 10_000),
-      recipient: walletAddress,
-      deadline: deadline,
-    },
-  );
-
-  const router = new AlphaRouter({chainId: 1, provider: provider});
-
-  const token0Balance = CurrencyAmount.fromRawAmount(TokenA, '5000000000');
-  const token1Balance = CurrencyAmount.fromRawAmount(TokenB, '0');
-
-  const swapAndAddConfig = {
-    ratioErrorTolerance: new Fraction(1, 100),
-    maxIterations: 6,
-  };
-
-  const swapAndAddOptions = {
-    swapConfig: {
-      recipient: {myAddress: walletAddress},
-      slippage: new Percent(5, 100),
-      deadline: 100,
-    },
-    addLiquidityOptions: {
-      tokenId: 10,
-    },
-  };
-
-  const routeToRatioResponse = await router.routeToRatio(
-    token0Balance,
-    token1Balance,
-    position,
-    swapAndAddConfig,
-    swapAndAddOptions,
-  );
-
-  const V3_SWAP_ROUTER_ADDRESS = '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
-  const MY_ADDRESS = walletAddress;
-
-  if (routeToRatioResponse.status === SwapToRatioStatus.SUCCESS) {
-    const route = routeToRatioResponse.result;
-    const transaction = {
-      data: route.methodParameters.calldata,
-      to: V3_SWAP_ROUTER_ADDRESS,
-      value: BigNumber.from(route.methodParameters.value),
-      from: MY_ADDRESS,
-      gasPrice: BigNumber.from(route.gasPriceWei),
-    };
-
-    let wallet = new ethers.Wallet(privateKey);
-
-    let walletSigner = wallet.connect(provider);
-
-    await walletSigner
-      .sendTransaction(transaction)
-      .then(transaction => {
-        console.dir(transaction);
-        txHashCallback(transaction);
-        console.log('Stake finished!');
-      })
-      .catch(e => console.log(e + 'transaction failed bruh!'));
-  }
+  // const routeToRatioResponse = await router.routeToRatio(
+  //   token0Balance,
+  //   token1Balance,
+  //   position,
+  //   swapAndAddConfig,
+  //   swapAndAddOptions,
+  // );
+  //
+  // const V3_SWAP_ROUTER_ADDRESS = '0x68b3465833fb72A70ecDF485E0e4C7bD8665Fc45';
+  // const MY_ADDRESS = walletAddress;
+  //
+  // if (routeToRatioResponse.status === SwapToRatioStatus.SUCCESS) {
+  //   const route = routeToRatioResponse.result;
+  //   const transaction = {
+  //     data: route.methodParameters.calldata,
+  //     to: V3_SWAP_ROUTER_ADDRESS,
+  //     value: BigNumber.from(route.methodParameters.value),
+  //     from: MY_ADDRESS,
+  //     gasPrice: BigNumber.from(route.gasPriceWei),
+  //   };
+  //
+  //   let wallet = new ethers.Wallet(privateKey);
+  //
+  //   let walletSigner = wallet.connect(provider);
+  //
+  //   await walletSigner
+  //     .sendTransaction(transaction)
+  //     .then(transaction => {
+  //       console.dir(transaction);
+  //       txHashCallback(transaction);
+  //       console.log('Stake finished!');
+  //     })
+  //     .catch(e => console.log(String(e) + 'transaction failed bruh!'));
+  // }
 }
