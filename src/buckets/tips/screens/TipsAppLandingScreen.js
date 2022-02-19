@@ -10,7 +10,9 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function TipsAppLandingScreen() {
+function TipsAppLandingScreen({route}) {
+  const {app_details} = route.params;
+
   return (
     <View style={styles.parent_view}>
       <Text style={styles.header_text}>Tips</Text>

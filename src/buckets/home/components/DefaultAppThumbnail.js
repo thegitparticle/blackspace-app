@@ -32,7 +32,7 @@ function DefaultAppThumbnail(app_details) {
           'App Name': String(app_details.app_name),
         });
         navigation.navigate(app_details.landing_blueprint_function_name, {
-          app_details,
+          app_details: app_details,
         });
       }}>
       <View
