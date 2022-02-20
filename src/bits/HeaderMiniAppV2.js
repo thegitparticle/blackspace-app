@@ -19,7 +19,7 @@ function HeaderMiniAppV2(props) {
       <View style={styles.left_side_icon}>
         <Iconly name="ChevronLeftBroken" color="transparent" size={25} />
       </View>
-      <Text style={styles.title_text}>{props.title}</Text>
+      <Text style={styles.title_text}>{props.app_details.name}</Text>
       <Pressable
         style={styles.right_side_icon}
         onPress={() => navigation.goBack()}>

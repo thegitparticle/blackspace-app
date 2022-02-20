@@ -89,9 +89,9 @@ function HomeMainPage({dispatch}) {
     () =>
       function ThumbnailItem({item, section}) {
         if (section.title === 'MY APP SUITE') {
-          if (item.app_name === 'Tips') {
-            return DefaultAppThumbnail(item);
-          } else if (item.app_name === 'Support') {
+          if (item.name === 'Tips') {
+            return <DefaultAppThumbnail app_details={item} />;
+          } else if (item.name === 'Support') {
             return <SupportAppThumbnail />;
           } else {
             return MyAppThumbnail(item);
