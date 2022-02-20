@@ -27,45 +27,7 @@ let state_here = {};
 function TipsAppLandingScreen({route}) {
   const {app_details} = route.params;
 
-  const headerHeight = useHeaderHeight();
   const sxCustom = useSx();
-
-  const Products = useMemo(
-    () =>
-      function Products() {
-        return (
-          <RenderAppBluePrintHelper
-            function_name={app_details.landing_blueprint_function_name}
-            swipe_navigate_function={changeIndexToOne}
-          />
-        );
-      },
-    [],
-  );
-
-  const JargonBuster = useMemo(
-    () =>
-      function JargonBuster() {
-        return (
-          <RenderAppJargonBusterHelper
-            function_name={app_details.landing_blueprint_function_name}
-          />
-        );
-      },
-    [],
-  );
-
-  const UsageShowcase = useMemo(
-    () =>
-      function UsageShowcase() {
-        return (
-          <RenderAppInUseHelper
-            function_name={app_details.landing_blueprint_function_name}
-          />
-        );
-      },
-    [],
-  );
 
   const [index, setIndex] = useState(0);
 
