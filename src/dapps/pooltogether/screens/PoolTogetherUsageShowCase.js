@@ -13,6 +13,7 @@ import BottomSpacer from '../../../bits/BottomSpacer';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -202,7 +203,7 @@ function PoolTogetherUsageShowCase() {
             marginHorizontal: '$4',
             alignSelf: 'center',
           }}>
-          WINNINGS
+          WINNINGS TILL DATE
         </Text>
         <View
           sx={{
@@ -231,7 +232,7 @@ function PoolTogetherUsageShowCase() {
                   textAlign: 'center',
                   marginHorizontal: '$2',
                 }}>
-                {Number(ethers.utils.formatUnits(ptBalance, 6)).toFixed(2)}
+                0
               </Text>
               <Text
                 variant="header_bold"
@@ -256,7 +257,7 @@ function PoolTogetherUsageShowCase() {
                   textAlign: 'center',
                   opacity: 0.75,
                 }}>
-                ~ $ {Number(ethers.utils.formatEther(ptBalance)).toFixed(0)}
+                ~ $ 0
               </Text>
             </View>
           </View>
@@ -267,7 +268,13 @@ function PoolTogetherUsageShowCase() {
 
   function RenderBody() {
     if (ptBalance === null) {
-      return <View />;
+      return (
+        <View sx={{alignItems: 'center', justifyContent: 'center'}}>
+          <BottomSpacer height={100} />
+          <Bars size={10} color="#FDAAFF" />
+          <BottomSpacer height={100} />
+        </View>
+      );
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
@@ -298,7 +305,25 @@ function PoolTogetherUsageShowCase() {
               }}
             />
           </View>
-          {/*<WinningsCard />*/}
+          <WinningsCard />
+          <BottomSpacer height={20} />
+          {/*<View>*/}
+          {/*  <Button*/}
+          {/*    title={'no winnings to claim'}*/}
+          {/*    type={'solid'}*/}
+          {/*    containerStyle={{alignSelf: 'center', marginBottom: 30}}*/}
+          {/*    buttonStyle={{*/}
+          {/*      width: windowWidth * 0.5,*/}
+          {/*      height: 50,*/}
+          {/*      borderRadius: 25,*/}
+          {/*    }}*/}
+          {/*    titleStyle={{...themeHere.text.body_medium, color: 'white'}}*/}
+          {/*    ViewComponent={LinearGradient}*/}
+          {/*    linearGradientProps={{*/}
+          {/*      colors: [themeHere.colors.mid_ground + '50'],*/}
+          {/*    }}*/}
+          {/*  />*/}
+          {/*</View>*/}
           <BottomSpacer height={20} />
         </View>
       );
@@ -308,7 +333,6 @@ function PoolTogetherUsageShowCase() {
   return (
     <View style={styles.parent_view}>
       <RenderBody />
-      <WinningsCard />
     </View>
   );
 }
