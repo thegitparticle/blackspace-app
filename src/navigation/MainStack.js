@@ -20,7 +20,7 @@ import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
 import {Host, Portal} from 'react-native-portalize';
 import TrendingTokensProductDetailsModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensProductDetailsModal';
 import Iconly from '../miscsetups/customfonts/Iconly';
-import {Pressable, View} from 'react-native';
+import {Appearance, Dimensions, Pressable, View} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import BorrowCompoundTransactionModal from '../dapps/compoundfinance/products/borrowcompoundfinance/BorrowCompoundTransactionModal';
 import EarnInterestCompoundTransactionModal from '../dapps/compoundfinance/products/earninterestcompoundfinance/EarnInterestCompoundTransactionModal';
@@ -35,6 +35,12 @@ import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfrom
 import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/PTDepositWithdrawTransactionModal';
 import TipsAppLandingScreen from '../buckets/tips/screens/TipsAppLandingScreen';
 import BrandLandingScreen from '../buckets/brand/screens/BrandLandingScreen';
+import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
+
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
+const colorScheme = Appearance.getColorScheme();
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 const StackMain = createStackNavigator();
 const HomeAndAppMain = createSharedElementStackNavigator();
@@ -198,7 +204,7 @@ function HomeAndAppsStack() {
             const {app_details} = route.params;
             return [`item.${app_details.app_name}.app_icon`];
           }}
-          options={{
+          options={({route}) => ({
             gestureEnabled: true,
             headerShown: true,
             headerStyle: {
@@ -207,9 +213,11 @@ function HomeAndAppsStack() {
             headerTintColor: '#fff',
             headerTitleStyle: {
               fontWeight: 'bold',
+              ...themeHere.text.title_2,
+              color: themeHere.colors.foreground,
             },
             headerTransparent: true,
-            headerTitle: '',
+            headerTitle: route.params.app_details.name,
             headerRight: () => (
               <Pressable
                 style={{
@@ -229,7 +237,7 @@ function HomeAndAppsStack() {
               open: config,
               close: config,
             },
-          }}
+          })}
         />
         <HomeAndAppMain.Screen
           name="TrendingTokensProductDetailsModal"

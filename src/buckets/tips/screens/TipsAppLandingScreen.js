@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
+import HeaderMiniAppV2 from '../../../bits/HeaderMiniAppV2';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,7 +16,7 @@ function TipsAppLandingScreen({route}) {
 
   return (
     <View style={styles.parent_view}>
-      <Text style={styles.header_text}>Tips</Text>
+      <HeaderMiniAppV2 app_details={app_details} />
     </View>
   );
 }
