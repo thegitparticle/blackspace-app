@@ -15,6 +15,8 @@ import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 import useUSDCFiatPrice from '../../../helpers/useUSDCFiatPrice';
 import _ from 'lodash';
+import {BigNumber} from 'ethers';
+import {useGasCostEstimate} from '../../../helpers/useGasCostEstimate';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,7 +44,17 @@ function ConfirmDepositPoolTogether(props) {
     10 ** -18;
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  const gas = 100; // (in $)
+  // hard-coded gas used while testing in Wei
+  const DEPOSIT_GAS_AMOUNT = BigNumber.from('500000');
+  const CLAIM_GAS_AMOUNT = BigNumber.from('400000');
+  const WITHDRAW_GAS_AMOUNT = BigNumber.from('450000');
+  const APPROVE_GAS_AMOUNT = BigNumber.from('50000');
+  const APPROVE_DEPOSIT_GAS_AMOUNT = BigNumber.from('550000');
+
+  const {totalGasWei, totalGasUsd, isApproveFetched} = useGasCostEstimate(
+    APPROVE_DEPOSIT_GAS_AMOUNT,
+    1,
+  );
 
   const [usdcBalance, setUSDCBalance] = useState(0);
   const [usdcBalanceObject, setUSDCBalanceObject] = useState(null);
@@ -63,7 +75,10 @@ function ConfirmDepositPoolTogether(props) {
 
   function checkIfWalletHasBalance() {
     if (Number(props.DepositAmount) < usdcBalance) {
-      if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
+      if (
+        Number(totalGasUsd) * 10 ** -18 <
+        Number(ethBalanceInWallet) * Number(priceEth)
+      ) {
         setRenderContext('WalletHasAmount');
       } else {
         setRenderContext('WalletHasNoGas');

@@ -1,5 +1,5 @@
 // PTDepositWithdrawTransactionModal
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
@@ -7,6 +7,8 @@ import TransactionOngoingDepositPoolTogether from './components/TransactionOngoi
 import ConfirmDepositPoolTogether from './components/ConfirmDepositPoolTogether';
 import ConfirmWithdrawPoolTogether from './components/ConfirmWithdrawPoolTogether';
 import TransactionOngoingWithdrawPoolTogether from './components/TransactionOngoingWithdrawPoolTogether';
+import {useGasCostEstimate} from '../../helpers/useGasCostEstimate';
+import {BigNumber} from 'ethers';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,6 +21,24 @@ function PTDepositWithdrawTransactionModal({route, dispatch}) {
   const {withdrawAmount} = route.params;
 
   const [renderScreen, setRenderScreen] = useState('ConfirmWithdraw');
+
+  // hard-coded gas used while testing in Wei
+  const DEPOSIT_GAS_AMOUNT = BigNumber.from('500000');
+  const CLAIM_GAS_AMOUNT = BigNumber.from('400000');
+  const WITHDRAW_GAS_AMOUNT = BigNumber.from('450000');
+  const APPROVE_GAS_AMOUNT = BigNumber.from('50000');
+  const APPROVE_DEPOSIT_GAS_AMOUNT = BigNumber.from('550000');
+
+  const {
+    totalGasWei: approveTotalGasWei,
+    totalGasUsd: approveTotalGasUsd,
+    isFetched: isApproveFetched,
+    error: approveError,
+  } = useGasCostEstimate(APPROVE_DEPOSIT_GAS_AMOUNT, 1);
+
+  useEffect(() => {
+    console.log(approveTotalGasWei, approveTotalGasUsd);
+  }, [approveTotalGasWei]);
 
   function RenderBody() {
     if (renderScreen === 'TransactionOngoing') {
