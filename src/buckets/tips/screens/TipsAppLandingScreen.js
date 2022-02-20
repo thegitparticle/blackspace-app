@@ -16,6 +16,7 @@ import {useHeaderHeight} from '@react-navigation/elements';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import StarterTipsPage from '../pages/StarterTipsPage';
 import ProTipsPage from '../pages/ProTipsPage';
+import FastImage from 'react-native-fast-image';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -29,7 +30,14 @@ function TipsAppLandingScreen({route}) {
 
   const sxCustom = useSx();
 
+  const [renderSplash, setRenderSplash] = useState(true);
   const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRenderSplash(false);
+    }, 1000);
+  }, []);
 
   const renderSceneMiniApp = SceneMap({
     first: StarterTipsPage,
@@ -119,20 +127,39 @@ function TipsAppLandingScreen({route}) {
     />
   );
 
-  function changeIndexToOne() {
-    runOnJS(setIndex(1));
+  function RenderScreen() {
+    if (renderSplash) {
+      return (
+        <FastImage
+          style={{width: windowWidth, height: windowHeight}}
+          source={{
+            uri: app_details.dapp_cover,
+            headers: {Authorization: 'someAuthToken'},
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}
+        />
+      );
+    } else {
+      return (
+        <View>
+          <HeaderMiniAppV2 app_details={app_details} />
+          <TabView
+            navigationState={{index, routes}}
+            renderTabBar={renderTabBarMiniApp}
+            renderScene={renderSceneMiniApp}
+            onIndexChange={setIndex}
+            initialLayout={{width: windowWidth}}
+            tabBarPosition="bottom"
+          />
+        </View>
+      );
+    }
   }
 
   return (
     <View style={styles.parent_view}>
-      <TabView
-        navigationState={{index, routes}}
-        renderTabBar={renderTabBarMiniApp}
-        renderScene={renderSceneMiniApp}
-        onIndexChange={setIndex}
-        initialLayout={{width: windowWidth}}
-        tabBarPosition="bottom"
-      />
+      <RenderScreen />
     </View>
   );
 }

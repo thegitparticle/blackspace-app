@@ -207,7 +207,7 @@ function HomeAndAppsStack() {
           }}
           options={({route}) => ({
             gestureEnabled: true,
-            headerShown: true,
+            headerShown: false,
             headerStyle: {
               backgroundColor: themeHere.colors.off_background,
             },
