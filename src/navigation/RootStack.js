@@ -30,15 +30,27 @@ function RootStack() {
 
   const t_or_f = state_here.AuthStateReducer.logged_in_or_not;
 
+  const MyTheme = {
+    dark: true,
+    colors: {
+      primary: 'rgb(255, 45, 85)',
+      background: '#050505',
+      card: 'rgb(255, 255, 255, 00)',
+      text: 'rgb(28, 28, 30)',
+      border: 'rgb(199, 199, 204, 00)',
+      notification: 'rgb(255, 69, 58)',
+    },
+  };
+
   if (t_or_f === true) {
     return (
-      <NavigationContainer style={{backgroundColor: '#050505'}}>
+      <NavigationContainer theme={MyTheme} style={{backgroundColor: '#050505'}}>
         <MainStack />
       </NavigationContainer>
     );
   } else {
     return (
-      <NavigationContainer style={{backgroundColor: '#050505'}}>
+      <NavigationContainer theme={MyTheme} style={{backgroundColor: '#050505'}}>
         <WelcomeStack />
       </NavigationContainer>
     );

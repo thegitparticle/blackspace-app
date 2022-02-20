@@ -3,6 +3,7 @@ import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   CardStyleInterpolators,
   createStackNavigator,
+  HeaderStyleInterpolators,
   TransitionPresets,
 } from '@react-navigation/stack';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
@@ -209,8 +210,10 @@ function HomeAndAppsStack() {
             headerShown: true,
             headerStyle: {
               backgroundColor: themeHere.colors.off_background,
+              borderRadius: 3,
+              borderColor: 'pink',
             },
-            headerTintColor: '#fff',
+            headerTintColor: 'pink',
             headerTitleStyle: {
               fontWeight: 'bold',
               ...themeHere.text.title_2,
@@ -233,6 +236,7 @@ function HomeAndAppsStack() {
             ),
             headerLeft: () => <View />,
             cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
             transitionSpec: {
               open: config,
               close: config,
