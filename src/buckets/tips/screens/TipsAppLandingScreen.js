@@ -14,6 +14,7 @@ import {runOnJS} from 'react-native-reanimated';
 import BottomSpacer from '../../../bits/BottomSpacer';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
+import StarterTipsPage from '../pages/StarterTipsPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -68,7 +69,7 @@ function TipsAppLandingScreen({route}) {
   const [index, setIndex] = useState(0);
 
   const renderSceneMiniApp = SceneMap({
-    first: Products,
+    first: StarterTipsPage,
     second: UsageShowcase,
     third: JargonBuster,
   });
