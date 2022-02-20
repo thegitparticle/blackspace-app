@@ -20,12 +20,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 const width = (windowWidth - 80) / 3;
 
-function MyAppThumbnail(app_details: {
-  app_id: number,
-  app_icon: string,
-  app_name: string,
-  extra_message: string,
-}) {
+function MyAppThumbnail(props) {
   const navigation = useNavigation();
   const sxCustom = useSx();
 
@@ -34,10 +29,11 @@ function MyAppThumbnail(app_details: {
       // key={app_details.app_id.toString()}
       onPress={() => {
         Amplitude.getInstance().logEvent('MYAPP_OPEN_BUTTON_CLICK', {
-          'App Name': String(app_details.app_name),
+          'App Name': String(props.app_details.name),
         });
         navigation.navigate('MiniAppLanding', {
-          app_details,
+          app_details: props.app_details,
+          discover_or_not: false,
         });
       }}>
       <View
@@ -50,10 +46,10 @@ function MyAppThumbnail(app_details: {
           flexWrap: 'wrap',
           my: '$2',
         }}>
-        <SharedElement id={`item.${app_details.app_name}.app_icon`}>
+        <SharedElement id={`item.${props.app_details.name}.app_icon`}>
           <FastImage
             source={{
-              uri: app_details.app_icon,
+              uri: props.app_details.app_icon,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}
@@ -73,7 +69,7 @@ function MyAppThumbnail(app_details: {
             justifyContent: 'center',
           }}>
           <Text sx={{color: 'foreground'}} variant="body_medium">
-            {app_details.app_name}
+            {props.app_details.name}
           </Text>
         </View>
       </View>

@@ -308,6 +308,7 @@ function PoolTogetherUsageShowCase() {
   return (
     <View style={styles.parent_view}>
       <RenderBody />
+      <WinningsCard />
     </View>
   );
 }

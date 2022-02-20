@@ -31,6 +31,30 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function HomeMainPage({dispatch}) {
+  let dummy_my_app = [
+    {
+      id: 4,
+      name: 'PoolTogether',
+      date_created: '2022-02-18T10:52:14Z',
+      dapp_cover:
+        'http://suprblack.xyz/dapp_images/pooltogether-trophy-detailed_LoYKgdJ.png',
+      dapp_icon:
+        'http://suprblack.xyz/dapp_images/pooltogether-trophy-detailed.png',
+      dapp_bio:
+        'A new type of lottery where you do not loose your bet. Deposit crypto and be eligible for lottery. Withdraw anytime',
+      landing_blueprint_function_name: 'PoolTogetherLandingBluePrint',
+      splash_image:
+        'https://i.postimg.cc/gcLRhmxk/pooltogether-trophy-detailed.png',
+      tagline: 'No loss lottery',
+      add_to_my_app_button_status: false,
+      tags: [1],
+      usage_tab_name: 'Activity',
+      usage_tab_function_name: 'PoolTogetherUsageShowCase',
+      link_suite_docs: 'https://pooltogether.com/',
+      link_suite_link2: 'https://docs.pooltogether.com/',
+    },
+  ];
+
   let default_my_apps = [
     {
       name: 'Tips',
@@ -64,7 +88,7 @@ function HomeMainPage({dispatch}) {
     },
   ];
 
-  let my_apps = _.union(state_here.MyAppsReducer.myapps, default_my_apps);
+  let my_apps = _.union(dummy_my_app, default_my_apps);
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
   useEffect(() => {
@@ -94,7 +118,7 @@ function HomeMainPage({dispatch}) {
           } else if (item.name === 'Support') {
             return <SupportAppThumbnail />;
           } else {
-            return MyAppThumbnail(item);
+            return <MyAppThumbnail app_details={item} />;
           }
         } else {
           return <DiscoverAppThumbnail app_details={item} />;
