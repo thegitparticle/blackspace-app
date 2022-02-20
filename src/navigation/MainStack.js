@@ -208,7 +208,7 @@ function HomeAndAppsStack() {
             gestureEnabled: true,
             headerShown: true,
             headerStyle: {
-              backgroundColor: 'transparent',
+              backgroundColor: themeHere.colors.off_background,
             },
             headerTintColor: '#fff',
             headerTitleStyle: {
@@ -216,7 +216,7 @@ function HomeAndAppsStack() {
               ...themeHere.text.title_2,
               color: themeHere.colors.foreground,
             },
-            headerTransparent: true,
+            // headerTransparent: true,
             headerTitle: route.params.app_details.name,
             headerRight: () => (
               <Pressable
