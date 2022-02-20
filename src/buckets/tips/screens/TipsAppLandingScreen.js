@@ -15,6 +15,7 @@ import BottomSpacer from '../../../bits/BottomSpacer';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import StarterTipsPage from '../pages/StarterTipsPage';
+import ProTipsPage from '../pages/ProTipsPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -70,71 +71,21 @@ function TipsAppLandingScreen({route}) {
 
   const renderSceneMiniApp = SceneMap({
     first: StarterTipsPage,
-    second: UsageShowcase,
-    third: JargonBuster,
+    second: ProTipsPage,
   });
 
   const [routes] = React.useState([
-    {key: 'first', title: 'Products'},
-    {key: 'second', title: app_details.usage_tab_name},
-    {key: 'third', title: 'Jargon Buster'},
+    {key: 'first', title: 'starter'},
+    {key: 'second', title: 'pro'},
   ]);
 
   function renderLabelMiniApp({route, focused}) {
-    if (route.title === 'Products') {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Iconly
-              name="HomeBold"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Iconly
-              name="HomeBold"
-              color={themeHere.colors.foreground + '75'}
-              size={25}
-            />
-          </View>
-        );
-      }
-    } else if (route.title === 'Jargon Buster') {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <LottieView
-              source={require('../../../../assets/hammer_lottie.json')}
-              autoPlay
-              loop
-              style={sxCustom({height: 30, width: 30})}
-              resizeMode="cover"
-            />
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <LottieView
-              source={require('../../../../assets/hammer_lottie.json')}
-              autoPlay
-              loop
-              style={sxCustom({height: 30, width: 30})}
-              resizeMode="cover"
-            />
-          </View>
-        );
-      }
-    } else if (route.title === app_details.in_use_tab_name) {
+    if (route.title === 'starter') {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'red'}}>
-              {app_details.in_use_tab_name}
+              starter
             </Text>
           </View>
         );
@@ -142,7 +93,25 @@ function TipsAppLandingScreen({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              {app_details.in_use_tab_name}
+              starter
+            </Text>
+          </View>
+        );
+      }
+    } else if (route.title === 'pro') {
+      if (focused) {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
+              pro
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
+              pro
             </Text>
           </View>
         );
@@ -194,7 +163,6 @@ function TipsAppLandingScreen({route}) {
 
   return (
     <View style={styles.parent_view}>
-      <BottomSpacer height={headerHeight} />
       <TabView
         navigationState={{index, routes}}
         renderTabBar={renderTabBarMiniApp}
