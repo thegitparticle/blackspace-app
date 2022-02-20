@@ -210,10 +210,8 @@ function HomeAndAppsStack() {
             headerShown: true,
             headerStyle: {
               backgroundColor: themeHere.colors.off_background,
-              borderRadius: 3,
-              borderColor: 'pink',
             },
-            headerTintColor: 'pink',
+            headerTintColor: 'transparent',
             headerTitleStyle: {
               fontWeight: 'bold',
               ...themeHere.text.title_2,
