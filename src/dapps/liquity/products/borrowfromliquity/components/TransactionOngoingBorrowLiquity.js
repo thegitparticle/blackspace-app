@@ -76,7 +76,7 @@ function TransactionOngoingBorrowLiquity(props) {
     axios
       .get(
         'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
-          String(props.State.UserDepositChanged.userdetails.id) +
+          String(props.State.UserDetailsReducer.userdetails.id) +
           String(5),
       )
       .catch(err => {
