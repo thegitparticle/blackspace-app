@@ -16,19 +16,19 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function RenderAppJargonBusterHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
-    return <MakerDaoJargonBuster />;
+    return <MakerDaoJargonBuster appInfo={props.appInfo} />;
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
-    return <CompoundFinanceJargonBuster />;
+    return <CompoundFinanceJargonBuster appInfo={props.appInfo} />;
   } else if (props.function_name === 'UniswapLandingBluePrint') {
-    return <UniswapJargonBuster />;
+    return <UniswapJargonBuster appInfo={props.appInfo} />;
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
-    return <MemeCoinsJargonBuster />;
+    return <MemeCoinsJargonBuster appInfo={props.appInfo} />;
   } else if (props.function_name === 'LiquityLandingBluePrint') {
-    return <LiquityJargonBuster />;
+    return <LiquityJargonBuster appInfo={props.appInfo} />;
   } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
-    return <PoolTogetherJargonBuster />;
+    return <PoolTogetherJargonBuster appInfo={props.appInfo} />;
   } else if (props.function_name === 'IndexFundsLandingBluePrint') {
-    return <IndexFundsJargonBuster />;
+    return <IndexFundsJargonBuster appInfo={props.appInfo} />;
   } else {
     return (
       <View style={styles.parent_view}>

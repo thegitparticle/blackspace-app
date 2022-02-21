@@ -44,6 +44,7 @@ function MiniAppLanding({route}) {
           <HScrollView index={1}>
             <RenderAppJargonBusterHelper
               function_name={app_details.landing_blueprint_function_name}
+              appInfo={app_details}
             />
           </HScrollView>
         );

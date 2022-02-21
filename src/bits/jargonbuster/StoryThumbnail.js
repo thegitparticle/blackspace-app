@@ -12,7 +12,7 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function StoryThumbnail(props) {
-  // props - {story} object - {thumbnail_url, name, list of story image links}
+  // props - {story} object - {thumbnail_url, name, stories -> list of story image links}
   return (
     <View sx={{margin: 10, flexDirection: 'column', alignItems: 'center'}}>
       <StyledFastImage50
