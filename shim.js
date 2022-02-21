@@ -1,5 +1,6 @@
 import 'react-native-get-random-values';
 import '@ethersproject/shims';
+import 'big-integer';
 
 if (typeof __dirname === 'undefined') global.__dirname = '/';
 if (typeof __filename === 'undefined') global.__filename = '';
@@ -32,3 +33,6 @@ if (typeof localStorage !== 'undefined') {
 // If using the crypto shim, uncomment the following line to ensure
 // crypto is loaded first, so it can populate global.crypto
 require('crypto');
+
+// big integer support for react native
+if (typeof BigInt === 'undefined') global.BigInt = require('big-integer');

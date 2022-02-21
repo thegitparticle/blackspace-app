@@ -1,5 +1,10 @@
 import {ethers} from 'ethers';
-import {ChainId, UniswapPair, ETH} from 'simple-uniswap-sdk';
+import {
+  ChainId,
+  UniswapPair,
+  ETH,
+  UniswapPairSettings,
+} from 'simple-uniswap-sdk';
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
@@ -30,6 +35,13 @@ export default async function ExecuteASwap(
     // OR if you want to inject your own ethereum provider (no need for chainId if so)
     // ethereumProvider: provider,
     chainId: ChainId.RINKEBY,
+    settings: new UniswapPairSettings({
+      gasSettings: {
+        getGasPrice: async () => {
+          return 'GWEI_GAS_PRICE';
+        },
+      },
+    }),
   });
 
   // now to create the factory you just do
