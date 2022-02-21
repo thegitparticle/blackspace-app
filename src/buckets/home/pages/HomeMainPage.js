@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,7 @@ import {
   Appearance,
   ScrollView,
   SectionList,
+  RefreshControl,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
@@ -29,6 +30,10 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
+
+const wait = timeout => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+};
 
 function HomeMainPage({dispatch}) {
   let dummy_my_app = [
@@ -91,12 +96,19 @@ function HomeMainPage({dispatch}) {
   let my_apps = _.union(dummy_my_app, default_my_apps);
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const onRefresh = useCallback(() => {
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []);
+
   useEffect(() => {
     dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.id));
     dispatch(GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.id));
     dispatch(GetMarketPrices());
     dispatch(GetUniswapTokenList());
-  }, []);
+  }, [refreshing]);
 
   const DATA = [
     {
@@ -140,6 +152,13 @@ function HomeMainPage({dispatch}) {
       showsVerticalScrollIndicator={false}
       ListFooterComponent={<Spacer height={75} />}
       spacing={20}
+      refreshControl={
+        <RefreshControl
+          refreshing={refreshing}
+          onRefresh={onRefresh}
+          tintColor={themeHere.colors.foreground}
+        />
+      }
     />
   );
 }
