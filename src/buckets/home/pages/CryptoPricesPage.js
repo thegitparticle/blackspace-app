@@ -38,7 +38,11 @@ function CryptoPricesPage({dispatch}) {
       <ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={themeHere.colors.foreground}
+          />
         }>
         {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />

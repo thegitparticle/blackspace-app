@@ -105,7 +105,11 @@ function MyProfileScreen({dispatch}) {
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
-          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={themeHere.colors.foreground}
+          />
         }>
         <MainDetails />
         <WalletPie />
