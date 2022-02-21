@@ -83,7 +83,7 @@ function StoryThumbnail(props) {
               onPress={() => {
                 currentStoryIndex > 0
                   ? setCurrentStoryIndex(Number(currentStoryIndex) - 1)
-                  : setCurrentStoryIndex(currentStoryIndex);
+                  : toggleOverlay();
               }}
             />
             <Pressable
@@ -96,7 +96,7 @@ function StoryThumbnail(props) {
               onPress={() => {
                 currentStoryIndex !== props.story.stories.length - 1
                   ? setCurrentStoryIndex(Number(currentStoryIndex) + 1)
-                  : setCurrentStoryIndex(currentStoryIndex);
+                  : toggleOverlay();
               }}
             />
           </View>
