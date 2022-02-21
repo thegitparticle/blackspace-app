@@ -193,6 +193,7 @@ function HomeAndAppsStack() {
             ),
             headerLeft: () => <View />,
             cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            gestureDirection: 'vertical',
             transitionSpec: {
               open: config,
               close: config,
@@ -235,6 +236,7 @@ function HomeAndAppsStack() {
             ),
             headerLeft: () => <View />,
             cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            gestureDirection: 'vertical',
             headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
             transitionSpec: {
               open: config,

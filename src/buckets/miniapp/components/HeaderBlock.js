@@ -13,6 +13,9 @@ import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import LinearGradient from 'react-native-linear-gradient';
+import {Gesture, GestureDetector} from 'react-native-gesture-handler';
+import {runOnJS, runOnUI, useDerivedValue} from 'react-native-reanimated';
+import GestureRecognizer from 'react-native-swipe-gestures';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -55,7 +58,7 @@ function HeaderBlock({app_details}) {
         ]}
         style={styles.title_subblock_view}>
         <View style={styles.title_subblock_items_wrap_view}>
-          <Text style={styles.app_name_text}>{app_details.app_name}</Text>
+          <Text style={styles.app_name_text}>{app_details.name}</Text>
           <Text style={styles.app_description_text}>
             {app_details.extra_message}
           </Text>
@@ -64,18 +67,38 @@ function HeaderBlock({app_details}) {
     );
   }
 
+  const onSwipeDown = gestureState => {
+    console.log('You swiped down!');
+    navigation.goBack();
+  };
+
+  const onSwipeRight = gestureState => {
+    console.log('You swiped left!');
+    navigation.goBack();
+  };
+
+  const config = {
+    velocityThreshold: 0.1,
+    directionalOffsetThreshold: 50,
+  };
+
   return (
     <View style={styles.parent_view}>
-      <FastImage
-        style={styles.cover_image}
-        source={{
-          uri: app_details.app_icon,
-          headers: {Authorization: 'someAuthToken'},
-          priority: FastImage.priority.normal,
-        }}
-        resizeMode={FastImage.resizeMode.cover}>
-        <TitleSubBlock />
-      </FastImage>
+      <GestureRecognizer
+        onSwipeRight={state => onSwipeRight(state)}
+        onSwipeDown={state => onSwipeDown(state)}
+        config={config}>
+        <FastImage
+          style={styles.cover_image}
+          source={{
+            uri: app_details.app_icon,
+            headers: {Authorization: 'someAuthToken'},
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.cover}>
+          <TitleSubBlock />
+        </FastImage>
+      </GestureRecognizer>
     </View>
   );
 }
