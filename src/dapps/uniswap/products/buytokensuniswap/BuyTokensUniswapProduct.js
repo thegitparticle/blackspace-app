@@ -101,20 +101,6 @@ function BuyTokenUniswapProduct({dispatch}) {
       token1Coin === null ? '' : token1Coin.address,
     );
 
-  useEffect(() => {
-    if (lpAddress !== null) {
-      console.log(
-        lpAddress.id +
-          'lp address is now here and setup uniswap pool func is called',
-      );
-      SetupUniswapPool(
-        lpAddress,
-        state_here.WDeetsReducer.wdeets.wallet_address,
-        state_here.WDeetsReducer.wdeets.wallet_privateKey,
-      );
-    }
-  }, [lpAddress]);
-
   function computeFiatToken1(value) {
     setToken1Fiat(Number(value) * derivedETH * priceEth);
   }
