@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {Text, View, useSx, styled} from 'dripsy';
+import {Text, View, useSx, styled, Pressable} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {StyledFastImage50, StyledFastImage60} from '../../theme/DripsyTheme';
 import FastImage from 'react-native-fast-image';
@@ -64,6 +64,41 @@ function StoryThumbnail(props) {
                 />
               </View>
             </Bounceable>
+          </View>
+          <View
+            sx={{
+              width: windowWidth,
+              height: windowHeight,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: getStatusBarHeight(),
+            }}>
+            <Pressable
+              sx={{
+                width: windowWidth * 0.2,
+                height: windowHeight,
+                flexDirection: 'row',
+                marginTop: getStatusBarHeight(),
+              }}
+              onPress={() => {
+                currentStoryIndex > 0
+                  ? setCurrentStoryIndex(Number(currentStoryIndex) - 1)
+                  : setCurrentStoryIndex(currentStoryIndex);
+              }}
+            />
+            <Pressable
+              sx={{
+                width: windowWidth * 0.2,
+                height: windowHeight,
+                flexDirection: 'row',
+                marginTop: getStatusBarHeight(),
+              }}
+              onPress={() => {
+                currentStoryIndex !== props.story.stories.length - 1
+                  ? setCurrentStoryIndex(Number(currentStoryIndex) + 1)
+                  : setCurrentStoryIndex(currentStoryIndex);
+              }}
+            />
           </View>
         </FastImage>
       </View>
