@@ -11721,6 +11721,11 @@ react-native-status-bar-height@^2.6.0:
   resolved "https://registry.npmjs.org/react-native-status-bar-height/-/react-native-status-bar-height-2.6.0.tgz#b6afd25b6e3d533c43d0fcdcfd5cafd775592cea"
   integrity sha512-z3SGLF0mHT+OlJDq7B7h/jXPjWcdBT3V14Le5L2PjntjjWM3+EJzq2BcXDwV+v67KFNJic5pgA26cCmseYek6w==
 
+react-native-stories-view@^1.0.9:
+  version "1.0.9"
+  resolved "https://registry.npmjs.org/react-native-stories-view/-/react-native-stories-view-1.0.9.tgz#87e3624b8be9267d548a50993f85f3a74d29fe9e"
+  integrity sha512-xvQTW3Ge1+44mB/yzJOdz/pP01Lv8bEGz+p7mDs0HVWz0tlJhhrZSL3+f0temeteJy2DYjKtFeaZ/SUaU81/vQ==
+
 react-native-super-grid@^4.2.0:
   version "4.2.0"
   resolved "https://registry.npmjs.org/react-native-super-grid/-/react-native-super-grid-4.2.0.tgz#df07d88d58f232cb2e01e0752f5279cc3b366ca4"
