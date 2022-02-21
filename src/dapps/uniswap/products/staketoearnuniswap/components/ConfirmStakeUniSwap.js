@@ -118,12 +118,12 @@ function ConfirmStakeUniSwap(props) {
     let token0FiatNeeded =
       Number(props.Token0Amount) *
       Number(props.LPStakeDetails.token0.derivedETH) *
-      priceEth;
+      Number(priceEth);
 
     let token1FiatNeeded =
       Number(props.Token1Amount) *
       Number(props.LPStakeDetails.token1.derivedETH) *
-      priceEth;
+      Number(priceEth);
 
     setTotalFiatValueNeeded(token0FiatNeeded + token1FiatNeeded);
   }
@@ -132,12 +132,12 @@ function ConfirmStakeUniSwap(props) {
     let token0FiatInWallet =
       Number(t0Balance) *
       Number(props.LPStakeDetails.token0.derivedETH) *
-      priceEth;
+      Number(priceEth);
 
     let token1FiatInWallet =
       Number(t1Balance) *
       Number(props.LPStakeDetails.token1.derivedETH) *
-      priceEth;
+      Number(priceEth);
 
     setTotalFiatValueInWallet(token0FiatInWallet + token1FiatInWallet);
   }
@@ -145,8 +145,8 @@ function ConfirmStakeUniSwap(props) {
   const gas = 100; // (in $)
 
   function checkIfWalletHasBalance() {
-    // console.log('fiat in wall' + totalFiatValueInWallet);
-    // console.log('fiat needed' + totalFiatValueNeeded);
+    console.log('fiat in wall' + ' ' + totalFiatValueInWallet);
+    console.log('fiat needed' + ' ' + totalFiatValueNeeded);
 
     if (Number(totalFiatValueInWallet) > Number(totalFiatValueNeeded)) {
       if (gas < Number(ethBalanceInWallet) * Number(priceEth)) {
@@ -174,7 +174,7 @@ function ConfirmStakeUniSwap(props) {
   useEffect(() => {
     calculateTotalFiatValueNeeded();
     calculateTotalFiatValueInWallet();
-  }, [t0Balance, t1Balance]);
+  }, [t0Balance, t1Balance, priceEth]);
 
   useEffect(() => {
     checkIfWalletHasBalance();
