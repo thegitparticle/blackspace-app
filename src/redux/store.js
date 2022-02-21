@@ -14,6 +14,7 @@ import MyEmojiColorReducer from './appcore/MyEmojiColorReducer';
 import UserDetailsReducer from './appcore/UserDetailsReducer';
 import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
+import AllTipsReducer from './appcore/AllTipsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -60,6 +61,11 @@ export const persistConfigMyEmojiColor = {
   storage: AsyncStorage,
 };
 
+export const persistConfigAllTips = {
+  key: 'all_tips',
+  storage: AsyncStorage,
+};
+
 // dapps redux work only below
 
 export const persistConfigUniswapTokenList = {
@@ -97,6 +103,7 @@ const rootReducer = combineReducers({
     persistConfigMyEmojiColor,
     MyEmojiColorReducer,
   ),
+  AllTipsReducer: persistReducer(persistConfigAllTips, AllTipsReducer),
 
   // dapps redux work only below
 
