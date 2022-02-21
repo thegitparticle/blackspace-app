@@ -7,12 +7,12 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function BottomSpacer(props) {
+function Spacer(props) {
   // props - height
   return <View style={{...styles.parent_view, height: props.height}}></View>;
 }
 
-export default BottomSpacer;
+export default Spacer;
 
 const styles = StyleSheet.create({
   parent_view: {

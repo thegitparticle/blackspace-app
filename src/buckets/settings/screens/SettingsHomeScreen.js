@@ -12,7 +12,7 @@ import WalletTile from '../components/WalletTile';
 import UserTile from '../components/UserTile';
 import AppTile from '../components/AppTile';
 import MiscTile from '../components/MiscTile';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

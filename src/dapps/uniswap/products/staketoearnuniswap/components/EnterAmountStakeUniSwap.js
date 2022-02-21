@@ -20,7 +20,7 @@ import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import UniswapStakeSetupAndExecute from '../../../helpers/UniswapStakeSetupAndExecute';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
-import BottomSpacer from '../../../../../bits/BottomSpacer';
+import Spacer from '../../../../../bits/Spacer';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
@@ -203,7 +203,7 @@ function EnterAmountStakeUniSwap(props) {
                 </Text>
               </Text>
             </View>
-            <BottomSpacer height={20} />
+            <Spacer height={20} />
             <View style={styles.order_info_block_view}>
               <Text style={styles.order_info_title_text}>
                 {props.LPStakeDetails.token1.symbol} amount
@@ -227,7 +227,7 @@ function EnterAmountStakeUniSwap(props) {
                 </Text>
               </Text>
             </View>
-            <BottomSpacer height={20} />
+            <Spacer height={20} />
             <View style={styles.order_info_block_view}>
               <Text style={styles.order_info_title_text}>total amount</Text>
               <Text style={styles.order_info_value_text}>
@@ -255,7 +255,7 @@ function EnterAmountStakeUniSwap(props) {
                 </Text>
               </Text>
             </View>
-            <BottomSpacer height={20} />
+            <Spacer height={20} />
             <Button
               title={'confirm staking'}
               type={'solid'}

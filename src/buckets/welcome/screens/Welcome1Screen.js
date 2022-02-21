@@ -22,7 +22,7 @@ import Animated, {
   withTiming,
 } from 'react-native-reanimated';
 import BackgroundNftsAnimation from '../components/BackgroundNftsAnimation';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 import {Bounceable} from 'rn-bounceable';
 import {Amplitude} from '@amplitude/react-native';
 

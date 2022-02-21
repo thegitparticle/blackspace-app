@@ -20,7 +20,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
 import FastImage from 'react-native-fast-image';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
 import {EthersLiquity} from '@liquity/lib-ethers';
 import {ethers} from 'ethers';
@@ -326,9 +326,9 @@ function LiquityUsageShowCase() {
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <BottomSpacer height={20} />
+          <Spacer height={20} />
           <DebtCard />
-          <BottomSpacer height={20} />
+          <Spacer height={20} />
           <View>
             <Button
               title={'payback debt'}
@@ -355,7 +355,7 @@ function LiquityUsageShowCase() {
             />
           </View>
           <CollateralCard />
-          <BottomSpacer height={20} />
+          <Spacer height={20} />
           <View>
             <Button
               title={'add collateral'}

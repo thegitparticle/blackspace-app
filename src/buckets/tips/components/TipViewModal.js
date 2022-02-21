@@ -4,7 +4,7 @@ import {Text, View, useSx, styled, ScrollView} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {SquircleCard} from '../../../theme/DripsyTheme';
 import TipTile from './TipTile';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 import {Icon} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
@@ -41,7 +41,7 @@ function TipViewModal({route}) {
             {String(props.stepNumber)}. {props.content}
           </Text>
         </SquircleCard>
-        <BottomSpacer height={30} />
+        <Spacer height={30} />
         <Icon
           name="arrow-down"
           type="feather"
@@ -71,7 +71,7 @@ function TipViewModal({route}) {
             content={tipInfo[`step_${String(item)}`]}
           />
         ))}
-        <BottomSpacer height={200} />
+        <Spacer height={200} />
       </ScrollView>
     </View>
   );

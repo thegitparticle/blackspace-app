@@ -5,7 +5,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 import {useFocusEffect} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
@@ -43,7 +43,7 @@ function CryptoPricesPage({dispatch}) {
         {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />
         ))}
-        <BottomSpacer height={75} />
+        <Spacer height={75} />
       </ScrollView>
     </View>
   );

@@ -18,7 +18,7 @@ import Animated, {
   useSharedValue,
   withTiming,
 } from 'react-native-reanimated';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 import ModalGoBackHeader from '../../../bits/ModalGoBackHeader';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
 import {connect} from 'react-redux';
@@ -110,7 +110,7 @@ function MyProfileScreen({dispatch}) {
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />
-        <BottomSpacer height={50} />
+        <Spacer height={50} />
       </Animated.ScrollView>
     </View>
   );

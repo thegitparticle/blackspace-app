@@ -17,7 +17,7 @@ import _ from 'lodash';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
-import BottomSpacer from '../../../../bits/BottomSpacer';
+import Spacer from '../../../../bits/Spacer';
 import {useNavigation} from '@react-navigation/native';
 import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
@@ -491,7 +491,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         <RenderChartView />
         <RenderChartRangeButtons />
         <RenderPriceDetails />
-        <BottomSpacer height={150} />
+        <Spacer height={150} />
       </ScrollView>
       <Button
         title={'buy'}

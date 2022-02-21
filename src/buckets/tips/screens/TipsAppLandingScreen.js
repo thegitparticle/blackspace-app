@@ -11,7 +11,7 @@ import RenderAppInUseHelper from '../../miniapp/helpers/RenderAppInUseHelper';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import LottieView from 'lottie-react-native';
 import {runOnJS} from 'react-native-reanimated';
-import BottomSpacer from '../../../bits/BottomSpacer';
+import Spacer from '../../../bits/Spacer';
 import {useHeaderHeight} from '@react-navigation/elements';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import StarterTipsPage from '../pages/StarterTipsPage';
