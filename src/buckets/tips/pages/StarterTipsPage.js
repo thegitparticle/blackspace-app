@@ -3,6 +3,8 @@ import {StyleSheet, Dimensions, Appearance} from 'react-native';
 import {useSx, View, Image, Text, ScrollView} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
+import {connect} from 'react-redux';
+import TipTile from '../components/TipTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,24 +26,25 @@ const imageLinks = [
   'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse3.mm.bing.net%2Fth%3Fid%3DOIP.Nth-zC5jlFZY74hX8YqlzAHaMn%26pid%3DApi&f=1',
 ];
 
+let state_here = {};
+
 function StarterTipsPage() {
+  let allTips = state_here.AllTipsReducer.alltips;
+
   return (
     <View variant="full_screen_transparent">
       <ScrollView>
-        {imageLinks.map(item => (
-          <FastImage
-            style={{width: 200, height: 200}}
-            source={{
-              uri: item,
-              headers: {Authorization: 'someAuthToken'},
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
+        {allTips.map(item => (
+          <TipTile tipInfo={item} />
         ))}
       </ScrollView>
     </View>
   );
 }
 
-export default StarterTipsPage;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(StarterTipsPage);

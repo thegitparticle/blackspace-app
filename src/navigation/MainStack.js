@@ -37,6 +37,7 @@ import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lo
 import TipsAppLandingScreen from '../buckets/tips/screens/TipsAppLandingScreen';
 import BrandLandingScreen from '../buckets/brand/screens/BrandLandingScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
+import TipViewModal from '../buckets/tips/components/TipViewModal';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -376,6 +377,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="IndexCoopTransactionModal"
           component={IndexCoopTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="TipViewModal"
+          component={TipViewModal}
           options={{
             headerShown: false,
             gestureEnabled: true,

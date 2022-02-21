@@ -17,6 +17,7 @@ import Iconly from '../../../miscsetups/customfonts/Iconly';
 import StarterTipsPage from '../pages/StarterTipsPage';
 import ProTipsPage from '../pages/ProTipsPage';
 import FastImage from 'react-native-fast-image';
+import {GetAllTips} from '../../../redux/appcore/AllTipsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -25,7 +26,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function TipsAppLandingScreen({route}) {
+function TipsAppLandingScreen({route, dispatch}) {
   const {app_details} = route.params;
 
   const sxCustom = useSx();
@@ -34,6 +35,7 @@ function TipsAppLandingScreen({route}) {
   const [index, setIndex] = useState(0);
 
   useEffect(() => {
+    dispatch(GetAllTips());
     setTimeout(() => {
       setRenderSplash(false);
     }, 1000);
