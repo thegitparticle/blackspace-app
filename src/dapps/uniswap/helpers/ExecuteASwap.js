@@ -66,8 +66,8 @@ export default async function ExecuteASwap(
       'gas estimate from ethers',
   );
 
-  obviously dont create your provider + wallet everytime again and again!
-  this is just like this for ease of reading!
+  // obviously dont create your provider + wallet everytime again and again!
+  // this is just like this for ease of reading!
   const provider = new ethers.providers.JsonRpcProvider(
     uniswapPairFactory.providerUrl,
   );
