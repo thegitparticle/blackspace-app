@@ -27,6 +27,8 @@ import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
 import usePoolPricesFromChain from '../../helpers/usePoolPricesFromChain';
 import _ from 'lodash';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {BigNumber} from 'ethers';
+import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -100,6 +102,13 @@ function BuyTokenUniswapProduct({dispatch}) {
       token0Coin === null ? '' : token0Coin.contractAddress,
       token1Coin === null ? '' : token1Coin.address,
     );
+
+  const ESTIMATE_SWAP_GAS_AMOUNT = BigNumber.from('550000');
+
+  const {totalGasWei, totalGasUsd, isApproveFetched} = useGasCostEstimate(
+    ESTIMATE_SWAP_GAS_AMOUNT,
+    1,
+  );
 
   function computeFiatToken1(value) {
     setToken1Fiat(Number(value) * derivedETH * priceEth);
@@ -515,7 +524,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 </Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    ~$49.94
+                    ~$ {Number(Number(totalGasUsd) * 10 ** -18).toFixed(2)}
                   </Text>
                 </Text>
               </View>
