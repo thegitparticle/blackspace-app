@@ -15,7 +15,14 @@ function StoryThumbnail(props) {
   // props - {story} object - {thumbnail_url, name, stories -> list of story image links}
   return (
     <View
-      sx={{marginVertical: 10, flexDirection: 'column', alignItems: 'center'}}>
+      sx={{
+        marginVertical: '$2',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '$4',
+        width: 100,
+        height: 150,
+      }}>
       <StyledFastImage60
         source={{
           uri: props.story.thumbnail_url,
@@ -24,7 +31,9 @@ function StoryThumbnail(props) {
         resizeMode={FastImage.resizeMode.contain}
       />
       <Spacer height={10} />
-      <Text variant="header" sx={{textAlign: 'center'}}>
+      <Text
+        variant="body_medium"
+        sx={{textAlign: 'center', color: 'foreground'}}>
         {props.story.name}
       </Text>
     </View>

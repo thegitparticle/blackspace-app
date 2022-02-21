@@ -204,26 +204,39 @@ function MemeCoinsJargonBuster(props) {
   }
 
   return (
-    <View
-      variant="layout.sub_view_20_margin"
-      sx={{alignSelf: 'center', marginTop: '$5'}}>
+    <View sx={{alignSelf: 'center', marginTop: '$5'}}>
+      <Text
+        variant="subhead_medium"
+        sx={{
+          color: 'foreground',
+          maxWidth: windowWidth * 0.9,
+          marginHorizontal: windowWidth * 0.05,
+          marginTop: windowWidth * 0.1,
+          marginBottom: windowWidth * 0.05,
+          alignSelf: 'flex-start',
+        }}>
+        About {props.appInfo.name}
+      </Text>
       <Text
         variant="body_medium"
         sx={{
-          color: 'foreground',
+          color: 'mid_ground',
           maxWidth: windowWidth * 0.9,
           alignSelf: 'center',
         }}>
         {dummy_jargon_buster.content}
       </Text>
       <Spacer height={30} />
+      <View sx={{height: 150}}>
+        <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
+          {dummy_stories.map(item => (
+            <StoryThumbnail story={item} />
+          ))}
+        </ScrollView>
+      </View>
+      <Spacer height={30} />
       <RenderLinks />
       <Spacer height={30} />
-      <ScrollView horizontal={true} showsHorizontalScrollIndicator={false}>
-        {dummy_stories.map(item => (
-          <StoryThumbnail story={item} />
-        ))}
-      </ScrollView>
     </View>
   );
 }
