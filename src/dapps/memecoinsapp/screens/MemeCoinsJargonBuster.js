@@ -1,7 +1,10 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Text, View, useSx, styled} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
+import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
+import Spacer from '../../../bits/Spacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -45,8 +48,14 @@ function MemeCoinsJargonBuster(props) {
   ];
 
   return (
-    <View style={styles.parent_view}>
-      <Text style={{color: 'orange'}}>jargons will be slayed</Text>
+    <View variant="sub_view_20_margin">
+      <Text variant="body_medium" sx={{color: 'foreground'}}>
+        {dummy_jargon_buster.content}
+      </Text>
+      <Spacer height={30} />
+      {dummy_stories.map(item => (
+        <StoryThumbnail story={item} />
+      ))}
     </View>
   );
 }
