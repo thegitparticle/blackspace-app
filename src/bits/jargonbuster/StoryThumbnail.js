@@ -7,6 +7,10 @@ import FastImage from 'react-native-fast-image';
 import Spacer from '../Spacer';
 import {StoryContainer} from 'react-native-stories-view';
 import {Bounceable} from 'rn-bounceable';
+import {Button, Overlay, Icon} from 'react-native-elements';
+import Iconly from '../../miscsetups/customfonts/Iconly';
+import {useNavigation} from '@react-navigation/native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -16,11 +20,62 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 function StoryThumbnail(props) {
   // props - {story} object - {thumbnail_url, name, stories -> list of story image links}
 
+  const navigation = useNavigation();
+
   const [showStory, setShowStory] = useState(false);
+
+  const [visible, setVisible] = useState(false);
+
+  const toggleOverlay = () => {
+    setVisible(!visible);
+  };
+
+  function RenderStories() {
+    const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
+
+    return (
+      <View
+        sx={{
+          width: windowWidth,
+          height: windowHeight,
+          backgroundColor: 'background',
+          marginLeft: -10,
+          marginTop: -10,
+        }}>
+        <FastImage
+          style={{width: windowWidth, height: windowHeight}}
+          source={{
+            uri: props.story.stories[currentStoryIndex],
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.contain}>
+          <View
+            sx={{
+              width: windowWidth,
+              flexDirection: 'row-reverse',
+              marginTop: getStatusBarHeight(),
+            }}>
+            <Bounceable onPress={() => toggleOverlay()}>
+              <View sx={{marginHorizontal: 10}}>
+                <Iconly
+                  name="CloseSquareBold"
+                  color={themeHere.colors.foreground}
+                  size={35}
+                />
+              </View>
+            </Bounceable>
+          </View>
+        </FastImage>
+      </View>
+    );
+  }
 
   return (
     <View>
-      <Bounceable onPress={() => setShowStory(true)}>
+      <Bounceable
+        onPress={() => {
+          toggleOverlay();
+        }}>
         <View
           sx={{
             marginVertical: '$2',
@@ -45,19 +100,17 @@ function StoryThumbnail(props) {
           </Text>
         </View>
       </Bounceable>
-      <StoryContainer
-        visible={showStory}
-        images={props.story.stories}
-        duration={2}
-        containerStyle={{
+      <Overlay
+        fullScreen
+        isVisible={visible}
+        onBackdropPress={toggleOverlay}
+        overlayStyle={{
           width: windowWidth,
           height: windowHeight,
-        }}
-        onComplete={() => {
-          console.log('finished');
-          setShowStory(false);
-        }}
-      />
+          backgroundColor: themeHere.colors.background,
+        }}>
+        <RenderStories />
+      </Overlay>
     </View>
   );
 }
