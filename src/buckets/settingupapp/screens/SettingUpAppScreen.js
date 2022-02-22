@@ -17,6 +17,7 @@ import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
 import {AddUserDetails} from '../../../redux/appcore/UserDetailsActions';
 import {LOGIN} from '../../../redux/types';
 import {Amplitude} from '@amplitude/react-native';
+import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -85,6 +86,18 @@ function SettingUpAppScreen({dispatch}) {
         Amplitude.getInstance().logEvent('APP_SETUP_API_CALLS_FINISHED');
         setAPIDone(true);
       }, 7500);
+      setTimeout(() => {
+        const wallet = {
+          wallet_privateKey: null,
+          wallet_address: null,
+          wallet_phrase: null,
+        };
+        wallet.wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
+        wallet.wallet_privateKey =
+          state_here.WDeetsReducer.wdeets.wallet_privateKey;
+        wallet.wallet_phrase = {};
+        dispatch(AddWDeets(wallet));
+      }, 10000);
       setTimeout(() => {
         dispatch({type: LOGIN});
       }, 12500);
