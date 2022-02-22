@@ -105,7 +105,7 @@ function ConfirmAddCollLiquity(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough ETH to add collateral, reduce
+            your wallet does not have enough ETH to add collateral, reduce
             collateral amount and try again
           </Text>
         </View>

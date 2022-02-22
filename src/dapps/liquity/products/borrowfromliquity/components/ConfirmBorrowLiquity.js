@@ -126,8 +126,8 @@ function ConfirmBorrowLiquity(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have {props.CollateralNeededEth} ETH as collateral,
-            reduce loan amount and try again
+            your wallet does not have {props.CollateralNeededEth} ETH as
+            collateral, reduce loan amount and try again
           </Text>
         </View>
       );

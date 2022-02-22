@@ -151,7 +151,7 @@ function ConfirmPaybackLiquity(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough to payback debt, try again later
+            your wallet does not have enough to payback debt, try again later
           </Text>
         </View>
       );
