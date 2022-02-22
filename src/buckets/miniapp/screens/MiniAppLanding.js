@@ -85,6 +85,13 @@ function MiniAppLanding({route}) {
         {key: 'first', title: 'Products'},
         {key: 'second', title: 'Jargon Buster'},
       ])
+    : app_details.usage_tab_function_name === 'UniswapUsageShowCase' ||
+      app_details.usage_tab_function_name === 'MemeCoinsUsageShowCase'
+    ? // eslint-disable-next-line react-hooks/rules-of-hooks
+      React.useState([
+        {key: 'first', title: 'Products'},
+        {key: 'second', title: 'Jargon Buster'},
+      ])
     : // eslint-disable-next-line react-hooks/rules-of-hooks
       React.useState([
         {key: 'first', title: 'Products'},
