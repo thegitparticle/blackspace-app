@@ -43,16 +43,16 @@ function TipsAppLandingScreen({route, dispatch}) {
 
   const renderSceneMiniApp = SceneMap({
     first: StarterTipsPage,
-    second: ProTipsPage,
+    // second: ProTipsPage,
   });
 
   const [routes] = React.useState([
-    {key: 'first', title: 'starter'},
-    {key: 'second', title: 'pro'},
+    {key: 'first', title: 'starter tips'},
+    // {key: 'second', title: 'pro'},
   ]);
 
   function renderLabelMiniApp({route, focused}) {
-    if (route.title === 'starter') {
+    if (route.title === 'starter tips') {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
