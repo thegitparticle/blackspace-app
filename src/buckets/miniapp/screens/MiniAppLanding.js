@@ -105,7 +105,7 @@ function MiniAppLanding({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'red'}}>
-              Keyboard
+              Products
             </Text>
           </View>
         );
@@ -113,7 +113,7 @@ function MiniAppLanding({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              Keyboard
+              Products
             </Text>
           </View>
         );
@@ -149,7 +149,7 @@ function MiniAppLanding({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'red'}}>
-              {app_details.in_use_tab_name}
+              {app_details.usage_tab_name}
             </Text>
           </View>
         );
@@ -157,7 +157,7 @@ function MiniAppLanding({route}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              {app_details.in_use_tab_name}
+              {app_details.usage_tab_name}
             </Text>
           </View>
         );

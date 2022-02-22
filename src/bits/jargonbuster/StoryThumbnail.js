@@ -33,6 +33,8 @@ function StoryThumbnail(props) {
   function RenderStories() {
     const [currentStoryIndex, setCurrentStoryIndex] = useState(0);
 
+    console.log(props.story.image_links[currentStoryIndex]);
+
     return (
       <View
         sx={{
