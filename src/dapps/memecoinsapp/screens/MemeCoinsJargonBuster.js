@@ -251,10 +251,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(MemeCoinsJargonBuster);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

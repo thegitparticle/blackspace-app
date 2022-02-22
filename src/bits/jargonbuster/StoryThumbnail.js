@@ -18,7 +18,7 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function StoryThumbnail(props) {
-  // props - {story} object - {thumbnail_url, name, stories -> list of story image links}
+  // props - {story} object - {thumbnail_image, title, image_links -> list of story image links}
 
   const navigation = useNavigation();
 
@@ -45,7 +45,7 @@ function StoryThumbnail(props) {
         <FastImage
           style={{width: windowWidth, height: windowHeight}}
           source={{
-            uri: props.story.stories[currentStoryIndex],
+            uri: props.story.image_links[currentStoryIndex],
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.contain}>
@@ -94,7 +94,7 @@ function StoryThumbnail(props) {
                 marginTop: getStatusBarHeight(),
               }}
               onPress={() => {
-                currentStoryIndex !== props.story.stories.length - 1
+                currentStoryIndex !== props.story.image_links.length - 1
                   ? setCurrentStoryIndex(Number(currentStoryIndex) + 1)
                   : toggleOverlay();
               }}
@@ -122,7 +122,7 @@ function StoryThumbnail(props) {
           }}>
           <StyledFastImage60
             source={{
-              uri: props.story.thumbnail_url,
+              uri: props.story.thumbnail_image,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.contain}
@@ -131,7 +131,7 @@ function StoryThumbnail(props) {
           <Text
             variant="body_medium"
             sx={{textAlign: 'center', color: 'foreground'}}>
-            {props.story.name}
+            {props.story.title}
           </Text>
         </View>
       </Bounceable>
