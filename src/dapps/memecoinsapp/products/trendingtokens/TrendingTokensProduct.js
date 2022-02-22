@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   View,
   Text,
@@ -16,6 +16,8 @@ import useShibaInuPrice from '../../helpers/useShibaInuPrice';
 import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 import useDogeCoinPrice from '../../helpers/useDogeCoinPrice';
 import {Bounceable} from 'rn-bounceable';
+import {GetMemeCoinsList} from '../../../../redux/dapps/memecoins/MemeCoinsListActions';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,8 +39,14 @@ f. market cap
 
  */
 
-function TrendingTokensProduct() {
+let state_here = {};
+
+function TrendingTokensProduct({dispatch}) {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    dispatch(GetMemeCoinsList());
+  }, []);
 
   function DogeCoinCard() {
     const {loadingGetDogeCoin, priceDogeCoin} = useDogeCoinPrice();
@@ -207,47 +215,64 @@ function TrendingTokensProduct() {
           <View style={styles.left_side_view}>
             <FastImage
               source={{
-                uri: token.token_icon,
+                uri: token.profile_picture_link,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
               style={styles.coin_logo_image}
             />
             <View style={styles.name_ticker_view}>
-              <Text style={styles.name_text}>{token.token_name}</Text>
+              <Text style={styles.name_text}>{token.memecoin_name}</Text>
               <Text style={styles.ticker_text}>
-                {token.token_symbol.toUpperCase()}
+                {token.symbol.toUpperCase()}
               </Text>
             </View>
           </View>
-          <View style={styles.price_change_view}>
-            <Text style={styles.price_text}>{token.current_price}</Text>
-            <Text
-              style={{
-                ...styles.change_percent_text,
-                color:
-                  token._24h_change < 0
-                    ? themeHere.colors.danger_red
-                    : themeHere.colors.success_green,
-              }}>
-              {token._24h_change.substring(0, 5)} %
-            </Text>
-          </View>
+          {/*<View style={styles.price_change_view}>*/}
+          {/*  <Text style={styles.price_text}>{token.current_price}</Text>*/}
+          {/*  <Text*/}
+          {/*    style={{*/}
+          {/*      ...styles.change_percent_text,*/}
+          {/*      color:*/}
+          {/*        token._24h_change < 0*/}
+          {/*          ? themeHere.colors.danger_red*/}
+          {/*          : themeHere.colors.success_green,*/}
+          {/*    }}>*/}
+          {/*    {token._24h_change.substring(0, 5)} %*/}
+          {/*  </Text>*/}
+          {/*</View>*/}
         </SquircleView>
       </Pressable>
     );
+  }
+
+  function RenderTokenList() {
+    let tokenList = state_here.MemeCoinsListReducer.memecoinslist;
+
+    console.log(tokenList);
+
+    if (tokenList.length > 0) {
+      return <View>{tokenList.map(item => TokenCard(item))}</View>;
+    } else {
+      return <View />;
+    }
   }
 
   return (
     <View style={styles.parent_view}>
       <DogeCoinCard />
       <ShibaInuCard />
-      {/*{tokens_list.map(item => TokenCard(item))}*/}
+      <RenderTokenList />
     </View>
   );
 }
 
-export default TrendingTokensProduct;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(TrendingTokensProduct);
 
 const styles = StyleSheet.create({
   parent_view: {},

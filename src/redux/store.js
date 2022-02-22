@@ -15,6 +15,7 @@ import UserDetailsReducer from './appcore/UserDetailsReducer';
 import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
 import AllTipsReducer from './appcore/AllTipsReducer';
+import MemeCoinsListReducer from './dapps/memecoins/MemeCoinsListReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -78,6 +79,11 @@ export const persistConfigUniswapStakePools = {
   storage: AsyncStorage,
 };
 
+export const persistConfigMemeCoinsList = {
+  key: 'memecoins_list',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
@@ -115,6 +121,10 @@ const rootReducer = combineReducers({
   UniswapStakePoolsReducer: persistReducer(
     persistConfigUniswapStakePools,
     UniswapStakePoolsReducer,
+  ),
+  MemeCoinsListReducer: persistReducer(
+    persistConfigMemeCoinsList,
+    MemeCoinsListReducer,
   ),
 });
 

@@ -337,52 +337,52 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                 </Text>
               </View>
             </Bounceable>
-            <Bounceable
-              onPress={() => {
-                setCurrentChartRange(7);
-              }}>
-              <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    ...themeHere.text.subhead_medium,
-                    color:
-                      currentChartRange === 7
-                        ? themeHere.colors.success_green_light
-                        : themeHere.colors.foreground,
-                  }}>
-                  7d
-                </Text>
-              </View>
-            </Bounceable>
-            <Bounceable
-              onPress={() => {
-                setCurrentChartRange(30);
-              }}>
-              <View
-                style={{
-                  width: 40,
-                  height: 40,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                }}>
-                <Text
-                  style={{
-                    ...themeHere.text.subhead_medium,
-                    color:
-                      currentChartRange === 30
-                        ? themeHere.colors.success_green_light
-                        : themeHere.colors.foreground,
-                  }}>
-                  30d
-                </Text>
-              </View>
-            </Bounceable>
+            {/*<Bounceable*/}
+            {/*  onPress={() => {*/}
+            {/*    setCurrentChartRange(7);*/}
+            {/*  }}>*/}
+            {/*  <View*/}
+            {/*    style={{*/}
+            {/*      width: 40,*/}
+            {/*      height: 40,*/}
+            {/*      alignItems: 'center',*/}
+            {/*      justifyContent: 'center',*/}
+            {/*    }}>*/}
+            {/*    <Text*/}
+            {/*      style={{*/}
+            {/*        ...themeHere.text.subhead_medium,*/}
+            {/*        color:*/}
+            {/*          currentChartRange === 7*/}
+            {/*            ? themeHere.colors.success_green_light*/}
+            {/*            : themeHere.colors.foreground,*/}
+            {/*      }}>*/}
+            {/*      7d*/}
+            {/*    </Text>*/}
+            {/*  </View>*/}
+            {/*</Bounceable>*/}
+            {/*<Bounceable*/}
+            {/*  onPress={() => {*/}
+            {/*    setCurrentChartRange(30);*/}
+            {/*  }}>*/}
+            {/*  <View*/}
+            {/*    style={{*/}
+            {/*      width: 40,*/}
+            {/*      height: 40,*/}
+            {/*      alignItems: 'center',*/}
+            {/*      justifyContent: 'center',*/}
+            {/*    }}>*/}
+            {/*    <Text*/}
+            {/*      style={{*/}
+            {/*        ...themeHere.text.subhead_medium,*/}
+            {/*        color:*/}
+            {/*          currentChartRange === 30*/}
+            {/*            ? themeHere.colors.success_green_light*/}
+            {/*            : themeHere.colors.foreground,*/}
+            {/*      }}>*/}
+            {/*      30d*/}
+            {/*    </Text>*/}
+            {/*  </View>*/}
+            {/*</Bounceable>*/}
             {/*<Bounceable onPress={() => setCurrentChartRange(365)}>*/}
             {/*  <View*/}
             {/*    style={{*/}
