@@ -49,7 +49,7 @@ function MyAppThumbnail(props) {
         <SharedElement id={`item.${props.app_details.name}.app_icon`}>
           <FastImage
             source={{
-              uri: props.app_details.app_icon,
+              uri: props.app_details.dapp_icon,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}

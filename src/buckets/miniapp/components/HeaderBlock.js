@@ -91,7 +91,7 @@ function HeaderBlock({app_details}) {
         <FastImage
           style={styles.cover_image}
           source={{
-            uri: app_details.app_icon,
+            uri: app_details.dapp_icon,
             headers: {Authorization: 'someAuthToken'},
             priority: FastImage.priority.normal,
           }}
