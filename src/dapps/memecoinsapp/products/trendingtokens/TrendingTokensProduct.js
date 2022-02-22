@@ -230,7 +230,12 @@ function TrendingTokensProduct({dispatch}) {
         <Pressable
           onPress={() =>
             navigation.navigate('TrendingTokensProductDetailsModal', {
-              token: token,
+              name: token.memecoin_name,
+              symbol: token.symbol,
+              logoUri: token.profile_picture_link,
+              tokenDetails: priceCoin,
+              tokenIdString: token.coingecko_id,
+              contractAddress: token.erc20_contract_address, // erc-20 address
             })
           }>
           <SquircleView
