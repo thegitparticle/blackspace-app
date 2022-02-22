@@ -20,13 +20,13 @@ function MemeCoinsJargonBuster(props) {
   let dummy_jargon_buster = {
     name: 'Meme Coins',
     content:
-      'We take loan so that we dont have to liquidate our ETH(Ethereum) to buy something as risky as memecoins.\\r\\nWe will need to know that, Liquity app asks for 145 percent collateralization, which means for example: for 145 eth as collateral we deposit, we can get upto 100 eth worth of loan. \\r\\nAnother aspect here, is  liquidation',
+      "Bowie, Derek Bramble, and Hugh Padgham produced the album. Much of Bowie's creative process was the same as he used on Let's Dance. Many of the same personnel from Let's Dance and the Serious Moonlight tour returned for the Tonight sessions, with a few additions. Like its predecessor, Bowie played no instruments on Tonight, instead offering little creative input to the musicians during the sessions. Devoid of new ideas from touring, Bowie wrote only two new songs himself.",
   };
   let dummy_stories = [
     {
       name: 'why meme?',
       thumbnail_url:
-        'https://external-content.duckduckgo.com/iu/?u=http%3A%2F%2F2.bp.blogspot.com%2F-AXkkbmFRErs%2FTjCZIWGawfI%2FAAAAAAAAAlk%2FlT8yTGBYh38%2Fs1600%2FRick-Roll3.png&f=1&nofb=1',
+        'https://upload.wikimedia.org/wikipedia/en/d/d7/Tonight_%28album%29.jpg',
       stories: [
         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2Foriginals%2F42%2F71%2F11%2F4271119636f4f08d3eaff2aaf567e021.jpg&f=1&nofb=1',
         'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fi.pinimg.com%2F736x%2F81%2F47%2F14%2F814714d16599c351cb5101e48ae3396d.jpg&f=1&nofb=1',
@@ -172,7 +172,9 @@ function MemeCoinsJargonBuster(props) {
               type="feather"
               color={themeHere.colors.red_light}
             />
-            <Text variant="body_medium" sx={{color: 'red_light'}}>
+            <Text
+              variant="body_medium"
+              sx={{color: 'red_light', marginHorizontal: '$2'}}>
               website
             </Text>
           </View>
@@ -194,8 +196,10 @@ function MemeCoinsJargonBuster(props) {
               type="feather"
               color={themeHere.colors.red_light}
             />
-            <Text variant="body_medium" sx={{color: 'red_light'}}>
-              whitepaper
+            <Text
+              variant="body_medium"
+              sx={{color: 'red_light', marginHorizontal: '$2'}}>
+              whitepapercpush
             </Text>
           </View>
         </Bounceable>
