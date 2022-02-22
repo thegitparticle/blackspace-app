@@ -74,31 +74,21 @@ function BorrowLiquityProduct() {
 
   useEffect(() => {
     (async () => {
-      setLiquity(await EthersLiquity.connect(walletSigner));
-    })();
-  }, []);
-
-  useEffect(() => {
-    (async () => {
-      let liquityFeesHere = await liquity.getFees();
-
-      setLiquityFees(liquityFeesHere);
-      // console.log(
-      //   ethers.utils.formatEther(
-      //     liquityFeesHere._baseRateWithoutDecay._bigNumber,
-      //   ),
-      // );
-      // console.log(
-      //   ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
-      // );
-
-      setBorrowRate(
-        Number(
-          ethers.utils.formatEther(liquityFees.borrowingRate()._bigNumber),
+      setLiquity(
+        await EthersLiquity.connect(walletSigner).then(lqy =>
+          lqy.getFees().then(liquityFeesHere => {
+            setBorrowRate(
+              Number(
+                ethers.utils.formatEther(
+                  liquityFeesHere.borrowingRate()._bigNumber,
+                ),
+              ),
+            );
+          }),
         ),
       );
     })();
-  }, [liquity]);
+  }, []);
 
   useEffect(() => {
     setCollateralNeededEth(
@@ -118,7 +108,7 @@ function BorrowLiquityProduct() {
         liquidationReserveGasFeeLUSD
       ).toFixed(2),
     );
-  }, [borrowAmount, priceEth]);
+  }, [borrowAmount, priceEth, borrowRate]);
 
   const navigation = useNavigation();
 
