@@ -8,6 +8,7 @@ import {ethers} from 'ethers/src.ts';
 import LottieView from 'lottie-react-native';
 import ExecuteASwap from '../../../helpers/ExecuteASwap';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,6 +20,8 @@ const prov = new ethers.providers.JsonRpcProvider(
 );
 
 function TransactionOngoingBuyUniswap(props) {
+  const navigation = useNavigation();
+
   let wallet = new ethers.Wallet(
     props.State.WDeetsReducer.wdeets.wallet_privateKey,
   );
@@ -48,6 +51,9 @@ function TransactionOngoingBuyUniswap(props) {
 
   useEffect(() => {
     console.log(txHash + 'tx hash via callback function');
+    setTimeout(() => {
+      navigation.goBack();
+    }, 60000);
   }, [txHash]);
 
   useEffect(() => {

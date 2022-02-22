@@ -7,7 +7,7 @@ import {
 } from 'simple-uniswap-sdk';
 
 const providerBasic = new ethers.providers.JsonRpcProvider(
-  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+  'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
 export default async function ExecuteASwap(
@@ -22,25 +22,21 @@ export default async function ExecuteASwap(
 ) {
   const uniswapPair = new UniswapPair({
     // the contract address of the token you want to convert FROM
-    // fromTokenContractAddress: token0.contractAddress,
-    fromTokenContractAddress: ETH.RINKEBY().contractAddress,
+    fromTokenContractAddress: token0.contractAddress,
+    // fromTokenContractAddress: '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea',
     // the contract address of the token you want to convert TO
-    // toTokenContractAddress: token1.address,
-    toTokenContractAddress: '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea', // dai in rinkeby
+    toTokenContractAddress: token1.address,
+    // toTokenContractAddress: '0x5592ec0cfb4dbc12d3ab100b257153436a1f0fea', // dai in rinkeby
+    // toTokenContractAddress: ETH.RINKEBY().contractAddress,
     // toTokenContractAddress: '0x6b175474e89094c44da98b954eedeac495271d0f', // dai on mainet
     // the ethereum address of the user using this part of the dApp
     ethereumAddress: walletAddress,
     // you can pass in the provider url as well if you want
     providerUrl:
-      'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+      'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
     // OR if you want to inject your own ethereum provider (no need for chainId if so)
     // ethereumProvider: provider,
-    chainId: ChainId.RINKEBY,
-    settings: new UniswapPairSettings({
-      gasSettings: {
-        getGasPrice: async () => '90',
-      },
-    }),
+    chainId: ChainId.MAINNET,
   });
 
   // now to create the factory you just do
@@ -61,10 +57,10 @@ export default async function ExecuteASwap(
     // the new trade info.
   });
 
-  console.log(
-    (await providerBasic.estimateGas(trade.transaction)).toString() +
-      'gas estimate from ethers',
-  );
+  // console.log(
+  //   (await providerBasic.estimateGas(trade.transaction)).toString() +
+  //     'gas estimate from ethers',
+  // );
 
   // obviously dont create your provider + wallet everytime again and again!
   // this is just like this for ease of reading!

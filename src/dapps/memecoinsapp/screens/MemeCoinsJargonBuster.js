@@ -199,7 +199,7 @@ function MemeCoinsJargonBuster(props) {
             <Text
               variant="body_medium"
               sx={{color: 'red_light', marginHorizontal: '$2'}}>
-              whitepapercpush
+              whitepaper
             </Text>
           </View>
         </Bounceable>
