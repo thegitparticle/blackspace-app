@@ -79,11 +79,51 @@ function StakeToEarnUniswapProduct({dispatch}) {
     }
   }
 
+  function RenderComingSoon() {
+    return (
+      <View
+        sx={{
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: 'transparent',
+          width: windowWidth - 40,
+          height: 75,
+          my: '$2',
+          alignSelf: 'center',
+        }}>
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            height: 75,
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: themeHere.colors.mid_ground + '25',
+          }}>
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: 'foreground',
+              maxWidth: windowWidth * 0.7,
+              textAlign: 'center',
+            }}>
+            Uniswap v3 staking coming soon on blackSpace in a week
+          </Text>
+        </SquircleView>
+      </View>
+    );
+  }
+
   return (
     <View>
-      {stakePools.map(item => (
-        <PoolItem item={item} />
-      ))}
+      {/*{stakePools.map(item => (*/}
+      {/*  <PoolItem item={item} />*/}
+      {/*))}*/}
+      <RenderComingSoon />
     </View>
   );
 }
