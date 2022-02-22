@@ -6,6 +6,7 @@ import {
   Dimensions,
   Appearance,
   ScrollView,
+  Pressable,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import WalletTile from '../components/WalletTile';
@@ -13,6 +14,9 @@ import UserTile from '../components/UserTile';
 import AppTile from '../components/AppTile';
 import MiscTile from '../components/MiscTile';
 import Spacer from '../../../bits/Spacer';
+import {Amplitude} from '@amplitude/react-native';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,9 +24,46 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function SettingsHomeScreen() {
+  const navigation = useNavigation();
+
+  function HeaderHere() {
+    return (
+      <View
+        style={{
+          alignItems: 'center',
+          justifyContent: 'space-between',
+          width: windowWidth,
+          flexDirection: 'row',
+          height: 75,
+        }}>
+        <Pressable style={{padding: 20}}>
+          <Iconly
+            name="SettingBold"
+            color={themeHere.colors.foreground + '00'}
+            size={25}
+          />
+        </Pressable>
+        <Text
+          style={{
+            ...themeHere.text.title_3,
+            color: themeHere.colors.foreground,
+          }}>
+          SETTINGS
+        </Text>
+        <Pressable style={{padding: 20}} onPress={() => navigation.goBack()}>
+          <Iconly
+            name="ChevronDownBroken"
+            color={themeHere.colors.foreground}
+            size={25}
+          />
+        </Pressable>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.parent_view}>
-      <Text style={styles.header_text}>Settings</Text>
+      <HeaderHere />
       <ScrollView showsVerticalScrollIndicator={false}>
         <WalletTile />
         {/*<UserTile />*/}
