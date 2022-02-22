@@ -290,6 +290,7 @@ function PoolTogetherUsageShowCase() {
                   withdrawAmount: Number(
                     ethers.utils.formatUnits(ptBalance, 6),
                   ).toFixed(2),
+                  balanceAmountBig: ptBalance,
                 })
               }
               containerStyle={{alignSelf: 'center', marginBottom: 30}}

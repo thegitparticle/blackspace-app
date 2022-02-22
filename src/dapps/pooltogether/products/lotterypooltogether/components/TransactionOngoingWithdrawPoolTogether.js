@@ -60,11 +60,20 @@ function TransactionOngoingWithdrawPoolTogether(props) {
 
   const [checkForApproved, setCheckForApproved] = useState(false);
 
+  console.log(props.BalanceAmountBig);
+
   useEffect(() => {
     (async () => {
-      // const {allowanceUnformatted, isApproved} =
-      //   await user.getDepositAllowance();
-      // setIsApproved(isApproved);
+      const txResponse = user
+        .withdraw(props.BalanceAmountBig)
+        .then(() => {
+          setRenderContext('TransactionSuccess');
+        })
+        .catch(e => {
+          console.log(e + ' ----- does not work');
+          setRenderContext('TransactionError');
+        });
+      console.log(txResponse);
     })();
   }, [checkForApproved]);
 

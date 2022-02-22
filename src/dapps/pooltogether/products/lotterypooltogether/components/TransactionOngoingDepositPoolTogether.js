@@ -11,6 +11,7 @@ import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
 import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
 import {mainnet} from '@pooltogether/v4-pool-data';
 import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,6 +40,8 @@ const providers = {
 };
 
 function TransactionOngoingDepositPoolTogether(props) {
+  const navigation = useNavigation();
+
   let wallet = new ethers.Wallet(
     props.State.WDeetsReducer.wdeets.wallet_privateKey,
   );
@@ -107,6 +110,10 @@ function TransactionOngoingDepositPoolTogether(props) {
       }
     }
   }, [isApproved]);
+
+  setTimeout(() => {
+    navigation.goBack();
+  }, 90000);
 
   useEffect(() => {
     axios

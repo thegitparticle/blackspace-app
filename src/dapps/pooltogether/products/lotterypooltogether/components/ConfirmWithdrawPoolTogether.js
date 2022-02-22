@@ -66,7 +66,7 @@ function ConfirmWithdrawPoolTogether(props) {
 
   useEffect(() => {
     checkIfWalletHasBalance();
-  }, []);
+  }, [ethBalanceInWallet, priceEth, totalGasUsd]);
 
   function MainBlock() {
     if (renderContext === 'Checking') {

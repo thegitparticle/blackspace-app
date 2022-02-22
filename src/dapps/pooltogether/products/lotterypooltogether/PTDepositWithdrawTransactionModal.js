@@ -18,7 +18,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function PTDepositWithdrawTransactionModal({route, dispatch}) {
-  const {withdrawAmount} = route.params;
+  const {withdrawAmount, balanceAmountBig} = route.params;
 
   const [renderScreen, setRenderScreen] = useState('ConfirmWithdraw');
 
@@ -47,6 +47,7 @@ function PTDepositWithdrawTransactionModal({route, dispatch}) {
           ChangeBody={changeBodyToConfirmBorrow}
           State={state_here}
           WithdrawAmount={withdrawAmount}
+          BalanceAmountBig={balanceAmountBig}
         />
       );
     } else if (renderScreen === 'ConfirmWithdraw') {
@@ -55,6 +56,7 @@ function PTDepositWithdrawTransactionModal({route, dispatch}) {
           ChangeBody={changeBodyToTransaction}
           State={state_here}
           WithdrawAmount={withdrawAmount}
+          BalanceAmountBig={balanceAmountBig}
         />
       );
     } else {
