@@ -61,7 +61,9 @@ function TransactionOngoingBuyUniswap(props) {
       .get(
         'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
           String(props.State.UserDetailsReducer.userdetails.id) +
-          String(3),
+          '/' +
+          String(3) +
+          '/',
       )
       .catch(err => {
         console.log(err);

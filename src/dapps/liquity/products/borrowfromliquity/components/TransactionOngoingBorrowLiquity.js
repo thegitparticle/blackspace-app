@@ -77,7 +77,9 @@ function TransactionOngoingBorrowLiquity(props) {
       .get(
         'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
           String(props.State.UserDetailsReducer.userdetails.id) +
-          String(5),
+          '/' +
+          String(5) +
+          '/',
       )
       .catch(err => {
         console.log(err);

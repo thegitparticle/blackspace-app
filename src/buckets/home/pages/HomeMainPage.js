@@ -93,7 +93,9 @@ function HomeMainPage({dispatch}) {
     },
   ];
 
-  let my_apps = _.union(dummy_my_app, default_my_apps);
+  console.log(state_here.MyAppsReducer.myapps);
+
+  let my_apps = _.union(state_here.MyAppsReducer.myapps, default_my_apps);
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
   const [refreshing, setRefreshing] = useState(false);

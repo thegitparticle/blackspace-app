@@ -112,8 +112,10 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     axios
       .get(
         'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
-          String(props.State.UserDepositChanged.userdetails.id) +
-          String(2),
+          String(props.State.UserDetailsReducer.userdetails.id) +
+          '/' +
+          String(2) +
+          '/',
       )
       .catch(err => {
         console.log(err);

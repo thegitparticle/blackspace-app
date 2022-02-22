@@ -120,7 +120,9 @@ function TransactionOngoingDepositPoolTogether(props) {
       .get(
         'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
           String(props.State.UserDetailsReducer.userdetails.id) +
-          String(4),
+          '/' +
+          String(4) +
+          '/',
       )
       .catch(err => {
         console.log(err);
