@@ -300,7 +300,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
           }
         }
       },
-    [],
+    [loadingChartData, currentChartRange],
   );
 
   const RenderChartRangeButtons = useMemo(
