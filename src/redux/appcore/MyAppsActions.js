@@ -2,6 +2,7 @@ import {ADD_MYAPPS} from '../types';
 import axios from 'axios';
 
 export const GetMyApps = user_id => {
+  console.log(user_id);
   return dispatch => {
     let res = [];
     axios

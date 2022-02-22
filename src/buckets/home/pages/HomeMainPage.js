@@ -93,8 +93,6 @@ function HomeMainPage({dispatch}) {
     },
   ];
 
-  console.log(state_here.MyAppsReducer.myapps);
-
   let my_apps = _.union(state_here.MyAppsReducer.myapps, default_my_apps);
   let discover_apps = state_here.DiscoverAppsReducer.discoverapps;
 
@@ -106,8 +104,8 @@ function HomeMainPage({dispatch}) {
   }, []);
 
   useEffect(() => {
-    dispatch(GetMyApps(state_here.MyProfileReducer.myProfileDetails.id));
-    dispatch(GetDiscoverApps(state_here.MyProfileReducer.myProfileDetails.id));
+    dispatch(GetMyApps(state_here.UserDetailsReducer.userdetails.id));
+    dispatch(GetDiscoverApps(state_here.UserDetailsReducer.userdetails.id));
     dispatch(GetMarketPrices());
     dispatch(GetUniswapTokenList());
   }, [refreshing]);
