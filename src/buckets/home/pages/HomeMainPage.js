@@ -94,9 +94,10 @@ function HomeMainPage({dispatch}) {
   ];
 
   let my_apps = _.union(state_here.MyAppsReducer.myapps, default_my_apps);
-  let discover_apps = _.xor(
+  let discover_apps = _.xorBy(
     state_here.DiscoverAppsReducer.discoverapps,
     state_here.MyAppsReducer.myapps,
+    'name',
   );
 
   const [refreshing, setRefreshing] = useState(false);
