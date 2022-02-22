@@ -1,20 +1,14 @@
 import React, {useEffect, useState} from 'react';
-import {
-  Appearance,
-  Dimensions,
-  Linking,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {StyleSheet, Dimensions, Appearance, Linking} from 'react-native';
+import {Text, View, useSx, styled, ScrollView} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import axios from 'axios';
+import {connect} from 'react-redux';
+import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
+import Spacer from '../../../bits/Spacer';
 import {Bounceable} from 'rn-bounceable';
 import {Icon} from 'react-native-elements';
-import Spacer from '../../../bits/Spacer';
-import {ScrollView} from 'dripsy';
-import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
-import {Bars} from 'react-native-loader';
+import axios from 'axios';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -187,10 +181,3 @@ function PoolTogetherJargonBuster(props) {
 }
 
 export default PoolTogetherJargonBuster;
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});

@@ -73,6 +73,12 @@ function MiniAppLanding({route}) {
         first: Products,
         second: JargonBuster,
       })
+    : app_details.usage_tab_function_name === 'UniswapUsageShowCase' ||
+      app_details.usage_tab_function_name === 'MemeCoinsUsageShowCase'
+    ? SceneMap({
+        first: Products,
+        second: JargonBuster,
+      })
     : SceneMap({
         first: Products,
         second: UsageShowcase,
