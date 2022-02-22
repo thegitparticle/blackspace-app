@@ -91,14 +91,18 @@ function BorrowLiquityProduct() {
   }, []);
 
   useEffect(() => {
-    setCollateralNeededEth(
-      (
-        (Number(borrowAmount) +
-          Number(borrowAmount) * Number(borrowRate) +
-          liquidationReserveGasFeeLUSD) /
-        Number(priceEth)
-      ).toFixed(2) * collateralRatio,
-    );
+    if (Number(borrowAmount) !== 0) {
+      setCollateralNeededEth(
+        (
+          (Number(borrowAmount) +
+            Number(borrowAmount) * Number(borrowRate) +
+            liquidationReserveGasFeeLUSD) /
+          Number(priceEth)
+        ).toFixed(2) * collateralRatio,
+      );
+    } else {
+      setCollateralNeededEth(0);
+    }
   }, [borrowAmount, priceEth]);
 
   useEffect(() => {
@@ -137,7 +141,8 @@ function BorrowLiquityProduct() {
             marginTop: 30,
             marginHorizontal: 5,
           }}>
-          {Number(collateralNeededEth).toFixed(2)} ETH
+          {Number(collateralNeededEth).toFixed(2)} ETH (${' '}
+          {Number(Number(collateralNeededEth) * Number(priceEth)).toFixed(0)})
         </Text>
         <FastImage
           style={styles.itemholding_icon}
