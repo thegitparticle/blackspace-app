@@ -9,6 +9,8 @@ import {
   TextInput,
   Appearance,
   Keyboard,
+  Linking,
+  Pressable,
 } from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {LOGIN} from '../../../redux/types';
@@ -83,7 +85,8 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
       return (
         <View
           style={{
-            marginVertical: windowHeight * 0.1,
+            marginBottom: windowHeight * 0.1,
+            marginTop: windowHeight * 0.05,
           }}>
           <Bounceable
             style={{
@@ -150,6 +153,49 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             placeholderTextColor={'#FFFFFF50'}
           />
         </View>
+        <Text style={styles.acknowledge_text}>
+          By tapping the Next button below, you acknowledge that you have read
+          the Privacy Policy{' '}
+          <Pressable
+            style={{alignItems: 'center', justifyContent: 'center'}}
+            onPress={() =>
+              Linking.openURL(
+                'https://www.notion.so/ayespaces/Privacy-Policy-b2f432d16d88458281babd62457df2b4',
+              )
+            }>
+            <Text
+              style={{
+                fontSize: 11,
+                fontFamily: 'GothamRounded-Book',
+                color: '#008DFF',
+              }}>
+              Privacy Policy
+            </Text>
+          </Pressable>{' '}
+          and agree to the{' '}
+          <Pressable
+            style={{
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignContent: 'center',
+            }}
+            onPress={() =>
+              Linking.openURL(
+                'https://www.notion.so/ayespaces/Terms-of-Service-93d01782de4042708a5c10decaa1484c',
+              )
+            }>
+            <Text
+              style={{
+                fontSize: 11,
+                fontFamily: 'GothamRounded-Book',
+                color: '#008DFF',
+                alignSelf: 'center',
+              }}>
+              Terms of Service
+            </Text>
+          </Pressable>
+          .
+        </Text>
         <SaveButton />
       </View>
     );
@@ -220,5 +266,11 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     maxWidth: windowWidth * 0.7,
     color: 'white',
+  },
+  acknowledge_text: {
+    fontSize: 11,
+    fontFamily: 'GothamRounded-Book',
+    color: '#FFFFFF50',
+    width: windowWidth * 0.8,
   },
 });
