@@ -69,7 +69,7 @@ function SupportAppThumbnail() {
         }}>
         <FastImage
           source={{
-            uri: 'https://i.postimg.cc/Rh85M2TN/download-39.jpg',
+            uri: 'https://i.postimg.cc/26g7qPyc/Group-33530.png',
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}
