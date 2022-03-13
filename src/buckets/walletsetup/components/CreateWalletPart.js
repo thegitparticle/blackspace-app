@@ -28,7 +28,7 @@ function CreateWalletPart() {
   return (
     <View style={styles.parent_view}>
       <View style={styles.items_wrap_view}>
-        <Text style={styles.heading_text}>NEW TO USING ETHEREUM</Text>
+        <Text style={styles.heading_text}>NEW TO USING ETHEREUM?</Text>
         <Text style={styles.explanation_text}>
           a fresh, new wallet for a clean start
         </Text>
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   },
   items_wrap_view: {
     height: windowHeight * 0.35,
-    marginTop: windowHeight * 0.1,
+    marginTop: windowHeight * 0.05,
     width: windowWidth,
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   explanation_text: {
-    ...themeHere.text.body_medium,
+    ...themeHere.text.subhead_medium,
     color: 'white',
   },
 });

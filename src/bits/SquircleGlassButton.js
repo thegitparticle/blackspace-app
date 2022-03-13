@@ -45,7 +45,7 @@ function SquircleGlassButton({
           top: 0,
           bottom: 0,
         }}
-        blurType="dark"
+        blurType="ultraThinMaterialDark"
         blurAmount={10}
         reducedTransparencyFallbackColor="gray"
       />
