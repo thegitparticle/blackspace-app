@@ -149,8 +149,7 @@ export const ButterThemeLight = {
   },
 };
 
-export const ButterThemeDark = {
-  // ALTERNATIVE OFF-DARK = #181818
+export const ButterThemeDark3 = {
   colors: {
     dark: '#050505',
     off_dark: '#1A1A1A',
@@ -181,6 +180,50 @@ export const ButterThemeDark = {
     purple_dark: '#7E18FF',
     yellow: '#FFC82C',
     pink: '#FF49DB',
+    turquoise: '#3DC8BF',
+    special_gray: '#272D2D',
+    neon_blue: '#6874E8',
+  },
+};
+
+export const ButterThemeDark = {
+  colors: {
+    dark: '#090909',
+    off_dark: '#171717',
+    mid_gray: '#323232',
+    off_light: '#F1F4F9',
+    light: '#FFFFFF',
+    background: '#090909',
+    off_background: '#171717',
+    mid_ground: '#323232',
+    off_foreground: '#F1F4F9',
+    foreground: '#FFFFFF',
+    success_green: '#13CE66',
+    success_green_light: '#29EB7F',
+    success_green_dark: '#29EB7F',
+    danger_red: '#EC193E',
+    danger_red_light: '#F04C68',
+    danger_red_dark: '#C31030',
+    icon: '#F1F4F9',
+    icon_background: '#353535',
+    red: '#FF3E41',
+    red_light: '#FF8182',
+    red_dark: '#FF0106',
+    blue: '#29EB7F',
+    blue_light: '#85D7FF',
+    blue_dark: '#009EEB',
+    purple: '#7E5BEF',
+    purple_light: '#A389F4',
+    purple_dark: '#592DEA',
+    yellow: '#FFC82C',
+    yellow_light: '#FFD55F',
+    yellow_dark: '#F8B700',
+    pink: '#FF49DB',
+    pink_light: '#FF7CE5',
+    pink_dark: '#FF16D1',
+    orange: '#FF7849',
+    orange_light: '#FF9E7C',
+    orange_dark: '#FF5216',
     turquoise: '#3DC8BF',
     special_gray: '#272D2D',
     neon_blue: '#6874E8',
