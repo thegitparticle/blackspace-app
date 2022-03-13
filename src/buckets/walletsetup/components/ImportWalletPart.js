@@ -43,6 +43,7 @@ function ImportWalletPart() {
             buttonText={'import now'}
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
+            blurType={'ultraThinMaterialDark'}
           />
         </Bounceable>
       </View>

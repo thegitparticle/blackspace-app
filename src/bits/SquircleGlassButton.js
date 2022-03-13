@@ -4,6 +4,12 @@ import {Text, Image, StyleSheet} from 'react-native';
 import {BlurView} from '@react-native-community/blur';
 import MaskedView from '@react-native-masked-view/masked-view';
 
+/*
+
+blurType - materialDark, thickMaterialDark, thinMaterialDark, ultraThinMaterialDark, materialLight, thickMaterialLight,
+thinMaterialLight, ultraThinMaterialLight, dark, light
+ */
+
 function SquircleGlassButton({
   width,
   height,
@@ -11,6 +17,7 @@ function SquircleGlassButton({
   textColor,
   font,
   buttonText,
+  blurType,
 }) {
   return (
     <MaskedView
@@ -45,7 +52,7 @@ function SquircleGlassButton({
           top: 0,
           bottom: 0,
         }}
-        blurType="ultraThinMaterialDark"
+        blurType={blurType}
         blurAmount={10}
         reducedTransparencyFallbackColor="gray"
       />

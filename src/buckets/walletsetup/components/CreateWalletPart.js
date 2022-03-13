@@ -44,6 +44,7 @@ function CreateWalletPart() {
             buttonText={'create new wallet'}
             font={themeHere.text.subhead_medium}
             textColor={themeHere.colors.light}
+            blurType={'ultraThinMaterialDark'}
           />
         </Bounceable>
       </View>
