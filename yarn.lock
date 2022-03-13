@@ -11716,6 +11716,11 @@ react-native-splash-screen@^3.3.0:
   resolved "https://registry.npmjs.org/react-native-splash-screen/-/react-native-splash-screen-3.3.0.tgz#3af71ed17afe50fee69590a45aec399d071ead02"
   integrity sha512-rGjt6HkoSXxMqH4SQUJ1gnPQlPJV8+J47+4yhgTIan4bVvAwJhEeJH7wWt9hXSdH4+VfwTS0GTaflj1Tw83IhA==
 
+react-native-stacks@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmjs.org/react-native-stacks/-/react-native-stacks-1.0.1.tgz#3fb6a0e9233f140ec795e152b76b8f557f121bc2"
+  integrity sha512-OZkG0Exx0Ddmm06mVKfxfxm5JFluzop1gwhv4TFS6euZPAObs5K1CIPPAZ/c+AvuU9eD7IBHF0v6OMgEccr95g==
+
 react-native-status-bar-height@^2.6.0:
   version "2.6.0"
   resolved "https://registry.npmjs.org/react-native-status-bar-height/-/react-native-status-bar-height-2.6.0.tgz#b6afd25b6e3d533c43d0fcdcfd5cafd775592cea"

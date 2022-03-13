@@ -221,6 +221,14 @@ export const dripsytheme = makeTheme({
 
   // for <Image />
   images: {
+    full_screen: {
+      width: windowWidth,
+      height: windowHeight,
+    },
+    half_screen: {
+      width: windowWidth,
+      height: windowHeight * 0.5,
+    },
     small_icon_25_round: {
       width: 25,
       height: 25,
@@ -235,6 +243,11 @@ export const dripsytheme = makeTheme({
 });
 
 // Images
+
+export const StylesFastImageFullScreen = styled(FastImage)({
+  width: windowWidth,
+  height: windowHeight,
+});
 
 export const StyledFastImage60 = styled(FastImage)({
   width: 60,

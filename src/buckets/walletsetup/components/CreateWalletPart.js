@@ -13,6 +13,9 @@ import SquircleButton from '../../../bits/SquircleButton';
 import {useNavigation} from '@react-navigation/native';
 import {Bounceable} from 'rn-bounceable';
 import {Amplitude} from '@amplitude/react-native';
+import {BlurView} from '@react-native-community/blur';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import Spacer from '../../../bits/Spacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,32 +27,26 @@ function CreateWalletPart() {
 
   return (
     <View style={styles.parent_view}>
-      <LinearGradient
-        colors={['#FF5B3A', '#FF3293']}
-        style={styles.gradient_background}>
-        <View style={styles.items_wrap_view}>
-          <Text style={styles.heading_text}>CREATE NEW WALLET</Text>
-          <Text style={styles.explanation_text}>
-            a fresh, new wallet for a clean start
-          </Text>
-          <Bounceable
-            onPress={() => {
-              Amplitude.getInstance().logEvent(
-                'MAKE_NEW_WALLET_BUTTON_CLICKED',
-              );
-              navigation.navigate('MakeWalletScreen');
-            }}>
-            <SquircleButton
-              buttonColor={themeHere.colors.red_light}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'create new'}
-              font={themeHere.text.subhead_medium}
-              textColor={themeHere.colors.light}
-            />
-          </Bounceable>
-        </View>
-      </LinearGradient>
+      <View style={styles.items_wrap_view}>
+        <Text style={styles.heading_text}>NEW TO USING ETHEREUM</Text>
+        <Text style={styles.explanation_text}>
+          a fresh, new wallet for a clean start
+        </Text>
+        <Bounceable
+          onPress={() => {
+            Amplitude.getInstance().logEvent('MAKE_NEW_WALLET_BUTTON_CLICKED');
+            navigation.navigate('MakeWalletScreen');
+          }}>
+          <SquircleGlassButton
+            buttonColor={themeHere.colors.mid_ground}
+            width={windowWidth * 0.7}
+            height={50}
+            buttonText={'create new wallet'}
+            font={themeHere.text.subhead_medium}
+            textColor={themeHere.colors.light}
+          />
+        </Bounceable>
+      </View>
     </View>
   );
 }
@@ -81,7 +78,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   explanation_text: {
-    ...themeHere.text.body,
+    ...themeHere.text.body_medium,
     color: 'white',
   },
 });
