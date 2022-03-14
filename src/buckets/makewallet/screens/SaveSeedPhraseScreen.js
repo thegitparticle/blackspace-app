@@ -77,16 +77,6 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
               justifyContent: 'center',
             }}>
             {seedPhraseList.slice(0, 3).map((item, id) => (
-              // <View
-              //   style={{
-              //     backgroundColor: themeHere.colors.red_light,
-              //     height: 40,
-              //     borderRadius: 20,
-              //     alignItems: 'center',
-              //     justifyContent: 'center',
-              //     width: 120,
-              //     marginHorizontal: 5,
-              //   }}>
               <MaskedView
                 style={{
                   width: 120,

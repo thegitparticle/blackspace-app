@@ -11,6 +11,7 @@ import {
   Keyboard,
   Linking,
   Pressable,
+  ImageBackground,
 } from 'react-native';
 import {Overlay} from 'react-native-elements';
 import {LOGIN} from '../../../redux/types';
@@ -25,6 +26,7 @@ import {Bounceable} from 'rn-bounceable';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import FormData from 'form-data';
 import {Amplitude} from '@amplitude/react-native';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -89,9 +91,6 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             marginTop: windowHeight * 0.05,
           }}>
           <Bounceable
-            style={{
-              marginVertical: windowHeight * 0.1,
-            }}
             onPress={() => {
               setRenderInputBody(false);
               Amplitude.getInstance().logEvent(
@@ -99,13 +98,14 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
               );
               SetUserDetailsToServer();
             }}>
-            <SquircleButton
-              buttonColor={'#282828'}
+            <SquircleGlassButton
+              buttonColor={themeHere.colors.mid_ground}
               width={windowWidth * 0.7}
               height={50}
               buttonText={'save'}
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
+              blurType={'ultraThinMaterialDark'}
             />
           </Bounceable>
         </View>
@@ -120,13 +120,14 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             style={{
               marginVertical: windowHeight * 0.1,
             }}>
-            <SquircleButton
-              buttonColor={'#28282825'}
+            <SquircleGlassButton
+              buttonColor={themeHere.colors.mid_ground}
               width={windowWidth * 0.7}
               height={50}
               buttonText={'saving username ...'}
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
+              blurType={'ultraThinMaterialDark'}
             />
           </Bounceable>
         </View>
@@ -150,7 +151,7 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
             autoFocus={true}
             textAlign={'center'}
             placeholder={'type username'}
-            placeholderTextColor={'#FFFFFF50'}
+            placeholderTextColor={themeHere.colors.light + '75'}
           />
         </View>
         <Text style={styles.acknowledge_text}>
@@ -204,14 +205,19 @@ function UserDetailsInputScreen({route, dispatch, navigation}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={['#050505', '#1F1F1F']}
-        style={styles.gradient_background}>
+      <ImageBackground
+        source={require('../../../../assets/colors_background_1.png')}
+        resizeMode="cover"
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          alignItems: 'center',
+        }}>
         <TouchableOpacity>
           <Text style={styles.screen_header_text}>PICK A USERNAME</Text>
         </TouchableOpacity>
         <RenderBody />
-      </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }
@@ -266,11 +272,12 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     maxWidth: windowWidth * 0.7,
     color: 'white',
+    ...themeHere.text.subhead_medium,
   },
   acknowledge_text: {
     fontSize: 11,
     fontFamily: 'GothamRounded-Book',
-    color: '#FFFFFF50',
+    color: '#FFFFFF',
     width: windowWidth * 0.8,
   },
 });
