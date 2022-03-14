@@ -70,9 +70,10 @@ function Welcome1Screen({dispatch, navigation}) {
 
   useEffect(() => {
     setTimeout(() => {
+      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
       buttonOpacity.value = withTiming(1);
       skipOpacity.value = withSpring(0);
-    }, 20000);
+    }, 22500);
   });
 
   const skipStory = () => {
