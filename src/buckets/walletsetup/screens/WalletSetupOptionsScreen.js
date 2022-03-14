@@ -38,7 +38,7 @@ function WalletSetupOptionsScreen({dispatch, navigation}) {
             width: 50,
             height: 50,
             borderRadius: 25,
-            backgroundColor: themeHere.colors.light,
+            backgroundColor: themeHere.colors.off_light,
             alignItems: 'center',
             justifyContent: 'center',
             alignSelf: 'center',

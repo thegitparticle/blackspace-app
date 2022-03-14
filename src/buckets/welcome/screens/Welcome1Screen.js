@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   StyleSheet,
   Text,
@@ -25,18 +25,40 @@ import BackgroundNftsAnimation from '../components/BackgroundNftsAnimation';
 import Spacer from '../../../bits/Spacer';
 import {Bounceable} from 'rn-bounceable';
 import {Amplitude} from '@amplitude/react-native';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import {BlurView} from '@react-native-community/blur';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+const statusBarHeight = getStatusBarHeight();
 
 function Welcome1Screen({dispatch, navigation}) {
   const buttonOpacity = useSharedValue(0);
+  const introTextsOpacity = useSharedValue(1);
+  const skipOpacity = useSharedValue(1);
 
   const animatedButton = useAnimatedStyle(() => {
     return {
       opacity: buttonOpacity.value,
+    };
+  });
+
+  const animatedIntroTexts = useAnimatedStyle(() => {
+    return {
+      opacity: introTextsOpacity.value,
+    };
+  });
+
+  const animatedSkipButton = useAnimatedStyle(() => {
+    return {
+      opacity: skipOpacity.value,
+      width: windowWidth,
+      justifyContent: 'flex-end',
+      flexDirection: 'row',
+      marginVertical: statusBarHeight + 20,
     };
   });
 
@@ -45,6 +67,42 @@ function Welcome1Screen({dispatch, navigation}) {
       buttonOpacity.value = withTiming(1);
     }, 7500);
   });
+
+  const skipStory = () => {
+    buttonOpacity.value = withTiming(1);
+    introTextsOpacity.value = withSpring(0);
+    skipOpacity.value = withSpring(0);
+  };
+
+  function SkipButton() {
+    return (
+      <Animated.View style={[animatedSkipButton]}>
+        <Bounceable onPress={() => skipStory()}>
+          <BlurView
+            blurType="light"
+            blurAmount={10}
+            reducedTransparencyFallbackColor="white"
+            style={{
+              width: 60,
+              height: 30,
+              borderRadius: 15,
+              alignItems: 'center',
+              justifyContent: 'center',
+              marginHorizontal: 20,
+            }}>
+            <Text
+              style={{
+                ...themeHere.text.body_medium,
+                color: 'white',
+                alignSelf: 'center',
+              }}>
+              Skip
+            </Text>
+          </BlurView>
+        </Bounceable>
+      </Animated.View>
+    );
+  }
 
   return (
     <View style={styles.parent_view}>
@@ -57,7 +115,9 @@ function Welcome1Screen({dispatch, navigation}) {
             <BackgroundNftsAnimation />
           </View>
           <View>
-            <IntroTextsAnimation />
+            <Animated.View style={[animatedIntroTexts]}>
+              <IntroTextsAnimation />
+            </Animated.View>
             <Animated.View style={[animatedButton]}>
               <View
                 style={{
@@ -71,7 +131,7 @@ function Welcome1Screen({dispatch, navigation}) {
                       'LFG_WELCOME_BUTTON_CLICKED',
                     );
                   }}>
-                  <SquircleButton
+                  <SquircleGlassButton
                     buttonColor={themeHere.colors.light}
                     width={windowWidth * 0.7}
                     height={50}
@@ -84,6 +144,7 @@ function Welcome1Screen({dispatch, navigation}) {
             </Animated.View>
           </View>
         </View>
+        <SkipButton />
       </ImageBackground>
     </View>
   );

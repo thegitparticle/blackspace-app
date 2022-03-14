@@ -15,6 +15,8 @@ import Animated, {
 } from 'react-native-reanimated';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {MotiView} from 'moti';
+import {Image} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -51,7 +53,7 @@ function IntroTextsAnimation() {
   });
 
   useEffect(() => {
-    AnimationRunner();
+    // AnimationRunner();
   }, []);
 
   const hapticOptions = {
@@ -61,7 +63,7 @@ function IntroTextsAnimation() {
 
   function AnimationRunner() {
     setTimeout(() => {
-      offsetText1.value = withSpring(windowHeight * 0.075);
+      offsetText1.value = withTiming(windowHeight, 3000);
       text1Opacity.value = 0.5;
       text2Opacity.value = withTiming(1);
       ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
@@ -83,17 +85,118 @@ function IntroTextsAnimation() {
 
   return (
     <View style={styles.parent_view}>
-      <Animated.View style={[animatedStylesText1]}>
-        <Text style={styles.intro_texts_style}>A NEW WORLD IS EMERGING!</Text>
-      </Animated.View>
-      <Animated.View style={[animatedStylesText2]}>
+      <MotiView
+        from={{
+          translateY: 0,
+          scale: 1,
+          opacity: 1,
+        }}
+        animate={{
+          scale: 1,
+          translateY: -300,
+          opacity: 0.05,
+        }}
+        transition={{
+          type: 'timing',
+          duration: 18000,
+          repeat: 0,
+          repeatReverse: false,
+        }}>
+        <Text style={styles.intro_texts_style}>IN THE YEAR, 2022</Text>
+      </MotiView>
+      <MotiView
+        from={{
+          translateY: 0,
+          scale: 1,
+          opacity: 1,
+        }}
+        animate={{
+          scale: 1,
+          translateY: -300,
+          opacity: 0.05,
+        }}
+        transition={{
+          type: 'timing',
+          duration: 18000,
+          delay: 5000,
+          repeat: 0,
+          repeatReverse: false,
+        }}>
         <Text style={styles.intro_texts_style}>
-          ON TOP OF YOUR FAV INTERNET
+          HODLing CRYPTO IS ANTIQUATED
         </Text>
-      </Animated.View>
-      <Animated.View style={[animatedStylesText3]}>
-        <Text style={styles.intro_texts_style}>WELCOME TO CRYPTO INTERNET</Text>
-      </Animated.View>
+      </MotiView>
+      <MotiView
+        from={{
+          translateY: 0,
+          scale: 1,
+          opacity: 1,
+        }}
+        animate={{
+          scale: 1,
+          translateY: -300,
+          opacity: 0.05,
+        }}
+        transition={{
+          type: 'timing',
+          duration: 18000,
+          delay: 10000,
+          repeat: 0,
+          repeatReverse: false,
+        }}>
+        <Text style={styles.intro_texts_style}>
+          USEing CRYPTO IS THE NEW COOL
+        </Text>
+      </MotiView>
+      <MotiView
+        from={{
+          translateY: 0,
+          scale: 1,
+          opacity: 1,
+        }}
+        animate={{
+          scale: 1,
+          translateY: -300,
+          opacity: 0.05,
+        }}
+        transition={{
+          type: 'timing',
+          duration: 18000,
+          delay: 15000,
+          repeat: 0,
+          repeatReverse: false,
+        }}>
+        <Text style={styles.intro_texts_style}>
+          TODAY, ITS MORE EASIER THAN BEFORE
+        </Text>
+      </MotiView>
+      <MotiView
+        from={{
+          translateY: 0,
+          scale: 1,
+          opacity: 1,
+        }}
+        animate={{
+          scale: 1,
+          translateY: -300,
+          opacity: 0.05,
+        }}
+        transition={{
+          type: 'timing',
+          duration: 18000,
+          delay: 20000,
+          repeat: 0,
+          repeatReverse: false,
+        }}>
+        <Image
+          source={require('../../../../assets/blackSpace_logo_full.png')}
+          sx={{
+            width: windowWidth * 0.55,
+            height: windowWidth * 0.081,
+            alignSelf: 'center',
+          }}
+        />
+      </MotiView>
     </View>
   );
 }
