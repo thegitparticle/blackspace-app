@@ -117,7 +117,7 @@ function ImportWalletScreen({dispatch, navigation}) {
               top: 0,
               bottom: 0,
             }}
-            blurType={'materialDark'}
+            blurType={'thinMaterialDark'}
             blurAmount={10}
             reducedTransparencyFallbackColor="gray"
           />

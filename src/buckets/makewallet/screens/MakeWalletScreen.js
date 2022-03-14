@@ -8,6 +8,7 @@ import {
   StatusBar,
   Appearance,
   Pressable,
+  ImageBackground,
 } from 'react-native';
 import {ADD_WDEETS, LOGIN} from '../../../redux/types';
 import {connect} from 'react-redux';
@@ -24,6 +25,7 @@ import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {Bounceable} from 'rn-bounceable';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {Amplitude} from '@amplitude/react-native';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -79,7 +81,7 @@ function MakeWalletScreen({dispatch, navigation}) {
         style={{
           ...styles.waiting_text_showcase_view,
           opacity: waitingTextOverallOpacity,
-          marginVertical: windowHeight * 0.1,
+          marginVertical: windowHeight * 0.25,
         }}>
         <Text
           style={{
@@ -104,7 +106,7 @@ function MakeWalletScreen({dispatch, navigation}) {
           <LottieView
             source={require('../../../../assets/success_tick_lottie.json')}
             autoPlay
-            loop
+            loop={false}
             style={{
               marginVertical: 20,
               width: windowWidth * 0.25,
@@ -130,9 +132,14 @@ function MakeWalletScreen({dispatch, navigation}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={['#FF5B3A', '#FF3293']}
-        style={styles.gradient_background}>
+      <ImageBackground
+        source={require('../../../../assets/colors_background_1.png')}
+        resizeMode="cover"
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          alignItems: 'center',
+        }}>
         <View
           style={{
             flexDirection: 'row',
@@ -164,19 +171,16 @@ function MakeWalletScreen({dispatch, navigation}) {
           </Pressable>
         </View>
         <CenterText />
-        <View style={{marginVertical: windowHeight * 0.1}}>
+        <View style={{marginTop: windowHeight * 0.1}}>
           <Bounceable
-            style={{
-              marginVertical: windowHeight * 0.1,
-            }}
             onPress={() => {
               navigation.navigate('SaveSeedPhraseScreen');
             }}>
-            <SquircleButton
+            <SquircleGlassButton
               buttonColor={
                 walletCreatedTextAndButtonOpacity === 0
-                  ? themeHere.colors.red_light + '00'
-                  : themeHere.colors.red_light + '99'
+                  ? themeHere.colors.mid_ground + '00'
+                  : themeHere.colors.mid_ground
               }
               width={windowWidth * 0.7}
               height={50}
@@ -185,10 +189,11 @@ function MakeWalletScreen({dispatch, navigation}) {
               }
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
+              blurType={'ultraThinMaterialDark'}
             />
           </Bounceable>
         </View>
-      </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }
@@ -208,7 +213,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'tomato',
+    backgroundColor: themeHere.colors.background,
   },
   gradient_background: {
     flex: 1,
