@@ -28,6 +28,7 @@ import {Amplitude} from '@amplitude/react-native';
 import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 import {BlurView} from '@react-native-community/blur';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -39,6 +40,11 @@ function Welcome1Screen({dispatch, navigation}) {
   const buttonOpacity = useSharedValue(0);
   const introTextsOpacity = useSharedValue(1);
   const skipOpacity = useSharedValue(1);
+
+  const hapticOptions = {
+    enableVibrateFallback: true,
+    ignoreAndroidSystemSettings: false,
+  };
 
   const animatedButton = useAnimatedStyle(() => {
     return {
@@ -65,13 +71,15 @@ function Welcome1Screen({dispatch, navigation}) {
   useEffect(() => {
     setTimeout(() => {
       buttonOpacity.value = withTiming(1);
-    }, 7500);
+      skipOpacity.value = withSpring(0);
+    }, 20000);
   });
 
   const skipStory = () => {
     buttonOpacity.value = withTiming(1);
     introTextsOpacity.value = withSpring(0);
     skipOpacity.value = withSpring(0);
+    ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
   };
 
   function SkipButton() {
@@ -111,9 +119,7 @@ function Welcome1Screen({dispatch, navigation}) {
         source={require('../../../../assets/space_bg_1.jpeg')}
         style={styles.background_image}>
         <View style={styles.bottom_block}>
-          <View>
-            <BackgroundNftsAnimation />
-          </View>
+          <View>{/*<BackgroundNftsAnimation />*/}</View>
           <View>
             <Animated.View style={[animatedIntroTexts]}>
               <IntroTextsAnimation />
