@@ -614,7 +614,10 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
             </View>
             <View style={{flexDirection: 'row', width: windowWidth - 40}}>
               <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
-                ~ $ {Number(amountToBuyFiat).toFixed(0)}
+                ~ ${' '}
+                {Number(amountToBuyFiat)
+                  .toFixed(0)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Text>
             </View>
             <Button
