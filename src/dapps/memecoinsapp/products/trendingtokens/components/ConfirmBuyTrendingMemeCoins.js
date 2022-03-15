@@ -121,8 +121,8 @@ function ConfirmBuyTrendingMemeCoins(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough ETH to buy {props.AmountToBuy}{' '}
-            {props.Symbol}, reduce borrow amount and try again
+            your wallet does not have enough ETH to buy {props.AmountToBuy}{' '}
+            {props.Symbol}, reduce purchase amount and try again
           </Text>
         </View>
       );
