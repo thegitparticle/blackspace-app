@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {Button} from 'react-native-elements';
+import {Button, Icon} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {SquircleView} from 'react-native-figma-squircle';
 import {connect} from 'react-redux';
@@ -29,6 +29,7 @@ import _ from 'lodash';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {BigNumber} from 'ethers';
 import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -356,117 +357,75 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
-  function RenderToken1ListItem(item) {
+  function RenderToken1ListItem(props) {
     return (
-      <TouchableOpacity
-        style={styles.render_token_item_view}
-        onPress={() => {
-          setToken1Coin(item.item);
-          onClosePickToken1();
-          // checkAndCallPoolInfo();
-        }}>
-        <>
-          <FastImage
-            source={{
-              uri: item.item.logoURI,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.render_token_item_logo}
-          />
-          <Text style={styles.render_token_item_title}>{item.item.name}</Text>
-        </>
-        <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
-      </TouchableOpacity>
+      <View style={styles.render_token_item_view}>
+        <Bounceable
+          onPress={() => {
+            setToken1Coin(props.item.item);
+            onClosePickToken1();
+            // checkAndCallPoolInfo();
+          }}>
+          <View style={{height: 100, width: windowWidth * 0.74}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: 50,
+                width: windowWidth * 0.75,
+              }}>
+              <FastImage
+                source={{
+                  uri: props.item.item.logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.render_token_item_logo}
+              />
+              <Text style={styles.render_token_item_title}>
+                {props.item.item.name}
+              </Text>
+              <Text style={styles.render_token_item_symbol}>
+                {props.item.item.symbol}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                height: 50,
+                width: windowWidth - 40,
+              }}>
+              <FastImage
+                source={{
+                  // uri: props.item.item.logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.render_token_item_logo}
+              />
+              <Text
+                style={{
+                  ...themeHere.text.caption,
+                  color: themeHere.colors.foreground,
+                  marginHorizontal: 10,
+                }}>
+                Address -{' '}
+                <Text
+                  style={{
+                    ...themeHere.text.caption_i,
+                    color: themeHere.colors.foreground + '50',
+                    marginHorizontal: 10,
+                  }}>
+                  {props.item.item.address}
+                </Text>
+              </Text>
+            </View>
+          </View>
+        </Bounceable>
+      </View>
     );
   }
-
-  const RenderPaymentOptions = useMemo(
-    () =>
-      function RenderPaymentOptions() {
-        function PaymentOptionItem(item) {
-          const [selected, setSelected] = useState(false);
-
-          if (selected) {
-            return (
-              <TouchableOpacity onPress={() => setSelected(!selected)}>
-                <SquircleView
-                  style={styles.payment_option_item_view}
-                  squircleParams={{
-                    cornerSmoothing: 1,
-                    cornerRadius: 15,
-                    fillColor: themeHere.colors.neon_blue + '75',
-                  }}>
-                  <View style={styles.itemholding_leftside_view}>
-                    <FastImage
-                      style={styles.itemholding_icon}
-                      source={{
-                        uri: item.logoURI,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <Text style={styles.itemholding_title}>{item.name}</Text>
-                  </View>
-                  <View style={styles.itemholding_rightside_view}>
-                    <Text style={styles.itemholding_balance}>
-                      {item.tokenBalance_decimal.toFixed(4)}
-                    </Text>
-                    <Text style={styles.itemholding_converted_balance}>
-                      ${item.token_price_usd}
-                    </Text>
-                  </View>
-                </SquircleView>
-              </TouchableOpacity>
-            );
-          } else {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  setSelected(!selected);
-                  changeToken0(item);
-                }}>
-                <SquircleView
-                  style={styles.payment_option_item_view}
-                  squircleParams={{
-                    cornerSmoothing: 1,
-                    cornerRadius: 15,
-                    fillColor: themeHere.colors.mid_ground + '25',
-                  }}>
-                  <View style={styles.itemholding_leftside_view}>
-                    <FastImage
-                      style={styles.itemholding_icon}
-                      source={{
-                        uri: item.logoURI,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <Text style={styles.itemholding_title}>{item.name}</Text>
-                  </View>
-                  <View style={styles.itemholding_rightside_view}>
-                    <Text style={styles.itemholding_balance}>
-                      {item.tokenBalance_decimal.toFixed(4)}
-                    </Text>
-                    <Text style={styles.itemholding_converted_balance}>
-                      ${item.token_price_usd}
-                    </Text>
-                  </View>
-                </SquircleView>
-              </TouchableOpacity>
-            );
-          }
-        }
-
-        return (
-          <View style={styles.payment_token_pick_view}>
-            {PaymentOptionItem(ethTokenObject)}
-            {myTokens.map(item => PaymentOptionItem(item))}
-          </View>
-        );
-      },
-    [],
-  );
 
   const RenderOrderInfo = useMemo(
     () =>
@@ -704,7 +663,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           }}
           flatListProps={{
             data: uniswapTokens,
-            renderItem: RenderToken1ListItem,
+            renderItem: item => <RenderToken1ListItem item={item} />,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickToken1Header(),
@@ -878,16 +837,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   render_token_item_view: {
-    height: 50,
+    height: 100,
     width: windowWidth,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   render_token_item_logo: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    marginHorizontal: 20,
+    marginLeft: 20,
+    marginRight: 10,
   },
   render_token_item_title: {
     ...themeHere.text.subhead_bold,
