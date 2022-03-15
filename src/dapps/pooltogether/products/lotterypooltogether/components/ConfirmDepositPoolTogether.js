@@ -164,8 +164,8 @@ function ConfirmDepositPoolTogether(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have {props.DepositAmount} USDC to deposit, reduce
-            amount and try again
+            your wallet does not have {props.DepositAmount} USDC to deposit,
+            reduce amount and try again
           </Text>
         </View>
       );
