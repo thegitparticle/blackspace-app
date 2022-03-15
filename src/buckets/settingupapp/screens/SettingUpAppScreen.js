@@ -100,7 +100,7 @@ function SettingUpAppScreen({dispatch}) {
         dispatch(AddWDeets(wallet));
       }, 10000);
       setTimeout(() => {
-        // dispatch({type: LOGIN});
+        dispatch({type: LOGIN});
       }, 12500);
     }
   }, [userId]);
@@ -113,7 +113,7 @@ function SettingUpAppScreen({dispatch}) {
             Setting up blackSpace for you
           </Text>
           <LottieView
-            source={require('../../../../assets/doge_tail_lottie.json')}
+            source={require('../../../../assets/panda_popcorn.json')}
             autoPlay
             loop
             style={{
@@ -131,7 +131,7 @@ function SettingUpAppScreen({dispatch}) {
           <LottieView
             source={require('../../../../assets/success_tick_lottie.json')}
             autoPlay
-            loop
+            loop={false}
             style={{
               marginVertical: 20,
               width: windowWidth * 0.25,
@@ -149,12 +149,13 @@ function SettingUpAppScreen({dispatch}) {
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
       <ImageBackground
-        source={require('../../../../assets/colors_background_1.png')}
+        source={require('../../../../assets/colors_background_2.png')}
         resizeMode="cover"
         style={{
           width: windowWidth,
           height: windowHeight,
           alignItems: 'center',
+          justifyContent: 'center',
         }}>
         <RenderBody />
       </ImageBackground>
