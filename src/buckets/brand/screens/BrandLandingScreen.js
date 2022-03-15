@@ -25,11 +25,11 @@ function BrandLandingScreen() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Image
-          sx={{width: windowWidth * 0.6, height: windowWidth * 0.3}}
-          source={require('../../../../assets/blackSpace_logo_full.png')}
-          resizeMode="contain"
-        />
+        {/*<Image*/}
+        {/*  sx={{width: windowWidth * 0.6, height: windowWidth * 0.3}}*/}
+        {/*  source={require('../../../../assets/blackSpace_logo_full.png')}*/}
+        {/*  resizeMode="contain"*/}
+        {/*/>*/}
         <BrandStoryTextsAnimation />
       </ImageBackground>
     </View>
