@@ -6,6 +6,7 @@ import {
   Dimensions,
   Appearance,
   StatusBar,
+  ImageBackground,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
@@ -99,7 +100,7 @@ function SettingUpAppScreen({dispatch}) {
         dispatch(AddWDeets(wallet));
       }, 10000);
       setTimeout(() => {
-        dispatch({type: LOGIN});
+        // dispatch({type: LOGIN});
       }, 12500);
     }
   }, [userId]);
@@ -147,11 +148,16 @@ function SettingUpAppScreen({dispatch}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={['#050505', '#1F1F1F']}
-        style={styles.gradient_background}>
+      <ImageBackground
+        source={require('../../../../assets/colors_background_1.png')}
+        resizeMode="cover"
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          alignItems: 'center',
+        }}>
         <RenderBody />
-      </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }
