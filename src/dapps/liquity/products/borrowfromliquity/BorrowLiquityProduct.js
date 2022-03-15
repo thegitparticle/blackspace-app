@@ -21,6 +21,7 @@ import {Fees} from '@liquity/lib-base';
 import {connect} from 'react-redux';
 import {BigNumber, ethers} from 'ethers';
 import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -52,6 +53,8 @@ function BorrowLiquityProduct() {
     state_here.WDeetsReducer.wdeets.wallet_privateKey,
   );
   let walletSigner = wallet.connect(prov);
+
+  const [showMinimumNotMetPopup, setShowMinimumNotMetPopup] = useState(false);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
@@ -197,13 +200,17 @@ function BorrowLiquityProduct() {
         <Button
           title={'start borrow process'}
           type={'solid'}
-          onPress={() =>
-            navigation.navigate('BorrowLiquityTransactionModal', {
-              borrowAmount: borrowAmount,
-              collateralNeededEth: collateralNeededEth,
-              fixedLoanCharges: fixedLoanCharges,
-            })
-          }
+          onPress={() => {
+            if (Number(borrowAmount) < 2000) {
+              setShowMinimumNotMetPopup(true);
+            } else {
+              navigation.navigate('BorrowLiquityTransactionModal', {
+                borrowAmount: borrowAmount,
+                collateralNeededEth: collateralNeededEth,
+                fixedLoanCharges: fixedLoanCharges,
+              });
+            }
+          }}
           containerStyle={styles.next_button_container}
           buttonStyle={styles.next_button_style}
           titleStyle={styles.next_button_title}
@@ -260,6 +267,38 @@ function BorrowLiquityProduct() {
       </Text>
       <CollateralNeededBlock />
       <RenderOrderInfo />
+      <Modal
+        visible={showMinimumNotMetPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowMinimumNotMetPopup(false);
+        }}>
+        <ModalContent>
+          <View
+            style={{
+              backgroundColor: themeHere.colors.off_background,
+              borderColor: themeHere.colors.off_background,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: windowWidth - 40,
+              borderRadius: 15,
+            }}>
+            <Text
+              style={{
+                ...themeHere.text.subhead_medium,
+                color: themeHere.colors.foreground,
+                marginTop: 40,
+                marginBottom: 40,
+                textAlign: 'center',
+              }}>
+              Minimum borrow amount is 2000 LUSD (~ $2000)
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }
