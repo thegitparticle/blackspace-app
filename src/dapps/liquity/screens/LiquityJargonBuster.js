@@ -22,8 +22,11 @@ function LiquityJargonBuster(props) {
 
   const [jargonBusterContent, setJargonBusterContent] = useState();
   const [contentLoaded, setContentLoaded] = useState(false);
+
   const [jargonBusterStories, setJargonBusterStories] = useState();
   const [storiesLoaded, setStoriesLoaded] = useState(false);
+
+  const [noStories, setNoStories] = useState(false);
 
   useEffect(() => {
     const config1 = {
@@ -40,6 +43,8 @@ function LiquityJargonBuster(props) {
         setContentLoaded(true);
       })
       .catch(function (error) {
+        setNoStories(true);
+        console.log('jargon buster error');
         console.log(error);
       });
 
@@ -57,6 +62,8 @@ function LiquityJargonBuster(props) {
         setStoriesLoaded(true);
       })
       .catch(function (error) {
+        setNoStories(true);
+        console.log('jargon stories error');
         console.log(error);
       });
   }, []);
@@ -164,20 +171,48 @@ function LiquityJargonBuster(props) {
         </View>
       );
     } else {
-      return (
-        <View
-          sx={{
-            alignSelf: 'center',
-            marginTop: '$5',
-            justifyContent: 'center',
-            width: windowWidth,
-            alignItems: 'center',
-          }}>
-          <Spacer height={30} />
-          <Bars size={10} color="#FDAAFF" />
-          <Spacer height={30} />
-        </View>
-      );
+      if (noStories) {
+        return (
+          <View
+            sx={{
+              alignSelf: 'center',
+              marginTop: '$5',
+              justifyContent: 'center',
+              width: windowWidth,
+              alignItems: 'center',
+            }}>
+            <Spacer height={30} />
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                maxWidth: windowWidth * 0.9,
+                marginHorizontal: windowWidth * 0.05,
+                marginTop: windowWidth * 0.1,
+                marginBottom: windowWidth * 0.05,
+                alignSelf: 'flex-start',
+              }}>
+              Jargon Buster could not be loaded, try again!
+            </Text>
+            <Spacer height={30} />
+          </View>
+        );
+      } else {
+        return (
+          <View
+            sx={{
+              alignSelf: 'center',
+              marginTop: '$5',
+              justifyContent: 'center',
+              width: windowWidth,
+              alignItems: 'center',
+            }}>
+            <Spacer height={30} />
+            <Bars size={10} color="#FDAAFF" />
+            <Spacer height={30} />
+          </View>
+        );
+      }
     }
   }
 

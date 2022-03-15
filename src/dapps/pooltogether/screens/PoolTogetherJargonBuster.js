@@ -21,6 +21,8 @@ function PoolTogetherJargonBuster(props) {
   const [jargonBusterStories, setJargonBusterStories] = useState();
   const [storiesLoaded, setStoriesLoaded] = useState(false);
 
+  const [noStories, setNoStories] = useState(false);
+
   useEffect(() => {
     const config1 = {
       method: 'get',
@@ -36,6 +38,8 @@ function PoolTogetherJargonBuster(props) {
         setContentLoaded(true);
       })
       .catch(function (error) {
+        console.log('jargon buster error');
+        setNoStories(true);
         console.log(error);
       });
 
@@ -53,6 +57,8 @@ function PoolTogetherJargonBuster(props) {
         setStoriesLoaded(true);
       })
       .catch(function (error) {
+        console.log('jargon stories error');
+        setNoStories(true);
         console.log(error);
       });
   }, []);
@@ -160,20 +166,48 @@ function PoolTogetherJargonBuster(props) {
         </View>
       );
     } else {
-      return (
-        <View
-          sx={{
-            alignSelf: 'center',
-            marginTop: '$5',
-            justifyContent: 'center',
-            width: windowWidth,
-            alignItems: 'center',
-          }}>
-          <Spacer height={30} />
-          <Bars size={10} color="#FDAAFF" />
-          <Spacer height={30} />
-        </View>
-      );
+      if (noStories) {
+        return (
+          <View
+            sx={{
+              alignSelf: 'center',
+              marginTop: '$5',
+              justifyContent: 'center',
+              width: windowWidth,
+              alignItems: 'center',
+            }}>
+            <Spacer height={30} />
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                maxWidth: windowWidth * 0.9,
+                marginHorizontal: windowWidth * 0.05,
+                marginTop: windowWidth * 0.1,
+                marginBottom: windowWidth * 0.05,
+                alignSelf: 'center',
+              }}>
+              Jargon Buster could not be loaded, try again!
+            </Text>
+            <Spacer height={30} />
+          </View>
+        );
+      } else {
+        return (
+          <View
+            sx={{
+              alignSelf: 'center',
+              marginTop: '$5',
+              justifyContent: 'center',
+              width: windowWidth,
+              alignItems: 'center',
+            }}>
+            <Spacer height={30} />
+            <Bars size={10} color="#FDAAFF" />
+            <Spacer height={30} />
+          </View>
+        );
+      }
     }
   }
 
