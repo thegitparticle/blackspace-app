@@ -36,25 +36,6 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-// export const data = [
-//   {x: 1453075200, y: 1.47},
-//   {x: 1453161600, y: 1.37},
-//   {x: 1453248000, y: 1.53},
-//   {x: 1453334400, y: 1.54},
-//   {x: 1453420800, y: 1.52},
-//   {x: 1453507200, y: 2.03},
-//   {x: 1453593600, y: 2.1},
-//   {x: 1453680000, y: 2.5},
-//   {x: 1453766400, y: 2.3},
-//   {x: 1453852800, y: 2.42},
-//   {x: 1453939200, y: 2.55},
-//   {x: 1454025600, y: 2.41},
-//   {x: 1454112000, y: 2.43},
-//   {x: 1454198400, y: 2.2},
-// ];
-
-const data = [50, 10, 40, 95, -4, -24, 85, 91, 35, 53, -53, 24, 50, -20, -80];
-
 function TrendingTokensProductDetailsModal({route, dispatch}) {
   const navigation = useNavigation();
   const {name, symbol, logoUri, tokenDetails, tokenIdString, contractAddress} =
@@ -172,41 +153,42 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
       });
   }
 
-  // function getCoinChartInfo365() {
-  //   const config = {
-  //     method: 'get',
-  //     url:
-  //       'https://api.coingecko.com/api/v3/coins/' +
-  //       tokenIdString +
-  //       '/market_chart?vs_currency=usd&days=365',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   };
-  //
-  //   axios(config)
-  //     .then(response => {
-  //       let refinedChartInfo = [];
-  //       for (let i = 0; i < response.data.prices.length; i++) {
-  //         // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
-  //         let x_here = {
-  //           timestamp: response.data.prices[i][0],
-  //           value: response.data.prices[i][1],
-  //         };
-  //         refinedChartInfo.push(x_here);
-  //       }
-  //       setCurrentChartData365(refinedChartInfo);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+  function getCoinChartInfo365() {
+    const config = {
+      method: 'get',
+      url:
+        'https://api.coingecko.com/api/v3/coins/' +
+        tokenIdString +
+        '/market_chart?vs_currency=usd&days=365',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    axios(config)
+      .then(response => {
+        let refinedChartInfo = [];
+        for (let i = 0; i < response.data.prices.length; i++) {
+          // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
+          // let x_here = {
+          //   timestamp: response.data.prices[i][0],
+          //   value: response.data.prices[i][1],
+          // };
+          let x_here = response.data.prices[i][1];
+          refinedChartInfo.push(x_here);
+        }
+        setCurrentChartData365(refinedChartInfo);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     getCoinChartInfo1();
     getCoinChartInfo7();
     getCoinChartInfo30();
-    // getCoinChartInfo365();
+    getCoinChartInfo365();
   }, []);
 
   const RenderChartView = useMemo(
@@ -230,7 +212,12 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
               <LineChart
                 style={{height: 200}}
                 data={currentChartData1}
-                svg={{stroke: 'rgb(134, 65, 244)'}}
+                svg={{
+                  stroke:
+                    _.last(currentChartData1) - _.head(currentChartData1) > 0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
                 contentInset={{top: 20, bottom: 20}}>
                 <Grid />
               </LineChart>
@@ -240,7 +227,12 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
               <LineChart
                 style={{height: 200}}
                 data={currentChartData7}
-                svg={{stroke: 'rgb(134, 65, 244)'}}
+                svg={{
+                  stroke:
+                    _.last(currentChartData7) - _.head(currentChartData7) > 0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
                 contentInset={{top: 20, bottom: 20}}>
                 <Grid />
               </LineChart>
@@ -250,7 +242,28 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
               <LineChart
                 style={{height: 200}}
                 data={currentChartData30}
-                svg={{stroke: 'rgb(134, 65, 244)'}}
+                svg={{
+                  stroke:
+                    _.last(currentChartData30) - _.head(currentChartData30) > 0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
+                contentInset={{top: 20, bottom: 20}}>
+                <Grid />
+              </LineChart>
+            );
+          } else {
+            return (
+              <LineChart
+                style={{height: 200}}
+                data={currentChartData365}
+                svg={{
+                  stroke:
+                    _.last(currentChartData365) - _.head(currentChartData365) >
+                    0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
                 contentInset={{top: 20, bottom: 20}}>
                 <Grid />
               </LineChart>
@@ -341,26 +354,26 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                 </Text>
               </View>
             </Bounceable>
-            {/*<Bounceable onPress={() => setCurrentChartRange(365)}>*/}
-            {/*  <View*/}
-            {/*    style={{*/}
-            {/*      width: 40,*/}
-            {/*      height: 40,*/}
-            {/*      alignItems: 'center',*/}
-            {/*      justifyContent: 'center',*/}
-            {/*    }}>*/}
-            {/*    <Text*/}
-            {/*      style={{*/}
-            {/*        ...themeHere.text.subhead_medium,*/}
-            {/*        color:*/}
-            {/*          currentChartRange === 365*/}
-            {/*            ? themeHere.colors.success_green_light*/}
-            {/*            : themeHere.colors.foreground,*/}
-            {/*      }}>*/}
-            {/*      1y*/}
-            {/*    </Text>*/}
-            {/*  </View>*/}
-            {/*</Bounceable>*/}
+            <Bounceable onPress={() => setCurrentChartRange(365)}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 365
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  1y
+                </Text>
+              </View>
+            </Bounceable>
           </View>
         );
       },
