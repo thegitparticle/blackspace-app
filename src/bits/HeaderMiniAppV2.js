@@ -6,11 +6,15 @@ import Iconly from '../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements';
 import {Bounceable} from 'rn-bounceable';
+import {BlurView} from '@react-native-community/blur';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+const statusBarHeight = getStatusBarHeight();
 
 function HeaderMiniAppV2(props) {
   // props - app_details
@@ -18,56 +22,90 @@ function HeaderMiniAppV2(props) {
   const sx = useSx();
 
   return (
-    <Header
-      backgroundColor={themeHere.colors.off_background}
-      containerStyle={sx({borderBottomWidth: 0})}>
-      <Bounceable>
-        <View sx={{marginHorizontal: 20}}>
-          <Iconly
-            name="ChevronDownBroken"
-            color={themeHere.colors.foreground + '00'}
-            size={25}
-          />
-        </View>
-      </Bounceable>
-      <Bounceable
-        style={styles.right_side_icon}
-        onPress={() => navigation.goBack()}>
-        <Text variant="title_2" sx={{color: 'foreground'}}>
-          {props.app_details.name}
-        </Text>
-      </Bounceable>
-      <Bounceable onPress={() => navigation.goBack()}>
-        <View sx={{marginHorizontal: 20}}>
-          <Iconly
-            name="CloseSquareBold"
-            color={themeHere.colors.foreground}
-            size={25}
-          />
-        </View>
-      </Bounceable>
-    </Header>
+    <View>
+      <Image
+        source={{uri: props.app_details.dapp_cover}}
+        style={{
+          width: windowWidth,
+          height: windowHeight * 0.2,
+          position: 'absolute',
+        }}
+      />
+      <BlurView
+        style={{
+          width: windowWidth,
+          height: windowHeight * 0.2,
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: 0,
+          bottom: 0,
+        }}
+        blurType={'thinMaterialDark'}
+        blurAmount={10}
+        reducedTransparencyFallbackColor="gray"
+      />
+      <Header
+        backgroundColor={'transparent'}
+        containerStyle={sx({borderBottomWidth: 0})}>
+        <Bounceable>
+          <View sx={{marginHorizontal: 20}}>
+            <Iconly
+              name="ChevronDownBroken"
+              color={themeHere.colors.foreground + '00'}
+              size={25}
+            />
+          </View>
+        </Bounceable>
+        <Bounceable onPress={() => {}}>
+          <View
+            style={{
+              flexDirection: 'column',
+              justifyContent: 'space-between',
+              height: windowHeight * 0.1,
+            }}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Image
+                source={{uri: props.app_details.dapp_cover}}
+                style={{
+                  width: 50,
+                  height: 50,
+                  marginHorizontal: 5,
+                }}
+              />
+              <Text
+                variant="title_2"
+                sx={{color: 'foreground', marginHorizontal: '$1'}}>
+                {props.app_details.name}
+              </Text>
+            </View>
+            <Text variant="caption" sx={{color: 'foreground'}}>
+              {props.app_details.tagline}
+            </Text>
+          </View>
+        </Bounceable>
+        <Bounceable onPress={() => navigation.goBack()}>
+          <View
+            sx={{
+              marginHorizontal: 20,
+              height: 50,
+              justifyContent: 'center',
+            }}>
+            <Iconly
+              name="CloseSquareBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
+          </View>
+        </Bounceable>
+      </Header>
+    </View>
   );
 }
 
 export default HeaderMiniAppV2;
-
-const styles = StyleSheet.create({
-  parent_view: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    width: windowWidth,
-    flexDirection: 'row',
-    height: 75,
-  },
-  left_side_icon: {
-    marginHorizontal: 20,
-  },
-  right_side_icon: {
-    marginHorizontal: 20,
-  },
-  title_text: {
-    ...themeHere.text.title_3,
-    color: themeHere.colors.foreground,
-  },
-});

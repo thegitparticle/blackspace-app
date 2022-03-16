@@ -5,6 +5,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
 import {connect} from 'react-redux';
 import TipTile from '../components/TipTile';
+import Spacer from '../../../bits/Spacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -17,7 +18,8 @@ function StarterTipsPage() {
   let allTips = state_here.AllTipsReducer.alltips;
 
   return (
-    <View variant="full_screen_transparent">
+    <View sx={{width: windowWidth}}>
+      <Spacer height={windowHeight * 0.1} />
       <ScrollView>
         {allTips.map(item => (
           <TipTile tipInfo={item} />

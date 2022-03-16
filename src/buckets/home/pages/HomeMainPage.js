@@ -68,7 +68,7 @@ function HomeMainPage({dispatch}) {
       dapp_bio: '',
       landing_blueprint_function_name: 'TipsAppLandingScreen',
       splash_image: 'https://i.postimg.cc/Y0gfQbmp/Group-33529.png',
-      tagline: '',
+      tagline: 'Tips make you rich, richie rich!',
       add_to_my_app_button_status: false,
       tags: [1, 2],
       usage_tab_name: 'Activity',
