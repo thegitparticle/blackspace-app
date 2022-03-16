@@ -43,12 +43,12 @@ function TipsAppLandingScreen({route, dispatch}) {
 
   const renderSceneMiniApp = SceneMap({
     first: StarterTipsPage,
-    // second: ProTipsPage,
+    second: ProTipsPage,
   });
 
   const [routes] = React.useState([
     {key: 'first', title: 'starter tips'},
-    // {key: 'second', title: 'pro'},
+    {key: 'second', title: 'pro'},
   ]);
 
   function renderLabelMiniApp({route, focused}) {
@@ -56,17 +56,21 @@ function TipsAppLandingScreen({route, dispatch}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              starter
-            </Text>
+            <Iconly
+              name="HomeBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              starter
-            </Text>
+            <Iconly
+              name="HomeBroken"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       }
@@ -74,17 +78,21 @@ function TipsAppLandingScreen({route, dispatch}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              pro
-            </Text>
+            <Iconly
+              name="ActivityBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              pro
-            </Text>
+            <Iconly
+              name="ActivityBroken"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       }
@@ -117,12 +125,24 @@ function TipsAppLandingScreen({route, dispatch}) {
       })}
       style={sxCustom({
         backgroundColor: themeHere.colors.off_background,
-        height: 70,
-        alignSelf: 'center',
+        position: 'absolute',
+        bottom: 0,
+        color: '#000',
+        height: 60,
         justifyContent: 'center',
-        width: windowWidth,
+        alignSelf: 'center',
+        width: windowWidth * 0.5,
+        marginBottom: windowHeight * 0.05,
         borderRadius: 30,
         borderTopWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
       })}
       renderLabel={renderLabelMiniApp}
       tabStyle={{backgroundColor: 'transparent'}}
