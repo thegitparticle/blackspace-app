@@ -19,7 +19,7 @@ function StarterTipsPage() {
 
   return (
     <View sx={{width: windowWidth}}>
-      <Spacer height={windowHeight * 0.1} />
+      <Spacer height={windowHeight * 0.05} />
       <ScrollView>
         {allTips.map(item => (
           <TipTile tipInfo={item} />

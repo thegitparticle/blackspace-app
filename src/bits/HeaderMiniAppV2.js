@@ -41,7 +41,7 @@ function HeaderMiniAppV2(props) {
           top: 0,
           bottom: 0,
         }}
-        blurType={'thinMaterialDark'}
+        blurType={'materialDark'}
         blurAmount={10}
         reducedTransparencyFallbackColor="gray"
       />
