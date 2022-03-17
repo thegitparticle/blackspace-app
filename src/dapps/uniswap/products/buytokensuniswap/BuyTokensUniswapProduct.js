@@ -448,11 +448,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
                     1 {token1Coin.symbol} = {token1PoolPrice}{' '}
-                    {token0Coin.symbol} (
-                    {Number(derivedETHToken0.derivedETH) *
-                      Number(priceEth) *
-                      Number(token1PoolPrice)}
-                    )
+                    {token0Coin.symbol}
                   </Text>
                 </Text>
               </View>
