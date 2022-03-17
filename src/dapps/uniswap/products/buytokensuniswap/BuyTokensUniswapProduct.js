@@ -85,10 +85,10 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[4]);
   const [token0Coin, setToken0Coin] = useState(ethTokenObject);
+  // for token1 - use address as variable name and token0 - contractAddress
 
-  const {loadingDerivedETH, derivedETH} = useDerivedEthPrice(
-    token1Coin.address,
-  );
+  const derivedETHToken0 = useDerivedEthPrice(token0Coin.contractAddress);
+  const derivedETHToken1 = useDerivedEthPrice(token1Coin.address);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
@@ -99,6 +99,7 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   let {loadingPoolPrices, token0PoolPrice, token1PoolPrice} =
     usePoolPricesFromChain(
+      loadingLPAddress,
       lpAddress,
       token0Coin === null ? '' : token0Coin.contractAddress,
       token1Coin === null ? '' : token1Coin.address,
@@ -112,7 +113,7 @@ function BuyTokenUniswapProduct({dispatch}) {
   );
 
   function computeFiatToken1(value) {
-    setToken1Fiat(Number(value) * derivedETH * priceEth);
+    setToken1Fiat(Number(value) * derivedETHToken1.derivedETH * priceEth);
   }
 
   function changeToken0(token0) {
@@ -435,6 +436,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           token1Coin.address.length > 0 &&
           token0Coin
         ) {
+          console.log(derivedETHToken0.derivedETH + 't0 eth');
           return (
             <View style={styles.order_info_view}>
               <View
@@ -446,7 +448,11 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
                     1 {token1Coin.symbol} = {token1PoolPrice}{' '}
-                    {token0Coin.symbol}
+                    {token0Coin.symbol} (
+                    {Number(derivedETHToken0.derivedETH) *
+                      Number(priceEth) *
+                      Number(token1PoolPrice)}
+                    )
                   </Text>
                 </Text>
               </View>
@@ -464,6 +470,24 @@ function BuyTokenUniswapProduct({dispatch}) {
                   <Text style={{color: themeHere.colors.foreground}}>
                     {Number(token1Amount) * Number(token1PoolPrice)}{' '}
                     {token0Coin.symbol}
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>
+                  by paying (in $)
+                </Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    ${' '}
+                    {Number(
+                      Number(token1Amount) *
+                        Number(token1PoolPrice) *
+                        Number(derivedETHToken0.derivedETH) *
+                        Number(priceEth),
+                    )
+                      .toFixed(0)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   </Text>
                 </Text>
               </View>

@@ -14,12 +14,14 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
       decimals: '18',
       name: 'Matic Token',
       symbol: 'MATIC',
+      derivedETH: '0.0003617588007247900895195119113110939',
     },
     token0Price: '1498.948295981583083786621023745811',
     token1: {
       decimals: '18',
       name: 'Wrapped Ether',
       symbol: 'WETH',
+      derivedETH: '1',
     },
     token1Price: '0.0006671344186326000924924617213326372',
   });
@@ -47,10 +49,12 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
       token0 {
         symbol
         name
+        derivedETH
       }
       token1 {
         symbol
         name
+        derivedETH
       }
     }
   }`,
