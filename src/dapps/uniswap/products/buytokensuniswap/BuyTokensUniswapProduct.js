@@ -92,7 +92,7 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  let {loadingLPAddress, lpAddress} = useLiquidityPoolAddress(
+  let {loadingLPAddress, lpAddress, lpExists} = useLiquidityPoolAddress(
     token0Coin === null ? '' : token0Coin.contractAddress,
     token1Coin.address || '',
   );
@@ -434,9 +434,10 @@ function BuyTokenUniswapProduct({dispatch}) {
         if (
           token1Amount.length > 0 &&
           token1Coin.address.length > 0 &&
-          token0Coin
+          token0Coin &&
+          lpExists
         ) {
-          console.log(derivedETHToken0.derivedETH + 't0 eth');
+          // console.log(derivedETHToken0.derivedETH + 't0 eth');
           return (
             <View style={styles.order_info_view}>
               <View
@@ -531,6 +532,28 @@ function BuyTokenUniswapProduct({dispatch}) {
               />
             </View>
           );
+        } else if (!lpExists) {
+          return (
+            <View style={styles.order_info_view}>
+              <View
+                style={{
+                  ...styles.order_info_block_view,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...styles.order_info_value_text,
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  <Text style={{color: themeHere.colors.blue_light}}>
+                    this combination has very low liquidity on Uniswap
+                  </Text>
+                </Text>
+              </View>
+            </View>
+          );
         } else {
           return (
             <View style={styles.order_info_view}>
@@ -562,6 +585,7 @@ function BuyTokenUniswapProduct({dispatch}) {
       token1PoolPrice,
       token0PoolPrice,
       lpAddress,
+      lpExists,
     ],
   );
 

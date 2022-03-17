@@ -25,6 +25,32 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     },
     token1Price: '0.0006671344186326000924924617213326372',
   });
+  const [lpExists, setLpExists] = useState(true);
+
+  const emptyLp = {
+    feeTier: '',
+    id: '0x',
+    liquidity: '0',
+    sqrtPrice: '0',
+    tick: '',
+    token0: {
+      decimals: '',
+      name: '',
+      symbol: '',
+      derivedETH: '0',
+    },
+    token0Price: '0',
+    token1: {
+      decimals: '',
+      name: '',
+      symbol: '',
+      derivedETH: '0',
+    },
+    token1Price: '0',
+  };
+
+  console.log(token0Address);
+  console.log(token1Address);
 
   let token0Here = '';
   let token1Here = '';
@@ -73,8 +99,16 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        setLPAddress(_.last(response.data.data.pools));
-        // console.log(_.last(response.data.data.pools));
+        console.log(response.data);
+        // console.log(_.last(response.data.data.pools) + 'lp details api');
+
+        if (response.data.data.pools.length === 0) {
+          setLpExists(false);
+          setLPAddress(emptyLp);
+        } else {
+          setLPAddress(_.last(response.data.data.pools));
+          setLpExists(true);
+        }
         setLoadingLPAddress(false);
       })
       .catch(function (error) {
@@ -86,5 +120,5 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     fetchInfo();
   }, [token0Address, token1Address]);
 
-  return {loadingLPAddress, lpAddress};
+  return {loadingLPAddress, lpAddress, lpExists};
 }

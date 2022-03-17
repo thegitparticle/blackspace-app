@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import axios from 'axios';
-// import {LineChart} from 'react-native-wagmi-charts';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
@@ -23,12 +22,6 @@ import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import {SquircleView} from 'react-native-figma-squircle';
-import {
-  ChartDot,
-  ChartPath,
-  ChartPathProvider,
-  monotoneCubicInterpolation,
-} from '@rainbow-me/animated-charts';
 import {LineChart, Grid} from 'react-native-svg-charts';
 
 const windowHeight = Dimensions.get('window').height;
