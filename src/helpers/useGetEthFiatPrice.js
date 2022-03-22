@@ -14,7 +14,7 @@ export default function useEthFiatPrice() {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        console.log(response.data);
+        // console.log(response.data);
         setPriceEth(response.data.ethereum.usd);
         setLoading(false);
       })

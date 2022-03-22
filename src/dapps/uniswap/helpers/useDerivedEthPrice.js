@@ -29,10 +29,13 @@ export default function useDerivedEthPrice(token_address) {
     axios(config)
       .then(function (response) {
         setDerivedETH(response.data.data.token.derivedETH);
+        // console.log(response.data);
+        // console.log(token_address);
         setLoading(false);
       })
       .catch(function (error) {
-        console.log(error);
+        // console.log(token_address);
+        // console.log(error + 'derived eth data error');
       });
   };
 

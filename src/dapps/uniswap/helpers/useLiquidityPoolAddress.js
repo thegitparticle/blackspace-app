@@ -49,9 +49,6 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     token1Price: '0',
   };
 
-  console.log(token0Address);
-  console.log(token1Address);
-
   let token0Here = '';
   let token1Here = '';
 
@@ -59,6 +56,9 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     token0Here = token1Address;
     token1Here = token0Address;
   }
+
+  // console.log(token0Here);
+  // console.log(token1Here);
 
   const data = JSON.stringify({
     query: `{
@@ -99,14 +99,15 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        console.log(response.data);
-        // console.log(_.last(response.data.data.pools) + 'lp details api');
+        let sortedListHere = _.sortBy(response.data.data.pools, ['liquidity']);
+        console.log(sortedListHere[0] + 'lp details api');
 
         if (response.data.data.pools.length === 0) {
           setLpExists(false);
           setLPAddress(emptyLp);
         } else {
-          setLPAddress(_.last(response.data.data.pools));
+          // setLPAddress(_.last(response.data.data.pools));
+          setLPAddress(sortedListHere[0]);
           setLpExists(true);
         }
         setLoadingLPAddress(false);

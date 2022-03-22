@@ -97,14 +97,6 @@ function BuyTokenUniswapProduct({dispatch}) {
     token1Coin.address || '',
   );
 
-  let {loadingPoolPrices, token0PoolPrice, token1PoolPrice} =
-    usePoolPricesFromChain(
-      loadingLPAddress,
-      lpAddress,
-      token0Coin === null ? '' : token0Coin.contractAddress,
-      token1Coin === null ? '' : token1Coin.address,
-    );
-
   const ESTIMATE_SWAP_GAS_AMOUNT = BigNumber.from('550000');
 
   const {totalGasWei, totalGasUsd, isApproveFetched} = useGasCostEstimate(
@@ -114,6 +106,10 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   function computeFiatToken1(value) {
     setToken1Fiat(Number(value) * derivedETHToken1.derivedETH * priceEth);
+    // console.log(derivedETHToken1.derivedETH + 'token1 der eth');
+    // console.log(
+    //   Number(value) * Number(derivedETHToken1.derivedETH) * Number(priceEth),
+    // );
   }
 
   function changeToken0(token0) {
@@ -448,7 +444,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                 }}>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    1 {token1Coin.symbol} = {token1PoolPrice}{' '}
+                    1 {token1Coin.symbol} ={' '}
+                    {Number(lpAddress.token1Price).toFixed(6)}{' '}
                     {token0Coin.symbol}
                   </Text>
                 </Text>
@@ -465,7 +462,9 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_title_text}>by paying</Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    {Number(token1Amount) * Number(token1PoolPrice)}{' '}
+                    {Number(
+                      Number(token1Amount) * Number(lpAddress.token1Price),
+                    ).toFixed(6)}{' '}
                     {token0Coin.symbol}
                   </Text>
                 </Text>
@@ -479,7 +478,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                     ${' '}
                     {Number(
                       Number(token1Amount) *
-                        Number(token1PoolPrice) *
+                        Number(lpAddress.token1Price) *
                         Number(derivedETHToken0.derivedETH) *
                         Number(priceEth),
                     )
@@ -516,7 +515,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                     token0Coin: token0Coin,
                     token1Coin: token1Coin,
                     token0Amount:
-                      Number(token1Amount) * Number(token1PoolPrice),
+                      Number(token1Amount) * Number(lpAddress.token1Price),
                     token1Amount: token1Amount,
                     token1Fiat: token1Fiat,
                     lpDetails: lpAddress,
@@ -578,15 +577,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           );
         }
       },
-    [
-      token0Coin,
-      token1Amount,
-      token1Coin,
-      token1PoolPrice,
-      token0PoolPrice,
-      lpAddress,
-      lpExists,
-    ],
+    [token0Coin, token1Amount, token1Coin, lpAddress, lpExists],
   );
 
   function RenderPaymentOption() {

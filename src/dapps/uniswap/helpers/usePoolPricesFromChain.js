@@ -29,6 +29,8 @@ export default function usePoolPricesFromChain(
       [18, 18],
     );
 
+    console.log(tokenPairPrice);
+
     if (token0Address > token1Address) {
       // console.log('0 is more');
       setToken0PoolPrice(tokenPairPrice.price);
@@ -42,7 +44,7 @@ export default function usePoolPricesFromChain(
 
   useEffect(() => {
     fetch()
-      .then(r => console.log(r + 'pool pric fetch result'))
+      // .then(r => console.log(r))
       .catch(e => console.log('pool price fetch error' + e));
   }, [lpDetails]);
 
