@@ -62,7 +62,7 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
 
   const data = JSON.stringify({
     query: `{
-    pools(orderBy: feeTier, where: {
+    pools(orderBy: liquidity, where: {
         token0: "${token0Here}",
         token1: "${token1Here}"}) {
       id
@@ -99,15 +99,14 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        let sortedListHere = _.sortBy(response.data.data.pools, ['liquidity']);
-        console.log(sortedListHere[0] + 'lp details api');
+        // console.log(response.data.data.pools);
 
         if (response.data.data.pools.length === 0) {
           setLpExists(false);
           setLPAddress(emptyLp);
         } else {
-          // setLPAddress(_.last(response.data.data.pools));
-          setLPAddress(sortedListHere[0]);
+          setLPAddress(_.last(response.data.data.pools));
+          // setLPAddress(response.data.data.pools[0]);
           setLpExists(true);
         }
         setLoadingLPAddress(false);

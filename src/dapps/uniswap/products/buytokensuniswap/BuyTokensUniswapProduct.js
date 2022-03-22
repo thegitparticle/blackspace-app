@@ -105,7 +105,12 @@ function BuyTokenUniswapProduct({dispatch}) {
   );
 
   function computeFiatToken1(value) {
-    setToken1Fiat(Number(value) * derivedETHToken1.derivedETH * priceEth);
+    setToken1Fiat(
+      Number(value) *
+        Number(lpAddress.token1Price) *
+        Number(derivedETHToken0.derivedETH) *
+        Number(priceEth),
+    );
     // console.log(derivedETHToken1.derivedETH + 'token1 der eth');
     // console.log(
     //   Number(value) * Number(derivedETHToken1.derivedETH) * Number(priceEth),
