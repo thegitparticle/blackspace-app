@@ -30,6 +30,7 @@ import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {BigNumber} from 'ethers';
 import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
 import {Bounceable} from 'rn-bounceable';
+import use0xSwapQuote from '../../helpers/use0xSwapQuote';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -102,6 +103,13 @@ function BuyTokenUniswapProduct({dispatch}) {
   const {totalGasWei, totalGasUsd, isApproveFetched} = useGasCostEstimate(
     ESTIMATE_SWAP_GAS_AMOUNT,
     1,
+  );
+
+  const {loading0xSwapQuote, quoteDetails0x} = use0xSwapQuote(
+    token0Coin.contractAddress,
+    token1Coin.address,
+    token1Amount,
+    token1Coin.decimals,
   );
 
   function computeFiatToken1(value) {
@@ -432,6 +440,26 @@ function BuyTokenUniswapProduct({dispatch}) {
   const RenderOrderInfo = useMemo(
     () =>
       function RenderOrderInfo() {
+        function GasPriceTextComponent() {
+          if (quoteDetails0x !== null) {
+            return (
+              <Text style={{color: themeHere.colors.foreground}}>
+                ~${' '}
+                {Number(
+                  Number(quoteDetails0x.gas) *
+                    Number(quoteDetails0x.gasPrice) *
+                    Number(priceEth) *
+                    10 ** -18,
+                ).toFixed(2)}
+              </Text>
+            );
+          } else {
+            return (
+              <Text style={{color: themeHere.colors.foreground}}>~$ 0</Text>
+            );
+          }
+        }
+
         if (
           token1Amount.length > 0 &&
           token1Coin.address.length > 0 &&
@@ -507,9 +535,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                   Ethereum Gas Fees
                 </Text>
                 <Text style={styles.order_info_value_text}>
-                  <Text style={{color: themeHere.colors.foreground}}>
-                    ~$ {Number(Number(totalGasUsd) * 10 ** -18).toFixed(2)}
-                  </Text>
+                  <GasPriceTextComponent />
                 </Text>
               </View>
               <Button
@@ -582,7 +608,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           );
         }
       },
-    [token0Coin, token1Amount, token1Coin, lpAddress, lpExists],
+    [token0Coin, token1Amount, token1Coin, lpAddress, lpExists, quoteDetails0x],
   );
 
   function RenderPaymentOption() {
