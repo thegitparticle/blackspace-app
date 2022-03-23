@@ -14,7 +14,7 @@ function IndexFundsBluePrint() {
   const products = [
     {
       id: 1,
-      product_name: 'Index Coop Funds',
+      product_name: 'Index Funds',
       component: 'IndexCoopProduct',
     },
   ];
@@ -23,19 +23,10 @@ function IndexFundsBluePrint() {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
-          <Text style={styles.product_title}>
-            Index Coop Funds
-            <Text
-              style={{
-                ...themeHere.text.body_medium,
-                color: themeHere.colors.foreground,
-              }}>
-              (1/1)
-            </Text>
-          </Text>
-          <View style={styles.product_focused_indicator_view}>
-            <View style={styles.product_focused_indicator} />
-          </View>
+          {/*<Text style={styles.product_title}>Index Funds</Text>*/}
+          {/*<View style={styles.product_focused_indicator_view}>*/}
+          {/*  <View style={styles.product_focused_indicator} />*/}
+          {/*</View>*/}
           <SquircleView
             squircleParams={{
               cornerSmoothing: 1,
