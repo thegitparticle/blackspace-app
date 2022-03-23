@@ -37,7 +37,7 @@ function MarketPriceCryptoTile(props) {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '75',
         }}>
         <View sx={{mx: '$4', flexDirection: 'row', alignItems: 'center'}}>
           <StyledFastImage30
