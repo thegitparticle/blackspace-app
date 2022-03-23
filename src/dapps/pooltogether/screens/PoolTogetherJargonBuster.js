@@ -144,7 +144,8 @@ function PoolTogetherJargonBuster(props) {
           <Text
             variant="body_medium"
             sx={{
-              color: 'mid_ground',
+              color: 'off_foreground',
+              opacity: 0.5,
               maxWidth: windowWidth * 0.9,
               alignSelf: 'center',
             }}>
