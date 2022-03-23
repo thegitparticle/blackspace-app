@@ -11,6 +11,7 @@ import {Button, Overlay, Icon} from 'react-native-elements';
 import Iconly from '../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {Bars} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -44,12 +45,30 @@ function StoryThumbnail(props) {
           marginLeft: -10,
           marginTop: -10,
         }}>
+        <View
+          sx={{
+            width: windowWidth,
+            height: windowHeight,
+            position: 'absolute',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <Bars
+            size={10}
+            color="#FDAAFF"
+            style={{
+              justifySelf: 'center',
+              alignSelf: 'center',
+            }}
+          />
+        </View>
         <FastImage
           style={{width: windowWidth, height: windowHeight}}
           source={{
             uri: props.story.image_links[currentStoryIndex],
-            priority: FastImage.priority.normal,
+            priority: FastImage.priority.high,
           }}
+          loadingIndicatorSource={require('../../../assets/icloud_icon.png')}
           resizeMode={FastImage.resizeMode.contain}>
           <View
             sx={{
@@ -125,9 +144,11 @@ function StoryThumbnail(props) {
           <StyledFastImage60
             source={{
               uri: props.story.thumbnail_image,
-              priority: FastImage.priority.normal,
+              priority: FastImage.priority.high,
             }}
+            loadingIndicatorSource={require('../../../assets/icloud_icon.png')}
             resizeMode={FastImage.resizeMode.contain}
+            sx={{borderWidth: 2.5, borderColor: themeHere.colors.blue}}
           />
           <Spacer height={10} />
           <Text
