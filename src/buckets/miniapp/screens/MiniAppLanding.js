@@ -238,35 +238,39 @@ function MiniAppLanding({route}) {
   //   runOnJS(setIndex(1));
   // }
 
-  function RenderScreen() {
-    if (renderSplash) {
-      return (
-        <FastImage
-          style={{width: windowWidth, height: windowHeight}}
-          source={{
-            uri: app_details.dapp_cover,
-            headers: {Authorization: 'someAuthToken'},
-            priority: FastImage.priority.normal,
-          }}
-          resizeMode={FastImage.resizeMode.contain}
-        />
-      );
-    } else {
-      return (
-        <View>
-          <HeaderMiniAppV2 app_details={app_details} />
-          <TabView
-            navigationState={{index, routes}}
-            renderTabBar={renderTabBarMiniApp}
-            renderScene={renderSceneMiniApp}
-            onIndexChange={setIndex}
-            initialLayout={{width: windowWidth}}
-            tabBarPosition="bottom"
-          />
-        </View>
-      );
-    }
-  }
+  const RenderScreen = useMemo(
+    () =>
+      function RenderScreen() {
+        if (renderSplash) {
+          return (
+            <FastImage
+              style={{width: windowWidth, height: windowHeight}}
+              source={{
+                uri: app_details.dapp_cover,
+                headers: {Authorization: 'someAuthToken'},
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
+          );
+        } else {
+          return (
+            <View>
+              <HeaderMiniAppV2 app_details={app_details} />
+              <TabView
+                navigationState={{index, routes}}
+                renderTabBar={renderTabBarMiniApp}
+                renderScene={renderSceneMiniApp}
+                onIndexChange={setIndex}
+                initialLayout={{width: windowWidth}}
+                tabBarPosition="bottom"
+              />
+            </View>
+          );
+        }
+      },
+    [renderSplash],
+  );
 
   return (
     <View
