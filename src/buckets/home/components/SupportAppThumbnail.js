@@ -37,9 +37,9 @@ function SupportAppThumbnail() {
     console.log(
       state_here.UserDetailsReducer.userdetails.id + 'user id in support',
     );
-    // setTokenId(String(state_here.UserDetailsReducer.userdetails.id));
+    setTokenId(String(state_here.UserDetailsReducer.userdetails.id));
 
-    setTokenId('1');
+    // setTokenId('1');
 
     // Set user's info
     setUserNickname(state_here.UserDetailsReducer.userdetails.username);
