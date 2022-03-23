@@ -71,7 +71,7 @@ function HeaderMiniAppV2(props) {
                 justifyContent: 'center',
               }}>
               <Image
-                source={{uri: props.app_details.dapp_cover}}
+                source={{uri: props.app_details.dapp_icon}}
                 style={{
                   width: 50,
                   height: 50,
@@ -84,7 +84,9 @@ function HeaderMiniAppV2(props) {
                 {props.app_details.name}
               </Text>
             </View>
-            <Text variant="caption" sx={{color: 'foreground'}}>
+            <Text
+              variant="caption"
+              sx={{color: 'foreground', textAlign: 'center'}}>
               {props.app_details.tagline}
             </Text>
           </View>

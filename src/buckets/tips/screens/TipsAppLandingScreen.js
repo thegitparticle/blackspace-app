@@ -199,9 +199,4 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: themeHere.colors.dark,
   },
-  header_text: {
-    ...themeHere.text.title_3,
-    color: 'white',
-    marginVertical: 50,
-  },
 });

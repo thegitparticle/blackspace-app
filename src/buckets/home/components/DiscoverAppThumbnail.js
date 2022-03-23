@@ -48,7 +48,7 @@ function DiscoverAppThumbnail(props) {
         <SharedElement id={`item.${props.app_details.app_name}.app_icon`}>
           <FastImage
             source={{
-              uri: props.app_details.dapp_icon,
+              uri: props.app_details.dapp_cover,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}
