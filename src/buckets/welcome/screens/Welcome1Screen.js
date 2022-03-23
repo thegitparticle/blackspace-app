@@ -29,6 +29,7 @@ import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 import {BlurView} from '@react-native-community/blur';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Image} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,6 +39,7 @@ const statusBarHeight = getStatusBarHeight();
 
 function Welcome1Screen({dispatch, navigation}) {
   const buttonOpacity = useSharedValue(0);
+  const logoOnSkipOpacity = useSharedValue(0);
   const introTextsOpacity = useSharedValue(1);
   const skipOpacity = useSharedValue(1);
 
@@ -49,6 +51,12 @@ function Welcome1Screen({dispatch, navigation}) {
   const animatedButton = useAnimatedStyle(() => {
     return {
       opacity: buttonOpacity.value,
+    };
+  });
+
+  const animatedLogoOnSkip = useAnimatedStyle(() => {
+    return {
+      opacity: logoOnSkipOpacity.value,
     };
   });
 
@@ -78,6 +86,7 @@ function Welcome1Screen({dispatch, navigation}) {
 
   const skipStory = () => {
     buttonOpacity.value = withTiming(1);
+    logoOnSkipOpacity.value = withTiming(1);
     introTextsOpacity.value = withSpring(0);
     skipOpacity.value = withSpring(0);
     ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
@@ -124,6 +133,16 @@ function Welcome1Screen({dispatch, navigation}) {
           <View>
             <Animated.View style={[animatedIntroTexts]}>
               <IntroTextsAnimation />
+            </Animated.View>
+            <Animated.View style={[animatedLogoOnSkip]}>
+              <Image
+                source={require('../../../../assets/blackSpace_logo_full.png')}
+                sx={{
+                  width: windowWidth * 0.55,
+                  height: windowWidth * 0.081,
+                  alignSelf: 'center',
+                }}
+              />
             </Animated.View>
             <Animated.View style={[animatedButton]}>
               <View

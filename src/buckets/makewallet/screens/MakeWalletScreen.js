@@ -91,7 +91,7 @@ function MakeWalletScreen({dispatch, navigation}) {
             opacity: waitingText1Opacity.value,
             color: 'white',
           }}>
-          creating new wallet ...
+          creating new wallet. {'\n'} this will take 20 seconds...
         </Text>
       </View>
     );
