@@ -31,6 +31,7 @@ import {BigNumber} from 'ethers';
 import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
 import {Bounceable} from 'rn-bounceable';
 import use0xSwapQuote from '../../helpers/use0xSwapQuote';
+import InfoIcon from '../../../../bits/InfoIcon';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -531,9 +532,23 @@ function BuyTokenUniswapProduct({dispatch}) {
                 </Text>
               </View>
               <View style={styles.order_info_block_view}>
-                <Text style={styles.order_info_title_text}>
-                  Ethereum Gas Fees
-                </Text>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.order_info_title_text}>
+                    Ethereum Gas Fees
+                  </Text>
+                  <InfoIcon
+                    size={10}
+                    information={
+                      'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
+                    }
+                    height={70}
+                  />
+                </View>
                 <Text style={styles.order_info_value_text}>
                   <GasPriceTextComponent />
                 </Text>
