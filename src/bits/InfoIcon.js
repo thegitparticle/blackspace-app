@@ -11,7 +11,7 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function InfoIcon(props) {
-  // size, information
+  // size, information, height (default 40)
 
   return (
     <Tooltip
@@ -22,8 +22,9 @@ function InfoIcon(props) {
       }
       overlayColor={'transparent'}
       backgroundColor={'#333333'}
+      height={props.height}
       withPointer={true}>
-      <View style={{padding: 10}}>
+      <View style={{paddingHorizontal: 10}}>
         <View
           style={{
             alignItems: 'center',

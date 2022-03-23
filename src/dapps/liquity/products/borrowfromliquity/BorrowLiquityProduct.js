@@ -22,6 +22,7 @@ import {connect} from 'react-redux';
 import {BigNumber, ethers} from 'ethers';
 import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import InfoIcon from '../../../../bits/InfoIcon';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -171,7 +172,21 @@ function BorrowLiquityProduct() {
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>fixed loan fees</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.order_info_title_text}>fixed loan fees</Text>
+            <InfoIcon
+              size={10}
+              information={
+                'the only fees you need to pay for borrowing the amount you need. Note: this amount does not increase with duration of time.'
+              }
+              height={100}
+            />
+          </View>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
               {borrowAmount === ''
@@ -184,9 +199,23 @@ function BorrowLiquityProduct() {
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>
-            liquidation charges (refundable)
-          </Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.order_info_title_text}>
+              liquidation charges (refundable)
+            </Text>
+            <InfoIcon
+              size={10}
+              information={
+                'in case of liquidation this is used to pay for gas fees expenses. If you pay debt before any liquidation event, this amount will be refunded'
+              }
+              height={100}
+            />
+          </View>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
               {borrowAmount === '' ? 0 : liquidationReserveGasFeeLUSD} LUSD
@@ -207,7 +236,21 @@ function BorrowLiquityProduct() {
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
+            <InfoIcon
+              size={10}
+              information={
+                'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
+              }
+              height={70}
+            />
+          </View>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
           </Text>
@@ -389,7 +432,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    width: windowWidth * 0.3,
+    width: windowWidth * 0.75,
     alignSelf: 'center',
   },
   order_info_view: {
