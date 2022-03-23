@@ -95,4 +95,7 @@ const App: () => Node = () => {
   );
 };
 
-export default codePush(App);
+export default codePush({
+  updateDialog: true,
+  installMode: codePush.InstallMode.IMMEDIATE,
+})(App);
