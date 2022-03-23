@@ -171,10 +171,25 @@ function BorrowLiquityProduct() {
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>fixed loan charges</Text>
+          <Text style={styles.order_info_title_text}>fixed loan fees</Text>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {borrowAmount === '' ? 0 : fixedLoanCharges} LUSD
+              {borrowAmount === ''
+                ? 0
+                : Number(Number(borrowAmount) * Number(borrowRate)).toFixed(
+                    2,
+                  )}{' '}
+              LUSD
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_block_view}>
+          <Text style={styles.order_info_title_text}>
+            liquidation charges (refundable)
+          </Text>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {borrowAmount === '' ? 0 : liquidationReserveGasFeeLUSD} LUSD
             </Text>
           </Text>
         </View>
