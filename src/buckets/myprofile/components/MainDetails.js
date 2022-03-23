@@ -7,6 +7,7 @@ import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-elements';
 import Clipboard from '@react-native-clipboard/clipboard';
 import {Bounceable} from 'rn-bounceable';
+import {showMessage} from 'react-native-flash-message';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -18,10 +19,23 @@ let state_here = {};
 function MainDetails() {
   let wallet_add = state_here.UserDetailsReducer.userdetails.wallet_address;
   let render_wallet_string =
-    wallet_add.slice(0, 4) + '...' + +wallet_add.slice(-2);
+    wallet_add.slice(0, 4) + '...' + wallet_add.slice(-2);
 
   const copyToClipboard = () => {
     Clipboard.setString(wallet_add);
+    showMessage({
+      message: 'wallet address copied',
+      type: 'success',
+      backgroundColor: themeHere.colors.success_green,
+    });
+  };
+
+  const clickOnDpAction = () => {
+    showMessage({
+      message: 'you will soon to able to add your NFT as DP',
+      type: 'success',
+      backgroundColor: themeHere.colors.blue_dark,
+    });
   };
 
   return (
@@ -32,7 +46,7 @@ function MainDetails() {
         justifyContent: 'center',
         mt: '$4',
       }}>
-      <Bounceable>
+      <Bounceable onPress={clickOnDpAction}>
         <FastImage
           style={{
             width: 70,
