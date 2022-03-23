@@ -64,7 +64,7 @@ function TrendingTokensProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <Bars size={10} color="#FDAAFF" />
           </SquircleView>
@@ -89,7 +89,7 @@ function TrendingTokensProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <View style={styles.left_side_view}>
               <FastImage
@@ -139,7 +139,7 @@ function TrendingTokensProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <Bars size={10} color="#FDAAFF" />
           </SquircleView>
@@ -163,7 +163,7 @@ function TrendingTokensProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <View style={styles.left_side_view}>
               <FastImage
@@ -219,7 +219,7 @@ function TrendingTokensProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <Bars size={10} color="#FDAAFF" />
           </SquircleView>
@@ -243,7 +243,7 @@ function TrendingTokensProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <View style={styles.left_side_view}>
               <FastImage

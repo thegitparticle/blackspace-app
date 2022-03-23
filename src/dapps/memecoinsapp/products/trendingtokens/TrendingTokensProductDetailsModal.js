@@ -22,7 +22,8 @@ import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import {SquircleView} from 'react-native-figma-squircle';
-import {LineChart, Grid} from 'react-native-svg-charts';
+import {LineChart, Grid, AreaChart} from 'react-native-svg-charts';
+import * as shape from 'd3-shape';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -211,8 +212,9 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                       ? themeHere.colors.success_green
                       : themeHere.colors.danger_red,
                 }}
+                curve={shape.curveNatural}
                 contentInset={{top: 20, bottom: 20}}>
-                <Grid />
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
               </LineChart>
             );
           } else if (currentChartRange === 7) {
@@ -227,7 +229,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                       : themeHere.colors.danger_red,
                 }}
                 contentInset={{top: 20, bottom: 20}}>
-                <Grid />
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
               </LineChart>
             );
           } else if (currentChartRange === 30) {
@@ -242,7 +244,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                       : themeHere.colors.danger_red,
                 }}
                 contentInset={{top: 20, bottom: 20}}>
-                <Grid />
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
               </LineChart>
             );
           } else {
@@ -258,7 +260,7 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                       : themeHere.colors.danger_red,
                 }}
                 contentInset={{top: 20, bottom: 20}}>
-                <Grid />
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
               </LineChart>
             );
           }

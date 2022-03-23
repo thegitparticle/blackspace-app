@@ -5366,7 +5366,7 @@ d3-shape@^1.0.0, d3-shape@^1.0.6, d3-shape@^1.2.0:
   dependencies:
     d3-path "1"
 
-d3-shape@^3.0.1:
+d3-shape@^3.0.1, d3-shape@^3.1.0:
   version "3.1.0"
   resolved "https://registry.npmjs.org/d3-shape/-/d3-shape-3.1.0.tgz#c8a495652d83ea6f524e482fca57aa3f8bc32556"
   integrity sha512-tGDh1Muf8kWjEDT/LswZJ8WF85yDZLvVJpYU9Nq+8+yW1Z5enxrmXOhTArlkaElU+CTn0OTVNli+/i+HP45QEQ==
