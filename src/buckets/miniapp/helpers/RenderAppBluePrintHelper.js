@@ -1,5 +1,12 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Dimensions,
+  Appearance,
+  ScrollView,
+} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import MakerDaoBluePrint from '../../../dapps/makerdao/screens/MakerDaoBluePrint';
 import CompoundFinanceBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint';
@@ -8,6 +15,7 @@ import MemeCoinsAppBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoins
 import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
 import PoolTogetherBluePrint from '../../../dapps/pooltogether/screens/PoolTogetherBluePrint';
 import IndexFundsBluePrint from '../../../dapps/indexfunds/screens/IndexFundsBluePrint';
+import Spacer from '../../../bits/Spacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -16,23 +24,56 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function RenderAppBluePrintHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
-    return <MakerDaoBluePrint />;
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MakerDaoBluePrint />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
+    );
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
     return (
-      <CompoundFinanceBluePrint
-        SwipeNavigateFunction={props.swipe_navigate_function}
-      />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <CompoundFinanceBluePrint
+          SwipeNavigateFunction={props.swipe_navigate_function}
+        />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
     );
   } else if (props.function_name === 'UniswapLandingBluePrint') {
-    return <UniswapBluePrint />;
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <UniswapBluePrint />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
+    );
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
-    return <MemeCoinsAppBluePrint />;
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <MemeCoinsAppBluePrint />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
+    );
   } else if (props.function_name === 'LiquityLandingBluePrint') {
-    return <LiquityBluePrint />;
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <LiquityBluePrint />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
+    );
   } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
-    return <PoolTogetherBluePrint />;
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <PoolTogetherBluePrint />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
+    );
   } else if (props.function_name === 'IndexFundsLandingBluePrint') {
-    return <IndexFundsBluePrint />;
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <IndexFundsBluePrint />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
+    );
   } else {
     return (
       <View style={styles.parent_view}>
