@@ -526,7 +526,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 </Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    0.76%
+                    ~ 0.76%
                   </Text>
                 </Text>
               </View>
