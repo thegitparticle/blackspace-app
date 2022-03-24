@@ -96,6 +96,7 @@ const App: () => Node = () => {
 };
 
 export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
   updateDialog: true,
   installMode: codePush.InstallMode.IMMEDIATE,
 })(App);

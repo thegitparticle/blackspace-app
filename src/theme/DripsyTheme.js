@@ -261,6 +261,12 @@ export const StyledFastImage50 = styled(FastImage)({
   borderRadius: 25,
 });
 
+export const StyledFastImage35 = styled(FastImage)({
+  width: 35,
+  height: 35,
+  borderRadius: 17.5,
+});
+
 export const StyledFastImage30 = styled(FastImage)({
   width: 30,
   height: 30,

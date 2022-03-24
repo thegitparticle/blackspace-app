@@ -49,13 +49,13 @@ function MainDetails() {
       <Bounceable onPress={clickOnDpAction}>
         <FastImage
           style={{
-            width: 70,
-            height: 70,
-            borderRadius: 35,
+            width: 100,
+            height: 100,
+            borderRadius: 50,
             marginVertical: 10,
           }}
           source={{
-            uri: 'https://i.postimg.cc/7hSZWDz1/photo-1541562232579-512a21360020.jpg',
+            uri: 'https://i.postimg.cc/YCL0q94W/red-icon.png',
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}

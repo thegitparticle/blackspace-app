@@ -9,6 +9,12 @@ import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle/src/index';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {Amplitude} from '@amplitude/react-native';
+import {
+  StyledFastImage30,
+  StyledFastImage35,
+  StyledFastImage40,
+  StyledFastImage50,
+} from '../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -58,15 +64,22 @@ function HeaderOnHome() {
               navigation.navigate('MyProfileStack');
             }}
             style={{paddingVertical: 10, paddingHorizontal: 20}}>
-            <View
-              variant="layout.round_icon_container_30"
-              sx={{
-                backgroundColor: state_here.MyEmojiColorReducer.details.color,
-              }}>
-              <Text variant="body_medium">
-                {state_here.MyEmojiColorReducer.details.emoji}
-              </Text>
-            </View>
+            {/*<View*/}
+            {/*  variant="layout.round_icon_container_30"*/}
+            {/*  sx={{*/}
+            {/*    backgroundColor: state_here.MyEmojiColorReducer.details.color,*/}
+            {/*  }}>*/}
+            {/*  <Text variant="body_medium">*/}
+            {/*    {state_here.MyEmojiColorReducer.details.emoji}*/}
+            {/*  </Text>*/}
+            {/*</View>*/}
+            <StyledFastImage35
+              source={{
+                uri: 'https://i.postimg.cc/YCL0q94W/red-icon.png',
+                priority: FastImage.priority.high,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+            />
           </Pressable>
         );
       },
