@@ -246,9 +246,9 @@ function MiniAppLanding({route}) {
             <FastImage
               style={{width: windowWidth, height: windowHeight}}
               source={{
-                uri: app_details.dapp_cover,
+                uri: app_details.splash_image,
                 headers: {Authorization: 'someAuthToken'},
-                priority: FastImage.priority.normal,
+                priority: FastImage.priority.high,
               }}
               resizeMode={FastImage.resizeMode.cover}
             />
