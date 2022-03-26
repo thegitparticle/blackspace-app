@@ -1,13 +1,8 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ImageBackground,
-} from 'react-native';
-import {Text, View, Image} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import BrandStoryTextsAnimation from '../components/BrandStoryTextsAnimation';
+import React from "react";
+import { Appearance, Dimensions, ImageBackground } from "react-native";
+import { View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import BrandStoryTextsAnimation from "../components/BrandStoryTextsAnimation";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

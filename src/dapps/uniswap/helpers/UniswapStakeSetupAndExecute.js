@@ -1,14 +1,10 @@
-import React from 'react';
-import {BigNumber, ethers} from 'ethers';
-import {CurrencyAmount, Fraction, Percent, Token} from '@uniswap/sdk-core';
+import React from "react";
+import { ethers } from "ethers";
+import { Token } from "@uniswap/sdk-core";
+import { Pool } from "@uniswap/v3-sdk";
 import {
-  nearestUsableTick,
-  NonfungiblePositionManager,
-  Pool,
-  Position,
-} from '@uniswap/v3-sdk';
-import {AlphaRouter, SwapToRatioStatus} from '@uniswap/smart-order-router';
-import {abi as IUniswapV3PoolABI} from '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json';
+  abi as IUniswapV3PoolABI,
+} from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json";
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',

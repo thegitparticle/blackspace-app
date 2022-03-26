@@ -1,11 +1,9 @@
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import ConfirmAddCollLiquity from './components/ConfirmAddCollLiquity';
-import TransactionOngoingAddCollLiquity from './components/TransactionOngoingAddCollLiquity';
-import ConfirmPaybackLiquity from './components/ConfirmPaybackLiquity';
-import TransactionOngoingPaybackLiquity from './components/TransactionOngoingPaybackLiquity';
+import React, { useState } from "react";
+import { Appearance, Dimensions, StyleSheet, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import ConfirmPaybackLiquity from "./components/ConfirmPaybackLiquity";
+import TransactionOngoingPaybackLiquity from "./components/TransactionOngoingPaybackLiquity";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

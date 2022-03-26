@@ -1,21 +1,14 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MakerDaoBluePrint from '../../../dapps/makerdao/screens/MakerDaoBluePrint';
-import CompoundFinanceBluePrint from '../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint';
-import UniswapBluePrint from '../../../dapps/uniswap/screens/UniswapBluePrint';
-import MemeCoinsAppBluePrint from '../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint';
-import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
-import PoolTogetherBluePrint from '../../../dapps/pooltogether/screens/PoolTogetherBluePrint';
-import IndexFundsBluePrint from '../../../dapps/indexfunds/screens/IndexFundsBluePrint';
-import Spacer from '../../../bits/Spacer';
+import React from "react";
+import { Appearance, Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import MakerDaoBluePrint from "../../../dapps/makerdao/screens/MakerDaoBluePrint";
+import CompoundFinanceBluePrint from "../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint";
+import UniswapBluePrint from "../../../dapps/uniswap/screens/UniswapBluePrint";
+import MemeCoinsAppBluePrint from "../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint";
+import LiquityBluePrint from "../../../dapps/liquity/screens/LiquityBluePrint";
+import PoolTogetherBluePrint from "../../../dapps/pooltogether/screens/PoolTogetherBluePrint";
+import IndexFundsBluePrint from "../../../dapps/indexfunds/screens/IndexFundsBluePrint";
+import Spacer from "../../../bits/Spacer";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,22 +1,11 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-  Pressable,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import WalletTile from '../components/WalletTile';
-import UserTile from '../components/UserTile';
-import AppTile from '../components/AppTile';
-import MiscTile from '../components/MiscTile';
-import Spacer from '../../../bits/Spacer';
-import {Amplitude} from '@amplitude/react-native';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {useNavigation} from '@react-navigation/native';
+import React from "react";
+import { Appearance, Dimensions, Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import WalletTile from "../components/WalletTile";
+import AppTile from "../components/AppTile";
+import MiscTile from "../components/MiscTile";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import { useNavigation } from "@react-navigation/native";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

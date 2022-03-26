@@ -1,32 +1,27 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  TextInput,
   Appearance,
+  Dimensions,
+  ImageBackground,
   Keyboard,
   Linking,
   Pressable,
-  ImageBackground,
-} from 'react-native';
-import {Overlay} from 'react-native-elements';
-import {LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import {AddMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import SquircleButton from '../../../bits/SquircleButton';
-import LinearGradient from 'react-native-linear-gradient';
-import axios from 'axios';
-import {showMessage, hideMessage} from 'react-native-flash-message';
-import {Bounceable} from 'rn-bounceable';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import FormData from 'form-data';
-import {Amplitude} from '@amplitude/react-native';
-import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+  StatusBar,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { connect } from "react-redux";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import axios from "axios";
+import { showMessage } from "react-native-flash-message";
+import { Bounceable } from "rn-bounceable";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import FormData from "form-data";
+import { Amplitude } from "@amplitude/react-native";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

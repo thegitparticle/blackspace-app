@@ -1,36 +1,33 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
+  Appearance,
+  Dimensions,
+  ImageBackground,
+  Pressable,
+  StatusBar,
   StyleSheet,
   Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
   TextInput,
-  Appearance,
-  Pressable,
-  ImageBackground,
-} from 'react-native';
-import {ADD_WDEETS, LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import '@ethersproject/shims';
-import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {useSharedValue} from 'react-native-reanimated';
-import SquircleButton from '../../../bits/SquircleButton';
-import LinearGradient from 'react-native-linear-gradient';
-import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
-import {Bounceable} from 'rn-bounceable';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
-import axios from 'axios';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {Amplitude} from '@amplitude/react-native';
-import {SquircleView} from 'react-native-figma-squircle';
-import SquircleGlassButton from '../../../bits/SquircleGlassButton';
-import {BlurView} from '@react-native-community/blur';
-import MaskedView from '@react-native-masked-view/masked-view';
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { ADD_WDEETS } from "../../../redux/types";
+import { connect } from "react-redux";
+import "@ethersproject/shims";
+import { ethers } from "ethers/src.ts/index";
+import { AddWDeets } from "../../../redux/appcore/WDeetsActions";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import WhileImportingProcessShowcase from "../components/WhileImportingProcessShowcase";
+import { Bounceable } from "rn-bounceable";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import { Bars } from "react-native-loader";
+import axios from "axios";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import { Amplitude } from "@amplitude/react-native";
+import { SquircleView } from "react-native-figma-squircle";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
+import { BlurView } from "@react-native-community/blur";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

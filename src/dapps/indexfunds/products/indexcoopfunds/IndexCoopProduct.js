@@ -1,8 +1,8 @@
 import React from 'react';
-import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Appearance, Dimensions} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import {View, Text, Image} from 'dripsy';
+import {Image, Text, View} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

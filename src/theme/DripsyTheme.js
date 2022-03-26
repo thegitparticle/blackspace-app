@@ -1,8 +1,7 @@
-import {makeTheme, styled, useSx} from 'dripsy';
+import {makeTheme, styled} from 'dripsy';
 import {Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
-import {Button} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

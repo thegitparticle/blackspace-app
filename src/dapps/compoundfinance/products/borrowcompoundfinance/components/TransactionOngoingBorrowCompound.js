@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,

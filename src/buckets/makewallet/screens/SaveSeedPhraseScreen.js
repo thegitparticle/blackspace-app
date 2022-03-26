@@ -1,33 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  Appearance,
-  ImageBackground,
-} from 'react-native';
-import {ADD_WDEETS, LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import '@ethersproject/shims';
-import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LinearGradient from 'react-native-linear-gradient';
-import SquircleButton from '../../../bits/SquircleButton';
-import {useSharedValue} from 'react-native-reanimated';
-import {Bubbles} from 'react-native-loader';
-import LottieView from 'lottie-react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import _ from 'lodash';
-import {Chip} from 'react-native-elements';
-import {Bounceable} from 'rn-bounceable';
-import SquircleGlassButton from '../../../bits/SquircleGlassButton';
-import {SquircleView} from 'react-native-figma-squircle';
-import {BlurView} from '@react-native-community/blur';
-import MaskedView from '@react-native-masked-view/masked-view';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
+import "@ethersproject/shims";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { Bubbles } from "react-native-loader";
+import _ from "lodash";
+import { Bounceable } from "rn-bounceable";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
+import { SquircleView } from "react-native-figma-squircle";
+import { BlurView } from "@react-native-community/blur";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,11 +1,10 @@
-import React from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {useSx, View, Image, Text, ScrollView} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
-import {connect} from 'react-redux';
-import TipTile from '../components/TipTile';
-import Spacer from '../../../bits/Spacer';
+import React from "react";
+import { Appearance, Dimensions } from "react-native";
+import { ScrollView, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import TipTile from "../components/TipTile";
+import Spacer from "../../../bits/Spacer";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

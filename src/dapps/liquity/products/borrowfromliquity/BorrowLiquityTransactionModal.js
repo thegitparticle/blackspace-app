@@ -1,11 +1,10 @@
 // BorrowLiquityTransactionModal
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
-import TransactionOngoingBorrowLiquity from './components/TransactionOngoingBorrowLiquity';
-import ConfirmBorrowLiquity from './components/ConfirmBorrowLiquity';
+import React, { useState } from "react";
+import { Appearance, Dimensions, StyleSheet, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import TransactionOngoingBorrowLiquity from "./components/TransactionOngoingBorrowLiquity";
+import ConfirmBorrowLiquity from "./components/ConfirmBorrowLiquity";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

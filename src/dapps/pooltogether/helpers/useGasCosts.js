@@ -1,4 +1,3 @@
-import {useQuery} from 'react-query';
 import {useEffect, useState} from 'react';
 import axios from 'axios';
 

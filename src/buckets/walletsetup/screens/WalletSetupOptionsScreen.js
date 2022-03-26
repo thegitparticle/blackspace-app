@@ -1,23 +1,12 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  ImageBackground,
-  Appearance,
-} from 'react-native';
-import {LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import CreateWalletPart from '../components/CreateWalletPart';
-import ImportWalletPart from '../components/ImportWalletPart';
-import {ZStack} from 'swiftui-react-native';
-import {View, Image} from 'dripsy';
-import FastImage from 'react-native-fast-image';
-import {StylesFastImageFullScreen} from '../../../theme/DripsyTheme';
-import {Divider} from 'react-native-elements';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import React from "react";
+import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text } from "react-native";
+import { LOGIN } from "../../../redux/types";
+import { connect } from "react-redux";
+import CreateWalletPart from "../components/CreateWalletPart";
+import ImportWalletPart from "../components/ImportWalletPart";
+import { View } from "dripsy";
+import { Divider } from "react-native-elements";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

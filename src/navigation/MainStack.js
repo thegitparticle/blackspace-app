@@ -1,5 +1,4 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -18,7 +17,7 @@ import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
-import {Host, Portal} from 'react-native-portalize';
+import {Host} from 'react-native-portalize';
 import TrendingTokensProductDetailsModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensProductDetailsModal';
 import Iconly from '../miscsetups/customfonts/Iconly';
 import {Appearance, Dimensions, Pressable, View} from 'react-native';

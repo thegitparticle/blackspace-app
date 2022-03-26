@@ -31,7 +31,7 @@ function IndexFundsBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '75',
             }}
             style={styles.product_tile_view}>
             <IndexCoopProduct />

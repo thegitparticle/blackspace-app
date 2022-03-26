@@ -1,8 +1,8 @@
-import React from 'react';
-import {SquircleView} from 'react-native-figma-squircle';
-import {Text, Image, StyleSheet} from 'react-native';
-import {BlurView} from '@react-native-community/blur';
-import MaskedView from '@react-native-masked-view/masked-view';
+import React from "react";
+import { SquircleView } from "react-native-figma-squircle";
+import { Text } from "react-native";
+import { BlurView } from "@react-native-community/blur";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 /*
 
@@ -11,29 +11,29 @@ thinMaterialLight, ultraThinMaterialLight, dark, light
  */
 
 function SquircleGlassButton({
-  width,
-  height,
-  buttonColor,
-  textColor,
-  font,
-  buttonText,
-  blurType,
-}) {
+                               width,
+                               height,
+                               buttonColor,
+                               textColor,
+                               font,
+                               buttonText,
+                               blurType,
+                             }) {
   return (
     <MaskedView
       style={{
         width: width,
         height: height,
-        alignItems: 'center',
-        justifyContent: 'center',
+        alignItems: "center",
+        justifyContent: "center",
       }}
       maskElement={
         <SquircleView
           style={{
             width: width,
             height: height,
-            alignItems: 'center',
-            justifyContent: 'center',
+            alignItems: "center",
+            justifyContent: "center",
           }}
           squircleParams={{
             cornerSmoothing: 1,
@@ -46,7 +46,7 @@ function SquircleGlassButton({
         style={{
           width: width,
           height: height,
-          position: 'absolute',
+          position: "absolute",
           left: 0,
           right: 0,
           top: 0,

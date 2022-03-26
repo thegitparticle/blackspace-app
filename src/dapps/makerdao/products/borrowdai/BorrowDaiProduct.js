@@ -1,11 +1,11 @@
 import React, {useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
   Appearance,
+  Dimensions,
+  StyleSheet,
+  Text,
   TextInput,
+  View,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';

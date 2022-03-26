@@ -1,22 +1,14 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MakerDaoJargonBuster from '../../../dapps/makerdao/screens/MakerDaoJargonBuster';
-import CompoundFinanceJargonBuster from '../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
-import UniswapJargonBuster from '../../../dapps/uniswap/screens/UniswapJargonBuster';
-import MemeCoinsJargonBuster from '../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster';
-import LiquityJargonBuster from '../../../dapps/liquity/screens/LiquityJargonBuster';
-import PoolTogetherJargonBuster from '../../../dapps/pooltogether/screens/PoolTogetherJargonBuster';
-import IndexFundsJargonBuster from '../../../dapps/indexfunds/screens/IndexFundsJargonBuster';
-import IndexFundsUsageShowCase from '../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
-import Spacer from '../../../bits/Spacer';
+import React from "react";
+import { Appearance, Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import MakerDaoJargonBuster from "../../../dapps/makerdao/screens/MakerDaoJargonBuster";
+import CompoundFinanceJargonBuster from "../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster";
+import UniswapJargonBuster from "../../../dapps/uniswap/screens/UniswapJargonBuster";
+import MemeCoinsJargonBuster from "../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster";
+import LiquityJargonBuster from "../../../dapps/liquity/screens/LiquityJargonBuster";
+import PoolTogetherJargonBuster from "../../../dapps/pooltogether/screens/PoolTogetherJargonBuster";
+import IndexFundsJargonBuster from "../../../dapps/indexfunds/screens/IndexFundsJargonBuster";
+import Spacer from "../../../bits/Spacer";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

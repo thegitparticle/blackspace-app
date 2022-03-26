@@ -1,9 +1,6 @@
-import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import React from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../../../Desktop/soupapp/src/theme/ButterTheme";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

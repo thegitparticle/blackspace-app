@@ -1,28 +1,18 @@
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-  SectionList,
-  RefreshControl,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import MyAppThumbnail from '../components/MyAppThumbnail';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
-import {GetMyApps} from '../../../redux/appcore/MyAppsActions';
-import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
-import {GetDiscoverApps} from '../../../redux/appcore/DiscoverAppsActions';
-import {SectionGrid} from 'react-native-super-grid';
-import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
-import Spacer from '../../../bits/Spacer';
-import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenListActions';
-import _ from 'lodash';
-import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
-import SupportAppThumbnail from '../components/SupportAppThumbnail';
+import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { Appearance, Dimensions, RefreshControl, StyleSheet, Text } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import MyAppThumbnail from "../components/MyAppThumbnail";
+import { GetMyApps } from "../../../redux/appcore/MyAppsActions";
+import DiscoverAppThumbnail from "../components/DiscoverAppThumbnail";
+import { GetDiscoverApps } from "../../../redux/appcore/DiscoverAppsActions";
+import { SectionGrid } from "react-native-super-grid";
+import { GetMarketPrices } from "../../../redux/appcore/MarketPricesActions";
+import Spacer from "../../../bits/Spacer";
+import { GetUniswapTokenList } from "../../../redux/dapps/uniswap/UniswapTokenListActions";
+import _ from "lodash";
+import DefaultAppThumbnail from "../components/DefaultAppThumbnail";
+import SupportAppThumbnail from "../components/SupportAppThumbnail";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -68,7 +58,7 @@ function HomeMainPage({dispatch}) {
       dapp_bio: '',
       landing_blueprint_function_name: 'TipsAppLandingScreen',
       splash_image: 'https://i.postimg.cc/Y0gfQbmp/Group-33529.png',
-      tagline: 'Tips make you rich, richie rich!',
+      tagline: 'Expert curated tips and strategies in Defi',
       add_to_my_app_button_status: false,
       tags: [1, 2],
       usage_tab_name: 'Activity',

@@ -1,22 +1,14 @@
-import React from 'react';
-import {
-  Appearance,
-  Dimensions,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MakerDaoUsageShowCase from '../../../dapps/makerdao/screens/MakerDaoUsageShowCase';
-import CompoundFinanceUsageShowCase from '../../../dapps/compoundfinance/screens/CompoundFinanceUsageShowCase';
-import UniswapUsageShowCase from '../../../dapps/uniswap/screens/UniswapUsageShowCase';
-import MemeCoinsUsageShowCase from '../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
-import LiquityUsageShowCase from '../../../dapps/liquity/screens/LiquityUsageShowCase';
-import PoolTogetherUsageShowCase from '../../../dapps/pooltogether/screens/PoolTogetherUsageShowCase';
-import IndexFundsUsageShowCase from '../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
-import MakerDaoBluePrint from '../../../dapps/makerdao/screens/MakerDaoBluePrint';
-import Spacer from '../../../bits/Spacer';
+import React from "react";
+import { Appearance, Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import MakerDaoUsageShowCase from "../../../dapps/makerdao/screens/MakerDaoUsageShowCase";
+import CompoundFinanceUsageShowCase from "../../../dapps/compoundfinance/screens/CompoundFinanceUsageShowCase";
+import UniswapUsageShowCase from "../../../dapps/uniswap/screens/UniswapUsageShowCase";
+import MemeCoinsUsageShowCase from "../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase";
+import LiquityUsageShowCase from "../../../dapps/liquity/screens/LiquityUsageShowCase";
+import PoolTogetherUsageShowCase from "../../../dapps/pooltogether/screens/PoolTogetherUsageShowCase";
+import IndexFundsUsageShowCase from "../../../dapps/indexfunds/screens/IndexFundsUsageShowCase";
+import Spacer from "../../../bits/Spacer";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

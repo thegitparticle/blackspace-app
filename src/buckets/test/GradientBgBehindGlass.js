@@ -1,6 +1,6 @@
-import React from 'react';
+import React from "react";
 
-import Svg, {Ellipse, Path, Rect, G} from 'react-native-svg';
+import Svg, { Ellipse, G, Rect } from "react-native-svg";
 
 export default function GradientBgBehindGlass(props) {
   return (

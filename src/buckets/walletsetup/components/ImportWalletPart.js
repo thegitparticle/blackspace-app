@@ -1,19 +1,10 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TouchableOpacity,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LinearGradient from 'react-native-linear-gradient';
-import SquircleButton from '../../../bits/SquircleButton';
-import {useNavigation} from '@react-navigation/native';
-import {Bounceable} from 'rn-bounceable';
-import {Amplitude} from '@amplitude/react-native';
-import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import React from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { useNavigation } from "@react-navigation/native";
+import { Bounceable } from "rn-bounceable";
+import { Amplitude } from "@amplitude/react-native";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Dimensions, Appearance, Linking} from 'react-native';
-import {Text, View, useSx, styled, ScrollView} from 'dripsy';
+import {Appearance, Dimensions, Linking} from 'react-native';
+import {ScrollView, Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';

@@ -1,18 +1,9 @@
-import React, {useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LeverageEthProduct from '../../makerdao/products/leverageeth/LeverageEthProduct';
-import Carousel from 'react-native-snap-carousel';
-import {SquircleView} from 'react-native-figma-squircle';
-import BorrowLiquityProduct from '../products/borrowfromliquity/BorrowLiquityProduct';
-import Spacer from '../../../bits/Spacer';
+import React from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import Carousel from "react-native-snap-carousel";
+import { SquircleView } from "react-native-figma-squircle";
+import BorrowLiquityProduct from "../products/borrowfromliquity/BorrowLiquityProduct";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -49,7 +40,7 @@ function LiquityBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '75',
             }}
             style={styles.product_tile_view}>
             <BorrowLiquityProduct />

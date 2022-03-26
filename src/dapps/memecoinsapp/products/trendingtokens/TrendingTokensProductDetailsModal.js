@@ -1,13 +1,12 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
   Appearance,
+  Dimensions,
   ScrollView,
+  StyleSheet,
+  Text,
   TextInput,
-  TouchableOpacity,
+  View,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import axios from 'axios';
@@ -22,8 +21,7 @@ import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import {SquircleView} from 'react-native-figma-squircle';
-import {LineChart, Grid, AreaChart} from 'react-native-svg-charts';
-import * as shape from 'd3-shape';
+import {Grid, LineChart} from 'react-native-svg-charts';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -212,7 +210,6 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                       ? themeHere.colors.success_green
                       : themeHere.colors.danger_red,
                 }}
-                curve={shape.curveNatural}
                 contentInset={{top: 20, bottom: 20}}>
                 <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
               </LineChart>

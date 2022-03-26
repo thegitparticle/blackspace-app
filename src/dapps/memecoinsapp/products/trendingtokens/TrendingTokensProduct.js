@@ -1,19 +1,18 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
   Appearance,
-  TextInput,
+  Dimensions,
   Pressable,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import useShibaInuPrice from '../../helpers/useShibaInuPrice';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import {Bars} from 'react-native-loader';
 import useDogeCoinPrice from '../../helpers/useDogeCoinPrice';
 import {Bounceable} from 'rn-bounceable';
 import {GetMemeCoinsList} from '../../../../redux/dapps/memecoins/MemeCoinsListActions';

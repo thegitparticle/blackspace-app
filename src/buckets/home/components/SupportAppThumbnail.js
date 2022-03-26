@@ -1,24 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TouchableOpacity,
-} from 'react-native';
-import {Text, View, Image, useSx} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
-import {SharedElement} from 'react-native-shared-element';
-import {Bounceable} from 'rn-bounceable';
-import CrispChat, {
-  resetSession,
-  setSessionString,
-  setTokenId,
-  setUserNickname,
-  show,
-} from 'react-native-crisp-chat-sdk';
-import {connect} from 'react-redux';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions } from "react-native";
+import { Text, useSx, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import FastImage from "react-native-fast-image";
+import { Bounceable } from "rn-bounceable";
+import CrispChat, { setSessionString, setTokenId, setUserNickname } from "react-native-crisp-chat-sdk";
+import { connect } from "react-redux";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

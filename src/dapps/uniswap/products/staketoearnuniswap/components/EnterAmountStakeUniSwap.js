@@ -1,27 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TextInput,
-  TouchableOpacity,
-  Keyboard,
-} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
-import VirtualKeyboard from 'react-native-virtual-keyboard';
-import LinearGradient from 'react-native-linear-gradient';
-import {Button} from 'react-native-elements';
-import {SquircleView} from 'react-native-figma-squircle';
-import FastImage from 'react-native-fast-image';
-import UniswapStakeSetupAndExecute from '../../../helpers/UniswapStakeSetupAndExecute';
-import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
-import Spacer from '../../../../../bits/Spacer';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, Keyboard, StyleSheet, Text, TextInput, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
+import LinearGradient from "react-native-linear-gradient";
+import { Button } from "react-native-elements";
+import { SquircleView } from "react-native-figma-squircle";
+import FastImage from "react-native-fast-image";
+import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
+import Spacer from "../../../../../bits/Spacer";
+import useEthFiatPrice from "../../../../../helpers/useGetEthFiatPrice";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

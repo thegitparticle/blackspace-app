@@ -1,25 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
   Appearance,
-  TextInput,
-  Animated,
+  Dimensions,
   Image,
+  StyleSheet,
+  Text,
+  View,
 } from 'react-native';
 import {Button} from 'react-native-elements';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {SquircleView} from 'react-native-figma-squircle';
-import {WalletDetailsDummy} from '../../../../buckets/myprofile/DummyData';
 import Accordion from 'react-native-collapsible/Accordion';
 import {useNavigation} from '@react-navigation/native';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import LinearGradient from 'react-native-linear-gradient';
 import Compound from '@compound-finance/compound-js';
-import {INFURA_RINKEBY} from 'react-native-dotenv';
-import {BigNumber} from 'ethers';
 import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;

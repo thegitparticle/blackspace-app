@@ -1,31 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  Appearance,
-  Pressable,
-  ImageBackground,
-} from 'react-native';
-import {ADD_WDEETS, LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import '@ethersproject/shims';
-import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LinearGradient from 'react-native-linear-gradient';
-import SquircleButton from '../../../bits/SquircleButton';
-import {useSharedValue} from 'react-native-reanimated';
-import {Bars} from 'react-native-loader';
-import LottieView from 'lottie-react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {Bounceable} from 'rn-bounceable';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {Amplitude} from '@amplitude/react-native';
-import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, ImageBackground, Pressable, StatusBar, StyleSheet, Text, View } from "react-native";
+import { ADD_WDEETS } from "../../../redux/types";
+import { connect } from "react-redux";
+import "@ethersproject/shims";
+import { ethers } from "ethers/src.ts/index";
+import { AddWDeets } from "../../../redux/appcore/WDeetsActions";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { useSharedValue } from "react-native-reanimated";
+import LottieView from "lottie-react-native";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import { Bounceable } from "rn-bounceable";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import { Amplitude } from "@amplitude/react-native";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

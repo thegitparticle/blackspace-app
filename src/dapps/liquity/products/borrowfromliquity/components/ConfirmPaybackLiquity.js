@@ -1,20 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
-import LinearGradient from 'react-native-linear-gradient';
-import {Button} from 'react-native-elements';
-import Compound from '@compound-finance/compound-js';
-import {ETH_NETWORK} from 'react-native-dotenv';
-import EmojiIcon from '../../../../../bits/EmojiIcon';
-import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
-import {useNavigation} from '@react-navigation/native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
-import useUSDCFiatPrice from '../../../../pooltogether/helpers/useUSDCFiatPrice';
-import useLUSDFiatPrice from '../../../helpers/useLUSDFiatPrice';
-import _ from 'lodash';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
+import LinearGradient from "react-native-linear-gradient";
+import { Button } from "react-native-elements";
+import EmojiIcon from "../../../../../bits/EmojiIcon";
+import { useNavigation } from "@react-navigation/native";
+import useEthFiatPrice from "../../../../../helpers/useGetEthFiatPrice";
+import useLUSDFiatPrice from "../../../helpers/useLUSDFiatPrice";
+import _ from "lodash";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

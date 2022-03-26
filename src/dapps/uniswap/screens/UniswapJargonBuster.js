@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {StyleSheet, Dimensions, Appearance, Linking} from 'react-native';
-import {Text, View, useSx, styled, ScrollView} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
-import Spacer from '../../../bits/Spacer';
-import {Bounceable} from 'rn-bounceable';
-import {Icon} from 'react-native-elements';
-import axios from 'axios';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, Linking, StyleSheet } from "react-native";
+import { ScrollView, Text, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import StoryThumbnail from "../../../bits/jargonbuster/StoryThumbnail";
+import Spacer from "../../../bits/Spacer";
+import { Bounceable } from "rn-bounceable";
+import { Icon } from "react-native-elements";
+import axios from "axios";
+import { Bars } from "react-native-loader";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

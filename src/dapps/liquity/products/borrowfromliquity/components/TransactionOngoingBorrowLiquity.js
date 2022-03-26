@@ -1,15 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
-import LottieView from 'lottie-react-native';
-import {ethers} from 'ethers/src.ts/index';
-import {EthersLiquity} from '@liquity/lib-ethers';
-import {LUSD_MINIMUM_DEBT} from '@liquity/lib-base';
-import axios from 'axios';
-import {ADD_USERDETAILS} from '../../../../../redux/types';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
+import LottieView from "lottie-react-native";
+import { ethers } from "ethers/src.ts/index";
+import { EthersLiquity } from "@liquity/lib-ethers";
+import axios from "axios";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

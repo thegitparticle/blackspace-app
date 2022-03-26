@@ -1,11 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {Appearance, Dimensions} from 'react-native';
-import {Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import {WalletDetailsDummy} from '../DummyData';
-import {VictoryPie} from 'victory-native';
-import {DoubleBounce} from 'react-native-loader';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions } from "react-native";
+import { Text, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import { VictoryPie } from "victory-native";
+import { DoubleBounce } from "react-native-loader";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

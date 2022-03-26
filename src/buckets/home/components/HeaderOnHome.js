@@ -1,20 +1,13 @@
-import React, {useMemo} from 'react';
-import {StyleSheet, Dimensions, Appearance, Pressable} from 'react-native';
-import {Text, View, Image, useSx} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {Avatar, Header} from 'react-native-elements';
-import {connect} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
-import {SquircleView} from 'react-native-figma-squircle/src/index';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {Amplitude} from '@amplitude/react-native';
-import {
-  StyledFastImage30,
-  StyledFastImage35,
-  StyledFastImage40,
-  StyledFastImage50,
-} from '../../../theme/DripsyTheme';
+import React, { useMemo } from "react";
+import { Appearance, Dimensions, Pressable } from "react-native";
+import { Image, useSx, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { Header } from "react-native-elements";
+import { connect } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
+import FastImage from "react-native-fast-image";
+import { Amplitude } from "@amplitude/react-native";
+import { StyledFastImage35 } from "../../../theme/DripsyTheme";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

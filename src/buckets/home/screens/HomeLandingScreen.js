@@ -1,13 +1,12 @@
-import React, {useState} from 'react';
-import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
-import {connect} from 'react-redux';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import CryptoPricesPage from '../pages/CryptoPricesPage';
-import HomeMainPage from '../pages/HomeMainPage';
-import HeaderOnHome from '../components/HeaderOnHome';
-import LinearGradient from 'react-native-linear-gradient';
-import {Chip} from 'react-native-elements';
+import React, { useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import CryptoPricesPage from "../pages/CryptoPricesPage";
+import HomeMainPage from "../pages/HomeMainPage";
+import HeaderOnHome from "../components/HeaderOnHome";
+import LinearGradient from "react-native-linear-gradient";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

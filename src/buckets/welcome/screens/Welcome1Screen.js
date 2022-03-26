@@ -1,35 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  ImageBackground,
-  Appearance,
-} from 'react-native';
-import {LOGIN, LOGOUT} from '../../../redux/types';
-import {connect} from 'react-redux';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import SquircleButton from '../../../bits/SquircleButton';
-import window from '@react-navigation/native/src/__mocks__/window';
-import IntroTextsAnimation from '../components/IntroTextsAnimation';
-import Animated, {
-  useAnimatedStyle,
-  useSharedValue,
-  withSpring,
-  withTiming,
-} from 'react-native-reanimated';
-import BackgroundNftsAnimation from '../components/BackgroundNftsAnimation';
-import Spacer from '../../../bits/Spacer';
-import {Bounceable} from 'rn-bounceable';
-import {Amplitude} from '@amplitude/react-native';
-import SquircleGlassButton from '../../../bits/SquircleGlassButton';
-import {BlurView} from '@react-native-community/blur';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {Image} from 'dripsy';
+import React, { useEffect } from "react";
+import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from "react-native";
+import { LOGIN } from "../../../redux/types";
+import { connect } from "react-redux";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import window from "@react-navigation/native/src/__mocks__/window";
+import IntroTextsAnimation from "../components/IntroTextsAnimation";
+import Animated, { useAnimatedStyle, useSharedValue, withSpring, withTiming } from "react-native-reanimated";
+import { Bounceable } from "rn-bounceable";
+import { Amplitude } from "@amplitude/react-native";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
+import { BlurView } from "@react-native-community/blur";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import { Image } from "dripsy";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
