@@ -1,20 +1,13 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  Pressable,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
-import Iconly from '../miscsetups/customfonts/Iconly';
-import {useNavigation} from '@react-navigation/native';
+import React from "react";
+import { Appearance, Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../theme/ButterTheme";
+import Iconly from "../miscsetups/customfonts/Iconly";
+import { useNavigation } from "@react-navigation/native";
 
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === "dark" ? ButterThemeDark : ButterThemeLight;
 
 function ModalGoBackHeader(props) {
   // props are - title
@@ -43,10 +36,10 @@ export default ModalGoBackHeader;
 
 const styles = StyleSheet.create({
   parent_view: {
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    alignItems: "center",
+    justifyContent: "space-between",
     width: windowWidth,
-    flexDirection: 'row',
+    flexDirection: "row",
     height: 75,
   },
   left_side_icon: {

@@ -1,21 +1,12 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  Pressable,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {useNavigation} from '@react-navigation/native';
-import {getStatusBarHeight} from 'react-native-status-bar-height';
-import LinearGradient from 'react-native-linear-gradient';
-import {Gesture, GestureDetector} from 'react-native-gesture-handler';
-import {runOnJS, runOnUI, useDerivedValue} from 'react-native-reanimated';
-import GestureRecognizer from 'react-native-swipe-gestures';
+import React from "react";
+import { Appearance, Dimensions, Pressable, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import FastImage from "react-native-fast-image";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import { useNavigation } from "@react-navigation/native";
+import { getStatusBarHeight } from "react-native-status-bar-height";
+import LinearGradient from "react-native-linear-gradient";
+import GestureRecognizer from "react-native-swipe-gestures";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

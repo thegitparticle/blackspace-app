@@ -1,26 +1,18 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {SquircleView} from 'react-native-figma-squircle';
-import FastImage from 'react-native-fast-image';
-import {FamousTokensList} from '../../../uniswap/helpers/FamousTokensList';
-import LinearGradient from 'react-native-linear-gradient';
-import {Button} from 'react-native-elements';
-import {useNavigation} from '@react-navigation/native';
-import useLUSDFiatPrice from '../../helpers/useLUSDFiatPrice';
-import {EthersLiquity, ReadableEthersLiquity} from '@liquity/lib-ethers';
-import {Fees} from '@liquity/lib-base';
-import {connect} from 'react-redux';
-import {BigNumber, ethers} from 'ethers';
-import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
+import { SquircleView } from "react-native-figma-squircle";
+import FastImage from "react-native-fast-image";
+import LinearGradient from "react-native-linear-gradient";
+import { Button } from "react-native-elements";
+import { useNavigation } from "@react-navigation/native";
+import useLUSDFiatPrice from "../../helpers/useLUSDFiatPrice";
+import { EthersLiquity } from "@liquity/lib-ethers";
+import { connect } from "react-redux";
+import { ethers } from "ethers";
+import useEthFiatPrice from "../../../../helpers/useGetEthFiatPrice";
+import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
+import InfoIcon from "../../../../bits/InfoIcon";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -52,6 +44,8 @@ function BorrowLiquityProduct() {
     state_here.WDeetsReducer.wdeets.wallet_privateKey,
   );
   let walletSigner = wallet.connect(prov);
+
+  const [showMinimumNotMetPopup, setShowMinimumNotMetPopup] = useState(false);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
@@ -168,10 +162,53 @@ function BorrowLiquityProduct() {
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>fixed loan charges</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.order_info_title_text}>fixed loan fees</Text>
+            <InfoIcon
+              size={10}
+              information={
+                'the only fees you need to pay for borrowing the amount you need. Note: this amount does not increase with duration of time.'
+              }
+              height={100}
+            />
+          </View>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>
-              {borrowAmount === '' ? 0 : fixedLoanCharges} LUSD
+              {borrowAmount === ''
+                ? 0
+                : Number(Number(borrowAmount) * Number(borrowRate)).toFixed(
+                    2,
+                  )}{' '}
+              LUSD
+            </Text>
+          </Text>
+        </View>
+        <View style={styles.order_info_block_view}>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.order_info_title_text}>
+              liquidation charges (refundable)
+            </Text>
+            <InfoIcon
+              size={10}
+              information={
+                'in case of liquidation this is used to pay for gas fees expenses. If you pay debt before any liquidation event, this amount will be refunded'
+              }
+              height={100}
+            />
+          </View>
+          <Text style={styles.order_info_value_text}>
+            <Text style={{color: themeHere.colors.foreground}}>
+              {borrowAmount === '' ? 0 : liquidationReserveGasFeeLUSD} LUSD
             </Text>
           </Text>
         </View>
@@ -189,7 +226,21 @@ function BorrowLiquityProduct() {
           </Text>
         </View>
         <View style={styles.order_info_block_view}>
-          <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
+          <View
+            style={{
+              flexDirection: 'row',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
+            <InfoIcon
+              size={10}
+              information={
+                'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
+              }
+              height={70}
+            />
+          </View>
           <Text style={styles.order_info_value_text}>
             <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
           </Text>
@@ -197,13 +248,17 @@ function BorrowLiquityProduct() {
         <Button
           title={'start borrow process'}
           type={'solid'}
-          onPress={() =>
-            navigation.navigate('BorrowLiquityTransactionModal', {
-              borrowAmount: borrowAmount,
-              collateralNeededEth: collateralNeededEth,
-              fixedLoanCharges: fixedLoanCharges,
-            })
-          }
+          onPress={() => {
+            if (Number(borrowAmount) < 2000) {
+              setShowMinimumNotMetPopup(true);
+            } else {
+              navigation.navigate('BorrowLiquityTransactionModal', {
+                borrowAmount: borrowAmount,
+                collateralNeededEth: collateralNeededEth,
+                fixedLoanCharges: fixedLoanCharges,
+              });
+            }
+          }}
           containerStyle={styles.next_button_container}
           buttonStyle={styles.next_button_style}
           titleStyle={styles.next_button_title}
@@ -260,6 +315,38 @@ function BorrowLiquityProduct() {
       </Text>
       <CollateralNeededBlock />
       <RenderOrderInfo />
+      <Modal
+        visible={showMinimumNotMetPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowMinimumNotMetPopup(false);
+        }}>
+        <ModalContent>
+          <View
+            style={{
+              backgroundColor: themeHere.colors.off_background,
+              borderColor: themeHere.colors.off_background,
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: windowWidth - 40,
+              borderRadius: 15,
+            }}>
+            <Text
+              style={{
+                ...themeHere.text.subhead_medium,
+                color: themeHere.colors.foreground,
+                marginTop: 40,
+                marginBottom: 40,
+                textAlign: 'center',
+              }}>
+              Minimum borrow amount is 2000 LUSD (~ $2000)
+            </Text>
+          </View>
+        </ModalContent>
+      </Modal>
     </View>
   );
 }
@@ -335,7 +422,7 @@ const styles = StyleSheet.create({
     marginTop: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    width: windowWidth * 0.3,
+    width: windowWidth * 0.75,
     alignSelf: 'center',
   },
   order_info_view: {

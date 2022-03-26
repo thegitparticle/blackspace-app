@@ -1,17 +1,12 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TouchableOpacity,
-} from 'react-native';
-import {Text, View, Image, useSx} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
-import {SharedElement} from 'react-native-shared-element';
-import {Bounceable} from 'rn-bounceable';
-import {Amplitude} from '@amplitude/react-native';
+import React from "react";
+import { Appearance, Dimensions } from "react-native";
+import { Text, useSx, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import FastImage from "react-native-fast-image";
+import { useNavigation } from "@react-navigation/native";
+import { SharedElement } from "react-native-shared-element";
+import { Bounceable } from "rn-bounceable";
+import { Amplitude } from "@amplitude/react-native";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -49,7 +44,7 @@ function MyAppThumbnail(props) {
         <SharedElement id={`item.${props.app_details.name}.app_icon`}>
           <FastImage
             source={{
-              uri: props.app_details.dapp_icon,
+              uri: props.app_details.dapp_cover,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}

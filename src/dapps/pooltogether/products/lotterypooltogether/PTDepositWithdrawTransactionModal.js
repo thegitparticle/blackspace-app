@@ -3,8 +3,6 @@ import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import TransactionOngoingDepositPoolTogether from './components/TransactionOngoingDepositPoolTogether';
-import ConfirmDepositPoolTogether from './components/ConfirmDepositPoolTogether';
 import ConfirmWithdrawPoolTogether from './components/ConfirmWithdrawPoolTogether';
 import TransactionOngoingWithdrawPoolTogether from './components/TransactionOngoingWithdrawPoolTogether';
 import {useGasCostEstimate} from '../../helpers/useGasCostEstimate';

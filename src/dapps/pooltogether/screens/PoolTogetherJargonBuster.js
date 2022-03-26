@@ -1,14 +1,13 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, Dimensions, Appearance, Linking} from 'react-native';
-import {Text, View, useSx, styled, ScrollView} from 'dripsy';
+import {Appearance, Dimensions, Linking} from 'react-native';
+import {ScrollView, Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
 import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
 import Spacer from '../../../bits/Spacer';
 import {Bounceable} from 'rn-bounceable';
 import {Icon} from 'react-native-elements';
 import axios from 'axios';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import {Bars} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,6 +19,8 @@ function PoolTogetherJargonBuster(props) {
   const [contentLoaded, setContentLoaded] = useState(false);
   const [jargonBusterStories, setJargonBusterStories] = useState();
   const [storiesLoaded, setStoriesLoaded] = useState(false);
+
+  const [noStories, setNoStories] = useState(false);
 
   useEffect(() => {
     const config1 = {
@@ -36,6 +37,8 @@ function PoolTogetherJargonBuster(props) {
         setContentLoaded(true);
       })
       .catch(function (error) {
+        console.log('jargon buster error');
+        setNoStories(true);
         console.log(error);
       });
 
@@ -53,6 +56,8 @@ function PoolTogetherJargonBuster(props) {
         setStoriesLoaded(true);
       })
       .catch(function (error) {
+        console.log('jargon stories error');
+        setNoStories(true);
         console.log(error);
       });
   }, []);
@@ -138,7 +143,8 @@ function PoolTogetherJargonBuster(props) {
           <Text
             variant="body_medium"
             sx={{
-              color: 'mid_ground',
+              color: 'off_foreground',
+              opacity: 0.5,
               maxWidth: windowWidth * 0.9,
               alignSelf: 'center',
             }}>
@@ -160,20 +166,48 @@ function PoolTogetherJargonBuster(props) {
         </View>
       );
     } else {
-      return (
-        <View
-          sx={{
-            alignSelf: 'center',
-            marginTop: '$5',
-            justifyContent: 'center',
-            width: windowWidth,
-            alignItems: 'center',
-          }}>
-          <Spacer height={30} />
-          <Bars size={10} color="#FDAAFF" />
-          <Spacer height={30} />
-        </View>
-      );
+      if (noStories) {
+        return (
+          <View
+            sx={{
+              alignSelf: 'center',
+              marginTop: '$5',
+              justifyContent: 'center',
+              width: windowWidth,
+              alignItems: 'center',
+            }}>
+            <Spacer height={30} />
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                maxWidth: windowWidth * 0.9,
+                marginHorizontal: windowWidth * 0.05,
+                marginTop: windowWidth * 0.1,
+                marginBottom: windowWidth * 0.05,
+                alignSelf: 'center',
+              }}>
+              Jargon Buster could not be loaded, try again!
+            </Text>
+            <Spacer height={30} />
+          </View>
+        );
+      } else {
+        return (
+          <View
+            sx={{
+              alignSelf: 'center',
+              marginTop: '$5',
+              justifyContent: 'center',
+              width: windowWidth,
+              alignItems: 'center',
+            }}>
+            <Spacer height={30} />
+            <Bars size={10} color="#FDAAFF" />
+            <Spacer height={30} />
+          </View>
+        );
+      }
     }
   }
 

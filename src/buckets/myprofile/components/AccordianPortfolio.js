@@ -1,22 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  Pressable,
-  TouchableOpacity,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import Accordion from 'react-native-collapsible/Accordion';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {WalletDetailsDummy} from '../DummyData';
-import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
-import {Text, View, Image, useSx, styled} from 'dripsy';
-import {StyledFastImage25} from '../../../theme/DripsyTheme';
-import {Bounceable} from 'rn-bounceable';
-import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
+import React, { useState } from "react";
+import { Appearance, Dimensions } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import Accordion from "react-native-collapsible/Accordion";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import FastImage from "react-native-fast-image";
+import { useNavigation } from "@react-navigation/native";
+import { Image, Text, View } from "dripsy";
+import { StyledFastImage25 } from "../../../theme/DripsyTheme";
+import { Bounceable } from "rn-bounceable";
+import useEthFiatPrice from "../../../helpers/useGetEthFiatPrice";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

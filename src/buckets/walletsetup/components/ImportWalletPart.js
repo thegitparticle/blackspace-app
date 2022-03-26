@@ -1,18 +1,10 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TouchableOpacity,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LinearGradient from 'react-native-linear-gradient';
-import SquircleButton from '../../../bits/SquircleButton';
-import {useNavigation} from '@react-navigation/native';
-import {Bounceable} from 'rn-bounceable';
-import {Amplitude} from '@amplitude/react-native';
+import React from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { useNavigation } from "@react-navigation/native";
+import { Bounceable } from "rn-bounceable";
+import { Amplitude } from "@amplitude/react-native";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,30 +16,28 @@ function ImportWalletPart() {
 
   return (
     <View style={styles.parent_view}>
-      <LinearGradient
-        colors={['#050505', '#1F1F1F']}
-        style={styles.gradient_background}>
-        <View style={styles.items_wrap_view}>
-          <Text style={styles.heading_text}>IMPORT OLD WALLET</Text>
-          <Text style={styles.explanation_text}>
-            import your wallet from rainbow, metamask, trust wallet, etc...
-          </Text>
-          <Bounceable
-            onPress={() => {
-              Amplitude.getInstance().logEvent('IMPORT_WALLET_BUTTON_CLICKED');
-              navigation.navigate('ImportWalletScreen');
-            }}>
-            <SquircleButton
-              buttonColor={'#282828'}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'import now'}
-              font={themeHere.text.subhead_medium}
-              textColor={themeHere.colors.light}
-            />
-          </Bounceable>
-        </View>
-      </LinearGradient>
+      <View style={styles.items_wrap_view}>
+        <Text style={styles.heading_text}>ALREADY USED IT?</Text>
+        <Text style={styles.explanation_text}>
+          import your old blackspace wallet or from rainbow, metamask, trust
+          wallet, etc...
+        </Text>
+        <Bounceable
+          onPress={() => {
+            Amplitude.getInstance().logEvent('IMPORT_WALLET_BUTTON_CLICKED');
+            navigation.navigate('ImportWalletScreen');
+          }}>
+          <SquircleGlassButton
+            buttonColor={themeHere.colors.mid_ground}
+            width={windowWidth * 0.7}
+            height={50}
+            buttonText={'import now'}
+            font={themeHere.text.subhead_medium}
+            textColor={themeHere.colors.light}
+            blurType={'ultraThinMaterialDark'}
+          />
+        </Bounceable>
+      </View>
     </View>
   );
 }
@@ -78,7 +68,7 @@ const styles = StyleSheet.create({
     color: 'white',
   },
   explanation_text: {
-    ...themeHere.text.body,
+    ...themeHere.text.subhead_medium,
     color: 'white',
     width: windowWidth * 0.8,
     textAlign: 'center',

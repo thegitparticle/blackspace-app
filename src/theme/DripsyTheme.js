@@ -1,47 +1,54 @@
-import {makeTheme, styled, useSx} from 'dripsy';
+import {makeTheme, styled} from 'dripsy';
 import {Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
-import {Button} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 export const dripsytheme = makeTheme({
   colors: {
-    dark: '#050505',
-    off_dark: '#1A1A1A',
-    mid_gray: '#999999',
+    dark: '#090909',
+    off_dark: '#171717',
+    mid_gray: '#323232',
     off_light: '#F1F4F9',
     light: '#FFFFFF',
-    background: '#050505',
-    off_background: '#1A1A1A',
-    mid_ground: '#999999',
+    background: '#090909',
+    off_background: '#171717',
+    mid_ground: '#323232',
     off_foreground: '#F1F4F9',
     foreground: '#FFFFFF',
-    success_green: '#0ACF83',
-    success_green_light: '#13F49D',
-    success_green_dark: '#08A76A',
+    success_green: '#13CE66',
+    success_green_light: '#29EB7F',
+    success_green_dark: '#0F9F4F',
     danger_red: '#EC193E',
     danger_red_light: '#F04C68',
     danger_red_dark: '#C31030',
     icon: '#F1F4F9',
-    icon_background: '#333333',
+    icon_background: '#353535',
     red: '#FF3E41',
     red_light: '#FF8182',
     red_dark: '#FF0106',
-    blue: '#1ABCFE',
-    blue_light: '#55CDFE',
-    blue_dark: '#01A1E2',
-    purple: '#A259FF',
-    purple_light: '#CAA1FF',
-    purple_dark: '#7E18FF',
+    blue: '#1FB6FF',
+    blue_light: '#85D7FF',
+    blue_dark: '#009EEB',
+    purple: '#7E5BEF',
+    purple_light: '#A389F4',
+    purple_dark: '#592DEA',
     yellow: '#FFC82C',
+    yellow_light: '#FFD55F',
+    yellow_dark: '#F8B700',
     pink: '#FF49DB',
+    pink_light: '#FF7CE5',
+    pink_dark: '#FF16D1',
+    orange: '#FF7849',
+    orange_light: '#FF9E7C',
+    orange_dark: '#FF5216',
     turquoise: '#3DC8BF',
     special_gray: '#272D2D',
     neon_blue: '#6874E8',
   },
+
   space: {
     // recommended: set 0 first, then double for consistent nested spacing
     $0: 0,
@@ -213,6 +220,14 @@ export const dripsytheme = makeTheme({
 
   // for <Image />
   images: {
+    full_screen: {
+      width: windowWidth,
+      height: windowHeight,
+    },
+    half_screen: {
+      width: windowWidth,
+      height: windowHeight * 0.5,
+    },
     small_icon_25_round: {
       width: 25,
       height: 25,
@@ -228,6 +243,11 @@ export const dripsytheme = makeTheme({
 
 // Images
 
+export const StylesFastImageFullScreen = styled(FastImage)({
+  width: windowWidth,
+  height: windowHeight,
+});
+
 export const StyledFastImage60 = styled(FastImage)({
   width: 60,
   height: 60,
@@ -238,6 +258,12 @@ export const StyledFastImage50 = styled(FastImage)({
   width: 50,
   height: 50,
   borderRadius: 25,
+});
+
+export const StyledFastImage35 = styled(FastImage)({
+  width: 35,
+  height: 35,
+  borderRadius: 17.5,
 });
 
 export const StyledFastImage30 = styled(FastImage)({

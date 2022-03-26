@@ -1,31 +1,33 @@
-import React, {useState} from 'react';
+import React, { useState } from "react";
 import {
+  Appearance,
+  Dimensions,
+  ImageBackground,
+  Pressable,
+  StatusBar,
   StyleSheet,
   Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
   TextInput,
-  Appearance,
-  Pressable,
-} from 'react-native';
-import {ADD_WDEETS, LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import '@ethersproject/shims';
-import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {useSharedValue} from 'react-native-reanimated';
-import SquircleButton from '../../../bits/SquircleButton';
-import LinearGradient from 'react-native-linear-gradient';
-import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
-import {Bounceable} from 'rn-bounceable';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
-import axios from 'axios';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {Amplitude} from '@amplitude/react-native';
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { ADD_WDEETS } from "../../../redux/types";
+import { connect } from "react-redux";
+import "@ethersproject/shims";
+import { ethers } from "ethers/src.ts/index";
+import { AddWDeets } from "../../../redux/appcore/WDeetsActions";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import WhileImportingProcessShowcase from "../components/WhileImportingProcessShowcase";
+import { Bounceable } from "rn-bounceable";
+import ReactNativeHapticFeedback from "react-native-haptic-feedback";
+import { Bars } from "react-native-loader";
+import axios from "axios";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import { Amplitude } from "@amplitude/react-native";
+import { SquircleView } from "react-native-figma-squircle";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
+import { BlurView } from "@react-native-community/blur";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -56,20 +58,18 @@ function ImportWalletScreen({dispatch, navigation}) {
 
   function importWallet() {
     try {
-      setTimeout(() => {
-        const walletCreated = ethers.Wallet.fromMnemonic(phrase);
-        wallet.wallet_address = walletCreated.address;
-        wallet.wallet_privateKey = walletCreated.privateKey;
-        wallet.wallet_phrase = walletCreated.mnemonic;
-        setWalletDetails(wallet);
-        setWalletCreating(false);
-        console.log(wallet);
-        dispatch(AddWDeets(wallet));
-        setWaitingTextOverallOpacity(0);
-        setWalletCreatedTextAndButtonOpacity(1);
-        Amplitude.getInstance().logEvent('OLD_WALLET_IMPORT_SUCCESS');
-        ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
-      }, 500);
+      const walletCreated = ethers.Wallet.fromMnemonic(phrase);
+      wallet.wallet_address = walletCreated.address;
+      wallet.wallet_privateKey = walletCreated.privateKey;
+      wallet.wallet_phrase = walletCreated.mnemonic;
+      setWalletDetails(wallet);
+      setWalletCreating(false);
+      console.log(wallet);
+      dispatch(AddWDeets(wallet));
+      setWaitingTextOverallOpacity(0);
+      setWalletCreatedTextAndButtonOpacity(1);
+      Amplitude.getInstance().logEvent('OLD_WALLET_IMPORT_SUCCESS');
+      ReactNativeHapticFeedback.trigger('impactLight', hapticOptions);
     } catch (e) {
       console.log(e.toString());
       setWalletCreating(false);
@@ -82,7 +82,42 @@ function ImportWalletScreen({dispatch, navigation}) {
   function InputAndImportWalletSeedPhrase() {
     return (
       <View style={styles.input_wallet_button_view}>
-        <View style={styles.input_wrap_view}>
+        <MaskedView
+          style={{
+            width: windowWidth - 40,
+            height: windowHeight * 0.2,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+          maskElement={
+            <SquircleView
+              style={{
+                width: windowWidth - 40,
+                height: windowHeight * 0.2,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              squircleParams={{
+                cornerSmoothing: 1,
+                cornerRadius: 30,
+                fillColor: themeHere.colors.mid_ground,
+              }}
+            />
+          }>
+          <BlurView
+            style={{
+              width: windowWidth - 40,
+              height: windowHeight * 0.2,
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+            }}
+            blurType={'thinMaterialDark'}
+            blurAmount={10}
+            reducedTransparencyFallbackColor="gray"
+          />
           <TextInput
             style={{
               backgroundColor: 'transparent',
@@ -95,10 +130,14 @@ function ImportWalletScreen({dispatch, navigation}) {
             multiline={true}
             autoFocus={true}
             textAlign={'center'}
-            placeholder={'type seed phrase words with space in between them'}
+            textAlignVertical={'center'}
+            clearButtonMode="always"
+            placeholder={
+              'type seed phrase words here. \n \n 1. give space between words \n 2. lower or upper case doesnt matter'
+            }
             placeholderTextColor={'#FFFFFF50'}
           />
-        </View>
+        </MaskedView>
         <View
           style={{
             marginVertical: windowHeight * 0.1,
@@ -111,8 +150,12 @@ function ImportWalletScreen({dispatch, navigation}) {
                 importWallet();
               }, 1000);
             }}>
-            <SquircleButton
-              buttonColor={walletCreating === true ? '#28282800' : '#282828'}
+            <SquircleGlassButton
+              buttonColor={
+                walletCreating === true
+                  ? 'transparent'
+                  : themeHere.colors.mid_ground
+              }
               width={windowWidth * 0.7}
               height={50}
               buttonText={
@@ -120,6 +163,7 @@ function ImportWalletScreen({dispatch, navigation}) {
               }
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
+              blurType={'ultraThinMaterialDark'}
             />
           </Bounceable>
         </View>
@@ -179,30 +223,37 @@ function ImportWalletScreen({dispatch, navigation}) {
       }
     }
 
-    return (
-      <TouchableOpacity
-        style={{
-          marginVertical: windowHeight * 0.1,
-          alignItems: 'center',
-        }}
-        onPress={() => {
-          setCheckingUserExists(true);
-          checkUserExistsOrNot();
-        }}>
-        <ShowBars />
-        <SquircleButton
-          buttonColor={'#282828'}
-          width={windowWidth * 0.7}
-          height={50}
-          buttonText={walletCreatedTextAndButtonOpacity === 0 ? '' : 'next ✈️'}
-          font={themeHere.text.subhead_medium}
-          textColor={themeHere.colors.light}
+    if (walletCreatedTextAndButtonOpacity === 0) {
+      return <View />;
+    } else {
+      return (
+        <TouchableOpacity
           style={{
-            opacity: walletCreatedTextAndButtonOpacity,
+            marginVertical: windowHeight * 0.1,
+            alignItems: 'center',
           }}
-        />
-      </TouchableOpacity>
-    );
+          onPress={() => {
+            setCheckingUserExists(true);
+            checkUserExistsOrNot();
+          }}>
+          <ShowBars />
+          <SquircleGlassButton
+            buttonColor={'#282828'}
+            width={windowWidth * 0.7}
+            height={50}
+            buttonText={
+              walletCreatedTextAndButtonOpacity === 0 ? '' : 'next ✈️'
+            }
+            font={themeHere.text.subhead_medium}
+            textColor={themeHere.colors.light}
+            style={{
+              opacity: walletCreatedTextAndButtonOpacity,
+            }}
+            blurType={'ultraThinMaterialDark'}
+          />
+        </TouchableOpacity>
+      );
+    }
   }
 
   function IfErrorBody() {
@@ -210,7 +261,7 @@ function ImportWalletScreen({dispatch, navigation}) {
       <>
         <Text
           style={{
-            ...themeHere.text.body,
+            ...themeHere.text.subhead_medium,
             color: themeHere.colors.danger_red,
             marginVertical: windowHeight * 0.1,
             width: windowWidth * 0.7,
@@ -231,13 +282,14 @@ function ImportWalletScreen({dispatch, navigation}) {
                 setRenderErrorBody(false);
                 setRenderInputBody(true);
               }}>
-              <SquircleButton
+              <SquircleGlassButton
                 buttonColor={'#282828'}
                 width={windowWidth * 0.7}
                 height={50}
                 buttonText={'try again'}
                 font={themeHere.text.subhead_medium}
                 textColor={themeHere.colors.light}
+                blurType={'ultraThinMaterialDark'}
               />
             </Bounceable>
           </View>
@@ -253,13 +305,14 @@ function ImportWalletScreen({dispatch, navigation}) {
                 setRenderErrorBody(false);
                 navigation.navigate('MakeWalletScreen');
               }}>
-              <SquircleButton
-                buttonColor={themeHere.colors.red + '75'}
+              <SquircleGlassButton
+                buttonColor={themeHere.colors.red}
                 width={windowWidth * 0.7}
                 height={50}
                 buttonText={'create new wallet'}
                 font={themeHere.text.subhead_medium}
-                textColor={themeHere.colors.light}
+                textColor={themeHere.colors.success_green}
+                blurType={'ultraThinMaterialDark'}
               />
             </Bounceable>
           </View>
@@ -288,9 +341,14 @@ function ImportWalletScreen({dispatch, navigation}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={['#050505', '#1F1F1F']}
-        style={styles.gradient_background}>
+      <ImageBackground
+        source={require('../../../../assets/colors_background_1.png')}
+        resizeMode="cover"
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          alignItems: 'center',
+        }}>
         <View
           style={{
             flexDirection: 'row',
@@ -322,7 +380,7 @@ function ImportWalletScreen({dispatch, navigation}) {
           </Pressable>
         </View>
         <RenderBody />
-      </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }
@@ -359,10 +417,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input_wrap_view: {
-    backgroundColor: 'transparent',
-    width: windowWidth,
+    width: windowWidth - 40,
+    height: windowHeight * 0.2,
     alignItems: 'center',
-    marginVertical: windowHeight * 0.075,
+    justifyContent: 'center',
   },
   screen_header_text: {
     ...themeHere.text.title_3,

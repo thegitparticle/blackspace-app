@@ -1,17 +1,15 @@
-import React, {useMemo, useState} from 'react';
-import {StyleSheet, Dimensions, Appearance, ScrollView} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {SharedElement} from 'react-native-shared-element';
-import HeaderBlock from '../components/HeaderBlock';
-import RenderAppBluePrintHelper from '../helpers/RenderAppBluePrintHelper';
-import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper';
-import {TabView, SceneMap, TabBar} from 'react-native-tab-view';
-import {HScrollView} from 'react-native-head-tab-view';
-import {CollapsibleHeaderTabView} from 'react-native-tab-view-collapsible-header';
-import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
-import LottieView from 'lottie-react-native';
-import {useSx, View, Image, Text} from 'dripsy';
-import {runOnJS} from 'react-native-reanimated';
+import React, { useEffect, useMemo, useState } from "react";
+import { Appearance, Dimensions } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import RenderAppBluePrintHelper from "../helpers/RenderAppBluePrintHelper";
+import RenderAppJargonBusterHelper from "../helpers/RenderAppJargonBusterHelper";
+import { SceneMap, TabBar, TabView } from "react-native-tab-view";
+import RenderAppInUseHelper from "../helpers/RenderAppInUseHelper";
+import LottieView from "lottie-react-native";
+import { Text, useSx, View } from "dripsy";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import FastImage from "react-native-fast-image";
+import HeaderMiniAppV2 from "../../../bits/HeaderMiniAppV2";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -22,16 +20,23 @@ function MiniAppLanding({route}) {
   const {app_details, discover_or_not} = route.params;
   const sxCustom = useSx();
 
+  const [renderSplash, setRenderSplash] = useState(true);
+  const [index, setIndex] = useState(0);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setRenderSplash(false);
+    }, 1000);
+  }, []);
+
   const Products = useMemo(
     () =>
       function Products() {
         return (
-          <HScrollView index={0}>
-            <RenderAppBluePrintHelper
-              function_name={app_details.landing_blueprint_function_name}
-              swipe_navigate_function={changeIndexToOne}
-            />
-          </HScrollView>
+          <RenderAppBluePrintHelper
+            function_name={app_details.landing_blueprint_function_name}
+            // swipe_navigate_function={changeIndexToOne}
+          />
         );
       },
     [],
@@ -41,12 +46,10 @@ function MiniAppLanding({route}) {
     () =>
       function JargonBuster() {
         return (
-          <HScrollView index={1}>
-            <RenderAppJargonBusterHelper
-              function_name={app_details.landing_blueprint_function_name}
-              appInfo={app_details}
-            />
-          </HScrollView>
+          <RenderAppJargonBusterHelper
+            function_name={app_details.landing_blueprint_function_name}
+            appInfo={app_details}
+          />
         );
       },
     [],
@@ -56,17 +59,13 @@ function MiniAppLanding({route}) {
     () =>
       function UsageShowcase() {
         return (
-          <HScrollView index={1}>
-            <RenderAppInUseHelper
-              function_name={app_details.landing_blueprint_function_name}
-            />
-          </HScrollView>
+          <RenderAppInUseHelper
+            function_name={app_details.landing_blueprint_function_name}
+          />
         );
       },
     [],
   );
-
-  const [index, setIndex] = useState(0);
 
   const renderSceneMiniApp = discover_or_not
     ? SceneMap({
@@ -110,17 +109,21 @@ function MiniAppLanding({route}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              Products
-            </Text>
+            <Iconly
+              name="HomeBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              Products
-            </Text>
+            <Iconly
+              name="HomeBroken"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       }
@@ -154,17 +157,21 @@ function MiniAppLanding({route}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              {app_details.usage_tab_name}
-            </Text>
+            <Iconly
+              name="ActivityBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              {app_details.usage_tab_name}
-            </Text>
+            <Iconly
+              name="ActivityBroken"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       }
@@ -196,44 +203,78 @@ function MiniAppLanding({route}) {
         width: 0,
       })}
       style={sxCustom({
-        backgroundColor: 'transparent',
-        height: 70,
-        alignSelf: 'center',
+        backgroundColor: themeHere.colors.off_background,
+        position: 'absolute',
+        bottom: 0,
+        color: '#000',
+        height: 60,
         justifyContent: 'center',
-        width: windowWidth,
+        alignSelf: 'center',
+        width: windowWidth * 0.5,
+        marginBottom: windowHeight * 0.05,
         borderRadius: 30,
         borderTopWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
       })}
       renderLabel={renderLabelMiniApp}
-      tabStyle={{backgroundColor: themeHere.colors.background}}
+      tabStyle={{backgroundColor: 'transparent'}}
     />
   );
 
-  function changeIndexToOne() {
-    runOnJS(setIndex(1));
-  }
+  // function changeIndexToOne() {
+  //   runOnJS(setIndex(1));
+  // }
+
+  const RenderScreen = useMemo(
+    () =>
+      function RenderScreen() {
+        if (renderSplash) {
+          return (
+            <FastImage
+              style={{width: windowWidth, height: windowHeight}}
+              source={{
+                uri: app_details.splash_image,
+                headers: {Authorization: 'someAuthToken'},
+                priority: FastImage.priority.high,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          );
+        } else {
+          return (
+            <View>
+              <HeaderMiniAppV2 app_details={app_details} />
+              <TabView
+                navigationState={{index, routes}}
+                renderTabBar={renderTabBarMiniApp}
+                renderScene={renderSceneMiniApp}
+                onIndexChange={setIndex}
+                initialLayout={{width: windowWidth}}
+                tabBarPosition="bottom"
+              />
+            </View>
+          );
+        }
+      },
+    [renderSplash],
+  );
 
   return (
-    <CollapsibleHeaderTabView
-      renderScrollHeader={() => (
-        <SharedElement id={`item.${app_details.app_name}.app_icon`}>
-          <HeaderBlock app_details={app_details} />
-        </SharedElement>
-      )}
-      navigationState={{index, routes}}
-      renderTabBar={renderTabBarMiniApp}
-      renderScene={renderSceneMiniApp}
-      onIndexChange={setIndex}
-      initialLayout={{width: windowWidth}}
-      style={{
+    <View
+      sx={{
         flex: 1,
-        backgroundColor: themeHere.colors.background,
-      }}
-      frozeTop={125}
-      lazy={true}
-      tabBarHeight={50}
-      headerHeight={300}
-    />
+        alignItems: 'center',
+        backgroundColor: themeHere.colors.dark,
+      }}>
+      <RenderScreen />
+    </View>
   );
 }
 

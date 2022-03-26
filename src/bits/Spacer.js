@@ -1,24 +1,24 @@
-import React from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
+import React from "react";
+import { Appearance, Dimensions, StyleSheet, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../theme/ButterTheme";
 
-const windowHeight = Dimensions.get('window').height;
-const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get("window").height;
+const windowWidth = Dimensions.get("window").width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === "dark" ? ButterThemeDark : ButterThemeLight;
 
 function Spacer(props) {
   // props - height
-  return <View style={{...styles.parent_view, height: props.height}}></View>;
+  return <View style={{ ...styles.parent_view, height: props.height }}></View>;
 }
 
 export default Spacer;
 
 const styles = StyleSheet.create({
   parent_view: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     width: windowWidth,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
 });

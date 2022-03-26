@@ -1,23 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  StatusBar,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import LinearGradient from 'react-native-linear-gradient';
-import LottieView from 'lottie-react-native';
-import axios from 'axios';
-import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
-import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
-import {AddUserDetails} from '../../../redux/appcore/UserDetailsActions';
-import {LOGIN} from '../../../redux/types';
-import {Amplitude} from '@amplitude/react-native';
-import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import LottieView from "lottie-react-native";
+import axios from "axios";
+import { GetMyProfileDetails } from "../../../redux/appcore/MyProfileActions";
+import { GetTokenBalances } from "../../../redux/appcore/MyTokenBalancesActions";
+import { AddUserDetails } from "../../../redux/appcore/UserDetailsActions";
+import { LOGIN } from "../../../redux/types";
+import { Amplitude } from "@amplitude/react-native";
+import { AddWDeets } from "../../../redux/appcore/WDeetsActions";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -112,7 +104,7 @@ function SettingUpAppScreen({dispatch}) {
             Setting up blackSpace for you
           </Text>
           <LottieView
-            source={require('../../../../assets/doge_tail_lottie.json')}
+            source={require('../../../../assets/panda_popcorn.json')}
             autoPlay
             loop
             style={{
@@ -130,7 +122,7 @@ function SettingUpAppScreen({dispatch}) {
           <LottieView
             source={require('../../../../assets/success_tick_lottie.json')}
             autoPlay
-            loop
+            loop={false}
             style={{
               marginVertical: 20,
               width: windowWidth * 0.25,
@@ -147,11 +139,17 @@ function SettingUpAppScreen({dispatch}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={['#050505', '#1F1F1F']}
-        style={styles.gradient_background}>
+      <ImageBackground
+        source={require('../../../../assets/colors_background_2.png')}
+        resizeMode="cover"
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}>
         <RenderBody />
-      </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }

@@ -1,14 +1,11 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
-import {ethers} from 'ethers/src.ts';
-import LottieView from 'lottie-react-native';
-import ExecuteASwap from '../../../helpers/ExecuteASwap';
-import axios from 'axios';
-import {useNavigation} from '@react-navigation/native';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
+import { ethers } from "ethers/src.ts";
+import LottieView from "lottie-react-native";
+import ExecuteASwap from "../../../helpers/ExecuteASwap";
+import axios from "axios";
+import { useNavigation } from "@react-navigation/native";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

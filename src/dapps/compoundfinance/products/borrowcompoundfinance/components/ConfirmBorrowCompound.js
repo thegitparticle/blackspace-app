@@ -1,28 +1,20 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
-  StyleSheet,
-  Dimensions,
   Appearance,
+  Dimensions,
+  StyleSheet,
   TouchableOpacity,
 } from 'react-native';
-import {Text, View, Image, useSx, styled} from 'dripsy';
+import {Image, Text, View} from 'dripsy';
 import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../theme/ButterTheme';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
-import Compound from '@compound-finance/compound-js';
-import {ETH_NETWORK} from 'react-native-dotenv';
-import EmojiIcon from '../../../../../bits/EmojiIcon';
-import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
-import TransactEarnCompound from '../../helpers/TransactEarnCompound';
-import TransactBorrowCompound from '../../helpers/TransactBorrowCompound';
-import EnterMarketsCompound from '../../helpers/EnterMarketsCompound';
 import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 import {SquircleView} from 'react-native-figma-squircle';
-import FastImage from 'react-native-fast-image';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;

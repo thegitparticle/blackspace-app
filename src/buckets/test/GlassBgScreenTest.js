@@ -1,17 +1,8 @@
-import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ImageBackground,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
-import GradientBgBehindGlass from './GradientBgBehindGlass';
-import {BlurView} from '@react-native-community/blur';
+import React from "react";
+import { Appearance, Dimensions, ImageBackground, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../theme/ButterTheme";
+import { useNavigation } from "@react-navigation/native";
+import { BlurView } from "@react-native-community/blur";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

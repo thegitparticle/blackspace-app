@@ -1,6 +1,6 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import _ from 'lodash';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import _ from "lodash";
 
 export default function useLiquidityPoolAddress(token0Address, token1Address) {
   const [loadingLPAddress, setLoadingLPAddress] = useState(true);
@@ -14,15 +14,40 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
       decimals: '18',
       name: 'Matic Token',
       symbol: 'MATIC',
+      derivedETH: '0.0003617588007247900895195119113110939',
     },
     token0Price: '1498.948295981583083786621023745811',
     token1: {
       decimals: '18',
       name: 'Wrapped Ether',
       symbol: 'WETH',
+      derivedETH: '1',
     },
     token1Price: '0.0006671344186326000924924617213326372',
   });
+  const [lpExists, setLpExists] = useState(true);
+
+  const emptyLp = {
+    feeTier: '',
+    id: '0x',
+    liquidity: '0',
+    sqrtPrice: '0',
+    tick: '',
+    token0: {
+      decimals: '',
+      name: '',
+      symbol: '',
+      derivedETH: '0',
+    },
+    token0Price: '0',
+    token1: {
+      decimals: '',
+      name: '',
+      symbol: '',
+      derivedETH: '0',
+    },
+    token1Price: '0',
+  };
 
   let token0Here = '';
   let token1Here = '';
@@ -32,9 +57,12 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     token1Here = token0Address;
   }
 
+  // console.log(token0Here);
+  // console.log(token1Here);
+
   const data = JSON.stringify({
     query: `{
-    pools(orderBy: feeTier, where: {
+    pools(orderBy: liquidity, where: {
         token0: "${token0Here}",
         token1: "${token1Here}"}) {
       id
@@ -47,10 +75,12 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
       token0 {
         symbol
         name
+        derivedETH
       }
       token1 {
         symbol
         name
+        derivedETH
       }
     }
   }`,
@@ -69,8 +99,16 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
   const fetchInfo = () => {
     axios(config)
       .then(function (response) {
-        setLPAddress(_.last(response.data.data.pools));
-        // console.log(_.last(response.data.data.pools));
+        // console.log(response.data.data.pools);
+
+        if (response.data.data.pools.length === 0) {
+          setLpExists(false);
+          setLPAddress(emptyLp);
+        } else {
+          setLPAddress(_.last(response.data.data.pools));
+          // setLPAddress(response.data.data.pools[0]);
+          setLpExists(true);
+        }
         setLoadingLPAddress(false);
       })
       .catch(function (error) {
@@ -82,5 +120,5 @@ export default function useLiquidityPoolAddress(token0Address, token1Address) {
     fetchInfo();
   }, [token0Address, token1Address]);
 
-  return {loadingLPAddress, lpAddress};
+  return {loadingLPAddress, lpAddress, lpExists};
 }

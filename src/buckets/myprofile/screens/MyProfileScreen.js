@@ -1,32 +1,18 @@
-import React, {useCallback, useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ScrollView,
-  RefreshControl,
-  Pressable,
-} from 'react-native';
-import {Text, View, Image} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MainDetails from '../components/MainDetails';
-import WalletPie from '../components/WalletPie';
-import AccordianPortfolio from '../components/AccordianPortfolio';
-import Animated, {
-  useAnimatedScrollHandler,
-  useAnimatedStyle,
-  useSharedValue,
-  withTiming,
-} from 'react-native-reanimated';
-import Spacer from '../../../bits/Spacer';
-import ModalGoBackHeader from '../../../bits/ModalGoBackHeader';
-import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
-import {connect} from 'react-redux';
-import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
-import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
-import {useNavigation} from '@react-navigation/native';
-import {Amplitude} from '@amplitude/react-native';
+import React, { useCallback, useEffect, useState } from "react";
+import { Appearance, Dimensions, Pressable, RefreshControl } from "react-native";
+import { Text, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import MainDetails from "../components/MainDetails";
+import WalletPie from "../components/WalletPie";
+import AccordianPortfolio from "../components/AccordianPortfolio";
+import Animated from "react-native-reanimated";
+import Spacer from "../../../bits/Spacer";
+import { connect } from "react-redux";
+import { GetMyProfileDetails } from "../../../redux/appcore/MyProfileActions";
+import { GetTokenBalances } from "../../../redux/appcore/MyTokenBalancesActions";
+import Iconly from "../../../miscsetups/customfonts/Iconly";
+import { useNavigation } from "@react-navigation/native";
+import { Amplitude } from "@amplitude/react-native";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

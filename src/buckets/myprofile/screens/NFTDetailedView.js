@@ -1,11 +1,11 @@
-import React from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
-import {BlurView} from '@react-native-community/blur';
-import {SquircleView} from 'react-native-figma-squircle';
-import MaskedView from '@react-native-masked-view/masked-view';
-import {Text, View, Image, useSx} from 'dripsy';
+import React from "react";
+import { Appearance, Dimensions, StyleSheet } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import FastImage from "react-native-fast-image";
+import { BlurView } from "@react-native-community/blur";
+import { SquircleView } from "react-native-figma-squircle";
+import MaskedView from "@react-native-masked-view/masked-view";
+import { Text, useSx, View } from "dripsy";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

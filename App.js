@@ -23,7 +23,7 @@ import {Amplitude} from '@amplitude/react-native';
 
 import * as Sentry from '@sentry/react-native';
 
-// // dev mode
+// dev mode
 // Sentry.init({
 //   dsn: 'https://75dfb14196fb466a87028e482a9113bc@o578195.ingest.sentry.io/6212337',
 // });
@@ -95,4 +95,8 @@ const App: () => Node = () => {
   );
 };
 
-export default codePush(App);
+export default codePush({
+  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  updateDialog: true,
+  installMode: codePush.InstallMode.IMMEDIATE,
+})(App);

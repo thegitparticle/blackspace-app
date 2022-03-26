@@ -1,14 +1,14 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {Text, View, Image, useSx} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {useNavigation} from '@react-navigation/native';
-import {connect} from 'react-redux';
-import {GetUniswapStakePools} from '../../../../redux/dapps/uniswap/UniswapStakePoolsActions';
-import useStakePoolDetails from '../../helpers/useStakePoolDetails';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
-import StakePoolTile from './components/StakePoolTile';
-import {SquircleView} from 'react-native-figma-squircle/src/index';
+import React, { useEffect } from "react";
+import { Appearance, Dimensions, StyleSheet } from "react-native";
+import { Text, useSx, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
+import { useNavigation } from "@react-navigation/native";
+import { connect } from "react-redux";
+import { GetUniswapStakePools } from "../../../../redux/dapps/uniswap/UniswapStakePoolsActions";
+import useStakePoolDetails from "../../helpers/useStakePoolDetails";
+import { DoubleBounce } from "react-native-loader";
+import StakePoolTile from "./components/StakePoolTile";
+import { SquircleView } from "react-native-figma-squircle/src/index";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

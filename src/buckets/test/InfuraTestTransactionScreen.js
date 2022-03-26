@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
-import {BigNumber, ethers} from 'ethers';
-import {connect} from 'react-redux';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-import {AddWDeets} from '../../redux/appcore/WDeetsActions';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../theme/ButterTheme";
+import { BigNumber, ethers } from "ethers";
+import { connect } from "react-redux";
+import { TouchableOpacity } from "react-native-gesture-handler";
+import { AddWDeets } from "../../redux/appcore/WDeetsActions";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

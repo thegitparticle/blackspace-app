@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
-import _ from 'lodash';
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function useStakePoolDetails(lpAddress) {
   const [loadingLPStakeDetails, setLoadingLPStakeDetails] = useState(true);

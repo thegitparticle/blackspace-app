@@ -2,7 +2,6 @@ import {BigNumber} from 'ethers';
 import {parseUnits} from '@ethersproject/units';
 import {useGasCosts} from './useGasCosts';
 import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
-import {useState} from 'react';
 
 export const useGasCostEstimate = (gasAmount: BigNumber, chainId: number) => {
   const {loadingEth, priceEth} = useEthFiatPrice();
@@ -11,7 +10,7 @@ export const useGasCostEstimate = (gasAmount: BigNumber, chainId: number) => {
   let totalGasUsd, totalGasWei, isApproveFetched;
   if (gasCostsIsFetched && !loadingEth) {
     totalGasWei = calculateTotalGasWei(gasCosts, gasAmount);
-    console.log(totalGasWei + ' ' + 'total gas');
+    // console.log(totalGasWei + ' ' + 'total gas');
     totalGasUsd = calculateTotalGasUsd(
       priceEth,
       chainId,

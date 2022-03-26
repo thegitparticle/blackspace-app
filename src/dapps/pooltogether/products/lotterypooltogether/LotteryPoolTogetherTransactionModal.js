@@ -1,11 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import TransactionOngoingDepositPoolTogether from './components/TransactionOngoingDepositPoolTogether';
 import ConfirmDepositPoolTogether from './components/ConfirmDepositPoolTogether';
-import {BigNumber} from 'ethers';
-import {useGasCostEstimate} from '../../helpers/useGasCostEstimate';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

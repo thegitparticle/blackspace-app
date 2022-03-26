@@ -1,6 +1,5 @@
 import React from 'react';
 import Compound from '@compound-finance/compound-js';
-import {ethers} from 'ethers';
 import {INFURA_RINKEBY} from 'react-native-dotenv';
 
 export default function EnterMarketsCompound(walletAddress, privateKey) {

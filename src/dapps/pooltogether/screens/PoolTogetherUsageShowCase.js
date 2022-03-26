@@ -1,19 +1,18 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Appearance, Dimensions, StyleSheet} from 'react-native';
-import {Text, View, Image, useSx, styled} from 'dripsy';
+import {Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {DrawCalculatorAPI, PrizePoolNetwork} from '@pooltogether/v4-client-js';
+import {PrizePoolNetwork} from '@pooltogether/v4-client-js';
 import {mainnet} from '@pooltogether/v4-pool-data';
-import {BigNumber, ethers} from 'ethers';
+import {ethers} from 'ethers';
 import {connect} from 'react-redux';
-import Compound from '@compound-finance/compound-js';
 import {SquircleCard, StyledFastImage25} from '../../../theme/DripsyTheme';
 import FastImage from 'react-native-fast-image';
 import Spacer from '../../../bits/Spacer';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
-import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
+import {Bars} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

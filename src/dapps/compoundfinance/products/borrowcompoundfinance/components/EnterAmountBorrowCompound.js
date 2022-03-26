@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
@@ -7,7 +7,6 @@ import {
 import VirtualKeyboard from 'react-native-virtual-keyboard';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
-import Compound from '@compound-finance/compound-js';
 import useGetFiatPrice from '../../../../../helpers/useGetFiatPrices';
 
 const windowHeight = Dimensions.get('window').height;

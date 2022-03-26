@@ -1,26 +1,68 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-} from 'react-native';
-import {LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import CreateWalletPart from '../components/CreateWalletPart';
-import ImportWalletPart from '../components/ImportWalletPart';
+import React from "react";
+import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text } from "react-native";
+import { LOGIN } from "../../../redux/types";
+import { connect } from "react-redux";
+import CreateWalletPart from "../components/CreateWalletPart";
+import ImportWalletPart from "../components/ImportWalletPart";
+import { View } from "dripsy";
+import { Divider } from "react-native-elements";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
+const colorScheme = Appearance.getColorScheme();
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function WalletSetupOptionsScreen({dispatch, navigation}) {
+  function OrDivider() {
+    return (
+      <View style={{justifyContent: 'center'}}>
+        <Divider
+          orientation="horizontal"
+          width={3}
+          color={themeHere.colors.light + '25'}
+        />
+        <View
+          sx={{
+            width: 50,
+            height: 50,
+            borderRadius: 25,
+            backgroundColor: themeHere.colors.off_light,
+            alignItems: 'center',
+            justifyContent: 'center',
+            alignSelf: 'center',
+            position: 'absolute',
+          }}>
+          <Text
+            style={{
+              ...themeHere.text.subhead_medium,
+              color: themeHere.colors.background,
+            }}>
+            or
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   return (
-    <View style={styles.parent_view}>
+    <View variant="layout.full_screen">
       <StatusBar barStyle="light-content" />
-      <CreateWalletPart />
-      <ImportWalletPart />
+      <ImageBackground
+        source={require('../../../../assets/colors_background_1.png')}
+        resizeMode="cover"
+        style={{width: windowWidth, height: windowHeight}}>
+        <View
+          sx={{
+            width: windowWidth,
+            height: windowHeight,
+            backgroundColor: '#17171710',
+          }}>
+          <CreateWalletPart />
+          <OrDivider />
+          <ImportWalletPart />
+        </View>
+      </ImageBackground>
     </View>
   );
 }

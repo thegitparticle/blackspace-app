@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {
   Appearance,
   Dimensions,
@@ -16,9 +16,11 @@ import useUSDCFiatPrice from '../../helpers/useUSDCFiatPrice';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
-import {ethers} from 'ethers';
+import {BigNumber, ethers} from 'ethers';
 import {mainnet} from '@pooltogether/v4-pool-data';
 import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
+import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
+import {useGasCostEstimate} from '../../helpers/useGasCostEstimate';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -53,6 +55,20 @@ function LotteryPoolTogetherProduct() {
 
   let user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
 
+  const {loadingEth, priceEth} = useEthFiatPrice();
+
+  // hard-coded gas used while testing in Wei
+  const DEPOSIT_GAS_AMOUNT = BigNumber.from('500000');
+  const CLAIM_GAS_AMOUNT = BigNumber.from('400000');
+  const WITHDRAW_GAS_AMOUNT = BigNumber.from('450000');
+  const APPROVE_GAS_AMOUNT = BigNumber.from('50000');
+  const APPROVE_DEPOSIT_GAS_AMOUNT = BigNumber.from('550000');
+
+  const {totalGasWei, totalGasUsd, isApproveFetched} = useGasCostEstimate(
+    APPROVE_DEPOSIT_GAS_AMOUNT,
+    1,
+  );
+
   function RenderOrderInfo() {
     return (
       <View style={styles.order_info_view}>
@@ -67,7 +83,12 @@ function LotteryPoolTogetherProduct() {
         <View style={styles.order_info_block_view}>
           <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
           <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
+            <Text style={{color: themeHere.colors.foreground}}>
+              ${' '}
+              {Number(totalGasUsd) > 1
+                ? Number(Number(totalGasUsd) * 10 ** -18).toFixed(2)
+                : 0}
+            </Text>
           </Text>
         </View>
         <Button

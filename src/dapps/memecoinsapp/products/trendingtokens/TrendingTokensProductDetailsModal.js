@@ -1,17 +1,15 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
   Appearance,
+  Dimensions,
   ScrollView,
+  StyleSheet,
+  Text,
   TextInput,
-  TouchableOpacity,
+  View,
 } from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import axios from 'axios';
-import {LineChart} from 'react-native-wagmi-charts';
 import FastImage from 'react-native-fast-image';
 import _ from 'lodash';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
@@ -23,6 +21,7 @@ import {Bars} from 'react-native-loader';
 import {Bounceable} from 'rn-bounceable';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import {SquircleView} from 'react-native-figma-squircle';
+import {Grid, LineChart} from 'react-native-svg-charts';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -69,10 +68,11 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         let refinedChartInfo = [];
         for (let i = 0; i < response.data.prices.length; i++) {
           // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
-          let x_here = {
-            timestamp: response.data.prices[i][0],
-            value: response.data.prices[i][1],
-          };
+          // let x_here = {
+          //   timestamp: response.data.prices[i][0],
+          //   value: response.data.prices[i][1],
+          // };
+          let x_here = response.data.prices[i][1];
           refinedChartInfo.push(x_here);
         }
         setCurrentChartData1(refinedChartInfo);
@@ -100,10 +100,11 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         let refinedChartInfo = [];
         for (let i = 0; i < response.data.prices.length; i++) {
           // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
-          let x_here = {
-            timestamp: response.data.prices[i][0],
-            value: response.data.prices[i][1],
-          };
+          // let x_here = {
+          //   timestamp: response.data.prices[i][0],
+          //   value: response.data.prices[i][1],
+          // };
+          let x_here = response.data.prices[i][1];
           refinedChartInfo.push(x_here);
         }
         setCurrentChartData7(refinedChartInfo);
@@ -130,10 +131,11 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         let refinedChartInfo = [];
         for (let i = 0; i < response.data.prices.length; i++) {
           // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
-          let x_here = {
-            timestamp: response.data.prices[i][0],
-            value: response.data.prices[i][1],
-          };
+          // let x_here = {
+          //   timestamp: response.data.prices[i][0],
+          //   value: response.data.prices[i][1],
+          // };
+          let x_here = response.data.prices[i][1];
           refinedChartInfo.push(x_here);
         }
         setCurrentChartData30(refinedChartInfo);
@@ -143,41 +145,42 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
       });
   }
 
-  // function getCoinChartInfo365() {
-  //   const config = {
-  //     method: 'get',
-  //     url:
-  //       'https://api.coingecko.com/api/v3/coins/' +
-  //       tokenIdString +
-  //       '/market_chart?vs_currency=usd&days=365',
-  //     headers: {
-  //       'Content-Type': 'application/json',
-  //     },
-  //   };
-  //
-  //   axios(config)
-  //     .then(response => {
-  //       let refinedChartInfo = [];
-  //       for (let i = 0; i < response.data.prices.length; i++) {
-  //         // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
-  //         let x_here = {
-  //           timestamp: response.data.prices[i][0],
-  //           value: response.data.prices[i][1],
-  //         };
-  //         refinedChartInfo.push(x_here);
-  //       }
-  //       setCurrentChartData365(refinedChartInfo);
-  //     })
-  //     .catch(function (error) {
-  //       console.log(error);
-  //     });
-  // }
+  function getCoinChartInfo365() {
+    const config = {
+      method: 'get',
+      url:
+        'https://api.coingecko.com/api/v3/coins/' +
+        tokenIdString +
+        '/market_chart?vs_currency=usd&days=365',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    };
+
+    axios(config)
+      .then(response => {
+        let refinedChartInfo = [];
+        for (let i = 0; i < response.data.prices.length; i++) {
+          // let x_here = Object.assign({timestamp: 0, value: 0}, chartInfo[i]);
+          // let x_here = {
+          //   timestamp: response.data.prices[i][0],
+          //   value: response.data.prices[i][1],
+          // };
+          let x_here = response.data.prices[i][1];
+          refinedChartInfo.push(x_here);
+        }
+        setCurrentChartData365(refinedChartInfo);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
 
   useEffect(() => {
     getCoinChartInfo1();
     getCoinChartInfo7();
     getCoinChartInfo30();
-    // getCoinChartInfo365();
+    getCoinChartInfo365();
   }, []);
 
   const RenderChartView = useMemo(
@@ -198,104 +201,64 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
         } else {
           if (currentChartRange === 1) {
             return (
-              <LineChart.Provider data={currentChartData1}>
-                <LineChart>
-                  <LineChart.Path
-                    color={
-                      _.last(currentChartData1).value -
-                        _.head(currentChartData1).value >
-                      0
-                        ? themeHere.colors.success_green
-                        : themeHere.colors.danger_red
-                    }>
-                    <LineChart.Gradient
-                      color={
-                        _.last(currentChartData1).value -
-                          _.head(currentChartData1).value >
-                        0
-                          ? themeHere.colors.success_green
-                          : themeHere.colors.danger_red
-                      }
-                    />
-                  </LineChart.Path>
-                </LineChart>
-              </LineChart.Provider>
+              <LineChart
+                style={{height: 200}}
+                data={currentChartData1}
+                svg={{
+                  stroke:
+                    _.last(currentChartData1) - _.head(currentChartData1) > 0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
+                contentInset={{top: 20, bottom: 20}}>
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
+              </LineChart>
             );
           } else if (currentChartRange === 7) {
             return (
-              <LineChart.Provider data={currentChartData7}>
-                <LineChart>
-                  <LineChart.Path
-                    color={
-                      _.last(currentChartData7).value -
-                        _.head(currentChartData7).value >
-                      0
-                        ? themeHere.colors.success_green
-                        : themeHere.colors.danger_red
-                    }>
-                    <LineChart.Gradient
-                      color={
-                        _.last(currentChartData7).value -
-                          _.head(currentChartData7).value >
-                        0
-                          ? themeHere.colors.success_green
-                          : themeHere.colors.danger_red
-                      }
-                    />
-                  </LineChart.Path>
-                </LineChart>
-              </LineChart.Provider>
+              <LineChart
+                style={{height: 200}}
+                data={currentChartData7}
+                svg={{
+                  stroke:
+                    _.last(currentChartData7) - _.head(currentChartData7) > 0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
+                contentInset={{top: 20, bottom: 20}}>
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
+              </LineChart>
             );
           } else if (currentChartRange === 30) {
             return (
-              <LineChart.Provider data={currentChartData7}>
-                <LineChart>
-                  <LineChart.Path
-                    color={
-                      _.last(currentChartData30).value -
-                        _.head(currentChartData30).value >
-                      0
-                        ? themeHere.colors.success_green
-                        : themeHere.colors.danger_red
-                    }>
-                    <LineChart.Gradient
-                      color={
-                        _.last(currentChartData30).value -
-                          _.head(currentChartData30).value >
-                        0
-                          ? themeHere.colors.success_green
-                          : themeHere.colors.danger_red
-                      }
-                    />
-                  </LineChart.Path>
-                </LineChart>
-              </LineChart.Provider>
+              <LineChart
+                style={{height: 200}}
+                data={currentChartData30}
+                svg={{
+                  stroke:
+                    _.last(currentChartData30) - _.head(currentChartData30) > 0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
+                contentInset={{top: 20, bottom: 20}}>
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
+              </LineChart>
             );
           } else {
             return (
-              <View />
-              // <LineChart.Provider data={currentChartData365}>
-              //   <LineChart>
-              //     <LineChart.Path
-              //       color={
-              //         _.last(currentChartData365).value -
-              //           _.head(currentChartData365).value >
-              //         0
-              //           ? themeHere.colors.success_green
-              //           : themeHere.colors.danger_red
-              //       }>
-              //       <LineChart.Gradient
-              //         color={
-              //           _.last(currentChartData365).value -
-              //             _.head(currentChartData365).value >
-              //           0
-              //             ? themeHere.colors.success_green
-              //             : themeHere.colors.danger_red
-              //         }
-              //       />
-              //     </LineChart.Path>
-              //   </LineChart>
-              // </LineChart.Provider>
+              <LineChart
+                style={{height: 200}}
+                data={currentChartData365}
+                svg={{
+                  stroke:
+                    _.last(currentChartData365) - _.head(currentChartData365) >
+                    0
+                      ? themeHere.colors.success_green
+                      : themeHere.colors.danger_red,
+                }}
+                contentInset={{top: 20, bottom: 20}}>
+                <Grid svg={{stroke: themeHere.colors.mid_ground + '75'}} />
+              </LineChart>
             );
           }
         }
@@ -337,72 +300,72 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                 </Text>
               </View>
             </Bounceable>
-            {/*<Bounceable*/}
-            {/*  onPress={() => {*/}
-            {/*    setCurrentChartRange(7);*/}
-            {/*  }}>*/}
-            {/*  <View*/}
-            {/*    style={{*/}
-            {/*      width: 40,*/}
-            {/*      height: 40,*/}
-            {/*      alignItems: 'center',*/}
-            {/*      justifyContent: 'center',*/}
-            {/*    }}>*/}
-            {/*    <Text*/}
-            {/*      style={{*/}
-            {/*        ...themeHere.text.subhead_medium,*/}
-            {/*        color:*/}
-            {/*          currentChartRange === 7*/}
-            {/*            ? themeHere.colors.success_green_light*/}
-            {/*            : themeHere.colors.foreground,*/}
-            {/*      }}>*/}
-            {/*      7d*/}
-            {/*    </Text>*/}
-            {/*  </View>*/}
-            {/*</Bounceable>*/}
-            {/*<Bounceable*/}
-            {/*  onPress={() => {*/}
-            {/*    setCurrentChartRange(30);*/}
-            {/*  }}>*/}
-            {/*  <View*/}
-            {/*    style={{*/}
-            {/*      width: 40,*/}
-            {/*      height: 40,*/}
-            {/*      alignItems: 'center',*/}
-            {/*      justifyContent: 'center',*/}
-            {/*    }}>*/}
-            {/*    <Text*/}
-            {/*      style={{*/}
-            {/*        ...themeHere.text.subhead_medium,*/}
-            {/*        color:*/}
-            {/*          currentChartRange === 30*/}
-            {/*            ? themeHere.colors.success_green_light*/}
-            {/*            : themeHere.colors.foreground,*/}
-            {/*      }}>*/}
-            {/*      30d*/}
-            {/*    </Text>*/}
-            {/*  </View>*/}
-            {/*</Bounceable>*/}
-            {/*<Bounceable onPress={() => setCurrentChartRange(365)}>*/}
-            {/*  <View*/}
-            {/*    style={{*/}
-            {/*      width: 40,*/}
-            {/*      height: 40,*/}
-            {/*      alignItems: 'center',*/}
-            {/*      justifyContent: 'center',*/}
-            {/*    }}>*/}
-            {/*    <Text*/}
-            {/*      style={{*/}
-            {/*        ...themeHere.text.subhead_medium,*/}
-            {/*        color:*/}
-            {/*          currentChartRange === 365*/}
-            {/*            ? themeHere.colors.success_green_light*/}
-            {/*            : themeHere.colors.foreground,*/}
-            {/*      }}>*/}
-            {/*      1y*/}
-            {/*    </Text>*/}
-            {/*  </View>*/}
-            {/*</Bounceable>*/}
+            <Bounceable
+              onPress={() => {
+                setCurrentChartRange(7);
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 7
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  7d
+                </Text>
+              </View>
+            </Bounceable>
+            <Bounceable
+              onPress={() => {
+                setCurrentChartRange(30);
+              }}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 30
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  30d
+                </Text>
+              </View>
+            </Bounceable>
+            <Bounceable onPress={() => setCurrentChartRange(365)}>
+              <View
+                style={{
+                  width: 40,
+                  height: 40,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...themeHere.text.subhead_medium,
+                    color:
+                      currentChartRange === 365
+                        ? themeHere.colors.success_green_light
+                        : themeHere.colors.foreground,
+                  }}>
+                  1y
+                </Text>
+              </View>
+            </Bounceable>
           </View>
         );
       },
@@ -593,7 +556,6 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
                 keyboardType={'decimal-pad'}
                 onEndEditing={() => {}}
               />
-
               <SquircleView
                 style={styles.famous_token_item_view}
                 squircleParams={{
@@ -614,7 +576,10 @@ function TrendingTokensProductDetailsModal({route, dispatch}) {
             </View>
             <View style={{flexDirection: 'row', width: windowWidth - 40}}>
               <Text style={{...styles.fiat_price_text, marginBottom: 30}}>
-                ~ $ {Number(amountToBuyFiat).toFixed(0)}
+                ~ ${' '}
+                {Number(amountToBuyFiat)
+                  .toFixed(0)
+                  .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
               </Text>
             </View>
             <Button

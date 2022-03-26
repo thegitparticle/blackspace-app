@@ -1,11 +1,10 @@
 // BuyTokensUniswapTransactionModal
-import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
-import ConfirmBuyUniswap from './components/ConfirmBuyUniswap';
-import TransactionOngoingBuyUniswap from './components/TransactionOngoingBuyUniswap';
+import React, { useState } from "react";
+import { Appearance, Dimensions, StyleSheet, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import ConfirmBuyUniswap from "./components/ConfirmBuyUniswap";
+import TransactionOngoingBuyUniswap from "./components/TransactionOngoingBuyUniswap";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

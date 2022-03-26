@@ -1,4 +1,4 @@
-import {ADD_MYAPPS, ADD_MYPROFILEDETAILS} from '../types';
+import {ADD_MYPROFILEDETAILS} from '../types';
 import axios from 'axios';
 
 export const GetMyProfileDetails = (userid, wallet_address) => {

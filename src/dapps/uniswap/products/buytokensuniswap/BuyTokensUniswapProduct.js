@@ -1,34 +1,25 @@
-import React, {useEffect, useMemo, useRef, useState} from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  TextInput,
-  TouchableOpacity,
-} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {Button} from 'react-native-elements';
-import LinearGradient from 'react-native-linear-gradient';
-import {SquircleView} from 'react-native-figma-squircle';
-import {connect} from 'react-redux';
-import {Modalize} from 'react-native-modalize';
-import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenListActions';
-import {Portal} from 'react-native-portalize';
-import {FamousTokensList} from '../../helpers/FamousTokensList';
-import FastImage from 'react-native-fast-image';
-import axios from 'axios';
-import {useNavigation} from '@react-navigation/native';
-import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
-import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
-import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
-import SetupUniswapPool from '../../helpers/UniswapPoolSetup';
-import usePoolPricesFromChain from '../../helpers/usePoolPricesFromChain';
-import _ from 'lodash';
-import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import {BigNumber} from 'ethers';
-import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
+import React, { useMemo, useRef, useState } from "react";
+import { Appearance, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
+import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
+import { Button } from "react-native-elements";
+import LinearGradient from "react-native-linear-gradient";
+import { SquircleView } from "react-native-figma-squircle";
+import { connect } from "react-redux";
+import { Modalize } from "react-native-modalize";
+import { Portal } from "react-native-portalize";
+import { FamousTokensList } from "../../helpers/FamousTokensList";
+import FastImage from "react-native-fast-image";
+import { useNavigation } from "@react-navigation/native";
+import useDerivedEthPrice from "../../helpers/useDerivedEthPrice";
+import useEthFiatPrice from "../../../../helpers/useGetEthFiatPrice";
+import useLiquidityPoolAddress from "../../helpers/useLiquidityPoolAddress";
+import _ from "lodash";
+import Iconly from "../../../../miscsetups/customfonts/Iconly";
+import { BigNumber } from "ethers";
+import { useGasCostEstimate } from "../../../pooltogether/helpers/useGasCostEstimate";
+import { Bounceable } from "rn-bounceable";
+import use0xSwapQuote from "../../helpers/use0xSwapQuote";
+import InfoIcon from "../../../../bits/InfoIcon";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -84,24 +75,17 @@ function BuyTokenUniswapProduct({dispatch}) {
 
   const [token1Coin, setToken1Coin] = useState(FamousTokensList[4]);
   const [token0Coin, setToken0Coin] = useState(ethTokenObject);
+  // for token1 - use address as variable name and token0 - contractAddress
 
-  const {loadingDerivedETH, derivedETH} = useDerivedEthPrice(
-    token1Coin.address,
-  );
+  const derivedETHToken0 = useDerivedEthPrice(token0Coin.contractAddress);
+  const derivedETHToken1 = useDerivedEthPrice(token1Coin.address);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  let {loadingLPAddress, lpAddress} = useLiquidityPoolAddress(
+  let {loadingLPAddress, lpAddress, lpExists} = useLiquidityPoolAddress(
     token0Coin === null ? '' : token0Coin.contractAddress,
     token1Coin.address || '',
   );
-
-  let {loadingPoolPrices, token0PoolPrice, token1PoolPrice} =
-    usePoolPricesFromChain(
-      lpAddress,
-      token0Coin === null ? '' : token0Coin.contractAddress,
-      token1Coin === null ? '' : token1Coin.address,
-    );
 
   const ESTIMATE_SWAP_GAS_AMOUNT = BigNumber.from('550000');
 
@@ -110,8 +94,24 @@ function BuyTokenUniswapProduct({dispatch}) {
     1,
   );
 
+  const {loading0xSwapQuote, quoteDetails0x} = use0xSwapQuote(
+    token0Coin.contractAddress,
+    token1Coin.address,
+    token1Amount,
+    token1Coin.decimals,
+  );
+
   function computeFiatToken1(value) {
-    setToken1Fiat(Number(value) * derivedETH * priceEth);
+    setToken1Fiat(
+      Number(value) *
+        Number(lpAddress.token1Price) *
+        Number(derivedETHToken0.derivedETH) *
+        Number(priceEth),
+    );
+    // console.log(derivedETHToken1.derivedETH + 'token1 der eth');
+    // console.log(
+    //   Number(value) * Number(derivedETHToken1.derivedETH) * Number(priceEth),
+    // );
   }
 
   function changeToken0(token0) {
@@ -356,126 +356,106 @@ function BuyTokenUniswapProduct({dispatch}) {
     );
   }
 
-  function RenderToken1ListItem(item) {
+  function RenderToken1ListItem(props) {
     return (
-      <TouchableOpacity
-        style={styles.render_token_item_view}
-        onPress={() => {
-          setToken1Coin(item.item);
-          onClosePickToken1();
-          // checkAndCallPoolInfo();
-        }}>
-        <>
-          <FastImage
-            source={{
-              uri: item.item.logoURI,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            style={styles.render_token_item_logo}
-          />
-          <Text style={styles.render_token_item_title}>{item.item.name}</Text>
-        </>
-        <Text style={styles.render_token_item_symbol}>{item.item.symbol}</Text>
-      </TouchableOpacity>
+      <View style={styles.render_token_item_view}>
+        <Bounceable
+          onPress={() => {
+            setToken1Coin(props.item.item);
+            onClosePickToken1();
+            // checkAndCallPoolInfo();
+          }}>
+          <View style={{height: 100, width: windowWidth * 0.74}}>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                height: 50,
+                width: windowWidth * 0.75,
+              }}>
+              <FastImage
+                source={{
+                  uri: props.item.item.logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.render_token_item_logo}
+              />
+              <Text style={styles.render_token_item_title}>
+                {props.item.item.name}
+              </Text>
+              <Text style={styles.render_token_item_symbol}>
+                {props.item.item.symbol}
+              </Text>
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                alignItems: 'flex-start',
+                height: 50,
+                width: windowWidth - 40,
+              }}>
+              <FastImage
+                source={{
+                  // uri: props.item.item.logoURI,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={styles.render_token_item_logo}
+              />
+              <Text
+                style={{
+                  ...themeHere.text.caption,
+                  color: themeHere.colors.foreground,
+                  marginHorizontal: 10,
+                }}>
+                Address -{' '}
+                <Text
+                  style={{
+                    ...themeHere.text.caption_i,
+                    color: themeHere.colors.foreground + '50',
+                    marginHorizontal: 10,
+                  }}>
+                  {props.item.item.address}
+                </Text>
+              </Text>
+            </View>
+          </View>
+        </Bounceable>
+      </View>
     );
   }
-
-  const RenderPaymentOptions = useMemo(
-    () =>
-      function RenderPaymentOptions() {
-        function PaymentOptionItem(item) {
-          const [selected, setSelected] = useState(false);
-
-          if (selected) {
-            return (
-              <TouchableOpacity onPress={() => setSelected(!selected)}>
-                <SquircleView
-                  style={styles.payment_option_item_view}
-                  squircleParams={{
-                    cornerSmoothing: 1,
-                    cornerRadius: 15,
-                    fillColor: themeHere.colors.neon_blue + '75',
-                  }}>
-                  <View style={styles.itemholding_leftside_view}>
-                    <FastImage
-                      style={styles.itemholding_icon}
-                      source={{
-                        uri: item.logoURI,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <Text style={styles.itemholding_title}>{item.name}</Text>
-                  </View>
-                  <View style={styles.itemholding_rightside_view}>
-                    <Text style={styles.itemholding_balance}>
-                      {item.tokenBalance_decimal.toFixed(4)}
-                    </Text>
-                    <Text style={styles.itemholding_converted_balance}>
-                      ${item.token_price_usd}
-                    </Text>
-                  </View>
-                </SquircleView>
-              </TouchableOpacity>
-            );
-          } else {
-            return (
-              <TouchableOpacity
-                onPress={() => {
-                  setSelected(!selected);
-                  changeToken0(item);
-                }}>
-                <SquircleView
-                  style={styles.payment_option_item_view}
-                  squircleParams={{
-                    cornerSmoothing: 1,
-                    cornerRadius: 15,
-                    fillColor: themeHere.colors.mid_ground + '25',
-                  }}>
-                  <View style={styles.itemholding_leftside_view}>
-                    <FastImage
-                      style={styles.itemholding_icon}
-                      source={{
-                        uri: item.logoURI,
-                        priority: FastImage.priority.normal,
-                      }}
-                      resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <Text style={styles.itemholding_title}>{item.name}</Text>
-                  </View>
-                  <View style={styles.itemholding_rightside_view}>
-                    <Text style={styles.itemholding_balance}>
-                      {item.tokenBalance_decimal.toFixed(4)}
-                    </Text>
-                    <Text style={styles.itemholding_converted_balance}>
-                      ${item.token_price_usd}
-                    </Text>
-                  </View>
-                </SquircleView>
-              </TouchableOpacity>
-            );
-          }
-        }
-
-        return (
-          <View style={styles.payment_token_pick_view}>
-            {PaymentOptionItem(ethTokenObject)}
-            {myTokens.map(item => PaymentOptionItem(item))}
-          </View>
-        );
-      },
-    [],
-  );
 
   const RenderOrderInfo = useMemo(
     () =>
       function RenderOrderInfo() {
+        function GasPriceTextComponent() {
+          if (quoteDetails0x !== null) {
+            return (
+              <Text style={{color: themeHere.colors.foreground}}>
+                ~${' '}
+                {Number(
+                  Number(quoteDetails0x.gas) *
+                    Number(quoteDetails0x.gasPrice) *
+                    Number(priceEth) *
+                    10 ** -18,
+                ).toFixed(2)}
+              </Text>
+            );
+          } else {
+            return (
+              <Text style={{color: themeHere.colors.foreground}}>~$ 0</Text>
+            );
+          }
+        }
+
         if (
           token1Amount.length > 0 &&
           token1Coin.address.length > 0 &&
-          token0Coin
+          token0Coin &&
+          lpExists
         ) {
+          // console.log(derivedETHToken0.derivedETH + 't0 eth');
           return (
             <View style={styles.order_info_view}>
               <View
@@ -486,7 +466,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                 }}>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    1 {token1Coin.symbol} = {token1PoolPrice}{' '}
+                    1 {token1Coin.symbol} ={' '}
+                    {Number(lpAddress.token1Price).toFixed(6)}{' '}
                     {token0Coin.symbol}
                   </Text>
                 </Text>
@@ -503,8 +484,28 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_title_text}>by paying</Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    {Number(token1Amount) * Number(token1PoolPrice)}{' '}
+                    {Number(
+                      Number(token1Amount) * Number(lpAddress.token1Price),
+                    ).toFixed(6)}{' '}
                     {token0Coin.symbol}
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>
+                  by paying (in $)
+                </Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    ${' '}
+                    {Number(
+                      Number(token1Amount) *
+                        Number(lpAddress.token1Price) *
+                        Number(derivedETHToken0.derivedETH) *
+                        Number(priceEth),
+                    )
+                      .toFixed(0)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
                   </Text>
                 </Text>
               </View>
@@ -514,18 +515,30 @@ function BuyTokenUniswapProduct({dispatch}) {
                 </Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    0.76%
+                    ~ 0.76%
                   </Text>
                 </Text>
               </View>
               <View style={styles.order_info_block_view}>
-                <Text style={styles.order_info_title_text}>
-                  Ethereum Gas Fees
-                </Text>
-                <Text style={styles.order_info_value_text}>
-                  <Text style={{color: themeHere.colors.foreground}}>
-                    ~$ {Number(Number(totalGasUsd) * 10 ** -18).toFixed(2)}
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.order_info_title_text}>
+                    Ethereum Gas Fees
                   </Text>
+                  <InfoIcon
+                    size={10}
+                    information={
+                      'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
+                    }
+                    height={70}
+                  />
+                </View>
+                <Text style={styles.order_info_value_text}>
+                  <GasPriceTextComponent />
                 </Text>
               </View>
               <Button
@@ -536,7 +549,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                     token0Coin: token0Coin,
                     token1Coin: token1Coin,
                     token0Amount:
-                      Number(token1Amount) * Number(token1PoolPrice),
+                      Number(token1Amount) * Number(lpAddress.token1Price),
                     token1Amount: token1Amount,
                     token1Fiat: token1Fiat,
                     lpDetails: lpAddress,
@@ -550,6 +563,28 @@ function BuyTokenUniswapProduct({dispatch}) {
                   colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
                 }}
               />
+            </View>
+          );
+        } else if (!lpExists) {
+          return (
+            <View style={styles.order_info_view}>
+              <View
+                style={{
+                  ...styles.order_info_block_view,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                }}>
+                <Text
+                  style={{
+                    ...styles.order_info_value_text,
+                    alignSelf: 'center',
+                    textAlign: 'center',
+                  }}>
+                  <Text style={{color: themeHere.colors.blue_light}}>
+                    this combination has very low liquidity on Uniswap
+                  </Text>
+                </Text>
+              </View>
             </View>
           );
         } else {
@@ -576,14 +611,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           );
         }
       },
-    [
-      token0Coin,
-      token1Amount,
-      token1Coin,
-      token1PoolPrice,
-      token0PoolPrice,
-      lpAddress,
-    ],
+    [token0Coin, token1Amount, token1Coin, lpAddress, lpExists, quoteDetails0x],
   );
 
   function RenderPaymentOption() {
@@ -704,7 +732,7 @@ function BuyTokenUniswapProduct({dispatch}) {
           }}
           flatListProps={{
             data: uniswapTokens,
-            renderItem: RenderToken1ListItem,
+            renderItem: item => <RenderToken1ListItem item={item} />,
             keyExtractor: item => item.heading,
             showsVerticalScrollIndicator: false,
             ListHeaderComponent: PickToken1Header(),
@@ -878,16 +906,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   render_token_item_view: {
-    height: 50,
+    height: 100,
     width: windowWidth,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
   },
   render_token_item_logo: {
     width: 30,
     height: 30,
     borderRadius: 15,
-    marginHorizontal: 20,
+    marginLeft: 20,
+    marginRight: 10,
   },
   render_token_item_title: {
     ...themeHere.text.subhead_bold,

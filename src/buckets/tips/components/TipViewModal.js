@@ -1,11 +1,10 @@
-import React from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {Text, View, useSx, styled, ScrollView} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {SquircleCard} from '../../../theme/DripsyTheme';
-import TipTile from './TipTile';
-import Spacer from '../../../bits/Spacer';
-import {Icon} from 'react-native-elements';
+import React from "react";
+import { Appearance, Dimensions } from "react-native";
+import { ScrollView, Text, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { SquircleCard } from "../../../theme/DripsyTheme";
+import Spacer from "../../../bits/Spacer";
+import { Icon } from "react-native-elements";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,7 +27,7 @@ function TipViewModal({route}) {
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
+            fillColor: themeHere.colors.mid_ground + '75',
           }}>
           <Text
             variant="body_medium"

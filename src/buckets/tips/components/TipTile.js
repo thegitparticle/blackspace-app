@@ -1,13 +1,11 @@
-import React from 'react';
-import {StyleSheet, Image, Dimensions, Appearance} from 'react-native';
-import {Text, View, useSx, styled} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import window from '@react-navigation/native/src/__mocks__/window';
-import {SquircleView} from 'react-native-figma-squircle/src/index';
-import FastImage from 'react-native-fast-image';
-import {StyledFastImage30} from '../../../theme/DripsyTheme';
-import {Bounceable} from 'rn-bounceable';
-import {useNavigation} from '@react-navigation/native';
+import React from "react";
+import { Appearance, Dimensions } from "react-native";
+import { Text, useSx, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import window from "@react-navigation/native/src/__mocks__/window";
+import { SquircleView } from "react-native-figma-squircle/src/index";
+import { Bounceable } from "rn-bounceable";
+import { useNavigation } from "@react-navigation/native";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -47,7 +45,7 @@ function TipTile(props) {
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
+            fillColor: themeHere.colors.mid_ground + '75',
           }}>
           <View sx={{mx: '$4', flexDirection: 'row', alignItems: 'center'}}>
             <View

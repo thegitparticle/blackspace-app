@@ -1,12 +1,8 @@
-import React from 'react';
-import {
-  StyleSheet,
-  Dimensions,
-  Appearance,
-  ImageBackground,
-} from 'react-native';
-import {Text, View, Image} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import React from "react";
+import { Appearance, Dimensions, ImageBackground } from "react-native";
+import { View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import BrandStoryTextsAnimation from "../components/BrandStoryTextsAnimation";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,11 +20,12 @@ function BrandLandingScreen() {
           alignItems: 'center',
           justifyContent: 'center',
         }}>
-        <Image
-          sx={{width: windowWidth * 0.6, height: windowWidth * 0.3}}
-          source={require('../../../../assets/blackSpace_logo_full.png')}
-          resizeMode="contain"
-        />
+        {/*<Image*/}
+        {/*  sx={{width: windowWidth * 0.6, height: windowWidth * 0.3}}*/}
+        {/*  source={require('../../../../assets/blackSpace_logo_full.png')}*/}
+        {/*  resizeMode="contain"*/}
+        {/*/>*/}
+        <BrandStoryTextsAnimation />
       </ImageBackground>
     </View>
   );

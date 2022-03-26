@@ -1,12 +1,13 @@
-import React from 'react';
-import {StyleSheet, Dimensions, Appearance, Pressable} from 'react-native';
-import {Text, View, Image, useSx, styled} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import FastImage from 'react-native-fast-image';
-import {Icon} from 'react-native-elements';
-import Clipboard from '@react-native-clipboard/clipboard';
-import {Bounceable} from 'rn-bounceable';
+import React from "react";
+import { Appearance, Dimensions, Pressable } from "react-native";
+import { Text, View } from "dripsy";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { connect } from "react-redux";
+import FastImage from "react-native-fast-image";
+import { Icon } from "react-native-elements";
+import Clipboard from "@react-native-clipboard/clipboard";
+import { Bounceable } from "rn-bounceable";
+import { showMessage } from "react-native-flash-message";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -18,10 +19,23 @@ let state_here = {};
 function MainDetails() {
   let wallet_add = state_here.UserDetailsReducer.userdetails.wallet_address;
   let render_wallet_string =
-    wallet_add.slice(0, 4) + '...' + +wallet_add.slice(-2);
+    wallet_add.slice(0, 4) + '...' + wallet_add.slice(-2);
 
   const copyToClipboard = () => {
     Clipboard.setString(wallet_add);
+    showMessage({
+      message: 'wallet address copied',
+      type: 'success',
+      backgroundColor: themeHere.colors.success_green,
+    });
+  };
+
+  const clickOnDpAction = () => {
+    showMessage({
+      message: 'you will soon to able to add your NFT as DP',
+      type: 'success',
+      backgroundColor: themeHere.colors.blue_dark,
+    });
   };
 
   return (
@@ -32,16 +46,16 @@ function MainDetails() {
         justifyContent: 'center',
         mt: '$4',
       }}>
-      <Bounceable>
+      <Bounceable onPress={clickOnDpAction}>
         <FastImage
           style={{
-            width: 70,
-            height: 70,
-            borderRadius: 35,
+            width: 100,
+            height: 100,
+            borderRadius: 50,
             marginVertical: 10,
           }}
           source={{
-            uri: 'https://i.postimg.cc/7hSZWDz1/photo-1541562232579-512a21360020.jpg',
+            uri: 'https://i.postimg.cc/YCL0q94W/red-icon.png',
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}

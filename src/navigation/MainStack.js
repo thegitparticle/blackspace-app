@@ -1,5 +1,4 @@
 import React from 'react';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {
   CardStyleInterpolators,
   createStackNavigator,
@@ -18,7 +17,7 @@ import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
-import {Host, Portal} from 'react-native-portalize';
+import {Host} from 'react-native-portalize';
 import TrendingTokensProductDetailsModal from '../dapps/memecoinsapp/products/trendingtokens/TrendingTokensProductDetailsModal';
 import Iconly from '../miscsetups/customfonts/Iconly';
 import {Appearance, Dimensions, Pressable, View} from 'react-native';
@@ -166,18 +165,20 @@ function HomeAndAppsStack() {
             const {app_details} = route.params;
             return [`item.${app_details.app_name}.app_icon`];
           }}
-          options={{
+          options={({route}) => ({
             gestureEnabled: true,
-            headerShown: true,
+            headerShown: false,
             headerStyle: {
-              backgroundColor: 'transparent',
+              backgroundColor: themeHere.colors.off_background,
             },
-            headerTintColor: '#fff',
+            headerTintColor: 'transparent',
             headerTitleStyle: {
               fontWeight: 'bold',
+              ...themeHere.text.title_2,
+              color: themeHere.colors.foreground,
             },
-            headerTransparent: true,
-            headerTitle: '',
+            // headerTransparent: true,
+            headerTitle: route.params.app_details.name,
             headerRight: () => (
               <Pressable
                 style={{
@@ -194,11 +195,12 @@ function HomeAndAppsStack() {
             headerLeft: () => <View />,
             cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
             gestureDirection: 'vertical',
+            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
             transitionSpec: {
               open: config,
               close: config,
             },
-          }}
+          })}
         />
         <HomeAndAppMain.Screen
           name="TipsAppLandingScreen"

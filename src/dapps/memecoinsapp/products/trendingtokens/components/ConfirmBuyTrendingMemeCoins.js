@@ -1,15 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../theme/ButterTheme';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
-import Compound from '@compound-finance/compound-js';
-import {ETH_NETWORK} from 'react-native-dotenv';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
-import TokenWithIconBadge from '../../../../../bits/TokenWithIconBadge';
 import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
 
@@ -121,8 +118,8 @@ function ConfirmBuyTrendingMemeCoins(props) {
             emoji={'⚠️'}
           />
           <Text style={styles.text_highlighted}>
-            your wallet does have enough ETH to buy {props.AmountToBuy}{' '}
-            {props.Symbol}, reduce borrow amount and try again
+            your wallet does not have enough ETH to buy {props.AmountToBuy}{' '}
+            {props.Symbol}, reduce purchase amount and try again
           </Text>
         </View>
       );

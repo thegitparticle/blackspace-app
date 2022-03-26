@@ -1,6 +1,6 @@
 // TrendingTokensTransactionModal
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';

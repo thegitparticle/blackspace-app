@@ -1,28 +1,15 @@
-import React, {useEffect, useState} from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-  TouchableOpacity,
-  StatusBar,
-  Appearance,
-} from 'react-native';
-import {ADD_WDEETS, LOGIN} from '../../../redux/types';
-import {connect} from 'react-redux';
-import '@ethersproject/shims';
-import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import LinearGradient from 'react-native-linear-gradient';
-import SquircleButton from '../../../bits/SquircleButton';
-import {useSharedValue} from 'react-native-reanimated';
-import {Bubbles} from 'react-native-loader';
-import LottieView from 'lottie-react-native';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import _ from 'lodash';
-import {Chip} from 'react-native-elements';
-import {Bounceable} from 'rn-bounceable';
+import React, { useEffect, useState } from "react";
+import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from "react-native";
+import { connect } from "react-redux";
+import "@ethersproject/shims";
+import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
+import { Bubbles } from "react-native-loader";
+import _ from "lodash";
+import { Bounceable } from "rn-bounceable";
+import SquircleGlassButton from "../../../bits/SquircleGlassButton";
+import { SquircleView } from "react-native-figma-squircle";
+import { BlurView } from "@react-native-community/blur";
+import MaskedView from "@react-native-masked-view/masked-view";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -72,16 +59,43 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
               justifyContent: 'center',
             }}>
             {seedPhraseList.slice(0, 3).map((item, id) => (
-              <View
+              <MaskedView
                 style={{
-                  backgroundColor: themeHere.colors.red_light,
+                  width: 120,
                   height: 40,
-                  borderRadius: 20,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 120,
                   marginHorizontal: 5,
-                }}>
+                }}
+                maskElement={
+                  <SquircleView
+                    style={{
+                      height: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 120,
+                    }}
+                    squircleParams={{
+                      cornerSmoothing: 1,
+                      cornerRadius: 20,
+                      fillColor: themeHere.colors.red_light,
+                    }}
+                  />
+                }>
+                <BlurView
+                  style={{
+                    width: 120,
+                    height: 40,
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                  }}
+                  blurType={'ultraThinMaterialDark'}
+                  blurAmount={10}
+                  reducedTransparencyFallbackColor="gray"
+                />
                 <Text
                   style={{
                     ...themeHere.text.subhead_bold,
@@ -91,7 +105,7 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
                   }}>
                   {id + 1}. {item}
                 </Text>
-              </View>
+              </MaskedView>
             ))}
           </View>
           <View
@@ -101,16 +115,43 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
               justifyContent: 'center',
             }}>
             {seedPhraseList.slice(3, 6).map((item, id) => (
-              <View
+              <MaskedView
                 style={{
-                  backgroundColor: themeHere.colors.red_light,
+                  width: 120,
                   height: 40,
-                  borderRadius: 20,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 120,
                   marginHorizontal: 5,
-                }}>
+                }}
+                maskElement={
+                  <SquircleView
+                    style={{
+                      height: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 120,
+                    }}
+                    squircleParams={{
+                      cornerSmoothing: 1,
+                      cornerRadius: 20,
+                      fillColor: themeHere.colors.red_light,
+                    }}
+                  />
+                }>
+                <BlurView
+                  style={{
+                    width: 120,
+                    height: 40,
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                  }}
+                  blurType={'ultraThinMaterialDark'}
+                  blurAmount={10}
+                  reducedTransparencyFallbackColor="gray"
+                />
                 <Text
                   style={{
                     ...themeHere.text.subhead_bold,
@@ -120,7 +161,7 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
                   }}>
                   {id + 4}. {item}
                 </Text>
-              </View>
+              </MaskedView>
             ))}
           </View>
           <View
@@ -130,16 +171,43 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
               justifyContent: 'center',
             }}>
             {seedPhraseList.slice(6, 9).map((item, id) => (
-              <View
+              <MaskedView
                 style={{
-                  backgroundColor: themeHere.colors.red_light,
+                  width: 120,
                   height: 40,
-                  borderRadius: 20,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 120,
                   marginHorizontal: 5,
-                }}>
+                }}
+                maskElement={
+                  <SquircleView
+                    style={{
+                      height: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 120,
+                    }}
+                    squircleParams={{
+                      cornerSmoothing: 1,
+                      cornerRadius: 20,
+                      fillColor: themeHere.colors.red_light,
+                    }}
+                  />
+                }>
+                <BlurView
+                  style={{
+                    width: 120,
+                    height: 40,
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                  }}
+                  blurType={'ultraThinMaterialDark'}
+                  blurAmount={10}
+                  reducedTransparencyFallbackColor="gray"
+                />
                 <Text
                   style={{
                     ...themeHere.text.subhead_bold,
@@ -149,7 +217,7 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
                   }}>
                   {id + 7}. {item}
                 </Text>
-              </View>
+              </MaskedView>
             ))}
           </View>
           <View
@@ -159,16 +227,43 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
               justifyContent: 'center',
             }}>
             {seedPhraseList.slice(9, 12).map((item, id) => (
-              <View
+              <MaskedView
                 style={{
-                  backgroundColor: themeHere.colors.red_light,
+                  width: 120,
                   height: 40,
-                  borderRadius: 20,
                   alignItems: 'center',
                   justifyContent: 'center',
-                  width: 120,
                   marginHorizontal: 5,
-                }}>
+                }}
+                maskElement={
+                  <SquircleView
+                    style={{
+                      height: 40,
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: 120,
+                    }}
+                    squircleParams={{
+                      cornerSmoothing: 1,
+                      cornerRadius: 20,
+                      fillColor: themeHere.colors.red_light,
+                    }}
+                  />
+                }>
+                <BlurView
+                  style={{
+                    width: 120,
+                    height: 40,
+                    position: 'absolute',
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                  }}
+                  blurType={'ultraThinMaterialDark'}
+                  blurAmount={10}
+                  reducedTransparencyFallbackColor="gray"
+                />
                 <Text
                   style={{
                     ...themeHere.text.subhead_bold,
@@ -178,7 +273,7 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
                   }}>
                   {id + 10}. {item}
                 </Text>
-              </View>
+              </MaskedView>
             ))}
           </View>
         </View>
@@ -189,9 +284,14 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <LinearGradient
-        colors={['#FF5B3A', '#FF3293']}
-        style={styles.gradient_background}>
+      <ImageBackground
+        source={require('../../../../assets/colors_background_1.png')}
+        resizeMode="cover"
+        style={{
+          width: windowWidth,
+          height: windowHeight,
+          alignItems: 'center',
+        }}>
         <Text style={styles.heading_text}>SEED PHRASE</Text>
         <CenterText />
         <View
@@ -205,17 +305,18 @@ function SaveSeedPhraseScreen({dispatch, navigation}) {
             onPress={() => {
               navigation.navigate('UserDetailsInputScreen');
             }}>
-            <SquircleButton
+            <SquircleGlassButton
               buttonColor={themeHere.colors.red_light}
               width={windowWidth * 0.7}
               height={50}
               buttonText={'I have noted it down'}
               font={themeHere.text.subhead_medium}
               textColor={themeHere.colors.light}
+              blurType={'ultraThinMaterialDark'}
             />
           </Bounceable>
         </View>
-      </LinearGradient>
+      </ImageBackground>
     </View>
   );
 }
@@ -232,7 +333,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'tomato',
+    backgroundColor: themeHere.colors.background,
   },
   gradient_background: {
     flex: 1,
