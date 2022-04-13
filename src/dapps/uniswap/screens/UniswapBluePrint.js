@@ -1,12 +1,12 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import Carousel from "react-native-snap-carousel";
-import { SquircleView } from "react-native-figma-squircle";
-import BuyTokensUniswapProduct from "../products/buytokensuniswap/BuyTokensUniswapProduct";
-import StakeToEarnUniswapProduct from "../products/staketoearnuniswap/StakeToEarnUniSwapProduct";
-import { connect } from "react-redux";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import Carousel from 'react-native-snap-carousel';
+import {SquircleView} from 'react-native-figma-squircle';
+import BuyTokensUniswapProduct from '../products/buytokensuniswap/BuyTokensUniswapProduct';
+import StakeToEarnUniswapProduct from '../products/staketoearnuniswap/StakeToEarnUniSwapProduct';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -81,7 +81,7 @@ function UniswapBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '75',
+              fillColor: themeHere.colors.mid_ground + '25',
             }}
             style={sxCustom({width: windowWidth - 40})}>
             <BuyTokensUniswapProduct />
