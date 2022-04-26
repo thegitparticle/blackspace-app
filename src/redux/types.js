@@ -8,6 +8,7 @@ export const ADD_MARKETPRICES = 'ADD_MARKETPRICES';
 export const ADD_EMOJICOLOR = 'ADD_EMOJICOLOR';
 export const ADD_USERDETAILS = 'ADD_USERDETAILS';
 export const ADD_TOKENBALANCES = 'ADD_TOKENBALANCES';
+export const ADD_MYNFTS = 'ADD_MYNFTS';
 export const ADD_ALLTIPS = 'ADD_ALLTIPS';
 
 // all dapps redux types

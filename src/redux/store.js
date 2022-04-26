@@ -16,6 +16,7 @@ import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
 import AllTipsReducer from './appcore/AllTipsReducer';
 import MemeCoinsListReducer from './dapps/memecoins/MemeCoinsListReducer';
+import MyNFTsReducer from './appcore/MyNFTsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -39,6 +40,11 @@ export const persistConfigMyProfile = {
 
 export const persistConfigMyTokenBalances = {
   key: 'my_token_balances',
+  storage: AsyncStorage,
+};
+
+export const persistConfigMyNfts = {
+  key: 'my_nfts',
   storage: AsyncStorage,
 };
 
@@ -96,6 +102,7 @@ const rootReducer = combineReducers({
     persistConfigMyTokenBalances,
     MyTokenBalancesReducer,
   ),
+  MyNFTsReducer: persistReducer(persistConfigMyTokenBalances, MyNFTsReducer),
   MyAppsReducer: persistReducer(persistConfigMyApps, MyAppsReducer),
   DiscoverAppsReducer: persistReducer(
     persistConfigDiscoverApps,
