@@ -1,15 +1,18 @@
-import React, { useState } from "react";
-import { Appearance, Dimensions } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import Accordion from "react-native-collapsible/Accordion";
-import Iconly from "../../../miscsetups/customfonts/Iconly";
-import FastImage from "react-native-fast-image";
-import { useNavigation } from "@react-navigation/native";
-import { Image, Text, View } from "dripsy";
-import { StyledFastImage25 } from "../../../theme/DripsyTheme";
-import { Bounceable } from "rn-bounceable";
-import useEthFiatPrice from "../../../helpers/useGetEthFiatPrice";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import Accordion from 'react-native-collapsible/Accordion';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import {Image, Text, View} from 'dripsy';
+import {StyledFastImage25} from '../../../theme/DripsyTheme';
+import {Bounceable} from 'rn-bounceable';
+import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
+import {WalletDetailsDummy} from '../DummyData';
+import {ListItem, Avatar} from 'react-native-elements';
+import {ExpandableSection} from 'react-native-ui-lib';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,10 +26,23 @@ function AccordianPortfolio() {
   const navigation = useNavigation();
 
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
+  let myNfts = state_here.MyNFTsReducer.mynfts;
+
+  const [myNftsRefined, setMyNftsRefined] = useState([]);
+
+  const myNftsRefinedList = myNfts.reduce((catsSoFar, item) => {
+    if (!catsSoFar[item.collection_name]) catsSoFar[item.collection_name] = [];
+    catsSoFar[item.collection_name].push(catsSoFar);
+    return catsSoFar;
+  }, {});
+
+  console.log(myNftsRefinedList);
+
+  useEffect(() => {
+    setMyNftsRefined(myNftsRefinedList);
+  }, [myNfts]);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
-
-  console.log(state_here.MyProfileReducer.myProfileDetails.eth_balance);
 
   const SECTIONS = [
     {
@@ -56,26 +72,20 @@ function AccordianPortfolio() {
       main_icon: require('../../../../assets/token_t_icon.png'),
       content: listTokens,
     },
-    // {
-    //   id: 2,
-    //   title: 'DeFi',
-    //   main_icon: require('../../../../assets/defi_key_icon.png'),
-    //   content: [],
-    // },
-    // {
-    //   id: 3,
-    //   title: 'NFTs',
-    //   main_icon: require('../../../../assets/nfts_boredape_icon.png'),
-    //   content: WalletDetailsDummy.nfts,
-    // },
+    {
+      id: 3,
+      title: 'NFTs',
+      main_icon: require('../../../../assets/nfts_boredape_icon.png'),
+      content: myNfts,
+    },
   ];
 
-  function RenderHeader(section) {
+  function RenderHeader(section, expanded) {
     function IconShow() {
-      if (section.id === activeSections[0]) {
+      if (expanded) {
         return (
           <Iconly
-            name="ChevronUpBold"
+            name="ChevronDownBroken"
             color={themeHere.colors.foreground}
             size={25}
           />
@@ -83,7 +93,7 @@ function AccordianPortfolio() {
       } else {
         return (
           <Iconly
-            name="ChevronDownBold"
+            name="ChevronRightBroken"
             color={themeHere.colors.foreground}
             size={25}
           />
@@ -93,13 +103,14 @@ function AccordianPortfolio() {
 
     return (
       <View
-        variant="layout.sub_view_50_margin"
+        variant="layout.sub_view_40_margin"
         sx={{
           height: 75,
           flexDirection: 'row',
           alignItems: 'center',
           alignSelf: 'center',
           justifyContent: 'space-between',
+          backgroundColor: 'off_background',
         }}>
         <View
           sx={{
@@ -125,10 +136,11 @@ function AccordianPortfolio() {
     );
   }
 
-  function ItemHoldingAndPrice(item) {
+  // crypto currencies & tokens item component
+  function ItemHoldingAndPrice(props) {
     return (
       <View
-        variant="layout.sub_view_50_margin"
+        variant="layout.sub_view_40_margin"
         sx={{
           height: 75,
           flexDirection: 'row',
@@ -144,7 +156,7 @@ function AccordianPortfolio() {
           }}>
           <StyledFastImage25
             source={{
-              uri: item.logoURI,
+              uri: props.item.logoURI,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.cover}
@@ -155,7 +167,7 @@ function AccordianPortfolio() {
               color: 'foreground',
               mx: '$5',
             }}>
-            {item.name}
+            {props.item.name}
           </Text>
         </View>
         <View
@@ -171,7 +183,7 @@ function AccordianPortfolio() {
               my: '$1',
               textAlign: 'right',
             }}>
-            {item.tokenBalance_decimal}
+            {props.item.tokenBalance_decimal}
           </Text>
           <Text
             variant="caption"
@@ -181,13 +193,14 @@ function AccordianPortfolio() {
               opacity: 0.5,
               textAlign: 'right',
             }}>
-            ${item.token_price_usd}
+            ${props.item.token_price_usd}
           </Text>
         </View>
       </View>
     );
   }
 
+  // nfts item component
   function NFTItemShow(item) {
     return (
       <Bounceable
@@ -197,7 +210,7 @@ function AccordianPortfolio() {
           })
         }>
         <View
-          variant="layout.sub_view_50_margin"
+          variant="layout.sub_view_20_margin"
           sx={{
             height: 75,
             flexDirection: 'row',
@@ -213,7 +226,7 @@ function AccordianPortfolio() {
             }}>
             <StyledFastImage25
               source={{
-                uri: item.item_icon,
+                uri: item.media[0].gateway,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.cover}
@@ -224,31 +237,7 @@ function AccordianPortfolio() {
                 color: 'foreground',
                 mx: '$5',
               }}>
-              {item.item_name}
-            </Text>
-          </View>
-          <View
-            sx={{
-              flexDirection: 'column',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-            }}>
-            <Text
-              variant="caption"
-              sx={{
-                color: 'red',
-                my: '$1',
-              }}>
-              {item.item_balance}
-            </Text>
-            <Text
-              variant="caption"
-              sx={{
-                color: 'foreground',
-                my: '$1',
-                opacity: 0.5,
-              }}>
-              ${item.base_coverted_balance}
+              {item.title}
             </Text>
           </View>
         </View>
@@ -286,13 +275,18 @@ function AccordianPortfolio() {
     setActiveSections(sections.includes(undefined) ? [] : sections);
   }
 
+  const [expandedCryptoCurrencies, setExpandedCryptoCurrencies] =
+    useState(false);
+  const [expandedTokens, setExpandedTokens] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+
   return (
     <View
       variant="layout.sub_view_20_margin"
       sx={{
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'background',
+        backgroundColor: 'off_background',
         shadowColor: 'mid_ground',
         shadowOffset: {
           width: 0,
@@ -304,13 +298,90 @@ function AccordianPortfolio() {
         borderRadius: 15,
         mb: '$8',
       }}>
-      <Accordion
-        activeSections={activeSections}
-        sections={SECTIONS}
-        renderHeader={RenderHeader}
-        renderContent={RenderContent}
-        onChange={UpdateActiveSections}
-      />
+      {/*<ListItem.Accordion*/}
+      {/*  content={*/}
+      {/*    <>*/}
+      {/*      <ListItem.Content>*/}
+      {/*        <ListItem.Title*/}
+      {/*          style={{*/}
+      {/*            color: themeHere.colors.foreground,*/}
+      {/*            ...themeHere.text.header_bold,*/}
+      {/*          }}>*/}
+      {/*          List Accordion*/}
+      {/*        </ListItem.Title>*/}
+      {/*      </ListItem.Content>*/}
+      {/*    </>*/}
+      {/*  }*/}
+      {/*  containerStyle={{*/}
+      {/*    backgroundColor: themeHere.colors.off_background,*/}
+      {/*    width: windowWidth - 80,*/}
+      {/*    color: themeHere.colors.foreground,*/}
+      {/*  }}*/}
+      {/*  isExpanded={expanded}*/}
+      {/*  icon={*/}
+      {/*    <Iconly*/}
+      {/*      name="ChevronDownBroken"*/}
+      {/*      color={themeHere.colors.foreground}*/}
+      {/*      size={25}*/}
+      {/*    />*/}
+      {/*  }*/}
+      {/*  onPress={() => {*/}
+      {/*    setExpanded(!expanded);*/}
+      {/*  }}>*/}
+      {/*  {SECTIONS[0].content.map((l, i) => (*/}
+      {/*    <ListItem key={i} bottomDivider>*/}
+      {/*      <ItemHoldingAndPrice item={l} />*/}
+      {/*    </ListItem>*/}
+      {/*  ))}*/}
+      {/*</ListItem.Accordion>*/}
+      <ExpandableSection
+        top={false}
+        expanded={expandedCryptoCurrencies}
+        sectionHeader={RenderHeader(SECTIONS[0], expandedCryptoCurrencies)}
+        onPress={() => setExpandedCryptoCurrencies(!expandedCryptoCurrencies)}>
+        {SECTIONS[0].content.map((item, key) => (
+          <View
+            variant="layout.sub_view_20_margin"
+            sx={{
+              backgroundColor: 'off_background',
+              alignItems: 'center',
+            }}>
+            <ItemHoldingAndPrice item={item} />
+          </View>
+        ))}
+      </ExpandableSection>
+      <ExpandableSection
+        top={false}
+        expanded={expandedTokens}
+        sectionHeader={RenderHeader(SECTIONS[1], expandedTokens)}
+        onPress={() => setExpandedTokens(!expandedTokens)}>
+        {SECTIONS[1].content.map((item, key) => (
+          <View
+            variant="layout.sub_view_20_margin"
+            sx={{
+              backgroundColor: 'off_background',
+              alignItems: 'center',
+            }}>
+            <ItemHoldingAndPrice item={item} />
+          </View>
+        ))}
+      </ExpandableSection>
+      <ExpandableSection
+        top={false}
+        expanded={expandedTokens}
+        sectionHeader={RenderHeader(SECTIONS[2], expandedTokens)}
+        onPress={() => setExpandedTokens(!expandedTokens)}>
+        {SECTIONS[2].content.map((item, key) => (
+          <View
+            variant="layout.sub_view_20_margin"
+            sx={{
+              backgroundColor: 'off_background',
+              alignItems: 'center',
+            }}>
+            {/*<NFTItemShow item={item} />*/}
+          </View>
+        ))}
+      </ExpandableSection>
     </View>
   );
 }

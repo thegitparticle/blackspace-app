@@ -1,18 +1,19 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Appearance, Dimensions, Pressable, RefreshControl } from "react-native";
-import { Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import MainDetails from "../components/MainDetails";
-import WalletPie from "../components/WalletPie";
-import AccordianPortfolio from "../components/AccordianPortfolio";
-import Animated from "react-native-reanimated";
-import Spacer from "../../../bits/Spacer";
-import { connect } from "react-redux";
-import { GetMyProfileDetails } from "../../../redux/appcore/MyProfileActions";
-import { GetTokenBalances } from "../../../redux/appcore/MyTokenBalancesActions";
-import Iconly from "../../../miscsetups/customfonts/Iconly";
-import { useNavigation } from "@react-navigation/native";
-import { Amplitude } from "@amplitude/react-native";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Appearance, Dimensions, Pressable, RefreshControl} from 'react-native';
+import {Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import MainDetails from '../components/MainDetails';
+import WalletPie from '../components/WalletPie';
+import AccordianPortfolio from '../components/AccordianPortfolio';
+import Animated from 'react-native-reanimated';
+import Spacer from '../../../bits/Spacer';
+import {connect} from 'react-redux';
+import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
+import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {useNavigation} from '@react-navigation/native';
+import {Amplitude} from '@amplitude/react-native';
+import {GetMyNfts} from '../../../redux/appcore/MyNFTsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,6 +39,7 @@ function MyProfileScreen({dispatch}) {
         state_here.UserDetailsReducer.userdetails.wallet_address,
       ),
     );
+    dispatch(GetMyNfts(state_here.UserDetailsReducer.userdetails.id));
   }, [refreshing]);
 
   const onRefresh = useCallback(() => {
