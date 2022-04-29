@@ -6,13 +6,12 @@ import Accordion from 'react-native-collapsible/Accordion';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
-import {Image, Text, View} from 'dripsy';
+import {Image, Text, useSx, View} from 'dripsy';
 import {StyledFastImage25} from '../../../theme/DripsyTheme';
 import {Bounceable} from 'rn-bounceable';
 import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
-import {WalletDetailsDummy} from '../DummyData';
-import {ListItem, Avatar} from 'react-native-elements';
 import {ExpandableSection} from 'react-native-ui-lib';
+import {FlatGrid} from 'react-native-super-grid';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,23 +23,38 @@ let state_here = {};
 function AccordianPortfolio() {
   const [activeSections, setActiveSections] = useState([]);
   const navigation = useNavigation();
+  const sxCustom = useSx();
 
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
   let myNfts = state_here.MyNFTsReducer.mynfts;
 
   const [myNftsRefined, setMyNftsRefined] = useState([]);
+  const [myNftsRefinedKeys, setMyNftsRefinedKeys] = useState([]);
 
-  const myNftsRefinedList = myNfts.reduce((catsSoFar, item) => {
-    if (!catsSoFar[item.collection_name]) catsSoFar[item.collection_name] = [];
-    catsSoFar[item.collection_name].push(catsSoFar);
-    return catsSoFar;
-  }, {});
-
-  console.log(myNftsRefinedList);
+  const myNftsRefinedList = myNfts.reduce(
+    (
+      newList,
+      {collection_name, title, description, media, contract_address},
+    ) => {
+      (newList[collection_name] = newList[collection_name] || []).push({
+        collection_name,
+        title,
+        description,
+        media,
+        contract_address,
+      });
+      return newList;
+    },
+    {},
+  );
 
   useEffect(() => {
     setMyNftsRefined(myNftsRefinedList);
   }, [myNfts]);
+
+  useEffect(() => {
+    setMyNftsRefinedKeys(Object.keys(myNftsRefined));
+  }, [myNftsRefined]);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
@@ -76,7 +90,7 @@ function AccordianPortfolio() {
       id: 3,
       title: 'NFTs',
       main_icon: require('../../../../assets/nfts_boredape_icon.png'),
-      content: myNfts,
+      content: myNftsRefinedKeys,
     },
   ];
 
@@ -201,84 +215,72 @@ function AccordianPortfolio() {
   }
 
   // nfts item component
-  function NFTItemShow(item) {
-    return (
-      <Bounceable
-        onPress={() =>
-          navigation.navigate('NFTDetailedView', {
-            nft_details: item,
-          })
-        }>
-        <View
-          variant="layout.sub_view_20_margin"
-          sx={{
-            height: 75,
-            flexDirection: 'row',
-            alignItems: 'center',
-            alignSelf: 'center',
-            justifyContent: 'space-between',
-          }}>
-          <View
+  function NFTProjectItemShow(props) {
+    const [expandedProjectHoldings, setExpandedProjectHoldings] =
+      useState(false);
+
+    const allNftsOfThisProject = myNftsRefined[props.item];
+
+    console.log(myNftsRefined[props.item]);
+
+    function RenderProjectName() {
+      return (
+        <Bounceable
+          onPress={() =>
+            // navigation.navigate('NFTDetailedView', {
+            //   nft_details: props.item,
+            // })
+            setExpandedProjectHoldings(!expandedProjectHoldings)
+          }>
+          <Text
+            variant="subhead_medium"
             sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
+              color: 'foreground',
+              mx: '$5',
             }}>
-            <StyledFastImage25
+            {props.item}
+          </Text>
+        </Bounceable>
+      );
+    }
+
+    return (
+      <ExpandableSection
+        top={false}
+        expanded={expandedProjectHoldings}
+        sectionHeader={RenderProjectName()}
+        // onPress={() => setExpandedNfts(!expandedNfts)}
+      >
+        {allNftsOfThisProject.map((item, key) => (
+          <Bounceable
+            onPress={() =>
+              navigation.navigate('NFTDetailedView', {
+                nft_details: item,
+              })
+            }>
+            <FastImage
+              style={sxCustom({
+                width: windowWidth * 0.35,
+                height: windowWidth * 0.35,
+                marginLeft: key % 2 !== 0 ? windowWidth * 0.4 : 0,
+                borderRadius: 10,
+              })}
               source={{
                 uri: item.media[0].gateway,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.cover}
             />
-            <Text
-              variant="subhead_medium"
-              sx={{
-                color: 'foreground',
-                mx: '$5',
-              }}>
-              {item.title}
-            </Text>
-          </View>
-        </View>
-      </Bounceable>
+          </Bounceable>
+        ))}
+      </ExpandableSection>
     );
-  }
-
-  function RenderContent(section) {
-    if (section.title !== 'NFTs') {
-      return (
-        <View
-          variant="layout.sub_view_20_margin"
-          sx={{
-            backgroundColor: 'off_background',
-            alignItems: 'center',
-          }}>
-          {section.content.map(item => ItemHoldingAndPrice(item))}
-        </View>
-      );
-    } else {
-      return (
-        <View
-          variant="layout.sub_view_20_margin"
-          sx={{
-            backgroundColor: 'off_background',
-            alignItems: 'center',
-          }}>
-          {section.content.map(item => NFTItemShow(item))}
-        </View>
-      );
-    }
-  }
-
-  function UpdateActiveSections(sections) {
-    setActiveSections(sections.includes(undefined) ? [] : sections);
   }
 
   const [expandedCryptoCurrencies, setExpandedCryptoCurrencies] =
     useState(false);
   const [expandedTokens, setExpandedTokens] = useState(false);
-  const [expanded, setExpanded] = useState(false);
+  const [expandedNfts, setExpandedNfts] = useState(false);
 
   return (
     <View
@@ -298,42 +300,6 @@ function AccordianPortfolio() {
         borderRadius: 15,
         mb: '$8',
       }}>
-      {/*<ListItem.Accordion*/}
-      {/*  content={*/}
-      {/*    <>*/}
-      {/*      <ListItem.Content>*/}
-      {/*        <ListItem.Title*/}
-      {/*          style={{*/}
-      {/*            color: themeHere.colors.foreground,*/}
-      {/*            ...themeHere.text.header_bold,*/}
-      {/*          }}>*/}
-      {/*          List Accordion*/}
-      {/*        </ListItem.Title>*/}
-      {/*      </ListItem.Content>*/}
-      {/*    </>*/}
-      {/*  }*/}
-      {/*  containerStyle={{*/}
-      {/*    backgroundColor: themeHere.colors.off_background,*/}
-      {/*    width: windowWidth - 80,*/}
-      {/*    color: themeHere.colors.foreground,*/}
-      {/*  }}*/}
-      {/*  isExpanded={expanded}*/}
-      {/*  icon={*/}
-      {/*    <Iconly*/}
-      {/*      name="ChevronDownBroken"*/}
-      {/*      color={themeHere.colors.foreground}*/}
-      {/*      size={25}*/}
-      {/*    />*/}
-      {/*  }*/}
-      {/*  onPress={() => {*/}
-      {/*    setExpanded(!expanded);*/}
-      {/*  }}>*/}
-      {/*  {SECTIONS[0].content.map((l, i) => (*/}
-      {/*    <ListItem key={i} bottomDivider>*/}
-      {/*      <ItemHoldingAndPrice item={l} />*/}
-      {/*    </ListItem>*/}
-      {/*  ))}*/}
-      {/*</ListItem.Accordion>*/}
       <ExpandableSection
         top={false}
         expanded={expandedCryptoCurrencies}
@@ -368,9 +334,9 @@ function AccordianPortfolio() {
       </ExpandableSection>
       <ExpandableSection
         top={false}
-        expanded={expandedTokens}
-        sectionHeader={RenderHeader(SECTIONS[2], expandedTokens)}
-        onPress={() => setExpandedTokens(!expandedTokens)}>
+        expanded={expandedNfts}
+        sectionHeader={RenderHeader(SECTIONS[2], expandedNfts)}
+        onPress={() => setExpandedNfts(!expandedNfts)}>
         {SECTIONS[2].content.map((item, key) => (
           <View
             variant="layout.sub_view_20_margin"
@@ -378,7 +344,7 @@ function AccordianPortfolio() {
               backgroundColor: 'off_background',
               alignItems: 'center',
             }}>
-            {/*<NFTItemShow item={item} />*/}
+            <NFTProjectItemShow item={item} />
           </View>
         ))}
       </ExpandableSection>
