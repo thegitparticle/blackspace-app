@@ -1,11 +1,12 @@
-import React from "react";
-import { Appearance, Dimensions, StyleSheet } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import FastImage from "react-native-fast-image";
-import { BlurView } from "@react-native-community/blur";
-import { SquircleView } from "react-native-figma-squircle";
-import MaskedView from "@react-native-masked-view/masked-view";
-import { Text, useSx, View } from "dripsy";
+import React from 'react';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import FastImage from 'react-native-fast-image';
+import {BlurView} from '@react-native-community/blur';
+import {SquircleView} from 'react-native-figma-squircle';
+import MaskedView from '@react-native-masked-view/masked-view';
+import {Text, useSx, View} from 'dripsy';
+import Spacer from '../../../bits/Spacer';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -26,7 +27,7 @@ function NFTDetailedView({route}) {
         <FastImage
           style={sxCustom({width: windowWidth, height: windowHeight * 0.4})}
           source={{
-            uri: nft_details.item_icon,
+            uri: nft_details.media[0].gateway,
             priority: FastImage.priority.normal,
           }}
           resizeMode={FastImage.resizeMode.cover}
@@ -53,7 +54,7 @@ function NFTDetailedView({route}) {
               my: '$10',
               color: 'foreground',
             }}>
-            {nft_details.item_name}
+            {nft_details.title}
           </Text>
           <MaskedView
             style={sxCustom({
@@ -77,7 +78,7 @@ function NFTDetailedView({route}) {
                 position: 'absolute',
               })}
               source={{
-                uri: nft_details.item_icon,
+                uri: nft_details.media[0].gateway,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.stretch}
@@ -93,8 +94,46 @@ function NFTDetailedView({route}) {
       variant="layout.full_screen"
       sx={{
         alignItems: 'center',
+        justifyContent: 'space-between',
       }}>
       <Header />
+      <View variant="layout.sub_view_40_margin" sx={{my: '$10'}}>
+        <Text
+          variant="title_3"
+          sx={{
+            color: 'foreground',
+            opacity: 0.5,
+            my: '$2',
+          }}>
+          Project Name
+        </Text>
+        <Text
+          variant="subhead_medium"
+          sx={{
+            color: 'foreground',
+            my: '$2',
+          }}>
+          {nft_details.title}
+        </Text>
+        <Spacer height={20} />
+        <Text
+          variant="title_3"
+          sx={{
+            color: 'foreground',
+            opacity: 0.5,
+            my: '$2',
+          }}>
+          Description
+        </Text>
+        <Text
+          variant="subhead_medium"
+          sx={{
+            color: 'foreground',
+            my: '$2',
+          }}>
+          {nft_details.description}
+        </Text>
+      </View>
     </View>
   );
 }
