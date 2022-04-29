@@ -11,6 +11,7 @@ import {Bounceable} from 'rn-bounceable';
 import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
 import {ExpandableSection} from 'react-native-ui-lib';
 import _ from 'lodash';
+import {SvgUri} from 'react-native-svg';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -285,7 +286,6 @@ function AccordianPortfolio() {
     }
 
     function RenderAllProjectNFTsAfterSortingRows() {
-      let nftsCount = allNftsOfThisProject.length;
       let splitLists = _.chunk(allNftsOfThisProject, 2);
 
       return (
@@ -304,14 +304,20 @@ function AccordianPortfolio() {
             sx={{
               flexDirection: 'row',
               justifyContent: 'flex-start',
-              backgroundColor: 'red',
+              marginVertical: '$2',
+              marginHorizontal: '$4',
             }}>
             <RenderNFTThumbnail NFTDetails={props.RowNFTs[0]} />
           </View>
         );
       } else {
         return (
-          <View sx={{flexDirection: 'row'}}>
+          <View
+            sx={{
+              flexDirection: 'row',
+              justifyContent: 'space-evenly',
+              marginVertical: '$2',
+            }}>
             <RenderNFTThumbnail NFTDetails={props.RowNFTs[0]} />
             <RenderNFTThumbnail NFTDetails={props.RowNFTs[1]} />
           </View>
@@ -320,27 +326,89 @@ function AccordianPortfolio() {
     }
 
     function RenderNFTThumbnail(props) {
-      return (
-        <Bounceable
-          onPress={() =>
-            navigation.navigate('NFTDetailedView', {
-              nft_details: props.NFTDetails,
-            })
-          }>
-          <FastImage
-            style={sxCustom({
-              width: windowWidth * 0.35,
-              height: windowWidth * 0.35,
-              borderRadius: 10,
-            })}
-            source={{
-              uri: props.NFTDetails.media[0].gateway,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.cover}
-          />
-        </Bounceable>
-      );
+      if (_.endsWith(props.NFTDetails.media[0].gateway, 'svg')) {
+        return (
+          <Bounceable
+            onPress={() =>
+              navigation.navigate('NFTDetailedView', {
+                nft_details: props.NFTDetails,
+              })
+            }>
+            <View
+              sx={{
+                width: windowWidth * 0.35,
+                height: windowWidth * 0.35,
+                borderRadius: 10,
+                position: 'absolute',
+                backgroundColor: 'mid_gray',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                variant="caption"
+                sx={{
+                  color: 'foreground',
+                  mx: '$5',
+                }}>
+                {props.NFTDetails.title}
+              </Text>
+            </View>
+            <View
+              sx={{
+                width: windowWidth * 0.35,
+                height: windowWidth * 0.35,
+                borderRadius: 10,
+              }}>
+              <SvgUri
+                width="100%"
+                height="100%"
+                uri={props.NFTDetails.media[0].gateway}
+              />
+            </View>
+          </Bounceable>
+        );
+      } else {
+        return (
+          <Bounceable
+            onPress={() =>
+              navigation.navigate('NFTDetailedView', {
+                nft_details: props.NFTDetails,
+              })
+            }>
+            <View
+              sx={{
+                width: windowWidth * 0.35,
+                height: windowWidth * 0.35,
+                borderRadius: 10,
+                position: 'absolute',
+                backgroundColor: 'mid_gray',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              <Text
+                variant="caption"
+                sx={{
+                  color: 'foreground',
+                  mx: '$5',
+                }}>
+                {props.NFTDetails.title}
+              </Text>
+            </View>
+            <FastImage
+              style={sxCustom({
+                width: windowWidth * 0.35,
+                height: windowWidth * 0.35,
+                borderRadius: 10,
+              })}
+              source={{
+                uri: props.NFTDetails.media[0].gateway,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.cover}
+            />
+          </Bounceable>
+        );
+      }
     }
 
     return (
