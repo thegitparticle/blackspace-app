@@ -11,7 +11,7 @@ import {StyledFastImage25} from '../../../theme/DripsyTheme';
 import {Bounceable} from 'rn-bounceable';
 import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
 import {ExpandableSection} from 'react-native-ui-lib';
-import {FlatGrid} from 'react-native-super-grid';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -21,7 +21,6 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function AccordianPortfolio() {
-  const [activeSections, setActiveSections] = useState([]);
   const navigation = useNavigation();
   const sxCustom = useSx();
 
@@ -221,8 +220,6 @@ function AccordianPortfolio() {
 
     const allNftsOfThisProject = myNftsRefined[props.item];
 
-    console.log(myNftsRefined[props.item]);
-
     function RenderProjectName() {
       return (
         <Bounceable
@@ -244,35 +241,71 @@ function AccordianPortfolio() {
       );
     }
 
+    function RenderAllProjectNFTsAfterSortingRows() {
+      let nftsCount = allNftsOfThisProject.length;
+      let splitLists = _.chunk(allNftsOfThisProject, 2);
+
+      return (
+        <View>
+          {splitLists.map((list, key) => (
+            <RenderNFTRow RowNFTs={list} />
+          ))}
+        </View>
+      );
+    }
+
+    function RenderNFTRow(props) {
+      if (props.RowNFTs.length === 1) {
+        return (
+          <View
+            sx={{
+              flexDirection: 'row',
+              justifyContent: 'flex-start',
+              backgroundColor: 'red',
+            }}>
+            <RenderNFTThumbnail NFTDetails={props.RowNFTs[0]} />
+          </View>
+        );
+      } else {
+        return (
+          <View sx={{flexDirection: 'row'}}>
+            <RenderNFTThumbnail NFTDetails={props.RowNFTs[0]} />
+            <RenderNFTThumbnail NFTDetails={props.RowNFTs[1]} />
+          </View>
+        );
+      }
+    }
+
+    function RenderNFTThumbnail(props) {
+      return (
+        <Bounceable
+          onPress={() =>
+            navigation.navigate('NFTDetailedView', {
+              nft_details: props.NFTDetails,
+            })
+          }>
+          <FastImage
+            style={sxCustom({
+              width: windowWidth * 0.35,
+              height: windowWidth * 0.35,
+              borderRadius: 10,
+            })}
+            source={{
+              uri: props.NFTDetails.media[0].gateway,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+        </Bounceable>
+      );
+    }
+
     return (
       <ExpandableSection
         top={false}
         expanded={expandedProjectHoldings}
-        sectionHeader={RenderProjectName()}
-        // onPress={() => setExpandedNfts(!expandedNfts)}
-      >
-        {allNftsOfThisProject.map((item, key) => (
-          <Bounceable
-            onPress={() =>
-              navigation.navigate('NFTDetailedView', {
-                nft_details: item,
-              })
-            }>
-            <FastImage
-              style={sxCustom({
-                width: windowWidth * 0.35,
-                height: windowWidth * 0.35,
-                marginLeft: key % 2 !== 0 ? windowWidth * 0.4 : 0,
-                borderRadius: 10,
-              })}
-              source={{
-                uri: item.media[0].gateway,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.cover}
-            />
-          </Bounceable>
-        ))}
+        sectionHeader={RenderProjectName()}>
+        <RenderAllProjectNFTsAfterSortingRows />
       </ExpandableSection>
     );
   }
