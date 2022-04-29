@@ -40,7 +40,7 @@ function LiquityBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}
             style={styles.product_tile_view}>
             <BorrowLiquityProduct />

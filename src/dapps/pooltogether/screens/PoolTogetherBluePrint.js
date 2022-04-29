@@ -14,7 +14,7 @@ function PoolTogetherBluePrint() {
   const products = [
     {
       id: 1,
-      product_name: 'No loss lottery',
+      product_name: 'Savings Account + Wild Gains',
       component: 'LotteryPoolTogetherProduct',
     },
   ];
@@ -24,7 +24,7 @@ function PoolTogetherBluePrint() {
       return (
         <View style={styles.product_view}>
           <Text style={styles.product_title}>
-            No loss lottery{' '}
+            Savings Account + Wild Gains{' '}
             <Text
               style={{
                 ...themeHere.text.body_medium,
@@ -40,7 +40,7 @@ function PoolTogetherBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '75',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}
             style={styles.product_tile_view}>
             <LotteryPoolTogetherProduct />
