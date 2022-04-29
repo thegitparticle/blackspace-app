@@ -7,6 +7,8 @@ import {SquircleView} from 'react-native-figma-squircle';
 import MaskedView from '@react-native-masked-view/masked-view';
 import {Text, useSx, View} from 'dripsy';
 import Spacer from '../../../bits/Spacer';
+import _ from 'lodash';
+import {SvgUri} from 'react-native-svg';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -18,75 +20,150 @@ function NFTDetailedView({route}) {
   const sxCustom = useSx();
 
   function Header() {
-    return (
-      <View
-        sx={{
-          width: windowWidth,
-          height: windowHeight * 0.4,
-        }}>
-        <FastImage
-          style={sxCustom({width: windowWidth, height: windowHeight * 0.4})}
-          source={{
-            uri: nft_details.media[0].gateway,
-            priority: FastImage.priority.normal,
-          }}
-          resizeMode={FastImage.resizeMode.cover}
-        />
-        <BlurView
-          style={sxCustom({
-            width: windowWidth,
-            height: windowHeight * 0.4,
-            position: 'absolute',
-          })}
-          blurType="dark"
-          blurAmount={10}
-          reducedTransparencyFallbackColor="black"
-        />
+    if (_.endsWith(nft_details.media[0].gateway, 'svg')) {
+      return (
         <View
           sx={{
-            position: 'absolute',
-            alignItems: 'center',
             width: windowWidth,
+            height: windowHeight * 0.4,
           }}>
-          <Text
-            variant="title_3"
+          <View
             sx={{
-              my: '$10',
-              color: 'foreground',
-            }}>
-            {nft_details.title}
-          </Text>
-          <MaskedView
-            style={sxCustom({
-              width: windowWidth * 0.8,
+              width: windowWidth,
               height: windowHeight * 0.4,
+            }}>
+            <SvgUri
+              width="100%"
+              height="100%"
+              uri={nft_details.media[0].gateway}
+            />
+          </View>
+          <BlurView
+            style={sxCustom({
+              width: windowWidth,
+              height: windowHeight * 0.4,
+              position: 'absolute',
             })}
-            maskElement={
-              <SquircleView
-                style={StyleSheet.absoluteFill}
-                squircleParams={{
-                  cornerSmoothing: 1,
-                  cornerRadius: 15,
-                  fillColor: 'pink',
-                }}
-              />
-            }>
-            <FastImage
+            blurType="dark"
+            blurAmount={10}
+            reducedTransparencyFallbackColor="black"
+          />
+          <View
+            sx={{
+              position: 'absolute',
+              alignItems: 'center',
+              width: windowWidth,
+            }}>
+            <Text
+              variant="title_3"
+              sx={{
+                my: '$10',
+                color: 'foreground',
+              }}>
+              {nft_details.title}
+            </Text>
+            <MaskedView
               style={sxCustom({
                 width: windowWidth * 0.8,
                 height: windowHeight * 0.4,
-                position: 'absolute',
               })}
-              source={{
-                uri: nft_details.media[0].gateway,
-                priority: FastImage.priority.normal,
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </MaskedView>
+              maskElement={
+                <SquircleView
+                  style={StyleSheet.absoluteFill}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: 'pink',
+                  }}
+                />
+              }>
+              <View
+                sx={{
+                  width: windowWidth * 0.8,
+                  height: windowHeight * 0.4,
+                  position: 'absolute',
+                }}>
+                <SvgUri
+                  width="100%"
+                  height="100%"
+                  uri={nft_details.media[0].gateway}
+                />
+              </View>
+            </MaskedView>
+          </View>
         </View>
-      </View>
-    );
+      );
+    } else {
+      return (
+        <View
+          sx={{
+            width: windowWidth,
+            height: windowHeight * 0.4,
+          }}>
+          <FastImage
+            style={sxCustom({width: windowWidth, height: windowHeight * 0.4})}
+            source={{
+              uri: nft_details.media[0].gateway,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.cover}
+          />
+          <BlurView
+            style={sxCustom({
+              width: windowWidth,
+              height: windowHeight * 0.4,
+              position: 'absolute',
+            })}
+            blurType="dark"
+            blurAmount={10}
+            reducedTransparencyFallbackColor="black"
+          />
+          <View
+            sx={{
+              position: 'absolute',
+              alignItems: 'center',
+              width: windowWidth,
+            }}>
+            <Text
+              variant="title_3"
+              sx={{
+                my: '$10',
+                color: 'foreground',
+              }}>
+              {nft_details.title}
+            </Text>
+            <MaskedView
+              style={sxCustom({
+                width: windowWidth * 0.8,
+                height: windowHeight * 0.4,
+              })}
+              maskElement={
+                <SquircleView
+                  style={StyleSheet.absoluteFill}
+                  squircleParams={{
+                    cornerSmoothing: 1,
+                    cornerRadius: 15,
+                    fillColor: 'pink',
+                  }}
+                />
+              }>
+              <FastImage
+                style={sxCustom({
+                  width: windowWidth * 0.8,
+                  height: windowHeight * 0.4,
+                  position: 'absolute',
+                })}
+                source={{
+                  uri: nft_details.media[0].gateway,
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.stretch}
+              />
+            </MaskedView>
+          </View>
+        </View>
+      );
+    }
   }
 
   return (
