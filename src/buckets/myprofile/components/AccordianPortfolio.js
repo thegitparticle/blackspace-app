@@ -2,7 +2,6 @@ import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import Accordion from 'react-native-collapsible/Accordion';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
@@ -221,6 +220,26 @@ function AccordianPortfolio() {
     const allNftsOfThisProject = myNftsRefined[props.item];
 
     function RenderProjectName() {
+      function IconShow() {
+        if (expandedProjectHoldings) {
+          return (
+            <Iconly
+              name="ChevronDownBroken"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
+          );
+        } else {
+          return (
+            <Iconly
+              name="ChevronRightBroken"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
+          );
+        }
+      }
+
       return (
         <Bounceable
           onPress={() =>
@@ -229,14 +248,38 @@ function AccordianPortfolio() {
             // })
             setExpandedProjectHoldings(!expandedProjectHoldings)
           }>
-          <Text
-            variant="subhead_medium"
+          <View
             sx={{
-              color: 'foreground',
-              mx: '$5',
+              flexDirection: 'row',
+              windowWidth: windowWidth * 0.8,
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: '$4',
             }}>
-            {props.item}
-          </Text>
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                mx: '$5',
+              }}>
+              {props.item.substring(0, 20)}
+            </Text>
+            <View
+              sx={{
+                flexDirection: 'row',
+                alignItems: 'center',
+                marginHorizontal: '$4',
+              }}>
+              <Text
+                variant="subhead_medium"
+                sx={{
+                  color: 'foreground',
+                }}>
+                {allNftsOfThisProject.length}
+              </Text>
+              <IconShow />
+            </View>
+          </View>
         </Bounceable>
       );
     }
@@ -371,12 +414,7 @@ function AccordianPortfolio() {
         sectionHeader={RenderHeader(SECTIONS[2], expandedNfts)}
         onPress={() => setExpandedNfts(!expandedNfts)}>
         {SECTIONS[2].content.map((item, key) => (
-          <View
-            variant="layout.sub_view_20_margin"
-            sx={{
-              backgroundColor: 'off_background',
-              alignItems: 'center',
-            }}>
+          <View variant="layout.sub_view_20_margin">
             <NFTProjectItemShow item={item} />
           </View>
         ))}
