@@ -282,7 +282,7 @@ function TrendingTokensProduct({dispatch}) {
   function RenderTokenList() {
     let tokenList = state_here.MemeCoinsListReducer.memecoinslist;
 
-    console.log(tokenList);
+    // console.log(tokenList);
 
     if (tokenList.length > 0) {
       return <View>{tokenList.map(item => TokenCard(item))}</View>;

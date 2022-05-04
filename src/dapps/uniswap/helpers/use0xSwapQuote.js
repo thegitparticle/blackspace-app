@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, {useEffect, useState} from 'react';
+import axios from 'axios';
+import Decimal from 'decimal.js';
 
 export default function use0xSwapQuote(
   token0,
@@ -10,7 +11,9 @@ export default function use0xSwapQuote(
   const [loading0xSwapQuote, setLoading0xSwapQuote] = useState(true);
   const [quoteDetails0x, setQuoteDetails0x] = useState(null);
 
-  let buyAmountInBaseUnits = Number(buyAmount) * 10 ** Number(token1Decimals);
+  let buyAmountInBaseUnits = new Decimal(
+    Number(buyAmount) * 10 ** Number(token1Decimals),
+  ).toFixed();
 
   const apiConfig = {
     method: 'get',

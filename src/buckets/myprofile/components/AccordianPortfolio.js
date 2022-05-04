@@ -30,24 +30,24 @@ function AccordianPortfolio() {
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
 
   async function GetBalanceFromChainsDirectly() {
-    const prov = new ethers.providers.JsonRpcProvider(
-      'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
-    );
+    // const prov = new ethers.providers.JsonRpcProvider(
+    //   'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+    // );
 
     const provPolygon = new ethers.providers.JsonRpcProvider(
       'https://rpc-mumbai.maticvigil.com/',
     );
 
-    await prov
-      .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
-      .then(result =>
-        console.log(
-          'eth balance on rinkeby ' +
-            ethers.utils.formatEther(
-              BigNumber.from(JSON.parse(result).toString()),
-            ),
-        ),
-      );
+    // await prov
+    //   .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
+    //   .then(result =>
+    //     console.log(
+    //       'eth balance on rinkeby ' +
+    //         ethers.utils.formatEther(
+    //           BigNumber.from(JSON.parse(result).toString()),
+    //         ),
+    //     ),
+    //   );
 
     await provPolygon
       .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)

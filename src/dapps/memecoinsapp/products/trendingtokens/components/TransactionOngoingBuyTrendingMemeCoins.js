@@ -108,6 +108,7 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     }, 60000);
   }, [txHash]);
 
+  // if transaction is done, then this dapp can be added to users app suite
   useEffect(() => {
     axios
       .get(
