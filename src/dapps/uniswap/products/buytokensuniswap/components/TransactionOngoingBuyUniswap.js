@@ -1,19 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
-import { ethers } from "ethers/src.ts";
-import LottieView from "lottie-react-native";
-import ExecuteASwap from "../../../helpers/ExecuteASwap";
-import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../theme/ButterTheme';
+import {ethers} from 'ethers/src.ts';
+import LottieView from 'lottie-react-native';
+import ExecuteASwap from '../../../helpers/ExecuteASwap';
+import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
+import use0xSwapQuote from '../../../helpers/use0xSwapQuote';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+/*
+Token0Coin={token0Coin}
+          Token1Coin={token1Coin}
+          Token0Amount={token0Amount}
+          Token1Amount={token1Amount}
+          Token1Fiat={token1Fiat}
+          ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          Amount={amount}
+          walletReducer={state_here.WDeetsReducer.wdeets}
+          lpDetails={lpDetails}
+ */
+
 const prov = new ethers.providers.JsonRpcProvider(
   'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
+const provTest = new ethers.providers.JsonRpcProvider(
+  'https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
 function TransactionOngoingBuyUniswap(props) {
@@ -24,6 +45,15 @@ function TransactionOngoingBuyUniswap(props) {
   );
   let walletSigner = wallet.connect(prov);
 
+  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+    use0xSwapQuote(
+      props.Token0Coin.contractAddress,
+      props.Token1Coin.address,
+      props.Token1Amount,
+      props.Token1Coin.decimals,
+      props.walletReducer.wallet_address,
+    );
+
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
@@ -33,25 +63,37 @@ function TransactionOngoingBuyUniswap(props) {
     setTxHash(hash);
   }
 
-  useEffect(() => {
-    ExecuteASwap(
-      props.Token0Amount,
-      props.Token1Amount,
-      props.Token0Coin,
-      props.Token1Coin,
-      props.lpDetails,
-      props.walletReducer.wallet_address,
-      props.walletReducer.wallet_privateKey,
-      changeTxHash,
+  async function Swap() {
+    let wallet = new ethers.Wallet(
+      props.State.WDeetsReducer.wdeets.wallet_privateKey,
     );
-  }, []);
+    let walletSigner = wallet.connect(provTest);
+
+    const signer = provTest.getSigner();
+
+    // Fetch quote from 0x API
+    const response = await fetch(
+      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
+    );
+    const quote = await response.json();
+
+    console.log(quote);
+
+    // sending the transaction
+    await walletSigner.sendTransaction(await quote).then(transaction => {
+      console.log(transaction);
+      alert('Swap finished!');
+    });
+  }
 
   useEffect(() => {
-    console.log(txHash + 'tx hash via callback function');
-    setTimeout(() => {
-      navigation.goBack();
-    }, 60000);
-  }, [txHash]);
+    if (quoteDetails0x) {
+      Swap();
+      setTimeout(() => {
+        navigation.goBack();
+      }, 60000);
+    }
+  }, [quoteDetails0x]);
 
   useEffect(() => {
     axios

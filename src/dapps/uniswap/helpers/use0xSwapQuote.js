@@ -20,27 +20,27 @@ export default function use0xSwapQuote(
   const apiConfig = {
     method: 'get',
     url:
-      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
+      'https://api.0x.org/swap/v1/quote?buyToken=' +
       token1 +
       '&sellToken=' +
       token0 +
       '&buyAmount=' +
       String(buyAmountInBaseUnits) +
-      '&takerAddress=' +
-      String(walletAddress),
-    // '&excludedSources=0x,Native,Uniswap_V2,Eth2Dai,Kyber,Curve,LiquidityProvider,MultiBridge,Balancer,Balancer_V2,CREAM,Bancor,MakerPsm,mStable,Mooniswap,MultiHop,Shell,Swerve,SnowSwap,SushiSwap,DODO,DODO_V2,CryptoCom,Linkswap,KyberDMM,Smoothy,Component,Saddle,xSigma,Curve_V2,Lido,ShibaSwap,Clipper,Uniswap',
+      // '&takerAddress=' +
+      // String(walletAddress) +
+      '&excludedSources=0x,Native,Uniswap_V2,Eth2Dai,Kyber,Curve,LiquidityProvider,MultiBridge,Balancer,Balancer_V2,CREAM,Bancor,MakerPsm,mStable,Mooniswap,MultiHop,Shell,Swerve,SnowSwap,SushiSwap,DODO,DODO_V2,CryptoCom,Linkswap,KyberDMM,Smoothy,Component,Saddle,xSigma,Curve_V2,Lido,ShibaSwap,Clipper,Uniswap',
   };
 
   console.log(
-    'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
+    'https://api.0x.org/swap/v1/quote?buyToken=' +
       token1 +
       '&sellToken=' +
       token0 +
       '&buyAmount=' +
       String(buyAmountInBaseUnits) +
       '&takerAddress=' +
-      String(walletAddress),
-    // '&excludedSources=0x,Native,Uniswap_V2,Eth2Dai,Kyber,Curve,LiquidityProvider,MultiBridge,Balancer,Balancer_V2,CREAM,Bancor,MakerPsm,mStable,Mooniswap,MultiHop,Shell,Swerve,SnowSwap,SushiSwap,DODO,DODO_V2,CryptoCom,Linkswap,KyberDMM,Smoothy,Component,Saddle,xSigma,Curve_V2,Lido,ShibaSwap,Clipper,Uniswap',
+      String(walletAddress) +
+      '&excludedSources=0x,Native,Uniswap_V2,Eth2Dai,Kyber,Curve,LiquidityProvider,MultiBridge,Balancer,Balancer_V2,CREAM,Bancor,MakerPsm,mStable,Mooniswap,MultiHop,Shell,Swerve,SnowSwap,SushiSwap,DODO,DODO_V2,CryptoCom,Linkswap,KyberDMM,Smoothy,Component,Saddle,xSigma,Curve_V2,Lido,ShibaSwap,Clipper,Uniswap',
   );
 
   const fetchInfo = () => {

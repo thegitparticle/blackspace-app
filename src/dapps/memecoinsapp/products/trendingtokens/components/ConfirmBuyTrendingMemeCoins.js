@@ -201,7 +201,7 @@ function ConfirmBuyTrendingMemeCoins(props) {
                   <Text style={{color: themeHere.colors.foreground}}>
                     {Number(
                       quoteDetails0x.orders[0].takerAmount * 10 ** -18,
-                    ).toFixed(2) & Number(priceEth)}{' '}
+                    ).toFixed(2)}{' '}
                     ETH
                   </Text>
                 </Text>
