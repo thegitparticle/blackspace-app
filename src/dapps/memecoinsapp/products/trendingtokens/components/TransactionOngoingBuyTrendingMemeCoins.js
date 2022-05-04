@@ -7,7 +7,7 @@ import {
 import {ethers} from 'ethers/src.ts';
 import ExecuteASwap from '../../../../uniswap/helpers/ExecuteASwap';
 import LottieView from 'lottie-react-native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 

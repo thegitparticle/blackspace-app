@@ -41,6 +41,7 @@ function LiquityBluePrint() {
               cornerSmoothing: 1,
               cornerRadius: 15,
               fillColor: themeHere.colors.mid_ground + '50',
+              // fillColor: themeHere.colors.off_dark,
             }}
             style={styles.product_tile_view}>
             <BorrowLiquityProduct />

@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, TextInput, TouchableOpacity } from "react-native";
-import { Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { SquircleView } from "react-native-figma-squircle";
-import { SquircleCard, StyledFastImage25 } from "../../../theme/DripsyTheme";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import FastImage from "react-native-fast-image";
-import Spacer from "../../../bits/Spacer";
-import useEthFiatPrice from "../../../helpers/useGetEthFiatPrice";
-import { EthersLiquity } from "@liquity/lib-ethers";
-import { ethers } from "ethers";
-import { connect } from "react-redux";
-import useLUSDFiatPrice from "../helpers/useLUSDFiatPrice";
-import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import {Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {SquircleView} from 'react-native-figma-squircle';
+import {SquircleCard, StyledFastImage25} from '../../../theme/DripsyTheme';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
+import Spacer from '../../../bits/Spacer';
+import useEthFiatPrice from '../../../helpers/useEthFiatPrice';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import {ethers} from 'ethers';
+import {connect} from 'react-redux';
+import useLUSDFiatPrice from '../helpers/useLUSDFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

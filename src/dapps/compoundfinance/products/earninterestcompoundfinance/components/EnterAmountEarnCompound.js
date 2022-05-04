@@ -7,7 +7,7 @@ import {
 import VirtualKeyboard from 'react-native-virtual-keyboard';
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

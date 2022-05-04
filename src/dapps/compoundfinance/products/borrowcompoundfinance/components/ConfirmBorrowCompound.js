@@ -13,7 +13,7 @@ import {
 import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import {useNavigation} from '@react-navigation/native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import {SquircleView} from 'react-native-figma-squircle';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 

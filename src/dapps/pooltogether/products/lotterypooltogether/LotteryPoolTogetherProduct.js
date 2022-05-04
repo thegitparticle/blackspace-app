@@ -19,7 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import {BigNumber, ethers} from 'ethers';
 import {mainnet} from '@pooltogether/v4-pool-data';
 import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
-import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 import {useGasCostEstimate} from '../../helpers/useGasCostEstimate';
 
 const windowHeight = Dimensions.get('window').height;

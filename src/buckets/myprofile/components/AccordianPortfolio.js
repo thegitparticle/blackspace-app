@@ -8,10 +8,12 @@ import {useNavigation} from '@react-navigation/native';
 import {Image, Text, useSx, View} from 'dripsy';
 import {StyledFastImage25} from '../../../theme/DripsyTheme';
 import {Bounceable} from 'rn-bounceable';
-import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../helpers/useEthFiatPrice';
 import {ExpandableSection} from 'react-native-ui-lib';
 import _ from 'lodash';
 import {SvgUri} from 'react-native-svg';
+import {BigNumber, ethers} from 'ethers';
+import useMaticFiatPrice from '../../../helpers/useMaticFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,7 +26,40 @@ function AccordianPortfolio() {
   const navigation = useNavigation();
   const sxCustom = useSx();
 
+  const [maticOnPolygonBalance, setMaticOnPolygonBalance] = useState(0);
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
+
+  async function GetBalanceFromChainsDirectly() {
+    const prov = new ethers.providers.JsonRpcProvider(
+      'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+    );
+
+    const provPolygon = new ethers.providers.JsonRpcProvider(
+      'https://rpc-mumbai.maticvigil.com/',
+    );
+
+    await prov
+      .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
+      .then(result =>
+        console.log(
+          'eth balance on rinkeby ' +
+            ethers.utils.formatEther(
+              BigNumber.from(JSON.parse(result).toString()),
+            ),
+        ),
+      );
+
+    await provPolygon
+      .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
+      .then(result =>
+        setMaticOnPolygonBalance(
+          ethers.utils.formatEther(
+            BigNumber.from(JSON.parse(result).toString()),
+          ),
+        ),
+      );
+  }
+
   let myNfts = state_here.MyNFTsReducer.mynfts;
 
   const [myNftsRefined, setMyNftsRefined] = useState([]);
@@ -48,6 +83,7 @@ function AccordianPortfolio() {
   );
 
   useEffect(() => {
+    GetBalanceFromChainsDirectly();
     setMyNftsRefined(myNftsRefinedList);
   }, [myNfts]);
 
@@ -56,6 +92,7 @@ function AccordianPortfolio() {
   }, [myNftsRefined]);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
+  const {loadingMatic, priceMatic} = useMaticFiatPrice();
 
   const SECTIONS = [
     {
@@ -76,6 +113,14 @@ function AccordianPortfolio() {
             Number(state_here.MyProfileReducer.myProfileDetails.eth_balance) *
             10 ** -18 *
             Number(priceEth),
+        },
+        {
+          name: 'Polygon',
+          symbol: 'MATIC',
+          logoURI:
+            'https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912',
+          tokenBalance_decimal: Number(maticOnPolygonBalance).toFixed(4),
+          token_price_usd: Number(maticOnPolygonBalance) * Number(priceMatic),
         },
       ],
     },

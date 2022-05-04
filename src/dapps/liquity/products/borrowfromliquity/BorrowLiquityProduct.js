@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { SquircleView } from "react-native-figma-squircle";
-import FastImage from "react-native-fast-image";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import useLUSDFiatPrice from "../../helpers/useLUSDFiatPrice";
-import { EthersLiquity } from "@liquity/lib-ethers";
-import { connect } from "react-redux";
-import { ethers } from "ethers";
-import useEthFiatPrice from "../../../../helpers/useGetEthFiatPrice";
-import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
-import InfoIcon from "../../../../bits/InfoIcon";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {SquircleView} from 'react-native-figma-squircle';
+import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
+import useLUSDFiatPrice from '../../helpers/useLUSDFiatPrice';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import {connect} from 'react-redux';
+import {ethers} from 'ethers';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import InfoIcon from '../../../../bits/InfoIcon';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

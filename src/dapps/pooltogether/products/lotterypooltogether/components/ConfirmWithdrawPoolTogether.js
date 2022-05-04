@@ -8,7 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import {useNavigation} from '@react-navigation/native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import {BigNumber} from 'ethers';
 import {useGasCostEstimate} from '../../../helpers/useGasCostEstimate';
 

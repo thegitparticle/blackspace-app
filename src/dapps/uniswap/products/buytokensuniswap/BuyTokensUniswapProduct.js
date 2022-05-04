@@ -1,25 +1,33 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { Button } from "react-native-elements";
-import LinearGradient from "react-native-linear-gradient";
-import { SquircleView } from "react-native-figma-squircle";
-import { connect } from "react-redux";
-import { Modalize } from "react-native-modalize";
-import { Portal } from "react-native-portalize";
-import { FamousTokensList } from "../../helpers/FamousTokensList";
-import FastImage from "react-native-fast-image";
-import { useNavigation } from "@react-navigation/native";
-import useDerivedEthPrice from "../../helpers/useDerivedEthPrice";
-import useEthFiatPrice from "../../../../helpers/useGetEthFiatPrice";
-import useLiquidityPoolAddress from "../../helpers/useLiquidityPoolAddress";
-import _ from "lodash";
-import Iconly from "../../../../miscsetups/customfonts/Iconly";
-import { BigNumber } from "ethers";
-import { useGasCostEstimate } from "../../../pooltogether/helpers/useGasCostEstimate";
-import { Bounceable } from "rn-bounceable";
-import use0xSwapQuote from "../../helpers/use0xSwapQuote";
-import InfoIcon from "../../../../bits/InfoIcon";
+import React, {useMemo, useRef, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {Button} from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+import {SquircleView} from 'react-native-figma-squircle';
+import {connect} from 'react-redux';
+import {Modalize} from 'react-native-modalize';
+import {Portal} from 'react-native-portalize';
+import {FamousTokensList} from '../../helpers/FamousTokensList';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
+import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
+import _ from 'lodash';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {BigNumber} from 'ethers';
+import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
+import {Bounceable} from 'rn-bounceable';
+import use0xSwapQuote from '../../helpers/use0xSwapQuote';
+import InfoIcon from '../../../../bits/InfoIcon';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
