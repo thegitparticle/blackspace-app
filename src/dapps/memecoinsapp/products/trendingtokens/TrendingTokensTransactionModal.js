@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
 import TransactionOngoingBuyTrendingMemeCoins from './components/TransactionOngoingBuyTrendingMemeCoins';
 import ConfirmBuyTrendingMemeCoins from './components/ConfirmBuyTrendingMemeCoins';
+import use0xSwapQuote from '../../../uniswap/helpers/use0xSwapQuote';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,6 +36,7 @@ function TrendingTokensTransactionModal({route, dispatch}) {
     amountToBuy,
   } = route.params;
 
+  const [quote, setQuote] = useState({});
   const [renderScreen, setRenderScreen] = useState('ConfirmBuy');
 
   function RenderBody() {
@@ -49,6 +51,7 @@ function TrendingTokensTransactionModal({route, dispatch}) {
           TokenDetails={tokenDetails}
           AmountToBuy={amountToBuy}
           ChangeBody={changeBodyToConfirmBuy}
+          Quote={quote}
           State={state_here}
         />
       );
@@ -71,7 +74,8 @@ function TrendingTokensTransactionModal({route, dispatch}) {
     }
   }
 
-  function changeBodyToTransaction() {
+  function changeBodyToTransaction(quote) {
+    setQuote(quote);
     setRenderScreen('TransactionOngoing');
   }
 

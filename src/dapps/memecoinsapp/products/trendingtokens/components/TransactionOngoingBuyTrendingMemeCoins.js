@@ -10,6 +10,7 @@ import LottieView from 'lottie-react-native';
 import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import use0xSwapQuote from '../../../../uniswap/helpers/use0xSwapQuote';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -34,79 +35,64 @@ const prov = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
+const provTest = new ethers.providers.JsonRpcProvider(
+  'https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
 function TransactionOngoingBuyTrendingMemeCoins(props) {
   const navigation = useNavigation();
-  const {loadingEth, priceEth} = useEthFiatPrice();
-
-  let wallet = new ethers.Wallet(
-    props.State.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
 
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
-  const [txHash, setTxHash] = useState(null);
+  // until the api from server adds decimals field to tokens use this default value
+  let decimals = 18;
 
-  function changeTxHash(hash) {
-    setTxHash(hash);
+  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0.
+  // const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+  //   use0xSwapQuote('ETH', props.ContractAddress, props.AmountToBuy, decimals, props.State.WDeetsReducer.wdeets.wallet_address,);
+
+  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0 - ON TESTNET
+  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+    use0xSwapQuote(
+      'ETH',
+      'DAI',
+      props.AmountToBuy,
+      decimals,
+      props.State.WDeetsReducer.wdeets.wallet_address,
+    );
+
+  async function Swap() {
+    let wallet = new ethers.Wallet(
+      props.State.WDeetsReducer.wdeets.wallet_privateKey,
+    );
+    let walletSigner = wallet.connect(provTest);
+
+    const signer = provTest.getSigner();
+
+    // Fetch quote from 0x API
+    const response = await fetch(
+      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
+    );
+    const quote = await response.json();
+
+    console.log(quote);
+
+    // sending the transaction
+    await walletSigner.sendTransaction(await quote).then(transaction => {
+      console.log(transaction);
+      alert('Swap finished!');
+    });
   }
 
-  const myProfileDetails = props.State.MyProfileReducer.myProfileDetails;
-
-  let ethTokenObject = {
-    name: 'Ethereum',
-    symbol: 'ETH',
-    logoURI:
-      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
-    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
-    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
-    token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
-  };
-
-  /*
-  props.Token0Amount,
-      props.Token1Amount,
-      props.Token0Coin,
-      props.Token1Coin,
-      props.lpDetails,
-      props.walletReducer.wallet_address,
-      props.walletReducer.wallet_privateKey,
-      changeTxHash,
-   */
-
-  // console.log(
-  //   (Number(props.AmountToBuy) * Number(props.TokenDetails.usd)) /
-  //     Number(priceEth),
-  // );
-  //
-  // console.log(props.AmountToBuy);
-  // console.log(ethTokenObject);
-  // console.log({address: props.ContractAddress});
-  // console.log(props.lpDetails);
-
   useEffect(() => {
-    if (Number(priceEth) > 10) {
-      ExecuteASwap(
-        (Number(props.AmountToBuy) * Number(props.TokenDetails.usd)) /
-          Number(priceEth),
-        props.AmountToBuy,
-        ethTokenObject,
-        {address: props.ContractAddress},
-        props.lpDetails,
-        props.State.WDeetsReducer.wdeets.wallet_address,
-        props.State.WDeetsReducer.wdeets.wallet_privateKey,
-        changeTxHash,
-      );
+    if (quoteDetails0x) {
+      Swap();
+      setTimeout(() => {
+        navigation.goBack();
+      }, 60000);
     }
-  }, [priceEth]);
-
-  useEffect(() => {
-    console.log(txHash + 'tx hash via callback function');
-    setTimeout(() => {
-      navigation.goBack();
-    }, 60000);
-  }, [txHash]);
+  }, [quoteDetails0x]);
 
   // if transaction is done, then this dapp can be added to users app suite
   useEffect(() => {

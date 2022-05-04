@@ -42,9 +42,6 @@ function ConfirmBuyTrendingMemeCoins(props) {
   const navigation = useNavigation();
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  // until the api from server adds decimals field to tokens use this default value
-  let decimals = 18;
-
   // All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
   const [renderContext, setRenderContext] = useState('Checking');
 
@@ -71,13 +68,22 @@ function ConfirmBuyTrendingMemeCoins(props) {
     }
   }
 
+  // until the api from server adds decimals field to tokens use this default value
+  let decimals = 18;
+
   // Fetching swap quote from 0x. Buytoken - token1 and sell - token0.
-  const {loading0xSwapQuote, quoteDetails0x} = use0xSwapQuote(
-    'ETH',
-    props.ContractAddress,
-    props.AmountToBuy,
-    decimals,
-  );
+  // const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+  //   use0xSwapQuote('ETH', props.ContractAddress, props.AmountToBuy, decimals, props.State.WDeetsReducer.wdeets.wallet_address,);
+
+  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0 - ON TESTNET
+  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+    use0xSwapQuote(
+      'ETH',
+      'DAI',
+      props.AmountToBuy,
+      decimals,
+      props.State.WDeetsReducer.wdeets.wallet_address,
+    );
 
   useEffect(() => {
     checkIfWalletHasBalance();
@@ -195,7 +201,7 @@ function ConfirmBuyTrendingMemeCoins(props) {
                   <Text style={{color: themeHere.colors.foreground}}>
                     {Number(
                       quoteDetails0x.orders[0].takerAmount * 10 ** -18,
-                    ).toFixed(2)}{' '}
+                    ).toFixed(2) & Number(priceEth)}{' '}
                     ETH
                   </Text>
                 </Text>
@@ -260,7 +266,7 @@ function ConfirmBuyTrendingMemeCoins(props) {
                   <InfoIcon
                     size={10}
                     information={
-                      'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
+                      'transaction fees taken for this transaction to be executed on the Ethereum blockchain'
                     }
                     height={70}
                   />
@@ -296,13 +302,13 @@ function ConfirmBuyTrendingMemeCoins(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasAmount') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'confirm buy'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => props.ChangeBody(quoteDetails0x)}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
