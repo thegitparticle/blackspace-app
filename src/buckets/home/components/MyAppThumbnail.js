@@ -1,12 +1,12 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import FastImage from "react-native-fast-image";
-import { useNavigation } from "@react-navigation/native";
-import { SharedElement } from "react-native-shared-element";
-import { Bounceable } from "rn-bounceable";
-import { Amplitude } from "@amplitude/react-native";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import {SharedElement} from 'react-native-shared-element';
+import {Bounceable} from 'rn-bounceable';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -21,7 +21,6 @@ function MyAppThumbnail(props) {
 
   return (
     <Bounceable
-      // key={app_details.app_id.toString()}
       onPress={() => {
         Amplitude.getInstance().logEvent('MYAPP_OPEN_BUTTON_CLICK', {
           'App Name': String(props.app_details.name),

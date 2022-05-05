@@ -1,12 +1,12 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import FastImage from "react-native-fast-image";
-import { useNavigation } from "@react-navigation/native";
-import { SharedElement } from "react-native-shared-element";
-import { Bounceable } from "rn-bounceable";
-import { Amplitude } from "@amplitude/react-native";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import {SharedElement} from 'react-native-shared-element';
+import {Bounceable} from 'rn-bounceable';
+import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -23,7 +23,7 @@ function DiscoverAppThumbnail(props) {
     <Bounceable
       onPress={() => {
         Amplitude.getInstance().logEvent('DISCOVERAPP_OPEN_BUTTON_CLICK', {
-          'App Name': String(props.app_details.app_name),
+          'App Name': String(props.app_details.name),
         });
         navigation.navigate('MiniAppLanding', {
           app_details: props.app_details,
@@ -40,7 +40,7 @@ function DiscoverAppThumbnail(props) {
           flexWrap: 'wrap',
           my: '$2',
         }}>
-        <SharedElement id={`item.${props.app_details.app_name}.app_icon`}>
+        <SharedElement id={`item.${props.app_details.name}.app_icon`}>
           <FastImage
             source={{
               uri: props.app_details.dapp_cover,
