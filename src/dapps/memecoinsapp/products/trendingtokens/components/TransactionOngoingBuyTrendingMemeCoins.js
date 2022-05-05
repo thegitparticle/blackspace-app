@@ -63,12 +63,31 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     );
 
   async function Swap() {
+    // let wallet = new ethers.Wallet(
+    //   props.State.WDeetsReducer.wdeets.wallet_privateKey,
+    // );
+    // let walletSigner = wallet.connect(provTest);
+    //
+    // const signer = provTest.getSigner();
+    //
+    // // Fetch quote from 0x API
+    // const response = await fetch(
+    //   'https://ropsten.api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
+    // );
+    // const quote = await response.json();
+    //
+    // console.log(quote);
+    //
+    // // sending the transaction
+    // await walletSigner.sendTransaction(await quote).then(transaction => {
+    //   console.log(transaction);
+    //   alert('Swap finished!');
+    // });
+
     let wallet = new ethers.Wallet(
       props.State.WDeetsReducer.wdeets.wallet_privateKey,
     );
     let walletSigner = wallet.connect(provTest);
-
-    const signer = provTest.getSigner();
 
     // Fetch quote from 0x API
     const response = await fetch(
@@ -76,23 +95,21 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     );
     const quote = await response.json();
 
-    console.log(quote);
-
     // sending the transaction
-    await walletSigner.sendTransaction(await quote).then(transaction => {
+    walletSigner.sendTransaction(quote).then(transaction => {
       console.log(transaction);
       alert('Swap finished!');
     });
   }
 
   useEffect(() => {
-    if (quoteDetails0x) {
-      Swap();
-      setTimeout(() => {
-        navigation.goBack();
-      }, 60000);
-    }
-  }, [quoteDetails0x]);
+    // if (quoteDetails0x) {
+    Swap();
+    setTimeout(() => {
+      navigation.goBack();
+    }, 60000);
+    // }
+  }, []);
 
   // if transaction is done, then this dapp can be added to users app suite
   useEffect(() => {
