@@ -1,11 +1,18 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import FastImage from "react-native-fast-image";
-import { Bounceable } from "rn-bounceable";
-import CrispChat, { setSessionString, setTokenId, setUserNickname } from "react-native-crisp-chat-sdk";
-import { connect } from "react-redux";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import FastImage from 'react-native-fast-image';
+import {Bounceable} from 'rn-bounceable';
+import CrispChat, {
+  setSessionString,
+  setTokenId,
+  setUserNickname,
+} from 'react-native-crisp-chat-sdk';
+import {connect} from 'react-redux';
+import {SquircleView} from 'react-native-figma-squircle';
+import {BlurView} from '@react-native-community/blur';
+import MaskedView from '@react-native-masked-view/masked-view';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,10 +49,12 @@ function SupportAppThumbnail() {
     setShowChat(!showChat);
   };
 
+  // uri: 'https://i.postimg.cc/26g7qPyc/Group-33530.png',
+
   return (
     <Bounceable onPress={() => onShowChat()}>
-      <View
-        sx={{
+      <MaskedView
+        style={sxCustom({
           width: width,
           height: width * 1.5,
           backgroundColor: 'off_background',
@@ -53,7 +62,16 @@ function SupportAppThumbnail() {
           borderRadius: 15,
           flexWrap: 'wrap',
           my: '$2',
-        }}>
+        })}
+        maskElement={
+          <SquircleView
+            style={StyleSheet.absoluteFill}
+            squircleParams={{
+              cornerRadius: 15,
+              cornerSmoothing: 1,
+            }}
+          />
+        }>
         <FastImage
           source={{
             uri: 'https://i.postimg.cc/26g7qPyc/Group-33530.png',
@@ -62,23 +80,42 @@ function SupportAppThumbnail() {
           resizeMode={FastImage.resizeMode.cover}
           style={sxCustom({
             width: width,
-            height: width * 1.125,
-            borderTopLeftRadius: 15,
-            borderTopRightRadius: 15,
-          })}
-        />
-        <View
-          sx={{
-            width: width,
-            height: width * 0.375,
+            height: width * 1.5,
+            borderRadius: 15,
+            backgroundColor: 'off_background',
             alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text sx={{color: 'foreground'}} variant="body_medium">
-            Support
-          </Text>
-        </View>
-      </View>
+            justifyContent: 'flex-end',
+          })}>
+          <View
+            sx={{
+              width: width,
+              height: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <BlurView
+              style={{
+                width: 7 * 0.1 * width,
+                height: 25,
+                borderRadius: 12.5,
+                position: 'absolute',
+              }}
+              blurType="dark"
+              blurAmount={10}
+              reducedTransparencyFallbackColor="white"
+            />
+            <Text
+              sx={{
+                color: 'foreground',
+                flexWrap: 'wrap',
+                position: 'absolute',
+              }}
+              variant="caption_medium">
+              Support
+            </Text>
+          </View>
+        </FastImage>
+      </MaskedView>
       {showChat && <CrispChat />}
     </Bounceable>
   );
