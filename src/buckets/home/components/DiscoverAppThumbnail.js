@@ -1,5 +1,5 @@
 import React from 'react';
-import {Appearance, Dimensions} from 'react-native';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
 import {Text, useSx, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import FastImage from 'react-native-fast-image';
@@ -7,6 +7,9 @@ import {useNavigation} from '@react-navigation/native';
 import {SharedElement} from 'react-native-shared-element';
 import {Bounceable} from 'rn-bounceable';
 import {Amplitude} from '@amplitude/react-native';
+import MaskedView from '@react-native-masked-view/masked-view';
+import {SquircleView} from 'react-native-figma-squircle';
+import {BlurView, VibrancyView} from '@react-native-community/blur';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -30,8 +33,8 @@ function DiscoverAppThumbnail(props) {
           discover_or_not: true,
         });
       }}>
-      <View
-        sx={{
+      <MaskedView
+        style={sxCustom({
           width: width,
           height: width * 1.5,
           backgroundColor: 'off_background',
@@ -39,34 +42,60 @@ function DiscoverAppThumbnail(props) {
           borderRadius: 15,
           flexWrap: 'wrap',
           my: '$2',
-        }}>
-        <SharedElement id={`item.${props.app_details.name}.app_icon`}>
-          <FastImage
-            source={{
-              uri: props.app_details.dapp_cover,
-              priority: FastImage.priority.normal,
+        })}
+        maskElement={
+          <SquircleView
+            style={StyleSheet.absoluteFill}
+            squircleParams={{
+              cornerRadius: 15,
+              cornerSmoothing: 1,
             }}
-            resizeMode={FastImage.resizeMode.cover}
-            style={sxCustom({
-              width: width,
-              height: width * 1.125,
-              borderTopLeftRadius: 15,
-              borderTopRightRadius: 15,
-            })}
           />
-        </SharedElement>
-        <View
-          sx={{
+        }>
+        <FastImage
+          source={{
+            uri: props.app_details.dapp_cover,
+            priority: FastImage.priority.normal,
+          }}
+          resizeMode={FastImage.resizeMode.cover}
+          style={sxCustom({
             width: width,
-            height: width * 0.375,
+            height: width * 1.5,
+            borderRadius: 15,
+            backgroundColor: 'off_background',
             alignItems: 'center',
-            justifyContent: 'center',
-          }}>
-          <Text sx={{color: 'foreground'}} variant="body_medium">
-            {props.app_details.name}
-          </Text>
-        </View>
-      </View>
+            justifyContent: 'flex-end',
+          })}>
+          <View
+            sx={{
+              width: width,
+              height: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}>
+            <BlurView
+              style={{
+                width: props.app_details.name.length * 0.1 * width,
+                height: 25,
+                borderRadius: 12.5,
+                position: 'absolute',
+              }}
+              blurType="dark"
+              blurAmount={10}
+              reducedTransparencyFallbackColor="white"
+            />
+            <Text
+              sx={{
+                color: 'foreground',
+                flexWrap: 'wrap',
+                position: 'absolute',
+              }}
+              variant="caption_medium">
+              {props.app_details.name}
+            </Text>
+          </View>
+        </FastImage>
+      </MaskedView>
     </Bounceable>
   );
 }
