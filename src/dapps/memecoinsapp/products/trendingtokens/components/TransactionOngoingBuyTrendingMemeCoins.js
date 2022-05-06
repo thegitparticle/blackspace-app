@@ -40,6 +40,12 @@ const provTest = new ethers.providers.JsonRpcProvider(
   'https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
+// const web3 = new Web3(
+//   new Web3.providers.HttpProvider(
+//     `https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
+//   ),
+// );
+
 const web3 = new Web3(
   new Web3.providers.HttpProvider(
     `https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
@@ -55,53 +61,7 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
   // until the api from server adds decimals field to tokens use this default value
   let decimals = 18;
 
-  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0.
-  // const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
-  //   use0xSwapQuote('ETH', props.ContractAddress, props.AmountToBuy, decimals, props.State.WDeetsReducer.wdeets.wallet_address,);
-
-  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0 - ON TESTNET
-  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
-    use0xSwapQuote(
-      'ETH',
-      'DAI',
-      props.AmountToBuy,
-      decimals,
-      props.State.WDeetsReducer.wdeets.wallet_address,
-    );
-
   async function Swap() {
-    // let wallet = new ethers.Wallet(
-    //   props.State.WDeetsReducer.wdeets.wallet_privateKey,
-    // );
-    // let walletSigner = wallet.connect(provTest);
-    //
-    // const signer = provTest.getSigner();
-    //
-    // // Fetch quote from 0x API
-    // const response = await fetch(
-    //   'https://ropsten.api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
-    // );
-    // const quote = await response.json();
-    //
-    // console.log(quote);
-    //
-    // // sending the transaction
-    // await walletSigner.sendTransaction(await quote).then(transaction => {
-    //   console.log(transaction);
-    //   alert('Swap finished!');
-    // });
-
-    /*
-    const walletObject = new Wallet(wallet.privateKey.value, provider);
-				const signedTx = await walletObject.signTransaction(txDefaults);
-				const transaction = await provider.sendTransaction(signedTx as string);
-     */
-
-    // let wallet = new ethers.Wallet(
-    //   props.State.WDeetsReducer.wdeets.wallet_privateKey,
-    // );
-    // let walletSigner = wallet.connect(provTest);
-
     // WEB3 JS
     // Creating a signing account from a private key
     const signer = web3.eth.accounts.privateKeyToAccount(
@@ -111,7 +71,11 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
 
     // Fetch quote from 0x API
     const response = await fetch(
-      'https://ropsten.api.0x.org/swap/v1/quote?sellToken=ETH&buyToken=DAI&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
+      `https://ropsten.api.0x.org/swap/v1/quote?sellToken=ETH&buyToken=${
+        props.ContractAddress
+      }&buyAmount=${
+        Number(props.AmountToBuy) * 10 ** Number(decimals)
+      }&takerAddress=${props.State.WDeetsReducer.wdeets.wallet_address}`,
     );
     const quote = await response.json();
 
@@ -127,37 +91,16 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
       .sendSignedTransaction(signedTx.rawTransaction)
       .then(txhash => {
         console.log(txhash);
-        alert('Swap finished!');
+        alert('Swap sent! Tokens will appear in a minute.');
       })
       .catch(e => console.log(e));
-
-    // const signedTx = await wallet.signTransaction(quote);
-
-    // provTest
-    //   .sendTransaction(signedTx)
-    //   .then(transaction => {
-    //     console.log(transaction);
-    //     alert('Swap finished!');
-    //   })
-    //   .catch(e => console.log(e));
-
-    // sending the transaction
-    // walletSigner
-    //   .signTransaction(quote)
-    //   .then(transaction => {
-    //     console.log(transaction);
-    //     alert('Swap finished!');
-    //   })
-    //   .catch(e => console.log(e));
   }
 
   useEffect(() => {
-    // if (quoteDetails0x) {
     Swap().catch(e => console.log(e));
     setTimeout(() => {
       navigation.goBack();
     }, 60000);
-    // }
   }, []);
 
   // if transaction is done, then this dapp can be added to users app suite

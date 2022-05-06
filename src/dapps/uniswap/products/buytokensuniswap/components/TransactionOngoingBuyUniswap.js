@@ -10,6 +10,7 @@ import ExecuteASwap from '../../../helpers/ExecuteASwap';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import use0xSwapQuote from '../../../helpers/use0xSwapQuote';
+import Web3 from 'web3';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,63 +38,73 @@ const provTest = new ethers.providers.JsonRpcProvider(
   'https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
+// const web3 = new Web3(
+//   new Web3.providers.HttpProvider(
+//     `https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
+//   ),
+// );
+
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    `https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
+  ),
+);
+
 function TransactionOngoingBuyUniswap(props) {
   const navigation = useNavigation();
-
-  let wallet = new ethers.Wallet(
-    props.State.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
-
-  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
-    use0xSwapQuote(
-      props.Token0Coin.contractAddress,
-      props.Token1Coin.address,
-      props.Token1Amount,
-      props.Token1Coin.decimals,
-      props.walletReducer.wallet_address,
-    );
 
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
-  const [txHash, setTxHash] = useState(null);
-
-  function changeTxHash(hash) {
-    setTxHash(hash);
-  }
+  // until the api from server adds decimals field to tokens use this default value
+  let decimals = 18;
 
   async function Swap() {
-    let wallet = new ethers.Wallet(
+    // WEB3 JS
+    // Creating a signing account from a private key
+    const signer = web3.eth.accounts.privateKeyToAccount(
       props.State.WDeetsReducer.wdeets.wallet_privateKey,
     );
-    let walletSigner = wallet.connect(provTest);
+    web3.eth.accounts.wallet.add(signer);
 
-    const signer = provTest.getSigner();
+    let sellToken =
+      props.Token0Coin.symbol === 'ETH'
+        ? 'ETH'
+        : props.Token0Coin.contractAddress;
+
+    let buyToken =
+      props.Token1Coin.symbol === 'ETH' ? 'ETH' : props.Token1Coin.address;
 
     // Fetch quote from 0x API
     const response = await fetch(
-      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
+      `https://ropsten.api.0x.org/swap/v1/quote?sellToken=${sellToken}&buyToken=${buyToken}&buyAmount=${
+        Number(props.Token1Amount) * 10 ** Number(decimals)
+      }&takerAddress=${props.walletReducer.wallet_address}`,
     );
     const quote = await response.json();
 
-    console.log(quote);
+    // web3 js signing transactions
 
-    // sending the transaction
-    await walletSigner.sendTransaction(await quote).then(transaction => {
-      console.log(transaction);
-      alert('Swap finished!');
-    });
+    let signedTx = await web3.eth.accounts
+      .signTransaction(quote, signer.privateKey)
+      .catch(e => console.log(e));
+
+    // web3 js transaction sending
+    web3.eth
+      .sendSignedTransaction(signedTx.rawTransaction)
+      .then(txhash => {
+        console.log(txhash);
+        alert('Swap sent! Tokens will appear in a minute.');
+      })
+      .catch(e => console.log(e));
   }
 
   useEffect(() => {
-    if (quoteDetails0x) {
-      Swap();
-      setTimeout(() => {
-        navigation.goBack();
-      }, 60000);
-    }
-  }, [quoteDetails0x]);
+    Swap();
+    setTimeout(() => {
+      navigation.goBack();
+    }, 60000);
+  }, []);
 
   useEffect(() => {
     axios
