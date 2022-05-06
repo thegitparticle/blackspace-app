@@ -11,6 +11,7 @@ import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
 import use0xSwapQuote from '../../../../uniswap/helpers/use0xSwapQuote';
+import Web3 from 'web3';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -37,6 +38,12 @@ const prov = new ethers.providers.JsonRpcProvider(
 
 const provTest = new ethers.providers.JsonRpcProvider(
   'https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    `https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
+  ),
 );
 
 function TransactionOngoingBuyTrendingMemeCoins(props) {
@@ -84,27 +91,69 @@ function TransactionOngoingBuyTrendingMemeCoins(props) {
     //   alert('Swap finished!');
     // });
 
-    let wallet = new ethers.Wallet(
+    /*
+    const walletObject = new Wallet(wallet.privateKey.value, provider);
+				const signedTx = await walletObject.signTransaction(txDefaults);
+				const transaction = await provider.sendTransaction(signedTx as string);
+     */
+
+    // let wallet = new ethers.Wallet(
+    //   props.State.WDeetsReducer.wdeets.wallet_privateKey,
+    // );
+    // let walletSigner = wallet.connect(provTest);
+
+    // WEB3 JS
+    // Creating a signing account from a private key
+    const signer = web3.eth.accounts.privateKeyToAccount(
       props.State.WDeetsReducer.wdeets.wallet_privateKey,
     );
-    let walletSigner = wallet.connect(provTest);
+    web3.eth.accounts.wallet.add(signer);
 
     // Fetch quote from 0x API
     const response = await fetch(
-      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=DAI&sellToken=ETH&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
+      'https://ropsten.api.0x.org/swap/v1/quote?sellToken=ETH&buyToken=DAI&buyAmount=10000000000000000000&takerAddress=0xbd2e8c4026a3309AEb5978b51326278ffA01cb7a',
     );
     const quote = await response.json();
 
+    // web3 js signing transactions
+
+    let signedTx = await web3.eth.accounts.signTransaction(
+      quote,
+      signer.privateKey,
+    );
+
+    // web3 js transaction sending
+    web3.eth
+      .sendSignedTransaction(signedTx.rawTransaction)
+      .then(txhash => {
+        console.log(txhash);
+        alert('Swap finished!');
+      })
+      .catch(e => console.log(e));
+
+    // const signedTx = await wallet.signTransaction(quote);
+
+    // provTest
+    //   .sendTransaction(signedTx)
+    //   .then(transaction => {
+    //     console.log(transaction);
+    //     alert('Swap finished!');
+    //   })
+    //   .catch(e => console.log(e));
+
     // sending the transaction
-    walletSigner.sendTransaction(quote).then(transaction => {
-      console.log(transaction);
-      alert('Swap finished!');
-    });
+    // walletSigner
+    //   .signTransaction(quote)
+    //   .then(transaction => {
+    //     console.log(transaction);
+    //     alert('Swap finished!');
+    //   })
+    //   .catch(e => console.log(e));
   }
 
   useEffect(() => {
     // if (quoteDetails0x) {
-    Swap();
+    Swap().catch(e => console.log(e));
     setTimeout(() => {
       navigation.goBack();
     }, 60000);
