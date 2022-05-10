@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { connect } from "react-redux";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import CryptoPricesPage from "../pages/CryptoPricesPage";
-import HomeMainPage from "../pages/HomeMainPage";
-import HeaderOnHome from "../components/HeaderOnHome";
-import LinearGradient from "react-native-linear-gradient";
+import React, {useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {connect} from 'react-redux';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import CryptoPricesPage from '../pages/CryptoPricesPage';
+import HomeMainPage from '../pages/HomeMainPage';
+import HeaderOnHome from '../components/HeaderOnHome';
+import LinearGradient from 'react-native-linear-gradient';
+import NftsPage from '../pages/NftsPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -18,14 +19,16 @@ let state_here = {};
 function HomeLandingScreen({dispatch, navigation}) {
   const renderScene = SceneMap({
     first: HomeMainPage,
-    second: CryptoPricesPage,
+    second: NftsPage,
+    third: CryptoPricesPage,
   });
 
   const [index, setIndex] = useState(0);
 
   const [routes] = React.useState([
     {key: 'first', title: 'Home'},
-    {key: 'second', title: 'Prices'},
+    {key: 'second', title: 'NFTs'},
+    {key: 'third', title: 'Prices'},
   ]);
 
   function renderLabel({route, focused}) {
@@ -61,13 +64,13 @@ function HomeLandingScreen({dispatch, navigation}) {
       if (focused) {
         return (
           <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>DeFi</Text>
+            <Text style={styles.tab_label_text_focused}>NFTs</Text>
           </View>
         );
       } else {
         return (
           <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>DeFi</Text>
+            <Text style={styles.tab_label_text_unfocused}>NFTs</Text>
           </View>
         );
       }
