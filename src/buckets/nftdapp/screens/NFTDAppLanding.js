@@ -1,15 +1,11 @@
 import React, {useEffect, useMemo, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import RenderAppBluePrintHelper from '../helpers/RenderAppBluePrintHelper';
-import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
 import LottieView from 'lottie-react-native';
 import {Text, useSx, View} from 'dripsy';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import FastImage from 'react-native-fast-image';
-import HeaderMiniAppV2 from '../../../bits/HeaderMiniAppV2';
 import RenderNFTProjectHome from '../helpers/RenderNFTProjectHome';
 import RenderNFTProjectDetails from '../helpers/RenderNFTProjectDetails';
 import RenderNFTProjectHoldings from '../helpers/RenderNFTProjectHoldings';
@@ -201,7 +197,7 @@ function NFTDAppLanding({route}) {
         height: 60,
         justifyContent: 'center',
         alignSelf: 'center',
-        width: windowWidth * 0.5,
+        width: discover_or_not ? windowWidth * 0.5 : windowWidth * 0.6,
         marginBottom: windowHeight * 0.05,
         borderRadius: 30,
         borderTopWidth: 0,

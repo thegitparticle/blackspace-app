@@ -1,8 +1,8 @@
 import React from 'react';
 import {Appearance, Dimensions} from 'react-native';
 import {Image, Text, useSx, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
-import Iconly from '../miscsetups/customfonts/Iconly';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {Header} from 'react-native-elements';
 import {Bounceable} from 'rn-bounceable';

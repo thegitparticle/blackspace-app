@@ -28,7 +28,7 @@ function NFTDAppThumbnail(props) {
         Amplitude.getInstance().logEvent('NFTDAPP_OPEN_BUTTON_CLICK', {
           'NFT DApp Name': String(props.app_details.name),
         });
-        navigation.navigate('MiniAppLanding', {
+        navigation.navigate('NFTDAppLanding', {
           app_details: props.app_details,
           discover_or_not: false,
         });
