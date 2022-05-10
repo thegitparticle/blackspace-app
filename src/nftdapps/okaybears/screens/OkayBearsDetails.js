@@ -6,6 +6,8 @@ import SpacerVertical from '../../../bits/SpacerVertical';
 import {Bounceable} from 'rn-bounceable';
 import {Icon} from 'react-native-elements';
 import SpacerHorizontal from '../../../bits/SpacerHorizontal';
+import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
+import {AboutInformationOkayBears} from '../../dummydata/OkayBearsDummyData';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -13,6 +15,36 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function OkayBearsDetails(props) {
+  function RenderAboutProject() {
+    return (
+      <View sx={{alignSelf: 'center', marginTop: '$5'}}>
+        <Text
+          variant="subhead_medium"
+          sx={{
+            color: 'foreground',
+            maxWidth: windowWidth * 0.9,
+            marginHorizontal: '$4',
+            marginBottom: '$4',
+            alignSelf: 'flex-start',
+          }}>
+          About {props.appInfo.name}
+        </Text>
+        <Text
+          variant="body_medium"
+          sx={{
+            color: 'off_foreground',
+            opacity: 0.5,
+            maxWidth: windowWidth * 0.9,
+            marginHorizontal: '$4',
+            alignSelf: 'flex-start',
+          }}>
+          {AboutInformationOkayBears}
+        </Text>
+        <SpacerVertical height={30} />
+      </View>
+    );
+  }
+
   function RenderLinks() {
     function LinkComponent(props) {
       return (
@@ -75,7 +107,7 @@ function OkayBearsDetails(props) {
   return (
     <View sx={{alignItems: 'center', justifyContent: 'center'}}>
       <SpacerVertical height={40} />
-      <Text style={{color: 'orange'}}>what is okay bears all about?</Text>
+      <RenderAboutProject />
       <RenderLinks />
     </View>
   );

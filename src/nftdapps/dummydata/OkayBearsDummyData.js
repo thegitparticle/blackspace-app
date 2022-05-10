@@ -26,4 +26,21 @@ export const MintPhasesOkayBears = [
 // Holdings Tab
 
 // Details Tab
-export const AboutInformationOkayBears = '';
+export const AboutInformationOkayBears =
+  'COME BEAR WITH US!\n' +
+  '\n' +
+  '\n' +
+  'Come unrefined, as long as you’re kind.\n' +
+  'Progress takes patience, our needs are aligned.\n' +
+  'So bear with the grind, kick-back and unwind -\n' +
+  'Good vibes and community, it’s one hell of a ride!\n' +
+  '\n' +
+  "Life in the city, it's okay for me:\n" +
+  'Work for tomorrow, we all agree.\n' +
+  'There’s time to sip coffee, dance and roam free,\n' +
+  'Catch up at the Park, or relax on a tree.\n' +
+  '\n' +
+  'Carefree living, our style is be true\n' +
+  'Bearing no grudge, no judgement, no spew\n' +
+  'Live for tonight, the twilight anew\n' +
+  'Bear with me, friend, and I’ll bear with you.';
