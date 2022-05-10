@@ -2,6 +2,9 @@ import React from 'react';
 import {View, Text} from 'dripsy';
 import {Dimensions, ScrollView, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import OkayBearsHome from '../../../nftdapps/okaybears/screens/OkayBearsHome';
+import Spacer from '../../../bits/Spacer';
+import OkayBearsHoldings from '../../../nftdapps/okaybears/screens/OkayBearsHoldings';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -9,11 +12,12 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function RenderNFTProjectHoldings(props) {
-  if (true) {
+  if (props.function_name === 'OkayBearsBluePrint') {
     return (
-      <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-        <Text style={{color: 'white'}}>HOLDINGS come here, if any</Text>
-      </View>
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <OkayBearsHoldings />
+        <Spacer height={windowHeight * 0.25} />
+      </ScrollView>
     );
   } else {
     return (

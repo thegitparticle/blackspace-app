@@ -27,7 +27,7 @@ function NftsPage() {
         'https://i.postimg.cc/NMyT4Q2V/62595ef46940831464f1cce2-Yoyo.png',
       dapp_bio:
         'Okay Bears is a culture shift. A clean collection of 10,000 diverse bears building a virtuous community that will transcend the internet into the real world.',
-      landing_blueprint_function_name: 'PoolTogetherLandingBluePrint',
+      landing_blueprint_function_name: 'OkayBearsBluePrint',
       splash_image:
         'https://i.postimg.cc/wj0mY1hZ/622063039e289f27bc601f67-OKB-Logo.png',
       tagline:
