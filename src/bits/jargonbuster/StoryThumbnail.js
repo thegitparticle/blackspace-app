@@ -4,7 +4,7 @@ import { Pressable, Text, View } from "dripsy";
 import { ButterThemeDark, ButterThemeLight } from "../../theme/ButterTheme";
 import { StyledFastImage60 } from "../../theme/DripsyTheme";
 import FastImage from "react-native-fast-image";
-import Spacer from "../Spacer";
+import SpacerVertical from "../SpacerVertical";
 import { Bounceable } from "rn-bounceable";
 import { Overlay } from "react-native-elements";
 import Iconly from "../../miscsetups/customfonts/Iconly";
@@ -149,7 +149,7 @@ function StoryThumbnail(props) {
             resizeMode={FastImage.resizeMode.contain}
             sx={{ borderWidth: 2.5, borderColor: themeHere.colors.blue }}
           />
-          <Spacer height={10} />
+          <SpacerVertical height={10} />
           <Text
             variant="body_medium"
             sx={{ textAlign: "center", color: "foreground" }}>

@@ -3,7 +3,7 @@ import {View, Text} from 'dripsy';
 import {Dimensions, ScrollView, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import OkayBearsHome from '../../../nftdapps/okaybears/screens/OkayBearsHome';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import OkayBearsHoldings from '../../../nftdapps/okaybears/screens/OkayBearsHoldings';
 
 const windowHeight = Dimensions.get('window').height;
@@ -16,7 +16,7 @@ function RenderNFTProjectHoldings(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <OkayBearsHoldings />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else {

@@ -30,7 +30,7 @@ function NFTDAppThumbnail(props) {
         });
         navigation.navigate('NFTDAppLanding', {
           app_details: props.app_details,
-          discover_or_not: false,
+          discover_or_not: true,
         });
       }}>
       <MaskedView

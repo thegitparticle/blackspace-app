@@ -1,10 +1,10 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { ScrollView, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import TipTile from "../components/TipTile";
-import Spacer from "../../../bits/Spacer";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {ScrollView, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import TipTile from '../components/TipTile';
+import SpacerVertical from '../../../bits/SpacerVertical';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -18,7 +18,7 @@ function StarterTipsPage() {
 
   return (
     <View sx={{width: windowWidth}}>
-      <Spacer height={windowHeight * 0.05} />
+      <SpacerVertical height={windowHeight * 0.05} />
       <ScrollView>
         {allTips.map(item => (
           <TipTile tipInfo={item} />

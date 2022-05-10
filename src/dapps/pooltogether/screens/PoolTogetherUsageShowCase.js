@@ -8,7 +8,7 @@ import {ethers} from 'ethers';
 import {connect} from 'react-redux';
 import {SquircleCard, StyledFastImage25} from '../../../theme/DripsyTheme';
 import FastImage from 'react-native-fast-image';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
@@ -269,17 +269,17 @@ function PoolTogetherUsageShowCase() {
     if (ptBalance === null) {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <Spacer height={100} />
+          <SpacerVertical height={100} />
           <Bars size={10} color="#FDAAFF" />
-          <Spacer height={100} />
+          <SpacerVertical height={100} />
         </View>
       );
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           <DepositsCard />
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           <View>
             <Button
               title={'withdraw deposit'}
@@ -306,7 +306,7 @@ function PoolTogetherUsageShowCase() {
             />
           </View>
           <WinningsCard />
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           {/*<View>*/}
           {/*  <Button*/}
           {/*    title={'no winnings to claim'}*/}
@@ -324,7 +324,7 @@ function PoolTogetherUsageShowCase() {
           {/*    }}*/}
           {/*  />*/}
           {/*</View>*/}
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
         </View>
       );
     }

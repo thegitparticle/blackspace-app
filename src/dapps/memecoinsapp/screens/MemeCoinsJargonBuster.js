@@ -4,7 +4,7 @@ import {ScrollView, Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import {Bounceable} from 'rn-bounceable';
 import {Icon} from 'react-native-elements';
 import axios from 'axios';
@@ -154,7 +154,7 @@ function MemeCoinsJargonBuster(props) {
             }}>
             {jargonBusterContent.content}
           </Text>
-          <Spacer height={30} />
+          <SpacerVertical height={30} />
           <View sx={{height: 150}}>
             <ScrollView
               horizontal={true}
@@ -164,9 +164,9 @@ function MemeCoinsJargonBuster(props) {
               ))}
             </ScrollView>
           </View>
-          <Spacer height={30} />
+          <SpacerVertical height={30} />
           <RenderLinks />
-          <Spacer height={30} />
+          <SpacerVertical height={30} />
         </View>
       );
     } else {
@@ -180,7 +180,7 @@ function MemeCoinsJargonBuster(props) {
               width: windowWidth,
               alignItems: 'center',
             }}>
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
             <Text
               variant="subhead_medium"
               sx={{
@@ -193,7 +193,7 @@ function MemeCoinsJargonBuster(props) {
               }}>
               Jargon Buster could not be loaded, try again!
             </Text>
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
           </View>
         );
       } else {
@@ -206,9 +206,9 @@ function MemeCoinsJargonBuster(props) {
               width: windowWidth,
               alignItems: 'center',
             }}>
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
             <Bars size={10} color="#FDAAFF" />
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
           </View>
         );
       }

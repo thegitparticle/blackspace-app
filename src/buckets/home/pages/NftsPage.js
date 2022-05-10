@@ -2,7 +2,7 @@ import React, {useCallback, useState} from 'react';
 import {Appearance, Dimensions, RefreshControl, StyleSheet} from 'react-native';
 import {View, Text} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import {FlatGrid, SectionGrid} from 'react-native-super-grid';
 import MyAppThumbnail from '../components/MyAppThumbnail';
 import NFTDAppThumbnail from '../components/NFTDAppThumbnail';
@@ -28,8 +28,7 @@ function NftsPage() {
       dapp_bio:
         'Okay Bears is a culture shift. A clean collection of 10,000 diverse bears building a virtuous community that will transcend the internet into the real world.',
       landing_blueprint_function_name: 'OkayBearsBluePrint',
-      splash_image:
-        'https://i.postimg.cc/wj0mY1hZ/622063039e289f27bc601f67-OKB-Logo.png',
+      splash_image: 'https://i.postimg.cc/8zvpgH7j/crypto-app-splash-6.png',
       tagline:
         'Okay Bears is a culture shift. A clean collection of 10,000 diverse bears building a virtuous community that will transcend the internet into the real world.',
       add_to_my_app_button_status: false,
@@ -55,7 +54,7 @@ function NftsPage() {
       data={dummy_nft_dapps}
       renderItem={({item}) => <NFTDAppThumbnail app_details={item} />}
       showsVerticalScrollIndicator={false}
-      ListFooterComponent={<Spacer height={75} />}
+      ListFooterComponent={<SpacerVertical height={75} />}
       spacing={20}
       refreshControl={
         <RefreshControl

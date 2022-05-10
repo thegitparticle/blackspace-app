@@ -1,11 +1,11 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Appearance, Dimensions, RefreshControl, ScrollView } from "react-native";
-import { View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import { GetMarketPrices } from "../../../redux/appcore/MarketPricesActions";
-import MarketPriceCryptoTile from "../components/MarketPriceCryptoTile";
-import Spacer from "../../../bits/Spacer";
+import React, {useCallback, useEffect, useState} from 'react';
+import {Appearance, Dimensions, RefreshControl, ScrollView} from 'react-native';
+import {View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
+import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
+import SpacerVertical from '../../../bits/SpacerVertical';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -46,7 +46,7 @@ function CryptoPricesPage({dispatch}) {
         {marketPrices.map(item => (
           <MarketPriceCryptoTile coinDetails={item} />
         ))}
-        <Spacer height={75} />
+        <SpacerVertical height={75} />
       </ScrollView>
     </View>
   );

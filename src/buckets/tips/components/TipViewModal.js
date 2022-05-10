@@ -1,10 +1,10 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { ScrollView, Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { SquircleCard } from "../../../theme/DripsyTheme";
-import Spacer from "../../../bits/Spacer";
-import { Icon } from "react-native-elements";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {ScrollView, Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {SquircleCard} from '../../../theme/DripsyTheme';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import {Icon} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -40,7 +40,7 @@ function TipViewModal({route}) {
             {String(props.stepNumber)}. {props.content}
           </Text>
         </SquircleCard>
-        <Spacer height={30} />
+        <SpacerVertical height={30} />
         <Icon
           name="arrow-down"
           type="feather"
@@ -70,7 +70,7 @@ function TipViewModal({route}) {
             content={tipInfo[`step_${String(item)}`]}
           />
         ))}
-        <Spacer height={200} />
+        <SpacerVertical height={200} />
       </ScrollView>
     </View>
   );

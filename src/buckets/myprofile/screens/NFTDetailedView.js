@@ -6,7 +6,7 @@ import {BlurView} from '@react-native-community/blur';
 import {SquircleView} from 'react-native-figma-squircle';
 import MaskedView from '@react-native-masked-view/masked-view';
 import {Text, useSx, View} from 'dripsy';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import _ from 'lodash';
 import {SvgUri} from 'react-native-svg';
 
@@ -192,7 +192,7 @@ function NFTDetailedView({route}) {
           }}>
           {nft_details.title}
         </Text>
-        <Spacer height={20} />
+        <SpacerVertical height={20} />
         <Text
           variant="title_3"
           sx={{

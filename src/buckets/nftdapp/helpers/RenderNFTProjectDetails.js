@@ -3,7 +3,7 @@ import {View, Text} from 'dripsy';
 import {Dimensions, ScrollView, Appearance} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import OkayBearsHome from '../../../nftdapps/okaybears/screens/OkayBearsHome';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import OkayBearsDetails from '../../../nftdapps/okaybears/screens/OkayBearsDetails';
 
 const windowHeight = Dimensions.get('window').height;
@@ -15,8 +15,8 @@ function RenderNFTProjectDetails(props) {
   if (props.function_name === 'OkayBearsBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <OkayBearsDetails />
-        <Spacer height={windowHeight * 0.25} />
+        <OkayBearsDetails appInfo={props.appInfo} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else {

@@ -6,7 +6,7 @@ import MainDetails from '../components/MainDetails';
 import WalletPie from '../components/WalletPie';
 import AccordianPortfolio from '../components/AccordianPortfolio';
 import Animated from 'react-native-reanimated';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import {connect} from 'react-redux';
 import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
 import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
@@ -102,7 +102,7 @@ function MyProfileScreen({dispatch}) {
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />
-        <Spacer height={50} />
+        <SpacerVertical height={50} />
       </Animated.ScrollView>
     </View>
   );

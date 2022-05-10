@@ -14,7 +14,7 @@ import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
 import {GetDiscoverApps} from '../../../redux/appcore/DiscoverAppsActions';
 import {SectionGrid} from 'react-native-super-grid';
 import {GetMarketPrices} from '../../../redux/appcore/MarketPricesActions';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenListActions';
 import _ from 'lodash';
 import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
@@ -150,7 +150,7 @@ function HomeMainPage({dispatch}) {
         <Text style={styles.title_text}>{title}</Text>
       )}
       showsVerticalScrollIndicator={false}
-      ListFooterComponent={<Spacer height={75} />}
+      ListFooterComponent={<SpacerVertical height={75} />}
       spacing={20}
       refreshControl={
         <RefreshControl

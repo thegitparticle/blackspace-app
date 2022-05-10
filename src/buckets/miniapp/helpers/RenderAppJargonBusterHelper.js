@@ -1,14 +1,21 @@
-import React from "react";
-import { Appearance, Dimensions, ScrollView, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import MakerDaoJargonBuster from "../../../dapps/makerdao/screens/MakerDaoJargonBuster";
-import CompoundFinanceJargonBuster from "../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster";
-import UniswapJargonBuster from "../../../dapps/uniswap/screens/UniswapJargonBuster";
-import MemeCoinsJargonBuster from "../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster";
-import LiquityJargonBuster from "../../../dapps/liquity/screens/LiquityJargonBuster";
-import PoolTogetherJargonBuster from "../../../dapps/pooltogether/screens/PoolTogetherJargonBuster";
-import IndexFundsJargonBuster from "../../../dapps/indexfunds/screens/IndexFundsJargonBuster";
-import Spacer from "../../../bits/Spacer";
+import React from 'react';
+import {
+  Appearance,
+  Dimensions,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import MakerDaoJargonBuster from '../../../dapps/makerdao/screens/MakerDaoJargonBuster';
+import CompoundFinanceJargonBuster from '../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
+import UniswapJargonBuster from '../../../dapps/uniswap/screens/UniswapJargonBuster';
+import MemeCoinsJargonBuster from '../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster';
+import LiquityJargonBuster from '../../../dapps/liquity/screens/LiquityJargonBuster';
+import PoolTogetherJargonBuster from '../../../dapps/pooltogether/screens/PoolTogetherJargonBuster';
+import IndexFundsJargonBuster from '../../../dapps/indexfunds/screens/IndexFundsJargonBuster';
+import SpacerVertical from '../../../bits/SpacerVertical';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,49 +27,49 @@ function RenderAppJargonBusterHelper(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <MakerDaoJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <CompoundFinanceJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'UniswapLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <UniswapJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <MemeCoinsJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'LiquityLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <LiquityJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <PoolTogetherJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'IndexFundsLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <IndexFundsJargonBuster appInfo={props.appInfo} />
-        <Spacer height={windowHeight * 0.25} />
+        <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else {
