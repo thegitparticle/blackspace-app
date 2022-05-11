@@ -4,6 +4,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
 import {MotiView} from 'moti';
 import {Image} from 'dripsy';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

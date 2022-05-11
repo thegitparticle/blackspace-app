@@ -17,6 +17,7 @@ import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
 import AllTipsReducer from './appcore/AllTipsReducer';
 import MemeCoinsListReducer from './dapps/memecoins/MemeCoinsListReducer';
 import MyNFTsReducer from './appcore/MyNFTsReducer';
+import SecretSettingsReducer from './appcore/SecretSettingsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -73,6 +74,11 @@ export const persistConfigAllTips = {
   storage: AsyncStorage,
 };
 
+export const persistConfigSecretSettings = {
+  key: 'secret_settings',
+  storage: AsyncStorage,
+};
+
 // dapps redux work only below
 
 export const persistConfigUniswapTokenList = {
@@ -117,6 +123,10 @@ const rootReducer = combineReducers({
     MyEmojiColorReducer,
   ),
   AllTipsReducer: persistReducer(persistConfigAllTips, AllTipsReducer),
+  SecretSettingsReducer: persistReducer(
+    persistConfigSecretSettings,
+    SecretSettingsReducer,
+  ),
 
   // dapps redux work only below
 

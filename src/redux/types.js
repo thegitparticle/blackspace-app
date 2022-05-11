@@ -11,6 +11,9 @@ export const ADD_TOKENBALANCES = 'ADD_TOKENBALANCES';
 export const ADD_MYNFTS = 'ADD_MYNFTS';
 export const ADD_ALLTIPS = 'ADD_ALLTIPS';
 
+// secret settings
+export const ADD_SECRETSETTINGS = 'ADD_SECRETSETTINGS';
+
 // all dapps redux types
 export const ADD_UNISWAPTOKENLIST = 'ADD_UNISWAPTOKENLIST';
 export const ADD_UNISWAPSTAKEPOOLS = 'ADD_UNISWAPSTAKEPOOLS';

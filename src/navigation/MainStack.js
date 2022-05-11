@@ -38,6 +38,7 @@ import BrandLandingScreen from '../buckets/brand/screens/BrandLandingScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
 import TipViewModal from '../buckets/tips/components/TipViewModal';
 import NFTDAppLanding from '../buckets/nftdapp/screens/NFTDAppLanding';
+import SecretScreen from '../buckets/brand/screens/SecretScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -481,6 +482,18 @@ function MainStack() {
         <StackMain.Screen
           name="BrandLandingScreen"
           component={BrandLandingScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="SecretScreen"
+          component={SecretScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,
