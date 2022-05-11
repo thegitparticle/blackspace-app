@@ -4,7 +4,10 @@ import {Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import SpacerVertical from '../../../bits/SpacerVertical';
 import {SquircleView} from 'react-native-figma-squircle';
-import {MintPhasesOkayBears} from '../../dummydata/OkayBearsDummyData';
+import {
+  MintPhasesOkayBears,
+  PrimaryDetailsOkayBears,
+} from '../../dummydata/OkayBearsDummyData';
 import dayjs, {Dayjs} from 'dayjs';
 import _ from 'lodash';
 
@@ -93,12 +96,50 @@ function OkayBearsHome() {
     );
   }
 
-  function RenderSpecialCard() {}
+  function RenderSpecialCard() {
+    return (
+      <SquircleView
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: PrimaryDetailsOkayBears.secondary_color,
+        }}
+        style={{width: windowWidth - 40}}>
+        <View
+          sx={{
+            marginHorizontal: '$4',
+            marginVertical: '$4',
+            flexDirection: 'column',
+          }}>
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: PrimaryDetailsOkayBears.text_special_color,
+              marginVertical: '$2',
+            }}>
+            OkayBears X Shopify Exclusive Store
+          </Text>
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: PrimaryDetailsOkayBears.text_special_color,
+              opacity: 0.75,
+              marginVertical: '$2',
+            }}>
+            Holder-only access to exclusive merch through seamless integration
+            of Web 3 and Shopify's robust e-commerce platform.
+          </Text>
+        </View>
+      </SquircleView>
+    );
+  }
 
   return (
     <View sx={{alignItems: 'center', justifyContent: 'center'}}>
       <SpacerVertical height={40} />
       <RenderMintCard />
+      <SpacerVertical height={20} />
+      <RenderSpecialCard />
     </View>
   );
 }
