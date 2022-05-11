@@ -2,6 +2,8 @@
 export const PrimaryDetailsOkayBears = {
   mint_done: false,
   chain_id: 'solana',
+  primary_color: '#18AB6C',
+  secondary_color: '#FFF9F0',
 };
 
 export const MintPhasesOkayBears = [
