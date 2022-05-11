@@ -1,10 +1,8 @@
-import React from "react";
-import { ethers } from "ethers";
-import { Token } from "@uniswap/sdk-core";
-import { Pool } from "@uniswap/v3-sdk";
-import {
-  abi as IUniswapV3PoolABI,
-} from "@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json";
+import React from 'react';
+import {ethers} from 'ethers';
+import {Token} from '@uniswap/sdk-core';
+import {Pool} from '@uniswap/v3-sdk';
+import {abi as IUniswapV3PoolABI} from '@uniswap/v3-core/artifacts/contracts/interfaces/IUniswapV3Pool.sol/IUniswapV3Pool.json';
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',

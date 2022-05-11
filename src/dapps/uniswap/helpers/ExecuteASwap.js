@@ -1,5 +1,5 @@
-import { ethers } from "ethers";
-import { ChainId, UniswapPair } from "simple-uniswap-sdk";
+import {ethers} from 'ethers';
+import {ChainId, UniswapPair} from 'simple-uniswap-sdk';
 
 const providerBasic = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',

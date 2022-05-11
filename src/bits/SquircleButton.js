@@ -1,22 +1,22 @@
-import React from "react";
-import { SquircleView } from "react-native-figma-squircle";
-import { Text } from "react-native";
+import React from 'react';
+import {SquircleView} from 'react-native-figma-squircle';
+import {Text} from 'react-native';
 
 function SquircleButton({
-                          width,
-                          height,
-                          buttonColor,
-                          textColor,
-                          font,
-                          buttonText,
-                        }) {
+  width,
+  height,
+  buttonColor,
+  textColor,
+  font,
+  buttonText,
+}) {
   return (
     <SquircleView
       style={{
         width: width,
         height: height,
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
       squircleParams={{
         cornerSmoothing: 1,

@@ -1,14 +1,14 @@
-import React, { useEffect, useMemo, useState } from "react";
-import { Appearance, Dimensions, StyleSheet } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import HeaderMiniAppV2 from "../../../bits/HeaderMiniAppV2";
-import { SceneMap, TabBar, TabView } from "react-native-tab-view";
-import Iconly from "../../../miscsetups/customfonts/Iconly";
-import StarterTipsPage from "../pages/StarterTipsPage";
-import FastImage from "react-native-fast-image";
-import { GetAllTips } from "../../../redux/appcore/AllTipsActions";
+import React, {useEffect, useMemo, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import HeaderMiniAppV2 from '../../../bits/HeaderMiniAppV2';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
+import StarterTipsPage from '../pages/StarterTipsPage';
+import FastImage from 'react-native-fast-image';
+import {GetAllTips} from '../../../redux/appcore/AllTipsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

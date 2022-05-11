@@ -1,13 +1,13 @@
-import React from "react";
-import { Appearance, Dimensions, StyleSheet, Text } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../theme/ButterTheme";
-import FastImage from "react-native-fast-image";
-import { SquircleView } from "react-native-figma-squircle";
+import React from 'react';
+import {Appearance, Dimensions, StyleSheet, Text} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
+import FastImage from 'react-native-fast-image';
+import {SquircleView} from 'react-native-figma-squircle';
 
-const windowHeight = Dimensions.get("window").height;
-const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === "dark" ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function TokenWithIconBadge(props) {
   // symbol, icon - image link
@@ -17,7 +17,7 @@ function TokenWithIconBadge(props) {
       squircleParams={{
         cornerSmoothing: 1,
         cornerRadius: 15,
-        fillColor: themeHere.colors.mid_ground + "25",
+        fillColor: themeHere.colors.mid_ground + '25',
       }}>
       <FastImage
         source={{
@@ -38,8 +38,8 @@ const styles = StyleSheet.create({
   token_item_view: {
     width: (windowWidth - 80) / 3,
     height: 50,
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
     marginHorizontal: 10,
   },
   token_item_logo: {
@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
   token_item_symbol: {
     ...themeHere.text.subhead_bold,
     color: themeHere.colors.foreground,
-    textAlign: "center",
+    textAlign: 'center',
     marginHorizontal: 10,
   },
 });

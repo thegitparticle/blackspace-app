@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   Appearance,
   Dimensions,
@@ -10,24 +10,24 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { ADD_WDEETS } from "../../../redux/types";
-import { connect } from "react-redux";
-import "@ethersproject/shims";
-import { ethers } from "ethers/src.ts/index";
-import { AddWDeets } from "../../../redux/appcore/WDeetsActions";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import WhileImportingProcessShowcase from "../components/WhileImportingProcessShowcase";
-import { Bounceable } from "rn-bounceable";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-import { Bars } from "react-native-loader";
-import axios from "axios";
-import Iconly from "../../../miscsetups/customfonts/Iconly";
-import { Amplitude } from "@amplitude/react-native";
-import { SquircleView } from "react-native-figma-squircle";
-import SquircleGlassButton from "../../../bits/SquircleGlassButton";
-import { BlurView } from "@react-native-community/blur";
-import MaskedView from "@react-native-masked-view/masked-view";
+} from 'react-native';
+import {ADD_WDEETS} from '../../../redux/types';
+import {connect} from 'react-redux';
+import '@ethersproject/shims';
+import {ethers} from 'ethers/src.ts/index';
+import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import WhileImportingProcessShowcase from '../components/WhileImportingProcessShowcase';
+import {Bounceable} from 'rn-bounceable';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Bars} from 'react-native-loader';
+import axios from 'axios';
+import Iconly from '../../../miscsetups/customfonts/Iconly';
+import {Amplitude} from '@amplitude/react-native';
+import {SquircleView} from 'react-native-figma-squircle';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import {BlurView} from '@react-native-community/blur';
+import MaskedView from '@react-native-masked-view/masked-view';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

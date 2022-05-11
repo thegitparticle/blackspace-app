@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, Linking } from "react-native";
-import { ScrollView, Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import StoryThumbnail from "../../../bits/jargonbuster/StoryThumbnail";
-import SpacerVertical from "../../../bits/SpacerVertical";
-import { Bounceable } from "rn-bounceable";
-import { Icon } from "react-native-elements";
-import axios from "axios";
-import { Bars } from "react-native-loader";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, Linking} from 'react-native';
+import {ScrollView, Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import {Bounceable} from 'rn-bounceable';
+import {Icon} from 'react-native-elements';
+import axios from 'axios';
+import {Bars} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

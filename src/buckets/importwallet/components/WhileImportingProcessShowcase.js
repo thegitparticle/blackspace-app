@@ -1,7 +1,10 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../../../Desktop/soupapp/src/theme/ButterTheme";
-import { useSharedValue } from "react-native-reanimated";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../../Desktop/soupapp/src/theme/ButterTheme';
+import {useSharedValue} from 'react-native-reanimated';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,6 +1,6 @@
-import React from "react";
-import Maker from "@makerdao/dai";
-import { McdPlugin } from "@makerdao/dai-plugin-mcd";
+import React from 'react';
+import Maker from '@makerdao/dai';
+import {McdPlugin} from '@makerdao/dai-plugin-mcd';
 
 const infuraProjectId = 'a2d69eb319254260ab3cef34410256ca';
 

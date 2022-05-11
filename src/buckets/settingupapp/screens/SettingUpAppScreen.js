@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import LottieView from "lottie-react-native";
-import axios from "axios";
-import { GetMyProfileDetails } from "../../../redux/appcore/MyProfileActions";
-import { GetTokenBalances } from "../../../redux/appcore/MyTokenBalancesActions";
-import { AddUserDetails } from "../../../redux/appcore/UserDetailsActions";
-import { LOGIN } from "../../../redux/types";
-import { Amplitude } from "@amplitude/react-native";
-import { AddWDeets } from "../../../redux/appcore/WDeetsActions";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import LottieView from 'lottie-react-native';
+import axios from 'axios';
+import {GetMyProfileDetails} from '../../../redux/appcore/MyProfileActions';
+import {GetTokenBalances} from '../../../redux/appcore/MyTokenBalancesActions';
+import {AddUserDetails} from '../../../redux/appcore/UserDetailsActions';
+import {LOGIN} from '../../../redux/types';
+import {Amplitude} from '@amplitude/react-native';
+import {AddWDeets} from '../../../redux/appcore/WDeetsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

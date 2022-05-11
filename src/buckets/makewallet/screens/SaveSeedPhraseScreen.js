@@ -1,15 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, ImageBackground, StatusBar, StyleSheet, Text, View } from "react-native";
-import { connect } from "react-redux";
-import "@ethersproject/shims";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { Bubbles } from "react-native-loader";
-import _ from "lodash";
-import { Bounceable } from "rn-bounceable";
-import SquircleGlassButton from "../../../bits/SquircleGlassButton";
-import { SquircleView } from "react-native-figma-squircle";
-import { BlurView } from "@react-native-community/blur";
-import MaskedView from "@react-native-masked-view/masked-view";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  ImageBackground,
+  StatusBar,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
+import {connect} from 'react-redux';
+import '@ethersproject/shims';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {Bubbles} from 'react-native-loader';
+import _ from 'lodash';
+import {Bounceable} from 'rn-bounceable';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import {SquircleView} from 'react-native-figma-squircle';
+import {BlurView} from '@react-native-community/blur';
+import MaskedView from '@react-native-masked-view/masked-view';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,7 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Animated, Appearance, Dimensions, Easing, Image, StyleSheet, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { MotiImage, MotiView } from "moti";
+import React, {useEffect, useState} from 'react';
+import {
+  Animated,
+  Appearance,
+  Dimensions,
+  Easing,
+  Image,
+  StyleSheet,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {MotiImage, MotiView} from 'moti';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

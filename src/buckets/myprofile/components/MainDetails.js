@@ -1,13 +1,13 @@
-import React from "react";
-import { Appearance, Dimensions, Pressable } from "react-native";
-import { Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import FastImage from "react-native-fast-image";
-import { Icon } from "react-native-elements";
-import Clipboard from "@react-native-clipboard/clipboard";
-import { Bounceable } from "rn-bounceable";
-import { showMessage } from "react-native-flash-message";
+import React from 'react';
+import {Appearance, Dimensions, Pressable} from 'react-native';
+import {Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import FastImage from 'react-native-fast-image';
+import {Icon} from 'react-native-elements';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {Bounceable} from 'rn-bounceable';
+import {showMessage} from 'react-native-flash-message';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

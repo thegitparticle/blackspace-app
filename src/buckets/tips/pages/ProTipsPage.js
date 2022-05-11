@@ -1,9 +1,9 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { ScrollView, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import TipTile from "../components/TipTile";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {ScrollView, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import TipTile from '../components/TipTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

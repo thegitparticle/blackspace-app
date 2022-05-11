@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from 'react';
 import {
   Appearance,
   Dimensions,
@@ -12,16 +12,16 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { connect } from "react-redux";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import axios from "axios";
-import { showMessage } from "react-native-flash-message";
-import { Bounceable } from "rn-bounceable";
-import ReactNativeHapticFeedback from "react-native-haptic-feedback";
-import FormData from "form-data";
-import { Amplitude } from "@amplitude/react-native";
-import SquircleGlassButton from "../../../bits/SquircleGlassButton";
+} from 'react-native';
+import {connect} from 'react-redux';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import axios from 'axios';
+import {showMessage} from 'react-native-flash-message';
+import {Bounceable} from 'rn-bounceable';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import FormData from 'form-data';
+import {Amplitude} from '@amplitude/react-native';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

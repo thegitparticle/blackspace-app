@@ -1,11 +1,11 @@
-import React from "react";
-import { Appearance, Dimensions } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import window from "@react-navigation/native/src/__mocks__/window";
-import { SquircleView } from "react-native-figma-squircle/src/index";
-import { Bounceable } from "rn-bounceable";
-import { useNavigation } from "@react-navigation/native";
+import React from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import window from '@react-navigation/native/src/__mocks__/window';
+import {SquircleView} from 'react-native-figma-squircle/src/index';
+import {Bounceable} from 'rn-bounceable';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

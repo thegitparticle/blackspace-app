@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { getPriceUniswapV3 } from "@thanpolas/uniswap-chain-queries";
-import { ethers } from "ethers";
+import React, {useEffect, useState} from 'react';
+import {getPriceUniswapV3} from '@thanpolas/uniswap-chain-queries';
+import {ethers} from 'ethers';
 
 const provider = new ethers.providers.JsonRpcProvider(
   'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',

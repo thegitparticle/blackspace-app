@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import Web3 from "web3";
-import DSA from "dsa-connect";
-import { connect } from "react-redux";
+import React, {useEffect} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import Web3 from 'web3';
+import DSA from 'dsa-connect';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

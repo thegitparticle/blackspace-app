@@ -1,9 +1,9 @@
-import React, { useState } from "react";
-import { Appearance, Dimensions, StyleSheet, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import ConfirmAddCollLiquity from "./components/ConfirmAddCollLiquity";
-import TransactionOngoingAddCollLiquity from "./components/TransactionOngoingAddCollLiquity";
+import React, {useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import ConfirmAddCollLiquity from './components/ConfirmAddCollLiquity';
+import TransactionOngoingAddCollLiquity from './components/TransactionOngoingAddCollLiquity';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
