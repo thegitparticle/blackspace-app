@@ -17,19 +17,38 @@ const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
-  const renderScene = SceneMap({
-    first: HomeMainPage,
-    second: NftsPage,
-    third: CryptoPricesPage,
-  });
+  console.log(state_here.SecretSettingsReducer.secretsettings + ' gogog');
+
+  let secretSettings = state_here.SecretSettingsReducer.secretsettings;
+
+  // const renderScene = SceneMap({
+  //   first: HomeMainPage,
+  //   second: NftsPage,
+  //   third: CryptoPricesPage,
+  // });
+
+  const renderScene =
+    secretSettings === true
+      ? SceneMap({
+          first: HomeMainPage,
+          second: NftsPage,
+          third: CryptoPricesPage,
+        })
+      : SceneMap({first: HomeMainPage, second: CryptoPricesPage});
 
   const [index, setIndex] = useState(0);
 
-  const [routes] = React.useState([
-    {key: 'first', title: 'Home'},
-    {key: 'second', title: 'NFTs'},
-    {key: 'third', title: 'Prices'},
-  ]);
+  const [routes] =
+    secretSettings === true
+      ? React.useState([
+          {key: 'first', title: 'Home'},
+          {key: 'second', title: 'NFTs'},
+          {key: 'third', title: 'Prices'},
+        ])
+      : React.useState([
+          {key: 'first', title: 'Home'},
+          {key: 'second', title: 'Prices'},
+        ]);
 
   function renderLabel({route, focused}) {
     if (route.title === 'Prices') {

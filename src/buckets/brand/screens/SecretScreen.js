@@ -31,13 +31,18 @@ function SecretScreen({dispatch}) {
         return (
           <>
             <TouchableOpacity
-              onLongPress={() => dispatch(ChangeSecretSettings(false))}
+              onLongPress={() => {
+                dispatch(ChangeSecretSettings(false));
+                setPassword('');
+              }}
               style={{
                 width: windowWidth * 0.8,
                 height: 75,
                 borderRadius: 37.5,
                 backgroundColor: themeHere.colors.orange_light,
                 marginBottom: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <Text sx={{...themeHere.text.body_medium}}>
                 hide dev features
@@ -56,6 +61,8 @@ function SecretScreen({dispatch}) {
                 borderRadius: 37.5,
                 backgroundColor: themeHere.colors.orange_light,
                 marginBottom: 40,
+                alignItems: 'center',
+                justifyContent: 'center',
               }}>
               <Text sx={{...themeHere.text.body_medium}}>
                 show dev features

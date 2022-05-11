@@ -41,7 +41,7 @@ function BrandLandingScreen() {
             width: windowWidth * 0.8,
             height: 75,
             borderRadius: 37.5,
-            backgroundColor: themeHere.colors.orange_light,
+            backgroundColor: themeHere.colors.orange_light + '00',
             marginBottom: 40,
           }}></TouchableOpacity>
       </ImageBackground>
