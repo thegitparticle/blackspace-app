@@ -22,6 +22,8 @@ import OneSignal from 'react-native-onesignal';
 import {Amplitude} from '@amplitude/react-native';
 
 import * as Sentry from '@sentry/react-native';
+import WalletConnectProvider from '@walletconnect/react-native-dapp';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // dev mode
 Sentry.init({
@@ -79,18 +81,24 @@ const App: () => Node = () => {
 
   return (
     <Provider store={storehere}>
-      <PersistGate loading={null} persistor={persistor}>
-        <DripsyProvider theme={theme}>
-          <RootStack />
-          <ModalPortal />
-          <FlashMessage
-            position="top"
-            duration={3000}
-            textStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
-            titleStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
-          />
-        </DripsyProvider>
-      </PersistGate>
+      <WalletConnectProvider
+        redirectUrl={'blackspace://'}
+        storageOptions={{
+          asyncStorage: AsyncStorage,
+        }}>
+        <PersistGate loading={null} persistor={persistor}>
+          <DripsyProvider theme={theme}>
+            <RootStack />
+            <ModalPortal />
+            <FlashMessage
+              position="top"
+              duration={3000}
+              textStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
+              titleStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
+            />
+          </DripsyProvider>
+        </PersistGate>
+      </WalletConnectProvider>
     </Provider>
   );
 };

@@ -14,6 +14,8 @@ import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {Amplitude} from '@amplitude/react-native';
 import {GetMyNfts} from '../../../redux/appcore/MyNFTsActions';
+import {Bounceable} from 'rn-bounceable';
+import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -87,6 +89,33 @@ function MyProfileScreen({dispatch}) {
     );
   }
 
+  function ConnectExternalEthWallet() {
+    return (
+      <View
+        style={{
+          marginVertical: windowHeight * 0.1,
+          alignSelf: 'center',
+        }}>
+        <Bounceable
+          onPress={() => {
+            navigation.navigate('WalletSetupOptionsScreen');
+            // Amplitude.getInstance().logEvent(
+            //   'LFG_WELCOME_BUTTON_CLICKED',
+            // );
+          }}>
+          <SquircleGlassButton
+            buttonColor={themeHere.colors.light}
+            width={windowWidth * 0.7}
+            height={50}
+            buttonText={'LFG! 🚀'}
+            font={themeHere.text.title_3}
+            textColor={themeHere.colors.red}
+          />
+        </Bounceable>
+      </View>
+    );
+  }
+
   return (
     <View variant="layout.full_screen">
       <HeaderHere />
@@ -102,6 +131,8 @@ function MyProfileScreen({dispatch}) {
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />
+        <SpacerVertical height={30} />
+        <ConnectExternalEthWallet />
         <SpacerVertical height={50} />
       </Animated.ScrollView>
     </View>
