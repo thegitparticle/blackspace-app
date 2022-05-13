@@ -302,8 +302,8 @@ function ConfirmBuyTrendingMemeCoins(props) {
           />
         </View>
       );
-      // } else if (renderContext === 'WalletHasAmount') {
-    } else if (renderContext === 'NoAmount') {
+    } else if (renderContext === 'WalletHasAmount') {
+      // } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
