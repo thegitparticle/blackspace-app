@@ -16,6 +16,7 @@ import LiquityUsageShowCase from '../../../dapps/liquity/screens/LiquityUsageSho
 import PoolTogetherUsageShowCase from '../../../dapps/pooltogether/screens/PoolTogetherUsageShowCase';
 import IndexFundsUsageShowCase from '../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
 import SpacerVertical from '../../../bits/SpacerVertical';
+import WormholeBridgeUsageShowCase from '../../../dapps/wormholebridge/screens/WormholeBridgeUsageShowCase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -69,6 +70,13 @@ function RenderAppInUseHelper(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <IndexFundsUsageShowCase />
+        <SpacerVertical height={windowHeight * 0.25} />
+      </ScrollView>
+    );
+  } else if (props.function_name === 'WormholeBridgeLandingBluePrint') {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <WormholeBridgeUsageShowCase />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );

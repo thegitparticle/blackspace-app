@@ -16,6 +16,7 @@ import LiquityBluePrint from '../../../dapps/liquity/screens/LiquityBluePrint';
 import PoolTogetherBluePrint from '../../../dapps/pooltogether/screens/PoolTogetherBluePrint';
 import IndexFundsBluePrint from '../../../dapps/indexfunds/screens/IndexFundsBluePrint';
 import SpacerVertical from '../../../bits/SpacerVertical';
+import WormholeBridgeBluePrint from '../../../dapps/wormholebridge/screens/WormholeBridgeBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -71,6 +72,13 @@ function RenderAppBluePrintHelper(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <IndexFundsBluePrint />
+        <SpacerVertical height={windowHeight * 0.25} />
+      </ScrollView>
+    );
+  } else if (props.function_name === 'WormholeBridgeLandingBluePrint') {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <WormholeBridgeBluePrint />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
