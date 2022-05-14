@@ -14,6 +14,7 @@ import ImportWalletPart from '../components/ImportWalletPart';
 import {View} from 'dripsy';
 import {Divider} from 'react-native-elements';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import ConnectWalletPart from '../components/ConnectWalletPart';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -67,7 +68,8 @@ function WalletSetupOptionsScreen({dispatch, navigation}) {
           }}>
           <CreateWalletPart />
           <OrDivider />
-          <ImportWalletPart />
+          {/*<ImportWalletPart />*/}
+          <ConnectWalletPart />
         </View>
       </ImageBackground>
     </View>

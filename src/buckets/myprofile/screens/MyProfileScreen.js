@@ -35,7 +35,7 @@ function MyProfileScreen({dispatch}) {
 
   const connector = useWalletConnect();
 
-  console.log(state_here.UserDetailsReducer.userdetails.wallet_address);
+  // console.log(state_here.UserDetailsReducer.userdetails.wallet_address);
 
   useEffect(() => {
     dispatch(GetMyProfileDetails(state_here.UserDetailsReducer.userdetails.id));

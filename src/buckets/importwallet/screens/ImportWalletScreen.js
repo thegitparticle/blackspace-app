@@ -61,6 +61,7 @@ function ImportWalletScreen({dispatch, navigation}) {
       const walletCreated = ethers.Wallet.fromMnemonic(phrase);
       wallet.wallet_address = walletCreated.address;
       wallet.wallet_privateKey = walletCreated.privateKey;
+      // do not save mnemonic in store, wtf!!!
       wallet.wallet_phrase = walletCreated.mnemonic;
       setWalletDetails(wallet);
       setWalletCreating(false);
