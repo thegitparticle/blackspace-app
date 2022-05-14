@@ -2,6 +2,9 @@
   "name": "soupapp",
   "displayName": "soupapp",
   "expo": {
-    "scheme": "blackspace"
+    "name": "soupapp",
+    "displayName": "soupapp",
+    "scheme": "blackspace",
+    "slug": "soupapp"
   }
 }
