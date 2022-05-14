@@ -33,6 +33,7 @@ function MakeWalletScreen({dispatch, navigation}) {
     wallet_privateKey: null,
     wallet_address: null,
     wallet_phrase: null,
+    wallet_connected: false,
   };
   const [walletDetails, setWalletDetails] = useState(wallet);
   const [walletCreated, setWalletCreated] = useState(false);
@@ -59,6 +60,7 @@ function MakeWalletScreen({dispatch, navigation}) {
     wallet.wallet_address = walletCreated.address;
     wallet.wallet_privateKey = walletCreated.privateKey;
     wallet.wallet_phrase = walletCreated.mnemonic;
+    wallet.wallet_connected = false;
     console.log(walletCreated.privateKey);
     console.log(walletCreated.address);
     console.log(walletCreated.mnemonic);

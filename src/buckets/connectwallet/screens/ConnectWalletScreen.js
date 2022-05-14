@@ -41,6 +41,7 @@ function ConnectWalletScreen({dispatch, navigation, route}) {
     wallet_privateKey: null,
     wallet_address: null,
     wallet_phrase: null,
+    wallet_connected: false,
   };
   // const [walletDetails, setWalletDetails] = useState(wallet);
 
@@ -51,6 +52,7 @@ function ConnectWalletScreen({dispatch, navigation, route}) {
     wallet.wallet_address = walletInfo.accounts[0];
     wallet.wallet_privateKey = '';
     wallet.wallet_phrase = '';
+    wallet.wallet_connected = true;
 
     dispatch(AddWDeets(wallet));
 
@@ -71,10 +73,10 @@ function ConnectWalletScreen({dispatch, navigation, route}) {
         if (response.data.user_exists === 'False') {
           console.log('user does not exist in blackspace db');
           setVerifying(false);
-          // navigation.navigate('UserDetailsInputScreen');
+          navigation.navigate('UserDetailsInputScreen');
         } else {
           setVerifying(false);
-          // navigation.navigate('SettingUpAppScreen');
+          navigation.navigate('SettingUpAppScreen');
         }
       })
       .catch(function (error) {
