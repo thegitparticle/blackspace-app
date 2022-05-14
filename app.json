@@ -1,4 +1,7 @@
 {
   "name": "soupapp",
-  "displayName": "soupapp"
+  "displayName": "soupapp",
+  "expo": {
+    "scheme": "blackspace"
+  }
 }

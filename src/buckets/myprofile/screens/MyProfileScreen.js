@@ -22,6 +22,9 @@ import RenderAppJargonBusterHelper from '../../miniapp/helpers/RenderAppJargonBu
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import LottieView from 'lottie-react-native';
 import SquircleButton from '../../../bits/SquircleButton';
+import bs58 from 'bs58';
+import nacl from 'tweetnacl';
+import SolanaWalletComponent from '../components/SolanaWalletComponent';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -197,7 +200,7 @@ function MyProfileScreen({dispatch}) {
   }
 
   function ConnectedWalletButtonsETH() {
-    console.log(state_here.WDeetsReducer.wdeets);
+    // console.log(state_here.WDeetsReducer.wdeets);
     if (state_here.WDeetsReducer.wdeets.wallet_connected) {
       return (
         <>
@@ -233,47 +236,6 @@ function MyProfileScreen({dispatch}) {
     );
   }
 
-  function RenderSolanaWallet() {
-    return (
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        centerContent={true}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={themeHere.colors.foreground}
-          />
-        }>
-        <View
-          style={{
-            marginVertical: windowHeight * 0.1,
-            alignSelf: 'center',
-          }}>
-          <Bounceable
-            onPress={() => {
-              // connector
-              //   .killSession()
-              //   .then(info => console.log(info))
-              //   .catch(e => console.log(e));
-              // Amplitude.getInstance().logEvent(
-              //   'LFG_WELCOME_BUTTON_CLICKED',
-              // );
-            }}>
-            <SquircleButton
-              buttonColor={'#4E44CE'}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'Connect Phantom Wallet'}
-              font={themeHere.text.subhead_medium_i}
-              textColor={'#FFFFFF'}
-            />
-          </Bounceable>
-        </View>
-      </Animated.ScrollView>
-    );
-  }
-
   const [index, setIndex] = useState(0);
 
   const ETHWallet = useMemo(
@@ -287,7 +249,7 @@ function MyProfileScreen({dispatch}) {
   const SolanaWallet = useMemo(
     () =>
       function SolanaWallet() {
-        return <RenderSolanaWallet />;
+        return <SolanaWalletComponent />;
       },
     [],
   );
