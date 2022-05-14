@@ -189,6 +189,22 @@ function MyProfileScreen({dispatch}) {
     );
   }
 
+  function ConnectedWalletButtons() {
+    console.log(state_here.WDeetsReducer.wdeets);
+    if (state_here.WDeetsReducer.wdeets.wallet_connected) {
+      return (
+        <>
+          <SpacerVertical height={30} />
+          <ConnectExternalEthWallet />
+          <SpacerVertical height={30} />
+          <DoExternalTransactionETH />
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  }
+
   return (
     <View variant="layout.full_screen">
       <HeaderHere />
@@ -204,10 +220,7 @@ function MyProfileScreen({dispatch}) {
         <MainDetails />
         <WalletPie />
         <AccordianPortfolio />
-        <SpacerVertical height={30} />
-        <ConnectExternalEthWallet />
-        <SpacerVertical height={30} />
-        <DoExternalTransactionETH />
+        <ConnectedWalletButtons />
         <SpacerVertical height={50} />
       </Animated.ScrollView>
     </View>
