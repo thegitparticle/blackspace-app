@@ -13,7 +13,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function WalletPie() {
+function WalletPieETH() {
   const [data, setData] = useState([]);
 
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
@@ -116,4 +116,4 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(WalletPie);
+export default connect(mapStateToProps)(WalletPieETH);

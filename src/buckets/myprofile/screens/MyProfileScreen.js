@@ -1,10 +1,7 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Appearance, Dimensions, Pressable, RefreshControl} from 'react-native';
-import {Text, View} from 'dripsy';
+import {Text, useSx, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
-import MainDetails from '../components/MainDetails';
-import WalletPie from '../components/WalletPie';
-import AccordianPortfolio from '../components/AccordianPortfolio';
 import Animated from 'react-native-reanimated';
 import SpacerVertical from '../../../bits/SpacerVertical';
 import {connect} from 'react-redux';
@@ -17,6 +14,14 @@ import {GetMyNfts} from '../../../redux/appcore/MyNFTsActions';
 import {Bounceable} from 'rn-bounceable';
 import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import MainDetailsETH from '../components/MainDetailsETH';
+import WalletPieETH from '../components/WalletPieETH';
+import AccordianPortfolioETH from '../components/AccordianPortfolioETH';
+import RenderAppBluePrintHelper from '../../miniapp/helpers/RenderAppBluePrintHelper';
+import RenderAppJargonBusterHelper from '../../miniapp/helpers/RenderAppJargonBusterHelper';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import LottieView from 'lottie-react-native';
+import SquircleButton from '../../../bits/SquircleButton';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -31,6 +36,8 @@ const wait = timeout => {
 
 function MyProfileScreen({dispatch}) {
   const navigation = useNavigation();
+  const sxCustom = useSx();
+
   const [refreshing, setRefreshing] = useState(false);
 
   const connector = useWalletConnect();
@@ -189,7 +196,7 @@ function MyProfileScreen({dispatch}) {
     );
   }
 
-  function ConnectedWalletButtons() {
+  function ConnectedWalletButtonsETH() {
     console.log(state_here.WDeetsReducer.wdeets);
     if (state_here.WDeetsReducer.wdeets.wallet_connected) {
       return (
@@ -205,9 +212,8 @@ function MyProfileScreen({dispatch}) {
     }
   }
 
-  return (
-    <View variant="layout.full_screen">
-      <HeaderHere />
+  function RenderETHWallet() {
+    return (
       <Animated.ScrollView
         showsVerticalScrollIndicator={false}
         refreshControl={
@@ -217,12 +223,185 @@ function MyProfileScreen({dispatch}) {
             tintColor={themeHere.colors.foreground}
           />
         }>
-        <MainDetails />
-        <WalletPie />
-        <AccordianPortfolio />
-        <ConnectedWalletButtons />
+        <SpacerVertical height={60} />
+        <MainDetailsETH />
+        <WalletPieETH />
+        <AccordianPortfolioETH />
+        <ConnectedWalletButtonsETH />
         <SpacerVertical height={50} />
       </Animated.ScrollView>
+    );
+  }
+
+  function RenderSolanaWallet() {
+    return (
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        centerContent={true}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={themeHere.colors.foreground}
+          />
+        }>
+        <View
+          style={{
+            marginVertical: windowHeight * 0.1,
+            alignSelf: 'center',
+          }}>
+          <Bounceable
+            onPress={() => {
+              // connector
+              //   .killSession()
+              //   .then(info => console.log(info))
+              //   .catch(e => console.log(e));
+              // Amplitude.getInstance().logEvent(
+              //   'LFG_WELCOME_BUTTON_CLICKED',
+              // );
+            }}>
+            <SquircleButton
+              buttonColor={'#4E44CE'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'Connect Phantom Wallet'}
+              font={themeHere.text.subhead_medium_i}
+              textColor={'#FFFFFF'}
+            />
+          </Bounceable>
+        </View>
+      </Animated.ScrollView>
+    );
+  }
+
+  const [index, setIndex] = useState(0);
+
+  const ETHWallet = useMemo(
+    () =>
+      function ETHWallet() {
+        return <RenderETHWallet />;
+      },
+    [],
+  );
+
+  const SolanaWallet = useMemo(
+    () =>
+      function SolanaWallet() {
+        return <RenderSolanaWallet />;
+      },
+    [],
+  );
+
+  const renderSceneMultipleWallets = SceneMap({
+    first: ETHWallet,
+    second: SolanaWallet,
+  });
+
+  const [routes] = React.useState([
+    {key: 'first', title: 'Ethereum'},
+    {key: 'second', title: 'Solana'},
+  ]);
+
+  function renderLabelMultipleWallets({route, focused}) {
+    if (route.title === 'Ethereum') {
+      if (focused) {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
+              Ethereum
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
+              Ethereum
+            </Text>
+          </View>
+        );
+      }
+    } else if (route.title === 'Solana') {
+      if (focused) {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
+              Solana
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
+              Solana
+            </Text>
+          </View>
+        );
+      }
+    } else {
+      if (focused) {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'red'}}>
+              ---
+            </Text>
+          </View>
+        );
+      } else {
+        return (
+          <View variant="layout.tab_label_chip">
+            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
+              ---
+            </Text>
+          </View>
+        );
+      }
+    }
+  }
+
+  const renderTabBarMultipleWallets = props => (
+    <TabBar
+      {...props}
+      indicatorStyle={sxCustom({
+        width: 0,
+      })}
+      style={sxCustom({
+        backgroundColor: themeHere.colors.off_background,
+        position: 'absolute',
+        color: '#000',
+        height: 60,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        width: windowWidth * 0.8,
+        marginBottom: windowHeight * 0.05,
+        borderRadius: 30,
+        borderTopWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+      })}
+      renderLabel={renderLabelMultipleWallets}
+      tabStyle={{backgroundColor: 'transparent'}}
+    />
+  );
+
+  return (
+    <View variant="layout.full_screen">
+      <HeaderHere />
+      <TabView
+        navigationState={{index, routes}}
+        renderTabBar={renderTabBarMultipleWallets}
+        renderScene={renderSceneMultipleWallets}
+        onIndexChange={setIndex}
+        initialLayout={{width: windowWidth}}
+        tabBarPosition="bottom"
+      />
     </View>
   );
 }

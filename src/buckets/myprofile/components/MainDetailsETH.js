@@ -16,7 +16,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function MainDetails() {
+function MainDetailsETH() {
   let wallet_add = state_here.UserDetailsReducer.userdetails.wallet_address;
   let render_wallet_string =
     wallet_add.slice(0, 4) + '...' + wallet_add.slice(-2);
@@ -104,4 +104,4 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(MainDetails);
+export default connect(mapStateToProps)(MainDetailsETH);

@@ -22,7 +22,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function AccordianPortfolio() {
+function AccordianPortfolioETH() {
   const navigation = useNavigation();
   const sxCustom = useSx();
 
@@ -541,4 +541,4 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(AccordianPortfolio);
+export default connect(mapStateToProps)(AccordianPortfolioETH);
