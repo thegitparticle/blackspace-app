@@ -16,6 +16,7 @@ import {Amplitude} from '@amplitude/react-native';
 import {GetMyNfts} from '../../../redux/appcore/MyNFTsActions';
 import {Bounceable} from 'rn-bounceable';
 import SquircleGlassButton from '../../../bits/SquircleGlassButton';
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -31,6 +32,8 @@ const wait = timeout => {
 function MyProfileScreen({dispatch}) {
   const navigation = useNavigation();
   const [refreshing, setRefreshing] = useState(false);
+
+  const connector = useWalletConnect();
 
   console.log(state_here.UserDetailsReducer.userdetails.wallet_address);
 
@@ -90,6 +93,76 @@ function MyProfileScreen({dispatch}) {
   }
 
   function ConnectExternalEthWallet() {
+    if (connector.connected) {
+      return (
+        <View
+          style={{
+            marginVertical: windowHeight * 0.1,
+            alignSelf: 'center',
+          }}>
+          <Bounceable
+            onPress={() => {
+              connector
+                .killSession()
+                .then(info => console.log(info))
+                .catch(e => console.log(e));
+              // Amplitude.getInstance().logEvent(
+              //   'LFG_WELCOME_BUTTON_CLICKED',
+              // );
+            }}>
+            <SquircleGlassButton
+              buttonColor={themeHere.colors.light}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'Disconnect Wallet'}
+              font={themeHere.text.subhead_medium_i}
+              textColor={themeHere.colors.red}
+            />
+          </Bounceable>
+        </View>
+      );
+    } else {
+      return (
+        <View
+          style={{
+            marginVertical: windowHeight * 0.1,
+            alignSelf: 'center',
+          }}>
+          <Bounceable
+            onPress={() => {
+              connector
+                .connect()
+                .then(info => console.log(info))
+                .catch(e => console.log(e));
+              // Amplitude.getInstance().logEvent(
+              //   'LFG_WELCOME_BUTTON_CLICKED',
+              // );
+            }}>
+            <SquircleGlassButton
+              buttonColor={themeHere.colors.light}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'Connect Metamask'}
+              font={themeHere.text.subhead_medium_i}
+              textColor={themeHere.colors.red}
+            />
+          </Bounceable>
+        </View>
+      );
+    }
+  }
+
+  function DoExternalTransactionETH() {
+    let txData = {
+      from: '0x2811a48be8872b7d4eeed7205c1df2e15c76bd08',
+      to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469',
+      gas: '',
+      gasPrice: '', // Required
+      value: '1000000000000000',
+      data: '',
+      nonce: '',
+    };
+
     return (
       <View
         style={{
@@ -98,17 +171,17 @@ function MyProfileScreen({dispatch}) {
         }}>
         <Bounceable
           onPress={() => {
-            navigation.navigate('WalletSetupOptionsScreen');
-            // Amplitude.getInstance().logEvent(
-            //   'LFG_WELCOME_BUTTON_CLICKED',
-            // );
+            connector
+              .sendTransaction(txData)
+              .then(info => console.log(info))
+              .catch(e => console.log(e));
           }}>
           <SquircleGlassButton
             buttonColor={themeHere.colors.light}
             width={windowWidth * 0.7}
             height={50}
-            buttonText={'LFG! 🚀'}
-            font={themeHere.text.title_3}
+            buttonText={'Send ETH'}
+            font={themeHere.text.subhead_medium_i}
             textColor={themeHere.colors.red}
           />
         </Bounceable>
@@ -133,6 +206,8 @@ function MyProfileScreen({dispatch}) {
         <AccordianPortfolio />
         <SpacerVertical height={30} />
         <ConnectExternalEthWallet />
+        <SpacerVertical height={30} />
+        <DoExternalTransactionETH />
         <SpacerVertical height={50} />
       </Animated.ScrollView>
     </View>
