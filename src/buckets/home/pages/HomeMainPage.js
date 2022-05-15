@@ -19,6 +19,7 @@ import {GetUniswapTokenList} from '../../../redux/dapps/uniswap/UniswapTokenList
 import _ from 'lodash';
 import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
 import SupportAppThumbnail from '../components/SupportAppThumbnail';
+import SendReceiveLandingScreen from "../../sendandreceive/screens/SendReceiveLandingScreen";
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -57,6 +58,23 @@ function HomeMainPage({dispatch}) {
   ];
 
   let default_my_apps = [
+    {
+      name: 'Send/Receive',
+      dapp_icon: 'https://i.postimg.cc/TYfrRPd0/Wormhole-Swirlls1.png',
+      dapp_cover:
+        'https://i.postimg.cc/3rpB86g8/ian-dooley-i-D5a-VJFCXJg-unsplash.jpg',
+      dapp_bio: 'Send & Receive crypto from friends, family & more',
+      landing_blueprint_function_name: 'SendReceiveLandingScreen',
+      splash_image:
+        'https://i.postimg.cc/3rpB86g8/ian-dooley-i-D5a-VJFCXJg-unsplash.jpg',
+      tagline: 'Send & Receive crypto from friends, family & more',
+      add_to_my_app_button_status: false,
+      tags: [1, 2],
+      usage_tab_name: 'Activity',
+      usage_tab_function_name: '',
+      link_suite_docs: '',
+      link_suite_link2: '',
+    },
     {
       name: 'Tips',
       dapp_icon: 'https://i.postimg.cc/Y0gfQbmp/Group-33529.png',
@@ -125,7 +143,7 @@ function HomeMainPage({dispatch}) {
     () =>
       function ThumbnailItem({item, section}) {
         if (section.title === 'MY APP SUITE') {
-          if (item.name === 'Tips') {
+          if (item.name === 'Tips' || item.name === 'Send/Receive') {
             return <DefaultAppThumbnail app_details={item} />;
           } else if (item.name === 'Support') {
             return <SupportAppThumbnail />;
