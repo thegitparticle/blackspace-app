@@ -1,3 +1,4 @@
+/*
 import {Buffer} from 'buffer';
 global.Buffer = global.Buffer || Buffer;
 import {URL, URLSearchParams} from 'react-native-url-polyfill';
@@ -309,3 +310,5 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(SolanaWalletComponent);
+
+ */

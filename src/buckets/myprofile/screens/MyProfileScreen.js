@@ -246,22 +246,12 @@ function MyProfileScreen({dispatch}) {
     [],
   );
 
-  const SolanaWallet = useMemo(
-    () =>
-      function SolanaWallet() {
-        return <SolanaWalletComponent />;
-      },
-    [],
-  );
-
   const renderSceneMultipleWallets = SceneMap({
     first: ETHWallet,
-    second: SolanaWallet,
   });
 
   const [routes] = React.useState([
     {key: 'first', title: 'Ethereum'},
-    {key: 'second', title: 'Solana'},
   ]);
 
   function renderLabelMultipleWallets({route, focused}) {
