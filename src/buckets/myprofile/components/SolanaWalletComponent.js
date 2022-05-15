@@ -36,6 +36,7 @@ import {
   SystemProgram,
   Transaction,
 } from '@solana/web3.js';
+import {AddSolWalletDeets} from '../../../redux/appcore/SolWalletDetailsActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -134,14 +135,20 @@ function SolanaWalletComponent({dispatch}) {
     setDeepLink(url);
   };
 
+  let solwalletdeets: {
+    wallet_address: null,
+    wallet_sessionKey: null,
+    wallet_connected: false,
+  };
+
   useEffect(() => {
     if (!deepLink) return;
 
     const url = new URL(deepLink);
     const params = url.searchParams;
 
-    console.log(url + 'url');
-    console.log(params.get('phantom_encryption_public_key') + 'pathname');
+    // console.log(url + 'url');
+    // console.log(params.get('phantom_encryption_public_key') + 'pathname');
 
     if (params.get('errorCode')) {
       console.log(JSON.stringify(Object.fromEntries([...params]), null, 2));
@@ -165,9 +172,17 @@ function SolanaWalletComponent({dispatch}) {
       setSession(connectData.session);
       setPhantomWalletPublicKey(connectData.public_key);
 
-      console.log(connectData);
+      solwalletdeets.wallet_address = connectData.public_key;
+      solwalletdeets.wallet_sessionKey = connectData.session;
+      solwalletdeets.wallet_connected = true;
 
-      console.log(JSON.stringify(connectData, null, 2));
+      console.log(connectData.public_key);
+      console.log(connectData.session);
+      console.log(sharedSecretDapp);
+
+      dispatch(AddSolWalletDeets(solwalletdeets));
+
+      // console.log(JSON.stringify(connectData, null, 2));
     } else if (/onDisconnect/.test(url.pathname)) {
       console.log('Disconnected!');
     } else if (/onSignAndSendTransaction/.test(url.pathname)) {
