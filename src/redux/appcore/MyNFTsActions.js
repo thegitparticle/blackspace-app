@@ -11,7 +11,11 @@ export const GetMyNfts = userid => {
       //   wallet_address +
       //   '/',
       // )
-      .get('https://suprblack.xyz/api/users/request_nft_assets_for_wallet/')
+      .get(
+        'https://suprblack.xyz/api/users/request_nft_assets_for_wallet/' +
+          String(userid) +
+          '/',
+      )
       .then(response => {
         res = response.data;
       })
