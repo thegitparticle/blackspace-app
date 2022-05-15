@@ -24,6 +24,18 @@ import * as solanaWeb3 from '@solana/web3.js';
 // import * as orcaSdk from '@orca-so/sdk';
 import {getOrca, OrcaFarmConfig, OrcaPoolConfig} from '@orca-so/sdk';
 import Decimal from 'decimal.js';
+import * as Linking from 'expo-linking';
+import {
+  clusterApiUrl,
+  Connection,
+  SystemProgram,
+  Transaction,
+} from '@solana/web3.js';
+import {URLSearchParams} from 'react-native-url-polyfill';
+import nacl from 'tweetnacl';
+import bs58 from 'bs58';
+import {Buffer} from 'buffer';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -54,6 +66,52 @@ privateKey,
 title={`Stake & Earn ${lpStakeDetails.token0.symbol} - ${lpStakeDetails.token1.symbol}`}
  */
 
+let state_here = {};
+
+const onConnectRedirectLink = Linking.createURL('onConnect');
+const onDisconnectRedirectLink = Linking.createURL('onDisconnect');
+const onSignAndSendTransactionRedirectLink = Linking.createURL(
+  'onSignAndSendTransaction',
+);
+const onSignAllTransactionsRedirectLink = Linking.createURL(
+  'onSignAllTransactions',
+);
+const onSignTransactionRedirectLink = Linking.createURL('onSignTransaction');
+const onSignMessageRedirectLink = Linking.createURL('onSignMessage');
+
+const NETWORK = clusterApiUrl('mainnet-beta');
+
+const buildUrl = (path: string, params: URLSearchParams) =>
+  `https://phantom.app/ul/v1/${path}?${params.toString()}`;
+
+const decryptPayload = (data, nonce, sharedSecret) => {
+  if (!sharedSecret) throw new Error('missing shared secret');
+
+  const decryptedData = nacl.box.open.after(
+    bs58.decode(data),
+    bs58.decode(nonce),
+    sharedSecret,
+  );
+  if (!decryptedData) {
+    throw new Error('Unable to decrypt data');
+  }
+  return JSON.parse(Buffer.from(decryptedData).toString('utf8'));
+};
+
+const encryptPayload = (payload: any, sharedSecret?: Uint8Array) => {
+  if (!sharedSecret) throw new Error('missing shared secret');
+
+  const nonce = nacl.randomBytes(24);
+
+  const encryptedPayload = nacl.box.after(
+    Buffer.from(JSON.stringify(payload)),
+    nonce,
+    sharedSecret,
+  );
+
+  return [nonce, encryptedPayload];
+};
+
 function EnterAmountStakeFirstSolDex(props) {
   const [amount, setAmount] = useState('0');
 
@@ -67,25 +125,85 @@ function EnterAmountStakeFirstSolDex(props) {
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 
-  // Orca stuff
-  const connection = new solanaWeb3.Connection(
-    'https://api.mainnet-beta.solana.com',
-    'singleGossip',
-  );
-  const orca = getOrca(connection);
-
-  // const orcaPoolHere =
-  //   props.PoolDetails.orca_pool_code === 'SOl_USDC'
-  //     ? orca.getPool(orcaSdk.OrcaPoolConfig.SOl_USDC)
-  //     : orca.getPool(orcaSdk.OrcaPoolConfig.ATLAS_USDC);
-  //
-  // console.log(orcaPoolHere);
-
   useEffect(() => {
     props.PoolDetails.orca_pool_code === 'SOl_USDC'
       ? setToken1Amount(Number(token0Amount) * Number(SolFiat))
       : setToken1Amount(Number(token0Amount) * Number(PolisFiat));
   }, [token0Amount]);
+
+  /*
+  9mHDdy1tbWD7aivatzNgGk5PbtgxwkBcdVhPQ3j4emf5
+ LOG  WfDmP2SPDzVkKHxrDSAPgSvCs7aHBSYVz2rFSedpWKUopEccSZA6fGD3JVsMTxBYVjbXPHgoT8tFWXyYmtvHxhBZ76ogEBy99v4385wUzzw8JybC8qc4wKYa7dpRWVZ7RdctkRKDZLwykfFzrjbaLSdpABBXBddzJytSTm6S9M9j9fZZLW9EEPtTkt8bkRzyzi2pcE6cVcVayUj8cVyASqHGHZbEfJXac
+ LOG  [187, 53, 128, 234, 73, 147, 129, 21, 41, 119, 204, 240, 178, 141, 180, 232, 104, 54, 21, 197, 74, 133, 142, 242, 243, 59, 190, 228, 169, 228, 80, 1]
+   */
+
+  const connection = new Connection(NETWORK);
+
+  let PublicKey = '9mHDdy1tbWD7aivatzNgGk5PbtgxwkBcdVhPQ3j4emf5';
+  let sessionKey =
+    'WfDmP2SPDzVkKHxrDSAPgSvCs7aHBSYVz2rFSedpWKUopEccSZA6fGD3JVsMTxBYVjbXPHgoT8tFWXyYmtvHxhBZ76ogEBy99v4385wUzzw8JybC8qc4wKYa7dpRWVZ7RdctkRKDZLwykfFzrjbaLSdpABBXBddzJytSTm6S9M9j9fZZLW9EEPtTkt8bkRzyzi2pcE6cVcVayUj8cVyASqHGHZbEfJXac';
+  let sharedSecret = [
+    187, 53, 128, 234, 73, 147, 129, 21, 41, 119, 204, 240, 178, 141, 180, 232,
+    104, 54, 21, 197, 74, 133, 142, 242, 243, 59, 190, 228, 169, 228, 80, 1,
+  ];
+
+  const createTransferTransaction = async () => {
+    let transaction = new Transaction().add(
+      SystemProgram.transfer({
+        fromPubkey:
+          // state_here.SolWalletDetailsReducer.solwalletdeets.wallet_address,
+          new solanaWeb3.PublicKey(PublicKey),
+        toPubkey: new solanaWeb3.PublicKey(
+          'Hme4Jnqhdz2jAPUMnS7jGE5zv6Y1ynqrUEhmUAWkXmzn',
+        ),
+        lamports: 100,
+      }),
+    );
+    transaction.feePayer = PublicKey;
+    // state_here.SolWalletDetailsReducer.solwalletdeets.wallet_address;
+    console.log('Getting recent blockhash');
+    const anyTransaction = transaction;
+    anyTransaction.recentBlockhash = (
+      await connection.getLatestBlockhash()
+    ).blockhash;
+    return transaction;
+  };
+
+  const signAndSendTransaction = async () => {
+    const transaction = await createTransferTransaction();
+
+    const serializedTransaction = transaction.serialize({
+      requireAllSignatures: false,
+    });
+
+    let session = sessionKey;
+    // state_here.SolWalletDetailsReducer.solwalletdeets.wallet_sessionKey;
+
+    const payload = {
+      session,
+      transaction: bs58.encode(serializedTransaction),
+    };
+    const [nonce, encryptedPayload] = encryptPayload(
+      payload,
+      // state_here.SolWalletDetailsReducer.solwalletdeets.wallet_sharedSecret,
+      sharedSecret,
+    );
+
+    const params = new URLSearchParams({
+      dapp_encryption_public_key: bs58.encode(
+        new solanaWeb3.PublicKey(PublicKey),
+      ),
+      nonce: bs58.encode(nonce),
+      redirect_link: onSignAndSendTransactionRedirectLink,
+      payload: bs58.encode(encryptedPayload),
+    });
+
+    console.log('Sending transaction...');
+    const url = buildUrl('signAndSendTransaction', params);
+    Linking.openURL(url)
+      .then(r => console.log(r))
+      .catch(e => console.log(e));
+  };
 
   return (
     <View style={styles.parent_view}>
@@ -275,7 +393,7 @@ function EnterAmountStakeFirstSolDex(props) {
             <Button
               title={'confirm staking'}
               type={'solid'}
-              onPress={() => props.ChangeBody(token0Amount, token1Amount)}
+              onPress={() => signAndSendTransaction()}
               // onPress={() =>
               //   UniswapStakeSetupAndExecute(
               //     props.Info,
@@ -302,7 +420,12 @@ function EnterAmountStakeFirstSolDex(props) {
   );
 }
 
-export default EnterAmountStakeFirstSolDex;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(EnterAmountStakeFirstSolDex);
 
 const styles = StyleSheet.create({
   parent_view: {

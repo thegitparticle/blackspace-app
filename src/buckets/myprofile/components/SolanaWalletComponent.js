@@ -135,12 +135,6 @@ function SolanaWalletComponent({dispatch}) {
     setDeepLink(url);
   };
 
-  let solwalletdeets: {
-    wallet_address: null,
-    wallet_sessionKey: null,
-    wallet_connected: false,
-  };
-
   useEffect(() => {
     if (!deepLink) return;
 
@@ -172,15 +166,23 @@ function SolanaWalletComponent({dispatch}) {
       setSession(connectData.session);
       setPhantomWalletPublicKey(connectData.public_key);
 
-      solwalletdeets.wallet_address = connectData.public_key;
-      solwalletdeets.wallet_sessionKey = connectData.session;
-      solwalletdeets.wallet_connected = true;
+      let solwalletdeets: {
+        wallet_address: null,
+        wallet_sessionKey: null,
+        wallet_connected: false,
+        wallet_sharedSecret: null,
+      };
+
+      // solwalletdeets.wallet_address = phantomWalletPublicKey;
+      // solwalletdeets.wallet_sessionKey = session;
+      // solwalletdeets.wallet_sharedSecret = sharedSecretDapp;
+      // solwalletdeets.wallet_connected = true;
 
       console.log(connectData.public_key);
       console.log(connectData.session);
       console.log(sharedSecretDapp);
 
-      dispatch(AddSolWalletDeets(solwalletdeets));
+      // dispatch(AddSolWalletDeets(solwalletdeets));
 
       // console.log(JSON.stringify(connectData, null, 2));
     } else if (/onDisconnect/.test(url.pathname)) {
