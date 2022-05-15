@@ -294,49 +294,61 @@ function HomeAndAppsStack() {
             },
           })}
         />
+        {/*<HomeAndAppMain.Screen*/}
+        {/*  name="SendReceiveLandingScreen"*/}
+        {/*  component={SendReceiveLandingScreen}*/}
+        {/*  sharedElements={(route, otherRoute, showing) => {*/}
+        {/*    const {app_details} = route.params;*/}
+        {/*    return [`item.${app_details.app_name}.app_icon`];*/}
+        {/*  }}*/}
+        {/*  options={({route}) => ({*/}
+        {/*    gestureEnabled: true,*/}
+        {/*    headerShown: false,*/}
+        {/*    headerStyle: {*/}
+        {/*      backgroundColor: themeHere.colors.off_background,*/}
+        {/*    },*/}
+        {/*    headerTintColor: 'transparent',*/}
+        {/*    headerTitleStyle: {*/}
+        {/*      fontWeight: 'bold',*/}
+        {/*      ...themeHere.text.title_2,*/}
+        {/*      color: themeHere.colors.foreground,*/}
+        {/*    },*/}
+        {/*    // headerTransparent: true,*/}
+        {/*    headerTitle: route.params.app_details.name,*/}
+        {/*    headerRight: () => (*/}
+        {/*      <Pressable*/}
+        {/*        style={{*/}
+        {/*          alignItems: 'center',*/}
+        {/*          justifyContent: 'center',*/}
+        {/*          width: 50,*/}
+        {/*          height: 50,*/}
+        {/*          borderRadius: 25,*/}
+        {/*        }}*/}
+        {/*        onPress={() => navigation.goBack()}>*/}
+        {/*        <Iconly name="CloseSquareBold" color={'#FFFFFF'} size={30} />*/}
+        {/*      </Pressable>*/}
+        {/*    ),*/}
+        {/*    headerLeft: () => <View />,*/}
+        {/*    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,*/}
+        {/*    gestureDirection: 'vertical',*/}
+        {/*    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,*/}
+        {/*    transitionSpec: {*/}
+        {/*      open: config,*/}
+        {/*      close: config,*/}
+        {/*    },*/}
+        {/*  })}*/}
+        {/*/>*/}
         <HomeAndAppMain.Screen
           name="SendReceiveLandingScreen"
           component={SendReceiveLandingScreen}
-          sharedElements={(route, otherRoute, showing) => {
-            const {app_details} = route.params;
-            return [`item.${app_details.app_name}.app_icon`];
-          }}
-          options={({route}) => ({
-            gestureEnabled: true,
+          options={{
             headerShown: false,
-            headerStyle: {
-              backgroundColor: themeHere.colors.off_background,
-            },
-            headerTintColor: 'transparent',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-              ...themeHere.text.title_2,
-              color: themeHere.colors.foreground,
-            },
-            // headerTransparent: true,
-            headerTitle: route.params.app_details.name,
-            headerRight: () => (
-              <Pressable
-                style={{
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  width: 50,
-                  height: 50,
-                  borderRadius: 25,
-                }}
-                onPress={() => navigation.goBack()}>
-                <Iconly name="CloseSquareBold" color={'#FFFFFF'} size={30} />
-              </Pressable>
-            ),
-            headerLeft: () => <View />,
-            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            gestureEnabled: true,
             gestureDirection: 'vertical',
-            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
-            transitionSpec: {
-              open: config,
-              close: config,
-            },
-          })}
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
         />
         <HomeAndAppMain.Screen
           name="TrendingTokensProductDetailsModal"

@@ -8,7 +8,10 @@ import StarterTipsPage from '../../tips/pages/StarterTipsPage';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import FastImage from 'react-native-fast-image';
 import HeaderMiniAppV2 from '../../../bits/HeaderMiniAppV2';
-import { connect } from "react-redux";
+import {connect} from 'react-redux';
+import ShowSendAndReceivePage from '../pages/ShowSendAndReceivePage';
+import ShowScannerPage from '../pages/ShowScannerPage';
+import ShowWalletQRPage from '../pages/ShowWalletQRPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -19,11 +22,9 @@ let state_here = {};
 
 function SendReceiveLandingScreen({route, dispatch}) {
   const {app_details} = route.params;
-
   const sxCustom = useSx();
 
   const [renderSplash, setRenderSplash] = useState(true);
-  const [index, setIndex] = useState(0);
 
   useEffect(() => {
     dispatch(GetAllTips());
@@ -32,113 +33,32 @@ function SendReceiveLandingScreen({route, dispatch}) {
     }, 1000);
   }, []);
 
-  const renderSceneMiniApp = SceneMap({
-    first: StarterTipsPage,
-    // second: ProTipsPage,
-  });
+  // ShowSendAndReceivePage , ShowScannerPage , ShowWalletQRPage
+  const [showWhichPage, setShowWhichPage] = useState('ShowSendAndReceivePage');
 
-  const [routes] = React.useState([
-    {key: 'first', title: 'starter tips'},
-    // {key: 'second', title: 'pro'},
-  ]);
-
-  function renderLabelMiniApp({route, focused}) {
-    if (route.title === 'starter tips') {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Iconly
-              name="HomeBold"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Iconly
-              name="HomeBroken"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
-          </View>
-        );
-      }
-    } else if (route.title === 'pro') {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Iconly
-              name="ActivityBold"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Iconly
-              name="ActivityBroken"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
-          </View>
-        );
-      }
-    } else {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              ---
-            </Text>
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              ---
-            </Text>
-          </View>
-        );
-      }
-    }
+  function changeBodyToScannerPage() {
+    setShowWhichPage('ShowScannerPage');
   }
 
-  const renderTabBarMiniApp = props => (
-    <TabBar
-      {...props}
-      indicatorStyle={sxCustom({
-        width: 0,
-      })}
-      style={sxCustom({
-        backgroundColor: themeHere.colors.off_background,
-        position: 'absolute',
-        bottom: 0,
-        color: '#000',
-        height: 60,
-        justifyContent: 'center',
-        alignSelf: 'center',
-        width: windowWidth * 0.5,
-        marginBottom: windowHeight * 0.05,
-        borderRadius: 30,
-        borderTopWidth: 0,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 4,
-        },
-        shadowOpacity: 0.32,
-        shadowRadius: 5.46,
-        elevation: 9,
-      })}
-      renderLabel={renderLabelMiniApp}
-      tabStyle={{backgroundColor: 'transparent'}}
-    />
-  );
+  function changeBodyToQRPage() {
+    setShowWhichPage('ShowWalletQRPage');
+  }
+
+  function changeBodyToSendAndReceivePage() {
+    setShowWhichPage('ShowSendAndReceivePage');
+  }
+
+  function RenderBody() {
+    if (showWhichPage === 'ShowSendAndReceivePage') {
+      return <ShowSendAndReceivePage />;
+    } else if (showWhichPage === 'ShowScannerPage') {
+      return <ShowScannerPage />;
+    } else if (showWhichPage === 'ShowWalletQRPage') {
+      return <ShowWalletQRPage />;
+    } else {
+      return <View />;
+    }
+  }
 
   const RenderScreen = useMemo(
     () =>
@@ -156,19 +76,7 @@ function SendReceiveLandingScreen({route, dispatch}) {
             />
           );
         } else {
-          return (
-            <View>
-              <HeaderMiniAppV2 app_details={app_details} />
-              <TabView
-                navigationState={{index, routes}}
-                renderTabBar={renderTabBarMiniApp}
-                renderScene={renderSceneMiniApp}
-                onIndexChange={setIndex}
-                initialLayout={{width: windowWidth}}
-                tabBarPosition="bottom"
-              />
-            </View>
-          );
+          return <RenderBody />;
         }
       },
     [renderSplash],
