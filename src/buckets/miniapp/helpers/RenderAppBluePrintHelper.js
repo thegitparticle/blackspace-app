@@ -17,6 +17,7 @@ import PoolTogetherBluePrint from '../../../dapps/pooltogether/screens/PoolToget
 import IndexFundsBluePrint from '../../../dapps/indexfunds/screens/IndexFundsBluePrint';
 import SpacerVertical from '../../../bits/SpacerVertical';
 import WormholeBridgeBluePrint from '../../../dapps/wormholebridge/screens/WormholeBridgeBluePrint';
+import FirstSolDexBluePrint from '../../../dapps/firstsoldex/screens/FirstSolDexBluePrint';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -79,6 +80,13 @@ function RenderAppBluePrintHelper(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <WormholeBridgeBluePrint />
+        <SpacerVertical height={windowHeight * 0.25} />
+      </ScrollView>
+    );
+  } else if (props.function_name === 'FirstSolDexLandingBluePrint') {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <FirstSolDexBluePrint />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );

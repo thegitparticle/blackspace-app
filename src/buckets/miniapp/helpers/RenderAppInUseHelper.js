@@ -17,6 +17,7 @@ import PoolTogetherUsageShowCase from '../../../dapps/pooltogether/screens/PoolT
 import IndexFundsUsageShowCase from '../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
 import SpacerVertical from '../../../bits/SpacerVertical';
 import WormholeBridgeUsageShowCase from '../../../dapps/wormholebridge/screens/WormholeBridgeUsageShowCase';
+import FirstSolDexUsageShowCase from '../../../dapps/firstsoldex/screens/FirstSolDexUsageShowCase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -77,6 +78,13 @@ function RenderAppInUseHelper(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <WormholeBridgeUsageShowCase />
+        <SpacerVertical height={windowHeight * 0.25} />
+      </ScrollView>
+    );
+  } else if (props.function_name === 'FirstSolDexLandingBluePrint') {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <FirstSolDexUsageShowCase />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );

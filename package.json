@@ -18,6 +18,7 @@
     "@liquity/lib-ethers": "^3.3.1",
     "@makerdao/dai": "^0.42.4-alpha.0",
     "@makerdao/dai-plugin-mcd": "^1.8.5-alpha.0",
+    "@orca-so/sdk": "^1.2.24",
     "@pooltogether/evm-chains-extended": "^0.6.4-beta.1",
     "@pooltogether/v4-client-js": "^0.10.2",
     "@pooltogether/v4-pool-data": "^1.6.0",

@@ -39,6 +39,7 @@ import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
 import TipViewModal from '../buckets/tips/components/TipViewModal';
 import NFTDAppLanding from '../buckets/nftdapp/screens/NFTDAppLanding';
 import SecretScreen from '../buckets/brand/screens/SecretScreen';
+import StakeLiquidityFirstSolTransactionModal from '../dapps/firstsoldex/products/stakeliquidityfirstsoldex/StakeLiquidityFirstSolTransactionModal';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -355,6 +356,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="StakeToEarnUniSwapTransactionModal"
           component={StakeToEarnUniSwapTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="StakeLiquidityFirstSolTransactionModal"
+          component={StakeLiquidityFirstSolTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,

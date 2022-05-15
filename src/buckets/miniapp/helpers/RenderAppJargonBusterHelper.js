@@ -17,6 +17,7 @@ import PoolTogetherJargonBuster from '../../../dapps/pooltogether/screens/PoolTo
 import IndexFundsJargonBuster from '../../../dapps/indexfunds/screens/IndexFundsJargonBuster';
 import SpacerVertical from '../../../bits/SpacerVertical';
 import WormholeBridgeJargonBuster from '../../../dapps/wormholebridge/screens/WormholeBridgeJargonBuster';
+import FirstSolDexJargonBuster from '../../../dapps/firstsoldex/screens/FirstSolDexJargonBuster';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -77,6 +78,13 @@ function RenderAppJargonBusterHelper(props) {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
         <WormholeBridgeJargonBuster appInfo={props.appInfo} />
+        <SpacerVertical height={windowHeight * 0.25} />
+      </ScrollView>
+    );
+  } else if (props.function_name === 'FirstSolDexLandingBluePrint') {
+    return (
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <FirstSolDexJargonBuster appInfo={props.appInfo} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
