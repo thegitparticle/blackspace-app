@@ -19,7 +19,9 @@ import FastImage from 'react-native-fast-image';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import SpacerVertical from '../../../../../bits/SpacerVertical';
 import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
-import {Connection, Keypair} from '@solana/web3.js';
+// import {Connection, Keypair} from '@solana/web3.js';
+import * as solanaWeb3 from '@solana/web3.js';
+// import * as orcaSdk from '@orca-so/sdk';
 import {getOrca, OrcaFarmConfig, OrcaPoolConfig} from '@orca-so/sdk';
 import Decimal from 'decimal.js';
 
@@ -66,16 +68,16 @@ function EnterAmountStakeFirstSolDex(props) {
   const {loadingEth, priceEth} = useEthFiatPrice();
 
   // Orca stuff
-  // const connection = new Connection(
-  //   'https://api.mainnet-beta.solana.com',
-  //   'singleGossip',
-  // );
-  // const orca = getOrca(connection);
-  //
+  const connection = new solanaWeb3.Connection(
+    'https://api.mainnet-beta.solana.com',
+    'singleGossip',
+  );
+  const orca = getOrca(connection);
+
   // const orcaPoolHere =
   //   props.PoolDetails.orca_pool_code === 'SOl_USDC'
-  //     ? orca.getPool(OrcaPoolConfig.SOl_USDC)
-  //     : orca.getPool(OrcaPoolConfig.ATLAS_USDC);
+  //     ? orca.getPool(orcaSdk.OrcaPoolConfig.SOl_USDC)
+  //     : orca.getPool(orcaSdk.OrcaPoolConfig.ATLAS_USDC);
   //
   // console.log(orcaPoolHere);
 

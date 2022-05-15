@@ -19,6 +19,11 @@ import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 // import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {BigNumber} from 'ethers';
+import {Button} from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+import {Bounceable} from 'rn-bounceable';
+import SquircleGlassButton from '../../../../bits/SquircleGlassButton';
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
 // import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
 // import use0xSwapQuote from '../../helpers/use0xSwapQuote';
 // import InfoIcon from '../../../../bits/InfoIcon';
@@ -53,6 +58,16 @@ function TransferTokensWormholeProduct({dispatch}) {
     logoURI:
       'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
     contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+    tokenBalance_decimal: Number(myProfileDetails.eth_balance),
+    // token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
+  };
+
+  let solTokenObject = {
+    name: 'Solana',
+    symbol: 'SOL',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/4128/thumb/solana.png?1640133422',
+    contractAddress: '',
     tokenBalance_decimal: Number(myProfileDetails.eth_balance),
     // token_price_usd: Number(myProfileDetails.eth_balance) * priceEth,
   };
@@ -96,247 +111,80 @@ function TransferTokensWormholeProduct({dispatch}) {
   //   );
   // }
 
-  //   // const RenderOrderInfo = useMemo(
-  //   //   () =>
-  //   //     function RenderOrderInfo() {
-  //   //       function GasPriceTextComponent() {
-  //   //         if (quoteDetails0x !== null) {
-  //   //           return (
-  //   //             <Text style={{color: themeHere.colors.foreground}}>
-  //   //               ~${' '}
-  //   //               {Number(
-  //   //                 Number(quoteDetails0x.gas) *
-  //   //                   Number(quoteDetails0x.gasPrice) *
-  //   //                   Number(priceEth) *
-  //   //                   10 ** -18,
-  //   //               ).toFixed(2)}
-  //   //             </Text>
-  //   //           );
-  //   //         } else {
-  //   //           return (
-  //   //             <Text style={{color: themeHere.colors.foreground}}>~$ 0</Text>
-  //   //           );
-  //   //         }
-  //   //       }
-  //   //
-  //   //       if (
-  //   //         token1Amount.length > 0 &&
-  //   //         token1Coin.address.length > 0 &&
-  //   //         token0Coin &&
-  //   //         // lpExists &&
-  //   //         quoteDetails0x
-  //   //       ) {
-  //   //         return (
-  //   //           <View style={styles.order_info_view}>
-  //   //             <View
-  //   //               style={{
-  //   //                 ...styles.order_info_block_view,
-  //   //                 justifyContent: 'center',
-  //   //                 marginBottom: 40,
-  //   //               }}>
-  //   //               <Text style={styles.order_info_value_text}>
-  //   //                 <Text style={{color: themeHere.colors.foreground}}>
-  //   //                   1 {token1Coin.symbol} ={' '}
-  //   //                   {Number(quoteDetails0x.price).toFixed(6)}{' '}
-  //   //                   {token0Coin.symbol}
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //             <View style={styles.order_info_block_view}>
-  //   //               <Text style={styles.order_info_title_text}>you get</Text>
-  //   //               <Text style={styles.order_info_value_text}>
-  //   //                 <Text style={{color: themeHere.colors.foreground}}>
-  //   //                   {token1Amount} {token1Coin.symbol}
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //             <View style={styles.order_info_block_view}>
-  //   //               <Text style={styles.order_info_title_text}>by paying</Text>
-  //   //               <Text style={styles.order_info_value_text}>
-  //   //                 <Text style={{color: themeHere.colors.foreground}}>
-  //   //                   {Number(
-  //   //                     quoteDetails0x.orders[0].takerAmount * 10 ** -18,
-  //   //                   ).toFixed(2)}{' '}
-  //   //                   {token0Coin.symbol}
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //             <View style={styles.order_info_block_view}>
-  //   //               <Text style={styles.order_info_title_text}>
-  //   //                 by paying (in $)
-  //   //               </Text>
-  //   //               <Text style={styles.order_info_value_text}>
-  //   //                 <Text style={{color: themeHere.colors.foreground}}>
-  //   //                   ${' '}
-  //   //                   {Number(
-  //   //                     Number(quoteDetails0x.orders[0].takerAmount * 10 ** -18) *
-  //   //                       (1 / Number(quoteDetails0x.sellTokenToEthRate)) *
-  //   //                       Number(priceEth),
-  //   //                   )
-  //   //                     .toFixed(0)
-  //   //                     .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //             <View style={styles.order_info_block_view}>
-  //   //               <Text style={styles.order_info_title_text}>
-  //   //                 max expected slippage
-  //   //               </Text>
-  //   //               <Text style={styles.order_info_value_text}>
-  //   //                 <Text style={{color: themeHere.colors.foreground}}>
-  //   //                   ~{' '}
-  //   //                   {Number(
-  //   //                     ((Number(quoteDetails0x.guaranteedPrice) -
-  //   //                       Number(quoteDetails0x.price)) /
-  //   //                       Number(quoteDetails0x.price)) *
-  //   //                       100,
-  //   //                   ).toFixed(2)}{' '}
-  //   //                   %
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //             <View style={styles.order_info_block_view}>
-  //   //               <View
-  //   //                 style={{
-  //   //                   flexDirection: 'row',
-  //   //                   alignItems: 'center',
-  //   //                   justifyContent: 'center',
-  //   //                 }}>
-  //   //                 <Text style={styles.order_info_title_text}>
-  //   //                   Ethereum Gas Fees
-  //   //                 </Text>
-  //   //                 <InfoIcon
-  //   //                   size={10}
-  //   //                   information={
-  //   //                     'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
-  //   //                   }
-  //   //                   height={70}
-  //   //                 />
-  //   //               </View>
-  //   //               <Text style={styles.order_info_value_text}>
-  //   //                 <GasPriceTextComponent />
-  //   //               </Text>
-  //   //             </View>
-  //   //             <Button
-  //   //               title={'start buy process'}
-  //   //               type={'solid'}
-  //   //               onPress={() =>
-  //   //                 navigation.navigate('BuyTokensUniswapTransactionModal', {
-  //   //                   token0Coin: token0Coin,
-  //   //                   token1Coin: token1Coin,
-  //   //                   token0Amount:
-  //   //                     Number(token1Amount) * Number(lpAddress.token1Price),
-  //   //                   token1Amount: token1Amount,
-  //   //                   token1Fiat: token1Fiat,
-  //   //                   lpDetails: lpAddress,
-  //   //                 })
-  //   //               }
-  //   //               containerStyle={styles.next_button_container}
-  //   //               buttonStyle={styles.next_button_style}
-  //   //               titleStyle={styles.next_button_title}
-  //   //               ViewComponent={LinearGradient}
-  //   //               linearGradientProps={{
-  //   //                 colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
-  //   //               }}
-  //   //             />
-  //   //           </View>
-  //   //         );
-  //   //       } else if (!lpExists) {
-  //   //         return (
-  //   //           <View style={styles.order_info_view}>
-  //   //             <View
-  //   //               style={{
-  //   //                 ...styles.order_info_block_view,
-  //   //                 alignItems: 'center',
-  //   //                 justifyContent: 'center',
-  //   //               }}>
-  //   //               <Text
-  //   //                 style={{
-  //   //                   ...styles.order_info_value_text,
-  //   //                   alignSelf: 'center',
-  //   //                   textAlign: 'center',
-  //   //                 }}>
-  //   //                 <Text style={{color: themeHere.colors.blue_light}}>
-  //   //                   this combination has very low liquidity on Uniswap
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //           </View>
-  //   //         );
-  //   //       } else {
-  //   //         return (
-  //   //           <View style={styles.order_info_view}>
-  //   //             <View
-  //   //               style={{
-  //   //                 ...styles.order_info_block_view,
-  //   //                 alignItems: 'center',
-  //   //                 justifyContent: 'center',
-  //   //               }}>
-  //   //               <Text
-  //   //                 style={{
-  //   //                   ...styles.order_info_value_text,
-  //   //                   alignSelf: 'center',
-  //   //                   textAlign: 'center',
-  //   //                 }}>
-  //   //                 <Text style={{color: themeHere.colors.blue_light}}>
-  //   //                   enter # of tokens you want
-  //   //                 </Text>
-  //   //               </Text>
-  //   //             </View>
-  //   //           </View>
-  //   //         );
-  //   //       }
-  //   //     },
-  //   //   [token0Coin, token1Amount, token1Coin, lpAddress, lpExists, quoteDetails0x],
-  //   // );
-  //
-  //   /*
-  //   function RenderPaymentOption() {
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() => {
-  //           onOpenPickPaymentMethod();
-  //         }}>
-  //         <SquircleView
-  //           style={styles.payment_option_item_view}
-  //           squircleParams={{
-  //             cornerSmoothing: 1,
-  //             cornerRadius: 15,
-  //             fillColor: themeHere.colors.mid_ground + '25',
-  //           }}>
-  //           <View style={styles.itemholding_leftside_view}>
-  //             <FastImage
-  //               style={styles.itemholding_icon}
-  //               source={{
-  //                 uri: token0Coin.logoURI,
-  //                 priority: FastImage.priority.normal,
-  //               }}
-  //               resizeMode={FastImage.resizeMode.cover}
-  //             />
-  //             <Text style={styles.itemholding_title}>{token0Coin.name}</Text>
-  //           </View>
-  //           <View style={{flexDirection: 'row', alignItems: 'center'}}>
-  //             <View style={styles.itemholding_rightside_view}>
-  //               <Text style={styles.itemholding_balance}>
-  //                 {Number(token0Coin.tokenBalance_decimal) * 10 ** -18}
-  //               </Text>
-  //               {/*<Text style={styles.itemholding_converted_balance}>*/}
-  //               {/*  ${token0Coin.token_price_usd}*/}
-  //               {/*</Text>*/}
-  // /*
-  //             </View>
-  //             <View style={{paddingHorizontal: 10}}>
-  //               <Iconly
-  //                 name="ChevronDownBroken"
-  //                 color={themeHere.colors.foreground}
-  //                 size={25}
-  //               />
-  //             </View>
-  //           </View>
-  //         </SquircleView>
-  //       </TouchableOpacity>
-  //     );
-  //   }
+  const connector = useWalletConnect();
+
+  function DoExternalTransactionETH() {
+    let txData = {
+      from: '0x2811a48be8872b7d4eeed7205c1df2e15c76bd08',
+      to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469',
+      gas: '',
+      gasPrice: '', // Required
+      value: '1000000000000000',
+      data: '',
+      nonce: '',
+    };
+
+    return (
+      <View
+        style={{
+          marginVertical: windowHeight * 0.1,
+          alignSelf: 'center',
+        }}>
+        <Bounceable
+          onPress={() => {
+            connector
+              .sendTransaction(txData)
+              .then(info => console.log(info))
+              .catch(e => console.log(e));
+          }}>
+          <SquircleGlassButton
+            buttonColor={themeHere.colors.light}
+            width={windowWidth * 0.7}
+            height={50}
+            buttonText={'Send ETH'}
+            font={themeHere.text.subhead_medium_i}
+            textColor={themeHere.colors.red}
+          />
+        </Bounceable>
+      </View>
+    );
+  }
+
+  function SendBridgeETHTransaction() {
+    const SOLANA_TOKEN_BRIDGE_ADDRESS =
+      'wormDTUJ6AWPNvk59vGQbDvGJmqbDTdgWgAqcLBCgUb';
+
+    // determine destination address - an associated token account
+    // const solanaMintKey = new PublicKey(
+    //   (await getForeignAssetSolana(
+    //     connection,
+    //     SOLANA_TOKEN_BRIDGE_ADDRESS,
+    //     CHAIN_ID_ETH,
+    //     hexToUint8Array(nativeToHexString(tokenAddress, CHAIN_ID_ETH) || ''),
+    //   )) || '',
+    // );
+    // const recipientAddress = await Token.getAssociatedTokenAddress(
+    //   ASSOCIATED_TOKEN_PROGRAM_ID,
+    //   TOKEN_PROGRAM_ID,
+    //   solanaMintKey,
+    //   recipientWalletAddress,
+    // );
+
+    let txData = {
+      from: '0x2811a48be8872b7d4eeed7205c1df2e15c76bd08',
+      to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469',
+      gas: '',
+      gasPrice: '', // Required
+      value: String(Number(token1Amount) * 10 ** 18),
+      data: '',
+      nonce: '',
+    };
+
+    connector
+      .sendTransaction(txData)
+      .then(info => console.log(info))
+      .catch(e => console.log(e));
+  }
 
   function RenderChooseChains() {
     return (
@@ -346,6 +194,7 @@ function TransferTokensWormholeProduct({dispatch}) {
           alignSelf: 'center',
           flexDirection: 'row',
           justifyContent: 'space-between',
+          alignItems: 'center',
           marginVertical: 30,
         }}>
         <SquircleView
@@ -359,7 +208,7 @@ function TransferTokensWormholeProduct({dispatch}) {
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
+            fillColor: themeHere.colors.mid_ground + '75',
           }}>
           <FastImage
             source={{
@@ -380,6 +229,19 @@ function TransferTokensWormholeProduct({dispatch}) {
           {/*  />*/}
           {/*</View>*/}
         </SquircleView>
+        <View
+          style={[
+            styles.box,
+            {
+              transform: [{rotate: '90deg'}],
+            },
+          ]}>
+          <Iconly
+            name="SwapBold"
+            color={themeHere.colors.foreground}
+            size={25}
+          />
+        </View>
         <SquircleView
           style={{
             height: 50,
@@ -391,18 +253,18 @@ function TransferTokensWormholeProduct({dispatch}) {
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
+            fillColor: themeHere.colors.mid_ground + '75',
           }}>
           <FastImage
             source={{
-              uri: ethTokenObject.logoURI,
+              uri: solTokenObject.logoURI,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.contain}
             style={styles.famous_token_item_logo}
           />
           <Text style={styles.famous_token_item_symbol}>
-            {ethTokenObject.symbol}
+            {solTokenObject.symbol}
           </Text>
           {/*<View style={{paddingHorizontal: 5}}>*/}
           {/*  <Iconly*/}
@@ -416,8 +278,15 @@ function TransferTokensWormholeProduct({dispatch}) {
     );
   }
 
-  function RenderTokenAndAmountToTransfer() {
-    return (
+  return (
+    <View style={styles.parent_view}>
+      <Text style={{...styles.block_sub_title, marginTop: 40}}>
+        choose the chains
+      </Text>
+      <RenderChooseChains />
+      <Text style={{...styles.block_sub_title, marginTop: 20}}>
+        which token to transfer?
+      </Text>
       <View style={{marginBottom: 30}}>
         <View
           style={{
@@ -440,9 +309,6 @@ function TransferTokensWormholeProduct({dispatch}) {
             keyboardType={'decimal-pad'}
             onEndEditing={() => {}}
           />
-          {/*<TouchableOpacity*/}
-          {/*  style={{color: 'transparent'}}*/}
-          {/*  onPress={() => onOpenPickToken1()}>*/}
           <SquircleView
             style={{
               height: 50,
@@ -474,27 +340,33 @@ function TransferTokensWormholeProduct({dispatch}) {
               />
             </View>
           </SquircleView>
-          {/*</TouchableOpacity>*/}
         </View>
         <Text style={{...styles.fiat_price_text, marginLeft: 30}}>
           ~ $ {Number(priceEth) * Number(token1Amount)}
         </Text>
       </View>
-    );
-  }
-
-  return (
-    <View style={styles.parent_view}>
-      <Text style={{...styles.block_sub_title, marginTop: 40}}>
-        choose the chains
-      </Text>
-      <RenderChooseChains />
-      <Text style={{...styles.block_sub_title, marginTop: 20}}>
-        which token to transfer?
-      </Text>
-      <RenderTokenAndAmountToTransfer />
-      <Text style={{...styles.block_sub_title, marginTop: 20}}>order info</Text>
-      {/*<RenderOrderInfo />*/}
+      <Button
+        title={'start transfer'}
+        type={'solid'}
+        onPress={
+          () => SendBridgeETHTransaction()
+          // navigation.navigate('BuyTokensUniswapTransactionModal', {
+          //   // token0Coin: token0Coin,
+          //   // token1Coin: token1Coin,
+          //   // token0Amount: Number(token1Amount) * Number(lpAddress.token1Price),
+          //   // token1Amount: token1Amount,
+          //   // token1Fiat: token1Fiat,
+          //   // lpDetails: lpAddress,
+          // })
+        }
+        containerStyle={styles.next_button_container}
+        buttonStyle={styles.next_button_style}
+        titleStyle={styles.next_button_title}
+        ViewComponent={LinearGradient}
+        linearGradientProps={{
+          colors: [themeHere.colors.red, themeHere.colors.purple_dark + '50'],
+        }}
+      />
     </View>
   );
 }
