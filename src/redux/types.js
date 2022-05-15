@@ -1,6 +1,7 @@
 export const LOGIN = 'LOGIN';
 export const LOGOUT = 'LOGOUT';
 export const ADD_WDEETS = 'ADD_WDEETS';
+export const ADD_SOLWALLETDEETS = 'ADD_SOLWALLETDEETS';
 export const ADD_MYPROFILEDETAILS = 'ADD_MYPROFILEDETAILS';
 export const ADD_MYAPPS = 'ADD_MYAPPS';
 export const ADD_DISCOVERAPPS = 'ADD_DISCOVERAPPS';

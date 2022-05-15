@@ -18,6 +18,7 @@ import AllTipsReducer from './appcore/AllTipsReducer';
 import MemeCoinsListReducer from './dapps/memecoins/MemeCoinsListReducer';
 import MyNFTsReducer from './appcore/MyNFTsReducer';
 import SecretSettingsReducer from './appcore/SecretSettingsReducer';
+import SolWalletDetailsReducer from './appcore/SolWalletDetailsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -26,6 +27,11 @@ export const persistConfigAuth = {
 
 export const persistConfigWDeets = {
   key: 'w_deets',
+  storage: AsyncStorage,
+};
+
+export const persistConfigSolWalletDeets = {
+  key: 'sol_wallet_deets',
   storage: AsyncStorage,
 };
 
@@ -100,6 +106,10 @@ const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
   WDeetsReducer: persistReducer(persistConfigWDeets, WDeetsReducer),
+  SolWalletDetailsReducer: persistReducer(
+    persistConfigSolWalletDeets,
+    SolWalletDetailsReducer,
+  ),
   UserDetailsReducer: persistReducer(
     persistConfigUserDetails,
     UserDetailsReducer,
