@@ -7,6 +7,10 @@ import {useNavigation} from '@react-navigation/native';
 import * as qrcode from 'qrcode';
 import {connect} from 'react-redux';
 import {SvgXml} from 'react-native-svg';
+import SquircleButton from '../../../bits/SquircleButton';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {Bounceable} from 'rn-bounceable';
+import {showMessage} from 'react-native-flash-message';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -59,7 +63,14 @@ function ShowReceivePage() {
     state_here.WDeetsReducer.wdeets.wallet_address,
   );
 
-  console.log(walletQRCode);
+  const copyToClipboard = () => {
+    Clipboard.setString(state_here.WDeetsReducer.wdeets.wallet_address);
+    showMessage({
+      message: 'wallet address copied',
+      type: 'success',
+      backgroundColor: themeHere.colors.success_green_dark,
+    });
+  };
 
   return (
     <View sx={{flex: 1, alignItems: 'center'}}>
@@ -74,10 +85,37 @@ function ShowReceivePage() {
           sx={{
             width: windowWidth * 0.8,
             height: windowWidth * 0.8,
-            backgroundColor: 'pink',
-            opacity: 0.25,
+            marginTop: '$2',
+            marginBottom: '$4',
           }}>
           <SvgXml xml={walletQRCode._55} width="100%" height="100%" />
+        </View>
+        <Text
+          variant="subhead_medium"
+          sx={{color: 'foreground', opacity: 0.75, marginVertical: '$4'}}>
+          Your wallet address
+        </Text>
+        <View
+          sx={{
+            width: windowWidth * 0.8,
+            height: windowWidth * 0.8,
+            alignItems: 'center',
+          }}>
+          <Text
+            variant="subhead_medium"
+            sx={{color: 'foreground', marginBottom: '$4', textAlign: 'center'}}>
+            {state_here.WDeetsReducer.wdeets.wallet_address}
+          </Text>
+          <Bounceable onPress={copyToClipboard}>
+            <SquircleButton
+              buttonColor={'#4E44CE'}
+              width={windowWidth * 0.7}
+              height={50}
+              buttonText={'Copy Address'}
+              font={themeHere.text.subhead_medium}
+              textColor={'#FFFFFF'}
+            />
+          </Bounceable>
         </View>
       </ScrollView>
     </View>
