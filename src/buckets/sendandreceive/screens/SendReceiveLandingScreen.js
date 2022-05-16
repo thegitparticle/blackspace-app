@@ -1,13 +1,9 @@
 import React, {useEffect, useMemo, useState} from 'react';
-import {View, Text, StyleSheet, Dimensions, Appearance} from 'react-native';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {useSx} from 'dripsy';
 import {GetAllTips} from '../../../redux/appcore/AllTipsActions';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import StarterTipsPage from '../../tips/pages/StarterTipsPage';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
 import FastImage from 'react-native-fast-image';
-import HeaderMiniAppV2 from '../../../bits/HeaderMiniAppV2';
 import {connect} from 'react-redux';
 import ShowSendAndReceivePage from '../pages/ShowSendAndReceivePage';
 import ShowScannerPage from '../pages/ShowScannerPage';
@@ -50,11 +46,20 @@ function SendReceiveLandingScreen({route, dispatch}) {
 
   function RenderBody() {
     if (showWhichPage === 'ShowSendAndReceivePage') {
-      return <ShowSendAndReceivePage />;
+      return (
+        <ShowSendAndReceivePage
+          ChangeBodyToScanner={changeBodyToScannerPage}
+          ChangeBodyToQRPage={changeBodyToQRPage}
+        />
+      );
     } else if (showWhichPage === 'ShowScannerPage') {
-      return <ShowScannerPage />;
+      return (
+        <ShowScannerPage ChangeBodyBack={changeBodyToSendAndReceivePage} />
+      );
     } else if (showWhichPage === 'ShowWalletQRPage') {
-      return <ShowWalletQRPage />;
+      return (
+        <ShowWalletQRPage ChangeBodyBack={changeBodyToSendAndReceivePage} />
+      );
     } else {
       return <View />;
     }
