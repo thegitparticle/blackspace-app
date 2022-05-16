@@ -8,6 +8,7 @@ import {connect} from 'react-redux';
 import ShowSendAndReceivePage from '../pages/ShowSendAndReceivePage';
 import ShowScannerPage from '../pages/ShowScannerPage';
 import ShowWalletQRPage from '../pages/ShowReceivePage';
+import ShowSendPage from '../pages/ShowSendPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -38,6 +39,7 @@ function SendReceiveLandingScreen({route, dispatch}) {
         <ShowSendAndReceivePage
           ChangeBodyToScanner={changeBodyToScannerPage}
           ChangeBodyToQRPage={changeBodyToQRPage}
+          ChangeBodyToSendPage={changeBodyToSendPage}
         />
       );
     } else if (showWhichPage === 'ShowScannerPage') {
@@ -48,6 +50,8 @@ function SendReceiveLandingScreen({route, dispatch}) {
       return (
         <ShowWalletQRPage ChangeBodyBack={changeBodyToSendAndReceivePage} />
       );
+    } else if (showWhichPage === 'ShowSendPage') {
+      return <ShowSendPage ChangeBodyBack={changeBodyToSendAndReceivePage} />;
     } else {
       return <View />;
     }
@@ -56,6 +60,10 @@ function SendReceiveLandingScreen({route, dispatch}) {
   function changeBodyToScannerPage() {
     console.log('change body to scanner');
     setShowWhichPage('ShowScannerPage');
+  }
+
+  function changeBodyToSendPage() {
+    setShowWhichPage('ShowSendPage');
   }
 
   function changeBodyToQRPage() {

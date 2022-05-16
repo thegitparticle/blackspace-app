@@ -13,7 +13,7 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function ShowSendAndReceivePage(props) {
-  // props - ChangeBodyToScanner, ChangeBodyToQRPage
+  // props - ChangeBodyToScanner, ChangeBodyToQRPage, ChangeBodyToSendPage
 
   const navigation = useNavigation();
 
@@ -94,7 +94,7 @@ function ShowSendAndReceivePage(props) {
             IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
           />
         </Bounceable>
-        <Bounceable onPress={() => props.ChangeBodyToScanner()}>
+        <Bounceable onPress={() => props.ChangeBodyToSendPage()}>
           <OneOptionComponent
             Title={'Send'}
             IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
