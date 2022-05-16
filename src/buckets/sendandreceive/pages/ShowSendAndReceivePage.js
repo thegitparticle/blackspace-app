@@ -5,6 +5,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import {SquircleView} from 'react-native-figma-squircle';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
+import {Bounceable} from 'rn-bounceable';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -87,18 +88,24 @@ function ShowSendAndReceivePage(props) {
           flexItems: 'center',
           marginVertical: '$4',
         }}>
-        <OneOptionComponent
-          Title={'Scan'}
-          IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
-        />
-        <OneOptionComponent
-          Title={'Send'}
-          IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
-        />
-        <OneOptionComponent
-          Title={'Receive'}
-          IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
-        />
+        <Bounceable onPress={() => props.ChangeBodyToScanner()}>
+          <OneOptionComponent
+            Title={'Scan'}
+            IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
+          />
+        </Bounceable>
+        <Bounceable onPress={() => props.ChangeBodyToScanner()}>
+          <OneOptionComponent
+            Title={'Send'}
+            IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
+          />
+        </Bounceable>
+        <Bounceable onPress={() => props.ChangeBodyToQRPage()}>
+          <OneOptionComponent
+            Title={'Receive'}
+            IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
+          />
+        </Bounceable>
       </View>
     );
   }

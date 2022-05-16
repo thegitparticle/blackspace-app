@@ -32,18 +32,6 @@ function SendReceiveLandingScreen({route, dispatch}) {
   // ShowSendAndReceivePage , ShowScannerPage , ShowWalletQRPage
   const [showWhichPage, setShowWhichPage] = useState('ShowSendAndReceivePage');
 
-  function changeBodyToScannerPage() {
-    setShowWhichPage('ShowScannerPage');
-  }
-
-  function changeBodyToQRPage() {
-    setShowWhichPage('ShowWalletQRPage');
-  }
-
-  function changeBodyToSendAndReceivePage() {
-    setShowWhichPage('ShowSendAndReceivePage');
-  }
-
   function RenderBody() {
     if (showWhichPage === 'ShowSendAndReceivePage') {
       return (
@@ -65,6 +53,19 @@ function SendReceiveLandingScreen({route, dispatch}) {
     }
   }
 
+  function changeBodyToScannerPage() {
+    console.log('change body to scanner');
+    setShowWhichPage('ShowScannerPage');
+  }
+
+  function changeBodyToQRPage() {
+    setShowWhichPage('ShowWalletQRPage');
+  }
+
+  function changeBodyToSendAndReceivePage() {
+    setShowWhichPage('ShowSendAndReceivePage');
+  }
+
   const RenderScreen = useMemo(
     () =>
       function RenderScreen() {
@@ -84,7 +85,7 @@ function SendReceiveLandingScreen({route, dispatch}) {
           return <RenderBody />;
         }
       },
-    [renderSplash],
+    [renderSplash, showWhichPage],
   );
 
   return (
