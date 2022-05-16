@@ -7,7 +7,7 @@ import FastImage from 'react-native-fast-image';
 import {connect} from 'react-redux';
 import ShowSendAndReceivePage from '../pages/ShowSendAndReceivePage';
 import ShowScannerPage from '../pages/ShowScannerPage';
-import ShowWalletQRPage from '../pages/ShowWalletQRPage';
+import ShowWalletQRPage from '../pages/ShowReceivePage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

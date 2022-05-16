@@ -8,13 +8,13 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function ShowWalletQRPage() {
+function ShowSendPage() {
   // props - ChangeBodyBack
   return (
     <View sx={{flex: 1, alignItems: 'center', justifyContent: 'center'}}>
-      <Text sx={{color: 'white'}}>Show Barcode of your ETH Wallet</Text>
+      <Text sx={{color: 'white'}}>Send tokens from here</Text>
     </View>
   );
 }
 
-export default ShowWalletQRPage;
+export default ShowSendPage;

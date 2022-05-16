@@ -8,5 +8,11 @@ module.exports = {
         moduleName: 'react-native-dotenv',
       },
     ],
+    [
+      'babel-plugin-inline-import',
+      {
+        extensions: ['.svg'],
+      },
+    ],
   ],
 };

@@ -72,6 +72,7 @@
     "moti": "^0.17.1",
     "node-fetch": "^3.1.0",
     "path-browserify": "0.0.0",
+    "qrcode": "^1.5.0",
     "querystring-es3": "~0.2.0",
     "react": "17.0.2",
     "react-native": "0.66.4",
@@ -150,7 +151,8 @@
     "metro-react-native-babel-preset": "^0.66.2",
     "react-native-bundle-visualizer": "^3.1.1",
     "react-test-renderer": "17.0.2",
-    "rn-nodeify": "^10.2.0"
+    "rn-nodeify": "^10.2.0",
+    "babel-plugin-inline-import": "^3.0.0"
   },
   "jest": {
     "preset": "react-native"
