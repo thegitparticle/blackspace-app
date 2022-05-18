@@ -21,6 +21,8 @@ import useEthFiatPrice from '../../../helpers/useEthFiatPrice';
 import {useGasPriceETH} from '../../../helpers/useGasPriceETH';
 import {useGasCostEstimate} from '../../../dapps/pooltogether/helpers/useGasCostEstimate';
 import {BigNumber} from 'ethers';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import {showMessage} from 'react-native-flash-message';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -36,6 +38,7 @@ function ShowSendPage() {
 
   const wallet_address =
     state_here.UserDetailsReducer.userdetails.wallet_address;
+  const wallet_connected = state_here.WDeetsReducer.wdeets.wallet_connected;
   const myProfileDetails = state_here.MyProfileReducer.myProfileDetails;
   const myTokens = state_here.MyTokenBalancesReducer.tokens;
 
@@ -172,11 +175,38 @@ function ShowSendPage() {
 
   const [walletAddressToSend, setWalletAddressToSend] = useState('');
   const [amountToSend, setAmountToSend] = useState(0);
+  const [showConfirmTransactionPopup, setShowConfirmTransactionPopup] =
+    useState(false);
 
   const {totalGasWei, totalGasUsd, isApproveFetched} = useGasCostEstimate(
     BigNumber.from('60000'),
     1,
   );
+
+  const sendTransaction = () => {
+    if (walletAddressToSend.length > 3) {
+      if (Number(amountToSend) > 0) {
+        if (wallet_connected) {
+          console.log('send to metamask');
+          // navigate to metamask
+        } else {
+          setShowConfirmTransactionPopup(true);
+        }
+      } else {
+        showMessage({
+          message: 'enter amount to send',
+          type: 'danger',
+          backgroundColor: themeHere.colors.red,
+        });
+      }
+    } else {
+      showMessage({
+        message: 'enter wallet address to send',
+        type: 'danger',
+        backgroundColor: themeHere.colors.red,
+      });
+    }
+  };
 
   return (
     <View sx={{flex: 1}}>
@@ -208,7 +238,7 @@ function ShowSendPage() {
         <TextInput
           sx={{
             color: 'foreground',
-            font: themeHere.text.subhead_medium,
+            ...themeHere.text.subhead,
             width: windowWidth * 0.7,
             height: 50,
           }}
@@ -246,7 +276,7 @@ function ShowSendPage() {
         }}>
         <TextInput
           sx={{
-            ...themeHere.text.subhead_medium,
+            ...themeHere.text.subhead,
             color: 'foreground',
             width: windowWidth * 0.4,
             height: 50,
@@ -314,7 +344,7 @@ function ShowSendPage() {
           marginTop: '$2',
           marginBottom: '$6',
         }}>
-        ~ $ {Number(amountToSend) * Number(priceEth)}
+        ~ $ {Number(Number(amountToSend) * Number(priceEth)).toFixed(2)}
       </Text>
       <View
         sx={{
@@ -359,53 +389,105 @@ function ShowSendPage() {
           flexDirection: 'row',
           marginVertical: '$4',
         }}>
-        <SquircleView
-          style={{
-            width: windowWidth * 0.35,
-            height: 50,
-            alignItems: 'center',
-            justifyContent: 'center',
-            alignSelf: 'center',
-            flexDirection: 'row',
-          }}
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 10,
-            fillColor: themeHere.colors.off_background,
-          }}>
-          <Text
-            variant="subhead_medium"
-            sx={{
-              color: 'red',
-              opacity: 1,
+        <Bounceable>
+          <SquircleView
+            style={{
+              width: windowWidth * 0.35,
+              height: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              flexDirection: 'row',
+            }}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 10,
+              fillColor: themeHere.colors.off_background,
             }}>
-            cancel
-          </Text>
-        </SquircleView>
-        <SquircleView
-          style={{
-            width: windowWidth * 0.35,
-            height: 50,
-            alignItems: 'center',
-            justifyContent: 'center',
-            alignSelf: 'center',
-            flexDirection: 'row',
-          }}
-          squircleParams={{
-            cornerSmoothing: 1,
-            cornerRadius: 10,
-            fillColor: themeHere.colors.success_green_dark,
-          }}>
-          <Text
-            variant="subhead_medium"
-            sx={{
-              color: 'foreground',
-              opacity: 1,
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'red',
+                opacity: 1,
+              }}>
+              cancel
+            </Text>
+          </SquircleView>
+        </Bounceable>
+        <Bounceable onPress={() => sendTransaction()}>
+          <SquircleView
+            style={{
+              width: windowWidth * 0.35,
+              height: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              flexDirection: 'row',
+            }}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 10,
+              fillColor: themeHere.colors.success_green_dark,
             }}>
-            send
-          </Text>
-        </SquircleView>
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                opacity: 1,
+              }}>
+              send
+            </Text>
+          </SquircleView>
+        </Bounceable>
       </View>
+      <Modal
+        visible={showConfirmTransactionPopup}
+        initialValue={0}
+        useNativeDriver={true}
+        modalStyle={{backgroundColor: 'transparent'}}
+        modalAnimation={new ScaleAnimation()}
+        onTouchOutside={() => {
+          setShowConfirmTransactionPopup(false);
+        }}>
+        <ModalContent>
+          <View variant="layout.info_popup">
+            <Text
+              variant="subhead_medium"
+              sx={{color: 'foreground', mt: '$4', mb: '$8', opacity: 0.5}}>
+              Are you sure to send?
+            </Text>
+            <Text variant="header_bold" sx={{color: 'foreground', mb: '$8'}}>
+              {amountToSend} {coinToSend.symbol}
+            </Text>
+            <Bounceable onPress={() => sendTransaction()}>
+              <SquircleView
+                style={{
+                  width: windowWidth * 0.7,
+                  height: 50,
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  alignSelf: 'center',
+                  flexDirection: 'row',
+                  marginBottom: 20,
+                }}
+                squircleParams={{
+                  cornerSmoothing: 1,
+                  cornerRadius: 10,
+                  fillColor: themeHere.colors.success_green_dark,
+                }}>
+                <Text
+                  variant="subhead_medium"
+                  sx={{
+                    color: 'foreground',
+                    opacity: 1,
+                  }}>
+                  send
+                </Text>
+              </SquircleView>
+            </Bounceable>
+          </View>
+        </ModalContent>
+      </Modal>
       <Portal>
         <Modalize
           ref={modalizePickCoinRef}
