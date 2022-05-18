@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
 import {Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import {VictoryPie} from 'victory-native';
 import {DoubleBounce} from 'react-native-loader';

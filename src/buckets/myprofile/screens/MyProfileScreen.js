@@ -14,9 +14,9 @@ import {GetMyNfts} from '../../../redux/appcore/MyNFTsActions';
 import {Bounceable} from 'rn-bounceable';
 import SquircleGlassButton from '../../../bits/SquircleGlassButton';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
-import MainDetailsETH from '../components/MainDetailsETH';
-import WalletPieETH from '../components/WalletPieETH';
-import AccordianPortfolioETH from '../components/AccordianPortfolioETH';
+import MainDetailsETH from '../components/ethereum/MainDetailsETH';
+import WalletPieETH from '../components/ethereum/WalletPieETH';
+import AccordianPortfolioETH from '../components/ethereum/AccordianPortfolioETH';
 import RenderAppBluePrintHelper from '../../miniapp/helpers/RenderAppBluePrintHelper';
 import RenderAppJargonBusterHelper from '../../miniapp/helpers/RenderAppJargonBusterHelper';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
@@ -24,7 +24,9 @@ import LottieView from 'lottie-react-native';
 import SquircleButton from '../../../bits/SquircleButton';
 import bs58 from 'bs58';
 import nacl from 'tweetnacl';
-import SolanaWalletComponent from '../components/SolanaWalletComponent';
+import SolanaWalletComponent from '../components/solana/SolanaWalletComponent';
+import RenderETHWallet from '../components/ethereum/RenderETHWallet';
+import RenderBSCWallet from '../components/bsc/RenderBSCWallet';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -102,140 +104,6 @@ function MyProfileScreen({dispatch}) {
     );
   }
 
-  function ConnectExternalEthWallet() {
-    if (connector.connected) {
-      return (
-        <View
-          style={{
-            marginVertical: windowHeight * 0.1,
-            alignSelf: 'center',
-          }}>
-          <Bounceable
-            onPress={() => {
-              connector
-                .killSession()
-                .then(info => console.log(info))
-                .catch(e => console.log(e));
-              // Amplitude.getInstance().logEvent(
-              //   'LFG_WELCOME_BUTTON_CLICKED',
-              // );
-            }}>
-            <SquircleGlassButton
-              buttonColor={themeHere.colors.light}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'Disconnect Wallet'}
-              font={themeHere.text.subhead_medium_i}
-              textColor={themeHere.colors.red}
-            />
-          </Bounceable>
-        </View>
-      );
-    } else {
-      return (
-        <View
-          style={{
-            marginVertical: windowHeight * 0.1,
-            alignSelf: 'center',
-          }}>
-          <Bounceable
-            onPress={() => {
-              connector
-                .connect()
-                .then(info => console.log(info))
-                .catch(e => console.log(e));
-              // Amplitude.getInstance().logEvent(
-              //   'LFG_WELCOME_BUTTON_CLICKED',
-              // );
-            }}>
-            <SquircleGlassButton
-              buttonColor={themeHere.colors.light}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'Connect Metamask'}
-              font={themeHere.text.subhead_medium_i}
-              textColor={themeHere.colors.red}
-            />
-          </Bounceable>
-        </View>
-      );
-    }
-  }
-
-  function DoExternalTransactionETH() {
-    let txData = {
-      from: '0x2811a48be8872b7d4eeed7205c1df2e15c76bd08',
-      to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469',
-      gas: '',
-      gasPrice: '', // Required
-      value: '1000000000000000',
-      data: '',
-      nonce: '',
-    };
-
-    return (
-      <View
-        style={{
-          marginVertical: windowHeight * 0.1,
-          alignSelf: 'center',
-        }}>
-        <Bounceable
-          onPress={() => {
-            connector
-              .sendTransaction(txData)
-              .then(info => console.log(info))
-              .catch(e => console.log(e));
-          }}>
-          <SquircleGlassButton
-            buttonColor={themeHere.colors.light}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'Send ETH'}
-            font={themeHere.text.subhead_medium_i}
-            textColor={themeHere.colors.red}
-          />
-        </Bounceable>
-      </View>
-    );
-  }
-
-  function ConnectedWalletButtonsETH() {
-    // console.log(state_here.WDeetsReducer.wdeets);
-    if (state_here.WDeetsReducer.wdeets.wallet_connected) {
-      return (
-        <>
-          <SpacerVertical height={30} />
-          <ConnectExternalEthWallet />
-          <SpacerVertical height={30} />
-          <DoExternalTransactionETH />
-        </>
-      );
-    } else {
-      return <></>;
-    }
-  }
-
-  function RenderETHWallet() {
-    return (
-      <Animated.ScrollView
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={themeHere.colors.foreground}
-          />
-        }>
-        <SpacerVertical height={60} />
-        <MainDetailsETH />
-        <WalletPieETH />
-        <AccordianPortfolioETH />
-        <ConnectedWalletButtonsETH />
-        <SpacerVertical height={50} />
-      </Animated.ScrollView>
-    );
-  }
-
   const [index, setIndex] = useState(0);
 
   const ETHWallet = useMemo(
@@ -246,12 +114,22 @@ function MyProfileScreen({dispatch}) {
     [],
   );
 
+  const BSCWallet = useMemo(
+    () =>
+      function BSCWallet() {
+        return <RenderBSCWallet />;
+      },
+    [],
+  );
+
   const renderSceneMultipleWallets = SceneMap({
     first: ETHWallet,
+    second: BSCWallet,
   });
 
   const [routes] = React.useState([
     {key: 'first', title: 'Ethereum'},
+    {key: 'second', title: 'BSC'},
   ]);
 
   function renderLabelMultipleWallets({route, focused}) {
@@ -273,12 +151,12 @@ function MyProfileScreen({dispatch}) {
           </View>
         );
       }
-    } else if (route.title === 'Solana') {
+    } else if (route.title === 'BSC') {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'red'}}>
-              Solana
+              BSC
             </Text>
           </View>
         );
@@ -286,7 +164,7 @@ function MyProfileScreen({dispatch}) {
         return (
           <View variant="layout.tab_label_chip">
             <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              Solana
+              BSC
             </Text>
           </View>
         );

@@ -1,19 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import Iconly from '../../../miscsetups/customfonts/Iconly';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import FastImage from 'react-native-fast-image';
 import {useNavigation} from '@react-navigation/native';
 import {Image, Text, useSx, View} from 'dripsy';
-import {StyledFastImage25} from '../../../theme/DripsyTheme';
+import {StyledFastImage25} from '../../../../theme/DripsyTheme';
 import {Bounceable} from 'rn-bounceable';
-import useEthFiatPrice from '../../../helpers/useEthFiatPrice';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 import {ExpandableSection} from 'react-native-ui-lib';
 import _ from 'lodash';
 import {SvgUri} from 'react-native-svg';
 import {BigNumber, ethers} from 'ethers';
-import useMaticFiatPrice from '../../../helpers/useMaticFiatPrice';
+import useMaticFiatPrice from '../../../../helpers/useMaticFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -98,7 +98,7 @@ function AccordianPortfolioETH() {
     {
       id: 0,
       title: 'Cryptocurrencies',
-      main_icon: require('../../../../assets/crypto_bitcoin_icon.png'),
+      main_icon: require('../../../../../assets/crypto_bitcoin_icon.png'),
       content: [
         {
           name: 'Ethereum',
@@ -127,13 +127,13 @@ function AccordianPortfolioETH() {
     {
       id: 1,
       title: 'Tokens',
-      main_icon: require('../../../../assets/token_t_icon.png'),
+      main_icon: require('../../../../../assets/token_t_icon.png'),
       content: listTokens,
     },
     {
       id: 3,
       title: 'NFTs',
-      main_icon: require('../../../../assets/nfts_boredape_icon.png'),
+      main_icon: require('../../../../../assets/nfts_boredape_icon.png'),
       content: myNftsRefinedKeys,
     },
   ];

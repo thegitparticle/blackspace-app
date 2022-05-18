@@ -1,7 +1,7 @@
 import React from 'react';
 import {Appearance, Dimensions, Pressable} from 'react-native';
 import {Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import FastImage from 'react-native-fast-image';
 import {Icon} from 'react-native-elements';
