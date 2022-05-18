@@ -1,14 +1,23 @@
 import React from 'react';
-import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import BorrowLiquityProduct from '../products/borrowfromliquity/BorrowLiquityProduct';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import {Bounceable} from 'rn-bounceable';
+import axios from 'axios';
+import {connect} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
+import {showMessage} from 'react-native-flash-message';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+let state_here = {};
 
 function LiquityBluePrint() {
   const products = [
@@ -18,6 +27,8 @@ function LiquityBluePrint() {
       component: 'BorrowLiquityProduct',
     },
   ];
+
+  const navigation = useNavigation();
 
   function RenderProductLiquity({item, index}) {
     if (index === 0) {
@@ -57,6 +68,44 @@ function LiquityBluePrint() {
     }
   }
 
+  function AddThisAppToMyAppsSuite() {
+    return (
+      <View sx={{width: windowWidth * 0.8, alignItems: 'center'}}>
+        <Bounceable
+          onPress={() => {
+            axios
+              .get(
+                'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+                  String(state_here.UserDetailsReducer.userdetails.id) +
+                  '/' +
+                  String(5) +
+                  '/',
+              )
+              .then(() => {
+                showMessage({
+                  message: 'Liquity added to your apps suite',
+                  type: 'success',
+                  backgroundColor: themeHere.colors.success_green,
+                });
+                navigation.goBack();
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }}>
+          <Text
+            sx={{
+              ...themeHere.text.subhead_medium,
+              color: 'blue',
+              textAlign: 'center',
+            }}>
+            add Liquity to my apps suite
+          </Text>
+        </Bounceable>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.parent_view}>
       <Carousel
@@ -67,11 +116,19 @@ function LiquityBluePrint() {
         initialNumToRender={products.length}
         useScrollView={true}
       />
+      <SpacerVertical height={50} />
+      <AddThisAppToMyAppsSuite />
+      <SpacerVertical height={50} />
     </View>
   );
 }
 
-export default LiquityBluePrint;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(LiquityBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {

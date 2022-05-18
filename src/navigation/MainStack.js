@@ -6,13 +6,13 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
-import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
+import HomeLandingScreen from '../buckets/main/home/screens/HomeLandingScreen';
 import TransactionScreen from '../buckets/test/TransactionScreen';
 import TestHome from '../buckets/test/TestHome';
-import MyProfileScreen from '../buckets/myprofile/screens/MyProfileScreen';
-import SettingsHomeScreen from '../buckets/settings/screens/SettingsHomeScreen';
-import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
-import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
+import MyProfileScreen from '../buckets/main/myprofile/screens/MyProfileScreen';
+import SettingsHomeScreen from '../buckets/main/settings/screens/SettingsHomeScreen';
+import NFTDetailedView from '../buckets/main/myprofile/screens/NFTDetailedView';
+import MiniAppLanding from '../buckets/main/miniapp/screens/MiniAppLanding';
 import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
@@ -33,15 +33,15 @@ import IndexCoopTransactionModal from '../dapps/indexfunds/products/indexcoopfun
 import AddCollTransactionModal from '../dapps/liquity/products/borrowfromliquity/AddCollTransactionModal';
 import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/PaybackLiquityTransactionModal';
 import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/PTDepositWithdrawTransactionModal';
-import TipsAppLandingScreen from '../buckets/tips/screens/TipsAppLandingScreen';
-import BrandLandingScreen from '../buckets/brand/screens/BrandLandingScreen';
+import TipsAppLandingScreen from '../dapps/tips/screens/TipsAppLandingScreen';
+import BrandLandingScreen from '../buckets/main/brand/screens/BrandLandingScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
-import TipViewModal from '../buckets/tips/components/TipViewModal';
-import NFTDAppLanding from '../buckets/nftdapp/screens/NFTDAppLanding';
-import SecretScreen from '../buckets/brand/screens/SecretScreen';
+import TipViewModal from '../dapps/tips/components/TipViewModal';
+import NFTDAppLanding from '../dapps/nftdapp/screens/NFTDAppLanding';
+import SecretScreen from '../buckets/main/brand/screens/SecretScreen';
 import StakeLiquidityFirstSolTransactionModal from '../dapps/firstsoldex/products/stakeliquidityfirstsoldex/StakeLiquidityFirstSolTransactionModal';
-import SendReceiveLandingScreen from '../buckets/sendandreceive/screens/SendReceiveLandingScreen';
-import SimpleEthereumTxnScreen from '../buckets/transactions/screens/SimpleEthereumTxnScreen';
+import SendReceiveLandingScreen from '../dapps/sendandreceive/screens/SendReceiveLandingScreen';
+import SimpleEthereumTxnScreen from '../buckets/main/transactions/screens/SimpleEthereumTxnScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

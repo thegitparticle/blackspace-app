@@ -319,7 +319,7 @@ function LiquityUsageShowCase() {
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <SpacerVertical height={20} />
+          <SpacerVertical height={40} />
           <DebtCard />
           <SpacerVertical height={20} />
           <View>
