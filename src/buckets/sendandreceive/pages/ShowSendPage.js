@@ -187,9 +187,10 @@ function ShowSendPage() {
     if (walletAddressToSend.length > 3) {
       if (Number(amountToSend) > 0) {
         if (wallet_connected) {
-          console.log('send to metamask');
-          // navigate to metamask
+          // external wallet txn
+          navigation.navigate('SimpleEthereumTxnScreen');
         } else {
+          // blackspace wallet txn
           setShowConfirmTransactionPopup(true);
         }
       } else {
@@ -207,6 +208,48 @@ function ShowSendPage() {
       });
     }
   };
+
+  function ConfirmSendPopup() {
+    return (
+      <View variant="layout.info_popup">
+        <Text
+          variant="subhead_medium"
+          sx={{color: 'foreground', mt: '$4', mb: '$8', opacity: 0.5}}>
+          Are you sure to send?
+        </Text>
+        <Text variant="header_bold" sx={{color: 'foreground', mb: '$8'}}>
+          {amountToSend} {coinToSend.symbol}
+        </Text>
+        <Bounceable
+          onPress={() => navigation.navigate('SimpleEthereumTxnScreen')}>
+          <SquircleView
+            style={{
+              width: windowWidth * 0.7,
+              height: 50,
+              alignItems: 'center',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              flexDirection: 'row',
+              marginBottom: 20,
+            }}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 10,
+              fillColor: themeHere.colors.success_green_dark,
+            }}>
+            <Text
+              variant="subhead_medium"
+              sx={{
+                color: 'foreground',
+                opacity: 1,
+              }}>
+              send
+            </Text>
+          </SquircleView>
+        </Bounceable>
+      </View>
+    );
+  }
 
   return (
     <View sx={{flex: 1}}>
@@ -450,42 +493,7 @@ function ShowSendPage() {
           setShowConfirmTransactionPopup(false);
         }}>
         <ModalContent>
-          <View variant="layout.info_popup">
-            <Text
-              variant="subhead_medium"
-              sx={{color: 'foreground', mt: '$4', mb: '$8', opacity: 0.5}}>
-              Are you sure to send?
-            </Text>
-            <Text variant="header_bold" sx={{color: 'foreground', mb: '$8'}}>
-              {amountToSend} {coinToSend.symbol}
-            </Text>
-            <Bounceable onPress={() => sendTransaction()}>
-              <SquircleView
-                style={{
-                  width: windowWidth * 0.7,
-                  height: 50,
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  alignSelf: 'center',
-                  flexDirection: 'row',
-                  marginBottom: 20,
-                }}
-                squircleParams={{
-                  cornerSmoothing: 1,
-                  cornerRadius: 10,
-                  fillColor: themeHere.colors.success_green_dark,
-                }}>
-                <Text
-                  variant="subhead_medium"
-                  sx={{
-                    color: 'foreground',
-                    opacity: 1,
-                  }}>
-                  send
-                </Text>
-              </SquircleView>
-            </Bounceable>
-          </View>
+          <ConfirmSendPopup />
         </ModalContent>
       </Modal>
       <Portal>

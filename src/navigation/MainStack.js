@@ -41,6 +41,7 @@ import NFTDAppLanding from '../buckets/nftdapp/screens/NFTDAppLanding';
 import SecretScreen from '../buckets/brand/screens/SecretScreen';
 import StakeLiquidityFirstSolTransactionModal from '../dapps/firstsoldex/products/stakeliquidityfirstsoldex/StakeLiquidityFirstSolTransactionModal';
 import SendReceiveLandingScreen from '../buckets/sendandreceive/screens/SendReceiveLandingScreen';
+import SimpleEthereumTxnScreen from '../buckets/transactions/screens/SimpleEthereumTxnScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -341,6 +342,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="SendReceiveLandingScreen"
           component={SendReceiveLandingScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="SimpleEthereumTxnScreen"
+          component={SimpleEthereumTxnScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,
