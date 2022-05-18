@@ -6,6 +6,8 @@ import {SquircleView} from 'react-native-figma-squircle';
 import Iconly from '../../../miscsetups/customfonts/Iconly';
 import {useNavigation} from '@react-navigation/native';
 import {Bounceable} from 'rn-bounceable';
+import LinearGradient from 'react-native-linear-gradient';
+import {randomColorGenerator} from '../../../helpers/randomColorGenerator';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -110,6 +112,68 @@ function SendReceiveMainBody(props) {
     );
   }
 
+  function SuggestedWallets() {
+    function RenderWallet(props) {
+      // props - WalletAddress
+      const colorA = randomColorGenerator();
+      const colorB = randomColorGenerator();
+
+      return (
+        <View
+          sx={{
+            mh: '$4',
+            marginVertical: '$2',
+            alignItems: 'center',
+            flexDirection: 'row',
+          }}>
+          <LinearGradient
+            colors={[colorA, colorB]}
+            style={{width: 50, height: 50, borderRadius: 25}}
+          />
+          <Text
+            variant="subhead_medium"
+            sx={{
+              color: 'foreground',
+              opacity: 1,
+              marginVertical: '$4',
+              marginHorizontal: '$2',
+            }}>
+            {props.WalletAddress}
+          </Text>
+        </View>
+      );
+    }
+
+    const walletsList = [
+      {
+        walletAddress: '0x3334883994984',
+      },
+      {
+        walletAddress: '0xn3jj33jj3kjk3jk',
+      },
+      {
+        walletAddress: '0x3j3j333984',
+      },
+      {
+        walletAddress: '0x9mkdkkdkdjk3jk',
+      },
+      {
+        walletAddress: '0xk902939399393',
+      },
+      {
+        walletAddress: '0xn3jj33jj3kjk3jk',
+      },
+    ];
+
+    return (
+      <View>
+        {walletsList.map(item => (
+          <RenderWallet WalletAddress={item.walletAddress} />
+        ))}
+      </View>
+    );
+  }
+
   return (
     <View sx={{flex: 1, alignItems: 'center'}}>
       <HeaderHere />
@@ -120,6 +184,7 @@ function SendReceiveMainBody(props) {
           sx={{color: 'foreground', opacity: 0.75, marginVertical: '$4'}}>
           recent interactions
         </Text>
+        <SuggestedWallets />
       </ScrollView>
     </View>
   );
