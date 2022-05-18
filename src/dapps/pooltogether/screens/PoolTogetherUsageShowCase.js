@@ -65,10 +65,16 @@ function PoolTogetherUsageShowCase() {
   useEffect(() => {
     (async function () {
       const balances = await prizePool
-        .getUsersTicketBalance('0x1F28F10176F89F4E9985873B84d14e75751BB3D1')
+        // .getUsersPrizePoolBalances('0x22A7f246EB9FC51C3b4763A5A360a205910a2506')
+        .getUsersPrizePoolBalances('0xb112f497fcEc23eFEFFD269D5d26c8d5FC25cE65')
         .catch(e => console.log(e));
 
-      setPtBalance(balances);
+      // console.log(balances);
+      // console.log(
+      //   Number(ethers.utils.formatUnits(balances.token, 6)).toFixed(10),
+      // );
+      // console.log(balances + 'bal');
+      setPtBalance(balances.ticket);
     })().catch(console.error);
   }, [PrizePoolNtk]);
 
@@ -277,7 +283,7 @@ function PoolTogetherUsageShowCase() {
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <SpacerVertical height={20} />
+          <SpacerVertical height={40} />
           <DepositsCard />
           <SpacerVertical height={20} />
           <View>

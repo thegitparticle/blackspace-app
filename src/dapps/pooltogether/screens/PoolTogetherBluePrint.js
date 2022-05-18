@@ -1,5 +1,6 @@
 import React from 'react';
-import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
