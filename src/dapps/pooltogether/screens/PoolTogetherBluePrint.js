@@ -4,11 +4,19 @@ import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import LotteryPoolTogetherProduct from '../products/lotterypooltogether/LotteryPoolTogetherProduct';
+import {Bounceable} from 'rn-bounceable';
+import axios from 'axios';
+import {showMessage} from 'react-native-flash-message';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import {connect} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
+
+let state_here = {};
 
 function PoolTogetherBluePrint() {
   const products = [
@@ -18,6 +26,8 @@ function PoolTogetherBluePrint() {
       component: 'LotteryPoolTogetherProduct',
     },
   ];
+
+  const navigation = useNavigation();
 
   function RenderProductPoolTogether({item, index}) {
     if (index === 0) {
@@ -56,6 +66,44 @@ function PoolTogetherBluePrint() {
     }
   }
 
+  function AddThisAppToMyAppsSuite() {
+    return (
+      <View sx={{width: windowWidth * 0.8, alignItems: 'center'}}>
+        <Bounceable
+          onPress={() => {
+            axios
+              .get(
+                'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+                  String(state_here.UserDetailsReducer.userdetails.id) +
+                  '/' +
+                  String(4) +
+                  '/',
+              )
+              .then(() => {
+                showMessage({
+                  message: '100x added to your apps suite',
+                  type: 'success',
+                  backgroundColor: themeHere.colors.success_green,
+                });
+                navigation.goBack();
+              })
+              .catch(err => {
+                console.log(err);
+              });
+          }}>
+          <Text
+            sx={{
+              ...themeHere.text.subhead_medium,
+              color: 'blue',
+              textAlign: 'center',
+            }}>
+            add 100x to my apps suite
+          </Text>
+        </Bounceable>
+      </View>
+    );
+  }
+
   return (
     <View style={styles.parent_view}>
       <Carousel
@@ -66,11 +114,19 @@ function PoolTogetherBluePrint() {
         initialNumToRender={products.length}
         useScrollView={true}
       />
+      <SpacerVertical height={50} />
+      <AddThisAppToMyAppsSuite />
+      <SpacerVertical height={50} />
     </View>
   );
 }
 
-export default PoolTogetherBluePrint;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(PoolTogetherBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {
