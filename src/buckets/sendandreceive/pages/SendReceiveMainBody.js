@@ -12,7 +12,7 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function ShowSendAndReceivePage(props) {
+function SendReceiveMainBody(props) {
   // props - ChangeBodyToScanner, ChangeBodyToQRPage, ChangeBodyToSendPage
 
   const navigation = useNavigation();
@@ -125,4 +125,4 @@ function ShowSendAndReceivePage(props) {
   );
 }
 
-export default ShowSendAndReceivePage;
+export default SendReceiveMainBody;

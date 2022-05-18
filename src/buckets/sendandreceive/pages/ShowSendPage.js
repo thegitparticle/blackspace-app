@@ -31,7 +31,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function ShowSendPage() {
+function ShowSendPage(props) {
   // props - ChangeBodyBack
 
   const navigation = useNavigation();
@@ -432,7 +432,7 @@ function ShowSendPage() {
           flexDirection: 'row',
           marginVertical: '$4',
         }}>
-        <Bounceable>
+        <Bounceable onPress={() => props.ChangeBodyBack()}>
           <SquircleView
             style={{
               width: windowWidth * 0.35,

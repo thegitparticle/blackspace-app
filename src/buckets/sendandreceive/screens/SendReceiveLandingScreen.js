@@ -5,7 +5,7 @@ import {useSx} from 'dripsy';
 import {GetAllTips} from '../../../redux/appcore/AllTipsActions';
 import FastImage from 'react-native-fast-image';
 import {connect} from 'react-redux';
-import ShowSendAndReceivePage from '../pages/ShowSendAndReceivePage';
+import SendReceiveMainBody from '../pages/SendReceiveMainBody';
 import ShowScannerPage from '../pages/ShowScannerPage';
 import ShowWalletQRPage from '../pages/ShowReceivePage';
 import ShowSendPage from '../pages/ShowSendPage';
@@ -36,7 +36,7 @@ function SendReceiveLandingScreen({route, dispatch}) {
   function RenderBody() {
     if (showWhichPage === 'ShowSendAndReceivePage') {
       return (
-        <ShowSendAndReceivePage
+        <SendReceiveMainBody
           ChangeBodyToScanner={changeBodyToScannerPage}
           ChangeBodyToQRPage={changeBodyToQRPage}
           ChangeBodyToSendPage={changeBodyToSendPage}
