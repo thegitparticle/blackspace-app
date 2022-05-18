@@ -1,4 +1,4 @@
-import {useSx, View} from 'dripsy';
+import {Text, useSx, View} from 'dripsy';
 import {Bounceable} from 'rn-bounceable';
 import SquircleGlassButton from '../../../../bits/SquircleGlassButton';
 import SpacerVertical from '../../../../bits/SpacerVertical';
@@ -10,6 +10,7 @@ import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
 import {useNavigation} from '@react-navigation/native';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import {Bars} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -36,116 +37,73 @@ function RenderBSCWallet({dispatch}) {
   const connector = useWalletConnect();
   const externalWallet = state_here.WDeetsReducer.wdeets.wallet_connected;
 
-  function ConnectExternalEthWallet() {
-    if (connector.connected) {
+  // Checking, ExternalBSCEnabled, ExternalBSCNotEnabled, InternalWallet
+  const [BSCWalletStatus, setBSCWalletStatus] = useState(
+    'ExternalBSCNotEnabled',
+  );
+
+  const status = connector.accounts;
+  console.log(status + 'status');
+
+  function RenderWalletBody() {
+    if (BSCWalletStatus === 'Checking') {
       return (
-        <View
-          style={{
-            marginVertical: windowHeight * 0.1,
-            alignSelf: 'center',
-          }}>
-          <Bounceable
-            onPress={() => {
-              connector
-                .killSession()
-                .then(info => console.log(info))
-                .catch(e => console.log(e));
-              // Amplitude.getInstance().logEvent(
-              //   'LFG_WELCOME_BUTTON_CLICKED',
-              // );
+        <View sx={{width: windowWidth, alignItems: 'center'}}>
+          <SpacerVertical height={50} />
+          <Bars size={10} color="#FDAAFF" />
+        </View>
+      );
+    } else if (BSCWalletStatus === 'ExternalBSCEnabled') {
+      return (
+        <View sx={{width: windowWidth, alignItems: 'center'}}>
+          <SpacerVertical height={50} />
+          <Text sx={{...themeHere.text.subhead_medium, color: 'foreground'}}>
+            fetch bsc wallet tokens and balances from server
+          </Text>
+        </View>
+      );
+    } else if (BSCWalletStatus === 'ExternalBSCNotEnabled') {
+      return (
+        <View sx={{width: windowWidth, alignItems: 'center'}}>
+          <SpacerVertical height={50} />
+          <Text
+            sx={{
+              ...themeHere.text.subhead_medium,
+              color: 'foreground',
+              width: windowWidth * 0.8,
+              textAlign: 'center',
             }}>
-            <SquircleGlassButton
-              buttonColor={themeHere.colors.light}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'Disconnect Wallet'}
-              font={themeHere.text.subhead_medium_i}
-              textColor={themeHere.colors.red}
-            />
-          </Bounceable>
+            Binance Smart Chain (BSC) has not been enabled in your wallet
+          </Text>
+          <SpacerVertical height={20} />
+          <Text
+            sx={{
+              ...themeHere.text.subhead_medium,
+              color: 'foreground',
+              width: windowWidth * 0.8,
+              textAlign: 'center',
+            }}>
+            please go to your wallet and setup it up to use DApps that run on
+            BSC
+          </Text>
+        </View>
+      );
+    } else if (BSCWalletStatus === 'InternalWallet') {
+      return (
+        <View sx={{width: windowWidth, alignItems: 'center'}}>
+          <SpacerVertical height={50} />
+          <Text sx={{...themeHere.text.subhead_medium, color: 'foreground'}}>
+            fetch bsc wallet tokens and balances from server
+          </Text>
         </View>
       );
     } else {
       return (
-        <View
-          style={{
-            marginVertical: windowHeight * 0.1,
-            alignSelf: 'center',
-          }}>
-          <Bounceable
-            onPress={() => {
-              connector
-                .connect()
-                .then(info => console.log(info))
-                .catch(e => console.log(e));
-              // Amplitude.getInstance().logEvent(
-              //   'LFG_WELCOME_BUTTON_CLICKED',
-              // );
-            }}>
-            <SquircleGlassButton
-              buttonColor={themeHere.colors.light}
-              width={windowWidth * 0.7}
-              height={50}
-              buttonText={'Connect Metamask'}
-              font={themeHere.text.subhead_medium_i}
-              textColor={themeHere.colors.red}
-            />
-          </Bounceable>
+        <View sx={{width: windowWidth, alignItems: 'center'}}>
+          <SpacerVertical height={50} />
+          <Bars size={10} color="#FDAAFF" />
         </View>
       );
-    }
-  }
-
-  function DoExternalTransactionETH() {
-    let txData = {
-      from: '0x2811a48be8872b7d4eeed7205c1df2e15c76bd08',
-      to: '0x14a28bD398B5b282a363f53A2c28e0E8ed211469',
-      gas: '',
-      gasPrice: '', // Required
-      value: '1000000000000000',
-      data: '',
-      nonce: '',
-    };
-
-    return (
-      <View
-        style={{
-          marginVertical: windowHeight * 0.1,
-          alignSelf: 'center',
-        }}>
-        <Bounceable
-          onPress={() => {
-            connector
-              .sendTransaction(txData)
-              .then(info => console.log(info))
-              .catch(e => console.log(e));
-          }}>
-          <SquircleGlassButton
-            buttonColor={themeHere.colors.light}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'Send ETH'}
-            font={themeHere.text.subhead_medium_i}
-            textColor={themeHere.colors.red}
-          />
-        </Bounceable>
-      </View>
-    );
-  }
-
-  function ConnectedWalletButtonsETH() {
-    // console.log(state_here.WDeetsReducer.wdeets);
-    if (state_here.WDeetsReducer.wdeets.wallet_connected) {
-      return (
-        <>
-          <SpacerVertical height={30} />
-          <ConnectExternalEthWallet />
-          <SpacerVertical height={30} />
-          <DoExternalTransactionETH />
-        </>
-      );
-    } else {
-      return <></>;
     }
   }
 
@@ -161,6 +119,7 @@ function RenderBSCWallet({dispatch}) {
       }>
       <SpacerVertical height={60} />
       <MainDetailsETH />
+      <RenderWalletBody />
       <SpacerVertical height={50} />
     </Animated.ScrollView>
   );
