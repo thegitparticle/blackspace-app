@@ -92,6 +92,7 @@ function SettingUpAppScreen({dispatch}) {
           wallet_address: null,
           wallet_phrase: null,
           wallet_connected: false,
+          wallet_connected_name: null,
         };
         wallet.wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
         wallet.wallet_privateKey =
@@ -99,6 +100,8 @@ function SettingUpAppScreen({dispatch}) {
         wallet.wallet_phrase = {};
         wallet.wallet_connected =
           state_here.WDeetsReducer.wdeets.wallet_connected;
+        wallet.wallet_connected_name =
+          state_here.WDeetsReducer.wdeets.wallet_connected_name;
         dispatch(AddWDeets(wallet));
       }, 10000);
       setTimeout(() => {

@@ -42,6 +42,7 @@ function ConnectWalletScreen({dispatch, navigation, route}) {
     wallet_address: null,
     wallet_phrase: null,
     wallet_connected: false,
+    wallet_connected_name: null,
   };
   // const [walletDetails, setWalletDetails] = useState(wallet);
 
@@ -53,6 +54,7 @@ function ConnectWalletScreen({dispatch, navigation, route}) {
     wallet.wallet_privateKey = '';
     wallet.wallet_phrase = '';
     wallet.wallet_connected = true;
+    wallet.wallet_connected_name = walletInfo.peerMeta.name;
 
     dispatch(AddWDeets(wallet));
 
