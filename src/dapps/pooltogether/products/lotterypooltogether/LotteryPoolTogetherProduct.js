@@ -48,12 +48,12 @@ function LotteryPoolTogetherProduct() {
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
   );
 
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
+  // let wallet = new ethers.Wallet(
+  //   state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  // );
+  // let walletSigner = wallet.connect(prov);
 
-  let user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
+  // let user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 

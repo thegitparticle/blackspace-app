@@ -42,10 +42,10 @@ function PoolTogetherUsageShowCase() {
   const navigation = useNavigation();
 
   let walletAddress = state_here.WDeetsReducer.wdeets.wallet_address;
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
+  // let wallet = new ethers.Wallet(
+  //   state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  // );
+  // let walletSigner = wallet.connect(prov);
 
   const PrizePoolNtk = useMemo(
     () => new PrizePoolNetwork(providers, mainnet),
@@ -117,7 +117,7 @@ function PoolTogetherUsageShowCase() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '50',
         }}>
         <Text
           variant="header_bold"
@@ -197,7 +197,7 @@ function PoolTogetherUsageShowCase() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '50',
         }}>
         <Text
           variant="header_bold"
