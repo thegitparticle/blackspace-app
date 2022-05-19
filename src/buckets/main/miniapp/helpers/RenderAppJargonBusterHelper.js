@@ -18,6 +18,8 @@ import IndexFundsJargonBuster from '../../../../dapps/indexfunds/screens/IndexFu
 import SpacerVertical from '../../../../bits/SpacerVertical';
 import WormholeBridgeJargonBuster from '../../../../dapps/wormholebridge/screens/WormholeBridgeJargonBuster';
 import FirstSolDexJargonBuster from '../../../../dapps/firstsoldex/screens/FirstSolDexJargonBuster';
+import UniswapUsageShowCase from '../../../../dapps/uniswap/screens/UniswapUsageShowCase';
+import MemeCoinsUsageShowCase from '../../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -42,14 +44,14 @@ function RenderAppJargonBusterHelper(props) {
   } else if (props.function_name === 'UniswapLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <UniswapJargonBuster appInfo={props.appInfo} />
+        <UniswapUsageShowCase appInfo={props.appInfo} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MemeCoinsJargonBuster appInfo={props.appInfo} />
+        <MemeCoinsUsageShowCase appInfo={props.appInfo} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
