@@ -225,26 +225,26 @@ function BorrowLiquityProduct() {
             </Text>
           </Text>
         </View>
-        <View style={styles.order_info_block_view}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
-            <InfoIcon
-              size={10}
-              information={
-                'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
-              }
-              height={70}
-            />
-          </View>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
-          </Text>
-        </View>
+        {/*<View style={styles.order_info_block_view}>*/}
+        {/*  <View*/}
+        {/*    style={{*/}
+        {/*      flexDirection: 'row',*/}
+        {/*      alignItems: 'center',*/}
+        {/*      justifyContent: 'center',*/}
+        {/*    }}>*/}
+        {/*    <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>*/}
+        {/*    <InfoIcon*/}
+        {/*      size={10}*/}
+        {/*      information={*/}
+        {/*        'amount for fees taken for this transaction to be executed on the Ethereum blockchain'*/}
+        {/*      }*/}
+        {/*      height={70}*/}
+        {/*    />*/}
+        {/*  </View>*/}
+        {/*  <Text style={styles.order_info_value_text}>*/}
+        {/*    <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>*/}
+        {/*  </Text>*/}
+        {/*</View>*/}
         <Button
           title={'start borrow process'}
           type={'solid'}
