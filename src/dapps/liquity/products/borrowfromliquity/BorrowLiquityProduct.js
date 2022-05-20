@@ -48,11 +48,6 @@ const prov = new ethers.providers.JsonRpcProvider(
 );
 
 function BorrowLiquityProduct() {
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
-
   const [showMinimumNotMetPopup, setShowMinimumNotMetPopup] = useState(false);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
@@ -60,9 +55,6 @@ function BorrowLiquityProduct() {
   const [borrowAmount, setBorrowAmount] = useState('');
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
 
-  const [liquity, setLiquity] = useState();
-
-  const [liquityFees, setLiquityFees] = useState();
   const [borrowRate, setBorrowRate] = useState(0);
 
   const [collateralNeededEth, setCollateralNeededEth] = useState();
@@ -70,28 +62,27 @@ function BorrowLiquityProduct() {
 
   const liquidationReserveGasFeeLUSD = 200;
   const collateralRatio = 1.43;
-  const collateralRatioPercentString = '143%';
-  const liquidationRatio = 1.1;
-  const liquidationRatioPercentString = '110%';
 
+  // fetching borrow rates from liquity
   useEffect(() => {
     (async () => {
-      setLiquity(
-        await EthersLiquity.connect(walletSigner).then(lqy =>
-          lqy.getFees().then(liquityFeesHere => {
-            setBorrowRate(
-              Number(
-                ethers.utils.formatEther(
-                  liquityFeesHere.borrowingRate()._bigNumber,
-                ),
+      // setLiquity(
+      await EthersLiquity.connect(prov).then(lqy =>
+        lqy.getFees().then(liquityFeesHere => {
+          setBorrowRate(
+            Number(
+              ethers.utils.formatEther(
+                liquityFeesHere.borrowingRate()._bigNumber,
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       );
+      // );
     })();
   }, []);
 
+  // collateral needed calculation
   useEffect(() => {
     if (Number(borrowAmount) !== 0) {
       setCollateralNeededEth(
@@ -107,6 +98,7 @@ function BorrowLiquityProduct() {
     }
   }, [borrowAmount, priceEth]);
 
+  // fixed loan charges/cost calculation
   useEffect(() => {
     setFixedLoanCharges(
       (
