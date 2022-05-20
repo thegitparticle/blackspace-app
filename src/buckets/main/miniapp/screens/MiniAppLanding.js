@@ -35,6 +35,7 @@ function MiniAppLanding({route}) {
         return (
           <RenderAppBluePrintHelper
             function_name={app_details.landing_blueprint_function_name}
+            discover_or_not={discover_or_not}
             // swipe_navigate_function={changeIndexToOne}
           />
         );
@@ -49,6 +50,7 @@ function MiniAppLanding({route}) {
           <RenderAppJargonBusterHelper
             function_name={app_details.landing_blueprint_function_name}
             appInfo={app_details}
+            discover_or_not={discover_or_not}
           />
         );
       },
@@ -61,6 +63,7 @@ function MiniAppLanding({route}) {
         return (
           <RenderAppInUseHelper
             function_name={app_details.landing_blueprint_function_name}
+            discover_or_not={discover_or_not}
           />
         );
       },

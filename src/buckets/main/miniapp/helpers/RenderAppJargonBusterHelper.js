@@ -30,63 +30,90 @@ function RenderAppJargonBusterHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MakerDaoJargonBuster appInfo={props.appInfo} />
+        <MakerDaoJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'CompoundFinanceLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <CompoundFinanceJargonBuster appInfo={props.appInfo} />
+        <CompoundFinanceJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'UniswapLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <UniswapUsageShowCase appInfo={props.appInfo} />
+        <UniswapUsageShowCase
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MemeCoinsUsageShowCase appInfo={props.appInfo} />
+        <MemeCoinsUsageShowCase
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'LiquityLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <LiquityJargonBuster appInfo={props.appInfo} />
+        <LiquityJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <PoolTogetherJargonBuster appInfo={props.appInfo} />
+        <PoolTogetherJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'IndexFundsLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <IndexFundsJargonBuster appInfo={props.appInfo} />
+        <IndexFundsJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'WormholeBridgeLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <WormholeBridgeJargonBuster appInfo={props.appInfo} />
+        <WormholeBridgeJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'FirstSolDexLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <FirstSolDexJargonBuster appInfo={props.appInfo} />
+        <FirstSolDexJargonBuster
+          appInfo={props.appInfo}
+          DiscoverOrNot={props.discover_or_not}
+        />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );

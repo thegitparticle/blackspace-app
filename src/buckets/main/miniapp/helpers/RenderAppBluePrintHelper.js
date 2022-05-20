@@ -28,7 +28,7 @@ function RenderAppBluePrintHelper(props) {
   if (props.function_name === 'MakerDaoLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MakerDaoBluePrint />
+        <MakerDaoBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
@@ -37,6 +37,7 @@ function RenderAppBluePrintHelper(props) {
       <ScrollView showsVerticalScrollIndicator={false}>
         <CompoundFinanceBluePrint
           SwipeNavigateFunction={props.swipe_navigate_function}
+          DiscoverOrNot={props.discover_or_not}
         />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
@@ -44,49 +45,49 @@ function RenderAppBluePrintHelper(props) {
   } else if (props.function_name === 'UniswapLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <UniswapBluePrint />
+        <UniswapBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'MemeCoinsAppLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <MemeCoinsAppBluePrint />
+        <MemeCoinsAppBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'LiquityLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <LiquityBluePrint />
+        <LiquityBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'PoolTogetherLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <PoolTogetherBluePrint />
+        <PoolTogetherBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'IndexFundsLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <IndexFundsBluePrint />
+        <IndexFundsBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'WormholeBridgeLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <WormholeBridgeBluePrint />
+        <WormholeBridgeBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );
   } else if (props.function_name === 'FirstSolDexLandingBluePrint') {
     return (
       <ScrollView showsVerticalScrollIndicator={false}>
-        <FirstSolDexBluePrint />
+        <FirstSolDexBluePrint DiscoverOrNot={props.discover_or_not} />
         <SpacerVertical height={windowHeight * 0.25} />
       </ScrollView>
     );

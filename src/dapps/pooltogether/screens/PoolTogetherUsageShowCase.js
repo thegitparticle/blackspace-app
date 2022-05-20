@@ -13,6 +13,7 @@ import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {Bars} from 'react-native-loader';
+import {msToS} from '@pooltogether/utilities';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -41,49 +42,62 @@ function PoolTogetherUsageShowCase() {
 
   const navigation = useNavigation();
 
-  let walletAddress = state_here.WDeetsReducer.wdeets.wallet_address;
-  // let wallet = new ethers.Wallet(
-  //   state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  // );
-  // let walletSigner = wallet.connect(prov);
+  const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
 
   const PrizePoolNtk = useMemo(
     () => new PrizePoolNetwork(providers, mainnet),
     [],
   );
 
+  // this Prize Pool is a read-only deployment. It's for managing deposits, withdrawals and delegation.
+  // pass chainID and prizePoolAddress
   const prizePool = PrizePoolNtk.getPrizePool(
     1,
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
   );
 
-  // const prizeDistributor = PrizePoolNtk.getPrizeDistributor(
-  //   1,
-  //   '0xb9a179DcA5a7bf5f8B9E088437B3A85ebB495eFe',
-  // );
+  const prizeDistributor = PrizePoolNtk.getPrizeDistributor(
+    1,
+    '0xb9a179DcA5a7bf5f8B9E088437B3A85ebB495eFe',
+  );
+
+  async function SetupDrawAndPrizeDistribution() {
+    const draw = await prizeDistributor.getNewestDraw();
+    const prizeDistribution = await prizeDistributor.getNewestDraw();
+
+    const currentTimestampSeconds = msToS(Date.now());
+    const drawTimestampSeconds = draw.timestamp.toNumber();
+    const drawExpirationTimestampSeconds =
+      prizeDistribution.expiryDuration + drawTimestampSeconds;
+    const isExpired = drawExpirationTimestampSeconds <= currentTimestampSeconds;
+
+    const drawResults = await prizeDistributor.getUsersDrawResultsForDrawId(
+      wallet_address,
+      draw.drawId,
+      prizeDistribution.maxPicksPerUser,
+    );
+
+    const prizesWon = drawResults.totalValue;
+
+    console.log(prizesWon);
+  }
 
   useEffect(() => {
     (async function () {
       const balances = await prizePool
-        // .getUsersPrizePoolBalances('0x22A7f246EB9FC51C3b4763A5A360a205910a2506')
         .getUsersPrizePoolBalances('0xb112f497fcEc23eFEFFD269D5d26c8d5FC25cE65')
         .catch(e => console.log(e));
-
-      // console.log(balances);
-      // console.log(
-      //   Number(ethers.utils.formatUnits(balances.token, 6)).toFixed(10),
-      // );
-      // console.log(balances + 'bal');
       setPtBalance(balances.ticket);
     })().catch(console.error);
   }, [PrizePoolNtk]);
 
-  // useEffect(() => {
-  //   (async function () {
-  //     const drawIds = await PrizePoolNtk.getBeaconChainDrawIds();
-  //     setDrawIds(drawIds);
-  //   })().catch(console.error);
-  // }, [PrizePoolNtk]);
+  useEffect(() => {
+    (async function () {
+      // const drawIds = await PrizePoolNtk.getBeaconChainDrawIds();
+      // setDrawIds(drawIds);
+      await SetupDrawAndPrizeDistribution();
+    })().catch(console.error);
+  }, [PrizePoolNtk]);
 
   useEffect(() => {
     (async function () {
