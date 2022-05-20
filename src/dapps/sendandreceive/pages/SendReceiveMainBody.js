@@ -14,6 +14,28 @@ const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+const suggestedWalletsList = [];
+const suggestedWalletsList2 = [
+  {
+    walletAddress: '0x3334883994984',
+  },
+  {
+    walletAddress: '0xn3jj33jj3kjk3jk',
+  },
+  {
+    walletAddress: '0x3j3j333984',
+  },
+  {
+    walletAddress: '0x9mkdkkdkdjk3jk',
+  },
+  {
+    walletAddress: '0xk902939399393',
+  },
+  {
+    walletAddress: '0xn3jj33jj3kjk3jk',
+  },
+];
+
 function SendReceiveMainBody(props) {
   // props - ChangeBodyToScanner, ChangeBodyToQRPage, ChangeBodyToSendPage
 
@@ -61,7 +83,7 @@ function SendReceiveMainBody(props) {
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '50',
+            fillColor: themeHere.colors.mid_ground + '75',
           }}
           style={{
             width: windowWidth * 0.2,
@@ -86,16 +108,16 @@ function SendReceiveMainBody(props) {
         sx={{
           width: windowWidth * 0.8,
           flexDirection: 'row',
-          justifyContent: 'space-between',
+          justifyContent: 'space-evenly',
           flexItems: 'center',
           marginVertical: '$4',
         }}>
-        <Bounceable onPress={() => props.ChangeBodyToScanner()}>
-          <OneOptionComponent
-            Title={'Scan'}
-            IconSource={require('../../../../assets/appicon_1024_white_bg.png')}
-          />
-        </Bounceable>
+        {/*<Bounceable onPress={() => props.ChangeBodyToScanner()}>*/}
+        {/*  <OneOptionComponent*/}
+        {/*    Title={'Scan'}*/}
+        {/*    IconSource={require('../../../../assets/appicon_1024_white_bg.png')}*/}
+        {/*  />*/}
+        {/*</Bounceable>*/}
         <Bounceable onPress={() => props.ChangeBodyToSendPage()}>
           <OneOptionComponent
             Title={'Send'}
@@ -144,34 +166,34 @@ function SendReceiveMainBody(props) {
       );
     }
 
-    const walletsList = [
-      {
-        walletAddress: '0x3334883994984',
-      },
-      {
-        walletAddress: '0xn3jj33jj3kjk3jk',
-      },
-      {
-        walletAddress: '0x3j3j333984',
-      },
-      {
-        walletAddress: '0x9mkdkkdkdjk3jk',
-      },
-      {
-        walletAddress: '0xk902939399393',
-      },
-      {
-        walletAddress: '0xn3jj33jj3kjk3jk',
-      },
-    ];
-
-    return (
-      <View>
-        {walletsList.map(item => (
-          <RenderWallet WalletAddress={item.walletAddress} />
-        ))}
-      </View>
-    );
+    if (suggestedWalletsList.length > 0) {
+      return (
+        <View>
+          {suggestedWalletsList.map(item => (
+            <RenderWallet WalletAddress={item.walletAddress} />
+          ))}
+        </View>
+      );
+    } else {
+      return (
+        <View
+          sx={{
+            width: windowWidth * 0.8,
+            alignItems: 'center',
+            height: windowHeight * 0.3,
+            justifyContent: 'center',
+          }}>
+          <Text
+            sx={{
+              ...themeHere.text.subhead_medium,
+              color: 'foreground',
+              opacity: 0.5,
+            }}>
+            no transactions have been done by you
+          </Text>
+        </View>
+      );
+    }
   }
 
   return (
