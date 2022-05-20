@@ -19,7 +19,7 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function LiquityBluePrint() {
+function LiquityBluePrint(props) {
   const products = [
     {
       id: 1,
@@ -69,41 +69,45 @@ function LiquityBluePrint() {
   }
 
   function AddThisAppToMyAppsSuite() {
-    return (
-      <View sx={{width: windowWidth * 0.8, alignItems: 'center'}}>
-        <Bounceable
-          onPress={() => {
-            axios
-              .get(
-                'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
-                  String(state_here.UserDetailsReducer.userdetails.id) +
-                  '/' +
-                  String(5) +
-                  '/',
-              )
-              .then(() => {
-                showMessage({
-                  message: 'Liquity added to your apps suite',
-                  type: 'success',
-                  backgroundColor: themeHere.colors.success_green,
+    if (props.DiscoverOrNot) {
+      return (
+        <View sx={{width: windowWidth * 0.8, alignItems: 'center'}}>
+          <Bounceable
+            onPress={() => {
+              axios
+                .get(
+                  'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+                    String(state_here.UserDetailsReducer.userdetails.id) +
+                    '/' +
+                    String(5) +
+                    '/',
+                )
+                .then(() => {
+                  showMessage({
+                    message: 'Liquity added to your apps suite',
+                    type: 'success',
+                    backgroundColor: themeHere.colors.success_green,
+                  });
+                  navigation.goBack();
+                })
+                .catch(err => {
+                  console.log(err);
                 });
-                navigation.goBack();
-              })
-              .catch(err => {
-                console.log(err);
-              });
-          }}>
-          <Text
-            sx={{
-              ...themeHere.text.subhead_medium,
-              color: 'blue',
-              textAlign: 'center',
             }}>
-            add Liquity to my apps suite
-          </Text>
-        </Bounceable>
-      </View>
-    );
+            <Text
+              sx={{
+                ...themeHere.text.subhead_medium,
+                color: 'blue',
+                textAlign: 'center',
+              }}>
+              add Liquity to my apps suite
+            </Text>
+          </Bounceable>
+        </View>
+      );
+    } else {
+      return <View />;
+    }
   }
 
   return (
