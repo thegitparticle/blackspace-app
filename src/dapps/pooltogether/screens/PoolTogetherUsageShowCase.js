@@ -56,48 +56,48 @@ function PoolTogetherUsageShowCase() {
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
   );
 
-  const prizeDistributor = PrizePoolNtk.getPrizeDistributor(
-    1,
-    '0xb9a179DcA5a7bf5f8B9E088437B3A85ebB495eFe',
-  );
+  // const prizeDistributor = PrizePoolNtk.getPrizeDistributor(
+  //   1,
+  //   '0xb9a179DcA5a7bf5f8B9E088437B3A85ebB495eFe',
+  // );
 
-  async function SetupDrawAndPrizeDistribution() {
-    const draw = await prizeDistributor.getNewestDraw();
-    const prizeDistribution = await prizeDistributor.getNewestDraw();
-
-    const currentTimestampSeconds = msToS(Date.now());
-    const drawTimestampSeconds = draw.timestamp.toNumber();
-    const drawExpirationTimestampSeconds =
-      prizeDistribution.expiryDuration + drawTimestampSeconds;
-    const isExpired = drawExpirationTimestampSeconds <= currentTimestampSeconds;
-
-    const drawResults = await prizeDistributor.getUsersDrawResultsForDrawId(
-      wallet_address,
-      draw.drawId,
-      prizeDistribution.maxPicksPerUser,
-    );
-
-    const prizesWon = drawResults.totalValue;
-
-    console.log(prizesWon);
-  }
+  // async function SetupDrawAndPrizeDistribution() {
+  //   const draw = await prizeDistributor.getNewestDraw();
+  //   const prizeDistribution = await prizeDistributor.getNewestDraw();
+  //
+  //   const currentTimestampSeconds = msToS(Date.now());
+  //   const drawTimestampSeconds = draw.timestamp.toNumber();
+  //   const drawExpirationTimestampSeconds =
+  //     prizeDistribution.expiryDuration + drawTimestampSeconds;
+  //   const isExpired = drawExpirationTimestampSeconds <= currentTimestampSeconds;
+  //
+  //   const drawResults = await prizeDistributor.getUsersDrawResultsForDrawId(
+  //     wallet_address,
+  //     draw.drawId,
+  //     prizeDistribution.maxPicksPerUser,
+  //   );
+  //
+  //   const prizesWon = drawResults.totalValue;
+  //
+  //   console.log(prizesWon);
+  // }
 
   useEffect(() => {
     (async function () {
       const balances = await prizePool
-        .getUsersPrizePoolBalances('0xb112f497fcEc23eFEFFD269D5d26c8d5FC25cE65')
+        .getUsersPrizePoolBalances('0x2105F6e1F3cE782316ae57D1ff85085583BD7374')
         .catch(e => console.log(e));
       setPtBalance(balances.ticket);
     })().catch(console.error);
   }, [PrizePoolNtk]);
 
-  useEffect(() => {
-    (async function () {
-      // const drawIds = await PrizePoolNtk.getBeaconChainDrawIds();
-      // setDrawIds(drawIds);
-      await SetupDrawAndPrizeDistribution();
-    })().catch(console.error);
-  }, [PrizePoolNtk]);
+  // useEffect(() => {
+  //   (async function () {
+  //     // const drawIds = await PrizePoolNtk.getBeaconChainDrawIds();
+  //     // setDrawIds(drawIds);
+  //     await SetupDrawAndPrizeDistribution();
+  //   })().catch(console.error);
+  // }, [PrizePoolNtk]);
 
   useEffect(() => {
     (async function () {
