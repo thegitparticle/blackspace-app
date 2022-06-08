@@ -188,7 +188,13 @@ function ShowSendPage(props) {
       if (Number(amountToSend) > 0) {
         if (wallet_connected) {
           // external wallet txn
-          navigation.navigate('SimpleEthereumTxnScreen');
+          // sendToAddress, sendAmount, sendErc20, erc20Address variables to send
+          navigation.navigate('SimpleEthereumTxnScreen', {
+            sendToAddress: walletAddressToSend,
+            sendAmount: amountToSend,
+            sendErc20: false,
+            erc20Address: '',
+          });
         } else {
           // blackspace wallet txn
           setShowConfirmTransactionPopup(true);
@@ -221,7 +227,16 @@ function ShowSendPage(props) {
           {amountToSend} {coinToSend.symbol}
         </Text>
         <Bounceable
-          onPress={() => navigation.navigate('SimpleEthereumTxnScreen')}>
+          onPress={() => {
+            setShowConfirmTransactionPopup(false);
+            console.log('send popup pressed');
+            navigation.navigate('SimpleEthereumTxnScreen', {
+              sendToAddress: walletAddressToSend,
+              sendAmount: amountToSend,
+              sendErc20: false,
+              erc20Address: '',
+            });
+          }}>
           <SquircleView
             style={{
               width: windowWidth * 0.7,
