@@ -185,6 +185,7 @@ function ConfirmBuyUniswap(props) {
                 Token1Amount: props.Token1Amount,
                 Token1Fiat: props.Token1Fiat,
                 Amount: props.Amount,
+                MemeCoinSwap: false,
               });
             }}
             containerStyle={styles.next_button_container}

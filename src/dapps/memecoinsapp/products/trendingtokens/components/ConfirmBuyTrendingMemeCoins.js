@@ -11,6 +11,7 @@ import {useNavigation} from '@react-navigation/native';
 import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import InfoIcon from '../../../../../bits/InfoIcon';
 import use0xSwapQuote from '../../../../uniswap/helpers/use0xSwapQuote';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -84,6 +85,14 @@ function ConfirmBuyTrendingMemeCoins(props) {
       decimals,
       props.State.WDeetsReducer.wdeets.wallet_address,
     );
+
+  let ethTokenObject = {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+  };
 
   useEffect(() => {
     checkIfWalletHasBalance();
@@ -302,14 +311,26 @@ function ConfirmBuyTrendingMemeCoins(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasAmount') {
-      // } else if (renderContext === 'NoAmount') {
+      // } else if (renderContext === 'WalletHasAmount') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'confirm buy'}
             type={'solid'}
-            onPress={() => props.ChangeBody(quoteDetails0x)}
+            onPress={() => {
+              navigation.navigate('Swap0xTxnScreen', {
+                Token0Coin: ethTokenObject,
+                Token1Coin: _.merge(props.TokenDetails, {
+                  address: props.ContractAddress,
+                }),
+                Token0Amount: '',
+                Token1Amount: props.AmountToBuy,
+                Token1Fiat: '',
+                Amount: '',
+                MemeCoinSwap: true,
+              });
+            }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}

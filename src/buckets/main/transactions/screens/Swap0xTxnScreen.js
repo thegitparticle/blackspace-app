@@ -28,6 +28,7 @@ function Swap0xTxnScreen({dispatch, route}) {
     Token1Amount,
     Token1Fiat,
     Amount,
+    MemeCoinSwap,
   } = route.params;
 
   const connector = useWalletConnect();
@@ -48,32 +49,34 @@ function Swap0xTxnScreen({dispatch, route}) {
     );
     web3.eth.accounts.wallet.add(signer);
 
+    console.log(Token1Coin);
+
     let sellToken =
       Token0Coin.symbol === 'ETH' ? 'ETH' : Token0Coin.contractAddress;
 
     let buyToken = Token1Coin.symbol === 'ETH' ? 'ETH' : Token1Coin.address;
 
     console.log(
-      `https://ropsten.api.0x.org/swap/v1/quote?sellToken=0xbCA556c912754Bc8E7D4Aad20Ad69a1B1444F42d&buyToken=0x65600c50Ea42e225368Ded6c3789a539284aA62C&buyAmount=${
+      `https://api.0x.org/swap/v1/quote?sellToken=${sellToken}&buyToken=${buyToken}&buyAmount=${
         Number(Token1Amount) * 10 ** Number(decimals)
       }&takerAddress=${state_here.WDeetsReducer.wdeets.wallet_address}`,
     );
-
-    // Fetch quote from 0x API
-    // const response = await fetch(
-    //   `https://ropsten.api.0x.org/swap/v1/quote?sellToken=${sellToken}&buyToken=${buyToken}&buyAmount=${
-    //     Number(Token1Amount) * 10 ** Number(decimals)
-    //   }&takerAddress=${state_here.WDeetsReducer.wdeets.wallet_address}`,
-    // );
-
-    // dai on ropsten - 0x65600c50Ea42e225368Ded6c3789a539284aA62C &&  WETH - 0xbCA556c912754Bc8E7D4Aad20Ad69a1B1444F42d
 
     // Fetch quote from 0x API
     const response = await fetch(
-      `https://ropsten.api.0x.org/swap/v1/quote?sellToken=0xbCA556c912754Bc8E7D4Aad20Ad69a1B1444F42d&buyToken=0x65600c50Ea42e225368Ded6c3789a539284aA62C&buyAmount=${
+      `https://api.0x.org/swap/v1/quote?sellToken=${sellToken}&buyToken=${buyToken}&buyAmount=${
         Number(Token1Amount) * 10 ** Number(decimals)
       }&takerAddress=${state_here.WDeetsReducer.wdeets.wallet_address}`,
     );
+
+    // dai on ropsten - 0x65600c50Ea42e225368Ded6c3789a539284aA62C &&  WETH - 0xbCA556c912754Bc8E7D4Aad20Ad69a1B1444F42d
+
+    // // Fetch quote from 0x API
+    // const response = await fetch(
+    //   `https://ropsten.api.0x.org/swap/v1/quote?sellToken=0xbCA556c912754Bc8E7D4Aad20Ad69a1B1444F42d&buyToken=0x65600c50Ea42e225368Ded6c3789a539284aA62C&buyAmount=${
+    //     Number(Token1Amount) * 10 ** Number(decimals)
+    //   }&takerAddress=${state_here.WDeetsReducer.wdeets.wallet_address}`,
+    // );
 
     const quote = await response.json();
 
