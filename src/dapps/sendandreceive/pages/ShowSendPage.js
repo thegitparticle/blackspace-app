@@ -23,6 +23,8 @@ import {useGasCostEstimate} from '../../pooltogether/helpers/useGasCostEstimate'
 import {BigNumber} from 'ethers';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import {showMessage} from 'react-native-flash-message';
+import Clipboard from '@react-native-clipboard/clipboard';
+import {Overlay} from 'react-native-elements';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -228,8 +230,8 @@ function ShowSendPage(props) {
         </Text>
         <Bounceable
           onPress={() => {
-            setShowConfirmTransactionPopup(false);
             console.log('send popup pressed');
+            setShowConfirmTransactionPopup(false);
             navigation.navigate('SimpleEthereumTxnScreen', {
               sendToAddress: walletAddressToSend,
               sendAmount: amountToSend,
@@ -266,6 +268,41 @@ function ShowSendPage(props) {
     );
   }
 
+  function PasteAndClearButton() {
+    const fetchCopiedText = async () => {
+      const text = await Clipboard.getString();
+      setWalletAddressToSend(text);
+    };
+
+    if (walletAddressToSend.length > 0) {
+      return (
+        <Bounceable onPress={() => setWalletAddressToSend('')}>
+          <Text
+            variant="subhead_bold"
+            sx={{
+              color: 'red',
+              marginHorizontal: '$2',
+            }}>
+            CLEAR
+          </Text>
+        </Bounceable>
+      );
+    } else {
+      return (
+        <Bounceable onPress={fetchCopiedText}>
+          <Text
+            variant="subhead_bold"
+            sx={{
+              color: 'blue_light',
+              marginHorizontal: '$2',
+            }}>
+            PASTE
+          </Text>
+        </Bounceable>
+      );
+    }
+  }
+
   return (
     <View sx={{flex: 1}}>
       <HeaderHere />
@@ -285,8 +322,9 @@ function ShowSendPage(props) {
           width: windowWidth * 0.8,
           height: 50,
           alignItems: 'center',
-          justifyContent: 'center',
+          justifyContent: 'space-between',
           alignSelf: 'center',
+          flexDirection: 'row',
         }}
         squircleParams={{
           cornerSmoothing: 1,
@@ -297,8 +335,9 @@ function ShowSendPage(props) {
           sx={{
             color: 'foreground',
             ...themeHere.text.subhead,
-            width: windowWidth * 0.7,
+            width: windowWidth * 0.5,
             height: 50,
+            marginHorizontal: 10,
           }}
           numberOfLines={1}
           onChangeText={value => {
@@ -306,6 +345,7 @@ function ShowSendPage(props) {
           }}
           value={walletAddressToSend}
         />
+        <PasteAndClearButton />
       </SquircleView>
       <Text
         variant="subhead_medium"
@@ -498,19 +538,14 @@ function ShowSendPage(props) {
           </SquircleView>
         </Bounceable>
       </View>
-      <Modal
-        visible={showConfirmTransactionPopup}
-        initialValue={0}
-        useNativeDriver={true}
-        modalStyle={{backgroundColor: 'transparent'}}
-        modalAnimation={new ScaleAnimation()}
-        onTouchOutside={() => {
+      <Overlay
+        isVisible={showConfirmTransactionPopup}
+        overlayStyle={{backgroundColor: 'transparent'}}
+        onBackdropPress={() => {
           setShowConfirmTransactionPopup(false);
         }}>
-        <ModalContent>
-          <ConfirmSendPopup />
-        </ModalContent>
-      </Modal>
+        <ConfirmSendPopup />
+      </Overlay>
       <Portal>
         <Modalize
           ref={modalizePickCoinRef}
