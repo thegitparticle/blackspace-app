@@ -42,6 +42,7 @@ import SecretScreen from '../buckets/main/brand/screens/SecretScreen';
 import StakeLiquidityFirstSolTransactionModal from '../dapps/firstsoldex/products/stakeliquidityfirstsoldex/StakeLiquidityFirstSolTransactionModal';
 import SendReceiveLandingScreen from '../dapps/sendandreceive/screens/SendReceiveLandingScreen';
 import SimpleEthereumTxnScreen from '../buckets/main/transactions/screens/SimpleEthereumTxnScreen';
+import Swap0xTxnScreen from '../buckets/main/transactions/screens/Swap0xTxnScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -354,6 +355,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="SimpleEthereumTxnScreen"
           component={SimpleEthereumTxnScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="Swap0xTxnScreen"
+          component={Swap0xTxnScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,

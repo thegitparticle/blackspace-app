@@ -16,7 +16,6 @@ let state_here = {};
 // transaction to send ETH from one wallet to another
 /*
   1. Variables needed - sendToAddress, sendAmount, sendErc20 (boolean), erc20Address (empty if eth),
-  2.
  */
 function SimpleEthereumTxnScreen({dispatch, route}) {
   const {sendToAddress, sendAmount, sendErc20, erc20Address} = route.params;
