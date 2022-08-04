@@ -22,16 +22,18 @@ import OneSignal from 'react-native-onesignal';
 import {Amplitude} from '@amplitude/react-native';
 
 import * as Sentry from '@sentry/react-native';
+import WalletConnectProvider from '@walletconnect/react-native-dapp';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 // dev mode
-// Sentry.init({
-//   dsn: 'https://75dfb14196fb466a87028e482a9113bc@o578195.ingest.sentry.io/6212337',
-// });
+Sentry.init({
+  dsn: 'https://75dfb14196fb466a87028e482a9113bc@o578195.ingest.sentry.io/6212337',
+});
 
 // production
-Sentry.init({
-  dsn: 'https://9230dc56e7754eab81d37474629416e5@o578195.ingest.sentry.io/6219940',
-});
+// Sentry.init({
+//   dsn: 'https://9230dc56e7754eab81d37474629416e5@o578195.ingest.sentry.io/6219940',
+// });
 
 const App: () => Node = () => {
   LogBox.ignoreLogs([
@@ -73,30 +75,38 @@ const App: () => Node = () => {
 
   // Amplitude analytics setup
   const ampInstance = Amplitude.getInstance();
-  // ampInstance.init('3f8238f4e3a8c083393f5a5c86631f75'); // dev mode
+  ampInstance.init('3f8238f4e3a8c083393f5a5c86631f75'); // dev mode
 
-  ampInstance.init('de072a1eacb5ba8927a6362092a50d50'); // production
+  // ampInstance.init('de072a1eacb5ba8927a6362092a50d50'); // production
 
   return (
     <Provider store={storehere}>
-      <PersistGate loading={null} persistor={persistor}>
-        <DripsyProvider theme={theme}>
-          <RootStack />
-          <ModalPortal />
-          <FlashMessage
-            position="top"
-            duration={3000}
-            textStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
-            titleStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
-          />
-        </DripsyProvider>
-      </PersistGate>
+      <WalletConnectProvider
+        redirectUrl={'blackspace://'}
+        storageOptions={{
+          asyncStorage: AsyncStorage,
+        }}>
+        <PersistGate loading={null} persistor={persistor}>
+          <DripsyProvider theme={theme}>
+            <RootStack />
+            <ModalPortal />
+            <FlashMessage
+              position="top"
+              duration={3000}
+              textStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
+              titleStyle={{fontFamily: 'GothamRounded-Medium', fontSize: 15}}
+            />
+          </DripsyProvider>
+        </PersistGate>
+      </WalletConnectProvider>
     </Provider>
   );
 };
 
 export default codePush({
-  checkFrequency: codePush.CheckFrequency.ON_APP_RESUME,
+  checkFrequency: codePush.CheckFrequency.ON_APP_START,
   updateDialog: true,
   installMode: codePush.InstallMode.IMMEDIATE,
 })(App);
+
+// export default App;

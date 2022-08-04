@@ -25,9 +25,11 @@
 		266A26AD27BC08FE005E2D0B /* OneSignalNotifications.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 266A26A627BC08FE005E2D0B /* OneSignalNotifications.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		26BBEFEE27AA9A6B00D594AA /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 26BBEFED27AA9A6B00D594AA /* File.swift */; };
 		26DF3F88276BA985007A19E8 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DF3F86276BA2B1007A19E8 /* icomoon.ttf */; };
+		5E6B237B1E7967BAB477FA86 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 343F5D4A813D74E01DA8A816 /* ExpoModulesProvider.swift */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		8C864A26F229F7A3E0EC71D6 /* libPods-soupapp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EAD9FB07A4FF865D48E578A3 /* libPods-soupapp.a */; };
 		EE84FA768FD8F8467976331C /* libPods-soupapp-soupappTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 26344CE2922623C3DD6E286D /* libPods-soupapp-soupappTests.a */; };
+		F0F4BE7B92D65BD256509573 /* ExpoModulesProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = A01CF13F59808E1C22A169F9 /* ExpoModulesProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,7 @@
 		28EA1B07941B8F617D3B6606 /* Pods-OneSignalNotifications.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-OneSignalNotifications.debug.xcconfig"; path = "Target Support Files/Pods-OneSignalNotifications/Pods-OneSignalNotifications.debug.xcconfig"; sourceTree = "<group>"; };
 		2BB9C7891BCF49D880CBC817 /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		2C00D947409A491BA9C48312 /* Fontisto.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Fontisto.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf"; sourceTree = "<group>"; };
+		343F5D4A813D74E01DA8A816 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-soupapp-soupappTests/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		47DA8708BB124F5896275837 /* AntDesign.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = AntDesign.ttf; path = "../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf"; sourceTree = "<group>"; };
 		5A2A8755A52045ACA80BBF42 /* FontAwesome.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf"; sourceTree = "<group>"; };
 		5FD23B76F4DD437599F9B875 /* FontAwesome5_Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Regular.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf"; sourceTree = "<group>"; };
@@ -105,6 +108,7 @@
 		98BDDC81DD638AA363134458 /* Pods-soupapp-soupappTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp-soupappTests.debug.xcconfig"; path = "Target Support Files/Pods-soupapp-soupappTests/Pods-soupapp-soupappTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9BEA797D61A948768188E8E4 /* FontAwesome5_Brands.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Brands.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf"; sourceTree = "<group>"; };
 		9CD7FED39ECC3083475ABDD2 /* Pods-soupapp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.release.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.release.xcconfig"; sourceTree = "<group>"; };
+		A01CF13F59808E1C22A169F9 /* ExpoModulesProvider.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = ExpoModulesProvider.swift; path = "Pods/Target Support Files/Pods-soupapp/ExpoModulesProvider.swift"; sourceTree = "<group>"; };
 		A76E3A0370D449488D5FDD9B /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		B89933DB1862AA4AE3F53DE0 /* libPods-OneSignalNotifications.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-OneSignalNotifications.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA0BCA3B0903CF9351214FBD /* Pods-soupapp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-soupapp.debug.xcconfig"; path = "Target Support Files/Pods-soupapp/Pods-soupapp.debug.xcconfig"; sourceTree = "<group>"; };
@@ -163,6 +167,15 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		0DDC4DDAA0F856F36C587195 /* ExpoModulesProviders */ = {
+			isa = PBXGroup;
+			children = (
+				162958E1E30178B6B996E9EB /* soupapp */,
+				F9D200EDC9F172EEFEACD2AD /* soupappTests */,
+			);
+			name = ExpoModulesProviders;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* soupapp */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,6 +188,14 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				26BBEFED27AA9A6B00D594AA /* File.swift */,
 				26BBEFEC27AA9A6B00D594AA /* soupapp-Bridging-Header.h */,
+			);
+			name = soupapp;
+			sourceTree = "<group>";
+		};
+		162958E1E30178B6B996E9EB /* soupapp */ = {
+			isa = PBXGroup;
+			children = (
+				A01CF13F59808E1C22A169F9 /* ExpoModulesProvider.swift */,
 			);
 			name = soupapp;
 			sourceTree = "<group>";
@@ -228,6 +249,7 @@
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				841B631218E7ABC54AAC571F /* Pods */,
 				B014E4A866414672976F06A3 /* Resources */,
+				0DDC4DDAA0F856F36C587195 /* ExpoModulesProviders */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -278,6 +300,14 @@
 				688C03D8513C4716BC715552 /* Zocial.ttf */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		F9D200EDC9F172EEFEACD2AD /* soupappTests */ = {
+			isa = PBXGroup;
+			children = (
+				343F5D4A813D74E01DA8A816 /* ExpoModulesProvider.swift */,
+			);
+			name = soupappTests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -613,6 +643,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				00E356F31AD99517003FC87E /* soupappTests.m in Sources */,
+				5E6B237B1E7967BAB477FA86 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +654,7 @@
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				26BBEFEE27AA9A6B00D594AA /* File.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
+				F0F4BE7B92D65BD256509573 /* ExpoModulesProvider.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -661,7 +693,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = soupappTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -672,6 +704,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/soupapp.app/soupapp";
@@ -686,7 +719,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = soupappTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -697,6 +730,7 @@
 					"-lc++",
 					"$(inherited)",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/soupapp.app/soupapp";
@@ -725,6 +759,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = soupapp;
 				SWIFT_OBJC_BRIDGING_HEADER = "soupapp-Bridging-Header.h";
@@ -755,6 +790,7 @@
 					"-ObjC",
 					"-lc++",
 				);
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = soupapp;
 				SWIFT_OBJC_BRIDGING_HEADER = "soupapp-Bridging-Header.h";
@@ -792,6 +828,7 @@
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_DEBUG";
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.soupapp.OneSignalNotifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -832,6 +869,7 @@
 				);
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;
+				OTHER_SWIFT_FLAGS = "$(inherited) -D EXPO_CONFIGURATION_RELEASE";
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.example.soupapp.OneSignalNotifications;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -874,6 +912,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
@@ -892,7 +931,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -940,6 +979,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
@@ -951,7 +991,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",

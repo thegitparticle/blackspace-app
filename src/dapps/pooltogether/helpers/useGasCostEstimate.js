@@ -1,7 +1,7 @@
 import {BigNumber} from 'ethers';
 import {parseUnits} from '@ethersproject/units';
 import {useGasCosts} from './useGasCosts';
-import useEthFiatPrice from '../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../helpers/useEthFiatPrice';
 
 export const useGasCostEstimate = (gasAmount: BigNumber, chainId: number) => {
   const {loadingEth, priceEth} = useEthFiatPrice();

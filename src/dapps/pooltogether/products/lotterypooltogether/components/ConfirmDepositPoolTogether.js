@@ -9,7 +9,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import {useNavigation} from '@react-navigation/native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import useUSDCFiatPrice from '../../../helpers/useUSDCFiatPrice';
 import _ from 'lodash';
 import {BigNumber} from 'ethers';
@@ -189,7 +189,8 @@ function ConfirmDepositPoolTogether(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasAmount') {
+      // } else if (renderContext === 'WalletHasAmount') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button

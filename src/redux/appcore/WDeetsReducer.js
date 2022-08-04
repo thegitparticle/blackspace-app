@@ -7,6 +7,8 @@ const initial_state = {
     wallet_privateKey: null,
     wallet_eth_balance: null,
     wallet_eth_balance_readable_string: null,
+    wallet_connected: false,
+    wallet_connected_name: null,
   },
 };
 

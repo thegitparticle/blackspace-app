@@ -1,30 +1,41 @@
 import React from 'react';
-import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Text, View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
 import Carousel from 'react-native-snap-carousel';
 import {SquircleView} from 'react-native-figma-squircle';
 import LotteryPoolTogetherProduct from '../products/lotterypooltogether/LotteryPoolTogetherProduct';
+import {Bounceable} from 'rn-bounceable';
+import axios from 'axios';
+import {showMessage} from 'react-native-flash-message';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import {connect} from 'react-redux';
+import {useNavigation} from '@react-navigation/native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
-function PoolTogetherBluePrint() {
+let state_here = {};
+
+function PoolTogetherBluePrint(props) {
   const products = [
     {
       id: 1,
-      product_name: 'No loss lottery',
+      product_name: 'Savings Account + Wild Gains',
       component: 'LotteryPoolTogetherProduct',
     },
   ];
+
+  const navigation = useNavigation();
 
   function RenderProductPoolTogether({item, index}) {
     if (index === 0) {
       return (
         <View style={styles.product_view}>
           <Text style={styles.product_title}>
-            No loss lottery{' '}
+            Savings Account + Wild Gains{' '}
             <Text
               style={{
                 ...themeHere.text.body_medium,
@@ -40,7 +51,7 @@ function PoolTogetherBluePrint() {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '75',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}
             style={styles.product_tile_view}>
             <LotteryPoolTogetherProduct />
@@ -56,6 +67,48 @@ function PoolTogetherBluePrint() {
     }
   }
 
+  function AddThisAppToMyAppsSuite() {
+    if (props.DiscoverOrNot) {
+      return (
+        <View sx={{width: windowWidth * 0.8, alignItems: 'center'}}>
+          <Bounceable
+            onPress={() => {
+              axios
+                .get(
+                  'https://suprblack.xyz/api/users/add_dapps_to_user_suite/' +
+                    String(state_here.UserDetailsReducer.userdetails.id) +
+                    '/' +
+                    String(4) +
+                    '/',
+                )
+                .then(() => {
+                  showMessage({
+                    message: '100x added to your apps suite',
+                    type: 'success',
+                    backgroundColor: themeHere.colors.success_green,
+                  });
+                  navigation.goBack();
+                })
+                .catch(err => {
+                  console.log(err);
+                });
+            }}>
+            <Text
+              sx={{
+                ...themeHere.text.subhead_medium,
+                color: 'blue',
+                textAlign: 'center',
+              }}>
+              add 100x to my apps suite
+            </Text>
+          </Bounceable>
+        </View>
+      );
+    } else {
+      return <View />;
+    }
+  }
+
   return (
     <View style={styles.parent_view}>
       <Carousel
@@ -66,11 +119,19 @@ function PoolTogetherBluePrint() {
         initialNumToRender={products.length}
         useScrollView={true}
       />
+      <SpacerVertical height={50} />
+      <AddThisAppToMyAppsSuite />
+      <SpacerVertical height={50} />
     </View>
   );
 }
 
-export default PoolTogetherBluePrint;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(PoolTogetherBluePrint);
 
 const styles = StyleSheet.create({
   parent_view: {

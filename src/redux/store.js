@@ -16,6 +16,9 @@ import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
 import AllTipsReducer from './appcore/AllTipsReducer';
 import MemeCoinsListReducer from './dapps/memecoins/MemeCoinsListReducer';
+import MyNFTsReducer from './appcore/MyNFTsReducer';
+import SecretSettingsReducer from './appcore/SecretSettingsReducer';
+import SolWalletDetailsReducer from './appcore/SolWalletDetailsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -24,6 +27,11 @@ export const persistConfigAuth = {
 
 export const persistConfigWDeets = {
   key: 'w_deets',
+  storage: AsyncStorage,
+};
+
+export const persistConfigSolWalletDeets = {
+  key: 'sol_wallet_deets',
   storage: AsyncStorage,
 };
 
@@ -39,6 +47,11 @@ export const persistConfigMyProfile = {
 
 export const persistConfigMyTokenBalances = {
   key: 'my_token_balances',
+  storage: AsyncStorage,
+};
+
+export const persistConfigMyNfts = {
+  key: 'my_nfts',
   storage: AsyncStorage,
 };
 
@@ -67,6 +80,11 @@ export const persistConfigAllTips = {
   storage: AsyncStorage,
 };
 
+export const persistConfigSecretSettings = {
+  key: 'secret_settings',
+  storage: AsyncStorage,
+};
+
 // dapps redux work only below
 
 export const persistConfigUniswapTokenList = {
@@ -88,6 +106,10 @@ const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
   WDeetsReducer: persistReducer(persistConfigWDeets, WDeetsReducer),
+  SolWalletDetailsReducer: persistReducer(
+    persistConfigSolWalletDeets,
+    SolWalletDetailsReducer,
+  ),
   UserDetailsReducer: persistReducer(
     persistConfigUserDetails,
     UserDetailsReducer,
@@ -96,6 +118,7 @@ const rootReducer = combineReducers({
     persistConfigMyTokenBalances,
     MyTokenBalancesReducer,
   ),
+  MyNFTsReducer: persistReducer(persistConfigMyTokenBalances, MyNFTsReducer),
   MyAppsReducer: persistReducer(persistConfigMyApps, MyAppsReducer),
   DiscoverAppsReducer: persistReducer(
     persistConfigDiscoverApps,
@@ -110,6 +133,10 @@ const rootReducer = combineReducers({
     MyEmojiColorReducer,
   ),
   AllTipsReducer: persistReducer(persistConfigAllTips, AllTipsReducer),
+  SecretSettingsReducer: persistReducer(
+    persistConfigSecretSettings,
+    SecretSettingsReducer,
+  ),
 
   // dapps redux work only below
 

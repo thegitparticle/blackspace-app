@@ -1,25 +1,33 @@
-import React, { useMemo, useRef, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { Button } from "react-native-elements";
-import LinearGradient from "react-native-linear-gradient";
-import { SquircleView } from "react-native-figma-squircle";
-import { connect } from "react-redux";
-import { Modalize } from "react-native-modalize";
-import { Portal } from "react-native-portalize";
-import { FamousTokensList } from "../../helpers/FamousTokensList";
-import FastImage from "react-native-fast-image";
-import { useNavigation } from "@react-navigation/native";
-import useDerivedEthPrice from "../../helpers/useDerivedEthPrice";
-import useEthFiatPrice from "../../../../helpers/useGetEthFiatPrice";
-import useLiquidityPoolAddress from "../../helpers/useLiquidityPoolAddress";
-import _ from "lodash";
-import Iconly from "../../../../miscsetups/customfonts/Iconly";
-import { BigNumber } from "ethers";
-import { useGasCostEstimate } from "../../../pooltogether/helpers/useGasCostEstimate";
-import { Bounceable } from "rn-bounceable";
-import use0xSwapQuote from "../../helpers/use0xSwapQuote";
-import InfoIcon from "../../../../bits/InfoIcon";
+import React, {useMemo, useRef, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {Button} from 'react-native-elements';
+import LinearGradient from 'react-native-linear-gradient';
+import {SquircleView} from 'react-native-figma-squircle';
+import {connect} from 'react-redux';
+import {Modalize} from 'react-native-modalize';
+import {Portal} from 'react-native-portalize';
+import {FamousTokensList} from '../../helpers/FamousTokensList';
+import FastImage from 'react-native-fast-image';
+import {useNavigation} from '@react-navigation/native';
+import useDerivedEthPrice from '../../helpers/useDerivedEthPrice';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
+import useLiquidityPoolAddress from '../../helpers/useLiquidityPoolAddress';
+import _ from 'lodash';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {BigNumber} from 'ethers';
+import {useGasCostEstimate} from '../../../pooltogether/helpers/useGasCostEstimate';
+import {Bounceable} from 'rn-bounceable';
+import use0xSwapQuote from '../../helpers/use0xSwapQuote';
+import InfoIcon from '../../../../bits/InfoIcon';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -27,24 +35,6 @@ const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
-
-/*
-blocks
-1. choose token you want and type amount - "choose token you want to buy"
--> get approx price from coingecko or something in USD or fiat of choice - write approx price (can change
-based on trade pair)
-2. pick token to trade from your holdings (or) you dont have any holdings to trade with
-3. If picked one of the holdings
--> then get the pair pricing from uniswap and update the order info (prices) - updates the second
-token requirement
-Order Info
-a. just write you get ...... this for  .....
-b. mini amount you'd get (after slippage) =
-c. estimated fees = .....
-
-payment method - token0
-token you wanna buy - token1
- */
 
 function BuyTokenUniswapProduct({dispatch}) {
   const navigation = useNavigation();
@@ -94,12 +84,14 @@ function BuyTokenUniswapProduct({dispatch}) {
     1,
   );
 
-  const {loading0xSwapQuote, quoteDetails0x} = use0xSwapQuote(
-    token0Coin.contractAddress,
-    token1Coin.address,
-    token1Amount,
-    token1Coin.decimals,
-  );
+  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+    use0xSwapQuote(
+      token0Coin.contractAddress,
+      token1Coin.address,
+      token1Amount,
+      token1Coin.decimals,
+      state_here.WDeetsReducer.wdeets.wallet_address,
+    );
 
   function computeFiatToken1(value) {
     setToken1Fiat(
@@ -108,10 +100,6 @@ function BuyTokenUniswapProduct({dispatch}) {
         Number(derivedETHToken0.derivedETH) *
         Number(priceEth),
     );
-    // console.log(derivedETHToken1.derivedETH + 'token1 der eth');
-    // console.log(
-    //   Number(value) * Number(derivedETHToken1.derivedETH) * Number(priceEth),
-    // );
   }
 
   function changeToken0(token0) {
@@ -453,9 +441,9 @@ function BuyTokenUniswapProduct({dispatch}) {
           token1Amount.length > 0 &&
           token1Coin.address.length > 0 &&
           token0Coin &&
-          lpExists
+          // lpExists &&
+          quoteDetails0x
         ) {
-          // console.log(derivedETHToken0.derivedETH + 't0 eth');
           return (
             <View style={styles.order_info_view}>
               <View
@@ -467,7 +455,7 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
                     1 {token1Coin.symbol} ={' '}
-                    {Number(lpAddress.token1Price).toFixed(6)}{' '}
+                    {Number(quoteDetails0x.price).toFixed(6)}{' '}
                     {token0Coin.symbol}
                   </Text>
                 </Text>
@@ -485,8 +473,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
                     {Number(
-                      Number(token1Amount) * Number(lpAddress.token1Price),
-                    ).toFixed(6)}{' '}
+                      quoteDetails0x.orders[0].takerAmount * 10 ** -18,
+                    ).toFixed(2)}{' '}
                     {token0Coin.symbol}
                   </Text>
                 </Text>
@@ -499,9 +487,8 @@ function BuyTokenUniswapProduct({dispatch}) {
                   <Text style={{color: themeHere.colors.foreground}}>
                     ${' '}
                     {Number(
-                      Number(token1Amount) *
-                        Number(lpAddress.token1Price) *
-                        Number(derivedETHToken0.derivedETH) *
+                      Number(quoteDetails0x.orders[0].takerAmount * 10 ** -18) *
+                        (1 / Number(quoteDetails0x.sellTokenToEthRate)) *
                         Number(priceEth),
                     )
                       .toFixed(0)
@@ -515,7 +502,14 @@ function BuyTokenUniswapProduct({dispatch}) {
                 </Text>
                 <Text style={styles.order_info_value_text}>
                   <Text style={{color: themeHere.colors.foreground}}>
-                    ~ 0.76%
+                    ~{' '}
+                    {Number(
+                      ((Number(quoteDetails0x.guaranteedPrice) -
+                        Number(quoteDetails0x.price)) /
+                        Number(quoteDetails0x.price)) *
+                        100,
+                    ).toFixed(2)}{' '}
+                    %
                   </Text>
                 </Text>
               </View>

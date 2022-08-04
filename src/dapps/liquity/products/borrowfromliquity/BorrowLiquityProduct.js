@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { SquircleView } from "react-native-figma-squircle";
-import FastImage from "react-native-fast-image";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import useLUSDFiatPrice from "../../helpers/useLUSDFiatPrice";
-import { EthersLiquity } from "@liquity/lib-ethers";
-import { connect } from "react-redux";
-import { ethers } from "ethers";
-import useEthFiatPrice from "../../../../helpers/useGetEthFiatPrice";
-import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
-import InfoIcon from "../../../../bits/InfoIcon";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {SquircleView} from 'react-native-figma-squircle';
+import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
+import useLUSDFiatPrice from '../../helpers/useLUSDFiatPrice';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import {connect} from 'react-redux';
+import {ethers} from 'ethers';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import InfoIcon from '../../../../bits/InfoIcon';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -40,11 +48,6 @@ const prov = new ethers.providers.JsonRpcProvider(
 );
 
 function BorrowLiquityProduct() {
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
-
   const [showMinimumNotMetPopup, setShowMinimumNotMetPopup] = useState(false);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
@@ -52,9 +55,6 @@ function BorrowLiquityProduct() {
   const [borrowAmount, setBorrowAmount] = useState('');
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
 
-  const [liquity, setLiquity] = useState();
-
-  const [liquityFees, setLiquityFees] = useState();
   const [borrowRate, setBorrowRate] = useState(0);
 
   const [collateralNeededEth, setCollateralNeededEth] = useState();
@@ -62,28 +62,27 @@ function BorrowLiquityProduct() {
 
   const liquidationReserveGasFeeLUSD = 200;
   const collateralRatio = 1.43;
-  const collateralRatioPercentString = '143%';
-  const liquidationRatio = 1.1;
-  const liquidationRatioPercentString = '110%';
 
+  // fetching borrow rates from liquity
   useEffect(() => {
     (async () => {
-      setLiquity(
-        await EthersLiquity.connect(walletSigner).then(lqy =>
-          lqy.getFees().then(liquityFeesHere => {
-            setBorrowRate(
-              Number(
-                ethers.utils.formatEther(
-                  liquityFeesHere.borrowingRate()._bigNumber,
-                ),
+      // setLiquity(
+      await EthersLiquity.connect(prov).then(lqy =>
+        lqy.getFees().then(liquityFeesHere => {
+          setBorrowRate(
+            Number(
+              ethers.utils.formatEther(
+                liquityFeesHere.borrowingRate()._bigNumber,
               ),
-            );
-          }),
-        ),
+            ),
+          );
+        }),
       );
+      // );
     })();
   }, []);
 
+  // collateral needed calculation
   useEffect(() => {
     if (Number(borrowAmount) !== 0) {
       setCollateralNeededEth(
@@ -99,6 +98,7 @@ function BorrowLiquityProduct() {
     }
   }, [borrowAmount, priceEth]);
 
+  // fixed loan charges/cost calculation
   useEffect(() => {
     setFixedLoanCharges(
       (
@@ -225,26 +225,26 @@ function BorrowLiquityProduct() {
             </Text>
           </Text>
         </View>
-        <View style={styles.order_info_block_view}>
-          <View
-            style={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'center',
-            }}>
-            <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>
-            <InfoIcon
-              size={10}
-              information={
-                'amount for fees taken for this transaction to be executed on the Ethereum blockchain'
-              }
-              height={70}
-            />
-          </View>
-          <Text style={styles.order_info_value_text}>
-            <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>
-          </Text>
-        </View>
+        {/*<View style={styles.order_info_block_view}>*/}
+        {/*  <View*/}
+        {/*    style={{*/}
+        {/*      flexDirection: 'row',*/}
+        {/*      alignItems: 'center',*/}
+        {/*      justifyContent: 'center',*/}
+        {/*    }}>*/}
+        {/*    <Text style={styles.order_info_title_text}>Ethereum Gas Fees</Text>*/}
+        {/*    <InfoIcon*/}
+        {/*      size={10}*/}
+        {/*      information={*/}
+        {/*        'amount for fees taken for this transaction to be executed on the Ethereum blockchain'*/}
+        {/*      }*/}
+        {/*      height={70}*/}
+        {/*    />*/}
+        {/*  </View>*/}
+        {/*  <Text style={styles.order_info_value_text}>*/}
+        {/*    <Text style={{color: themeHere.colors.foreground}}>~$49.94</Text>*/}
+        {/*  </Text>*/}
+        {/*</View>*/}
         <Button
           title={'start borrow process'}
           type={'solid'}

@@ -1,14 +1,14 @@
-import React, { useEffect } from "react";
-import { Appearance, Dimensions, StyleSheet } from "react-native";
-import { Text, useSx, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { useNavigation } from "@react-navigation/native";
-import { connect } from "react-redux";
-import { GetUniswapStakePools } from "../../../../redux/dapps/uniswap/UniswapStakePoolsActions";
-import useStakePoolDetails from "../../helpers/useStakePoolDetails";
-import { DoubleBounce } from "react-native-loader";
-import StakePoolTile from "./components/StakePoolTile";
-import { SquircleView } from "react-native-figma-squircle/src/index";
+import React, {useEffect} from 'react';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Text, useSx, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {useNavigation} from '@react-navigation/native';
+import {connect} from 'react-redux';
+import {GetUniswapStakePools} from '../../../../redux/dapps/uniswap/UniswapStakePoolsActions';
+import useStakePoolDetails from '../../helpers/useStakePoolDetails';
+import {DoubleBounce} from 'react-native-loader';
+import StakePoolTile from './components/StakePoolTile';
+import {SquircleView} from 'react-native-figma-squircle/src/index';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -68,7 +68,7 @@ function StakeToEarnUniswapProduct({dispatch}) {
             squircleParams={{
               cornerSmoothing: 1,
               cornerRadius: 15,
-              fillColor: themeHere.colors.mid_ground + '25',
+              fillColor: themeHere.colors.mid_ground + '50',
             }}>
             <DoubleBounce size={10} color="#1CAFF6" />
           </SquircleView>
@@ -102,7 +102,7 @@ function StakeToEarnUniswapProduct({dispatch}) {
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: themeHere.colors.mid_ground + '25',
+            fillColor: themeHere.colors.mid_ground + '50',
           }}>
           <Text
             variant="subhead_medium"

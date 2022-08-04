@@ -10,6 +10,9 @@ import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
 import {mainnet} from '@pooltogether/v4-pool-data';
 import axios from 'axios';
 import {useNavigation} from '@react-navigation/native';
+import WalletConnectProvider, {
+  useWalletConnect,
+} from '@walletconnect/react-native-dapp';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -40,11 +43,6 @@ const providers = {
 function TransactionOngoingDepositPoolTogether(props) {
   const navigation = useNavigation();
 
-  let wallet = new ethers.Wallet(
-    props.State.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
-
   const PrizePoolNtk = useMemo(
     () => new PrizePoolNetwork(providers, mainnet),
     [],
@@ -55,7 +53,21 @@ function TransactionOngoingDepositPoolTogether(props) {
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
   );
 
-  const user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
+  // Internal Wallet Config
+  let wallet = new ethers.Wallet(
+    props.State.WDeetsReducer.wdeets.wallet_privateKey,
+  );
+  let walletSigner = wallet.connect(prov);
+
+  // External Wallet Config
+  const connector = useWalletConnect();
+
+  const user = new User(
+    prizePool.prizePoolMetadata,
+    // connector.session,
+    walletSigner,
+    prizePool,
+  );
 
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError

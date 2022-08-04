@@ -8,7 +8,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import {useNavigation} from '@react-navigation/native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import {BigNumber} from 'ethers';
 import {useGasCostEstimate} from '../../../helpers/useGasCostEstimate';
 
@@ -149,18 +149,18 @@ function ConfirmWithdrawPoolTogether(props) {
     } else if (renderContext === 'WalletHasNoGas') {
       return (
         <View style={styles.button_block_view}>
-          <Button
-            title={'buy ETH on Uniswap'}
-            type={'solid'}
-            onPress={() => props.ChangeBody()}
-            containerStyle={styles.next_button_container}
-            buttonStyle={styles.next_button_style}
-            titleStyle={styles.next_button_title}
-            ViewComponent={LinearGradient}
-            linearGradientProps={{
-              colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],
-            }}
-          />
+          {/*<Button*/}
+          {/*  title={''}*/}
+          {/*  type={'solid'}*/}
+          {/*  // onPress={() => props.ChangeBody()}*/}
+          {/*  containerStyle={styles.next_button_container}*/}
+          {/*  buttonStyle={styles.next_button_style}*/}
+          {/*  titleStyle={styles.next_button_title}*/}
+          {/*  ViewComponent={LinearGradient}*/}
+          {/*  linearGradientProps={{*/}
+          {/*    colors: [themeHere.colors.pink, themeHere.colors.pink + '90'],*/}
+          {/*  }}*/}
+          {/*/>*/}
         </View>
       );
     } else {

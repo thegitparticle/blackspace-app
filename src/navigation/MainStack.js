@@ -6,13 +6,13 @@ import {
   TransitionPresets,
 } from '@react-navigation/stack';
 import {createSharedElementStackNavigator} from 'react-navigation-shared-element';
-import HomeLandingScreen from '../buckets/home/screens/HomeLandingScreen';
+import HomeLandingScreen from '../buckets/main/home/screens/HomeLandingScreen';
 import TransactionScreen from '../buckets/test/TransactionScreen';
 import TestHome from '../buckets/test/TestHome';
-import MyProfileScreen from '../buckets/myprofile/screens/MyProfileScreen';
-import SettingsHomeScreen from '../buckets/settings/screens/SettingsHomeScreen';
-import NFTDetailedView from '../buckets/myprofile/screens/NFTDetailedView';
-import MiniAppLanding from '../buckets/miniapp/screens/MiniAppLanding';
+import MyProfileScreen from '../buckets/main/myprofile/screens/MyProfileScreen';
+import SettingsHomeScreen from '../buckets/main/settings/screens/SettingsHomeScreen';
+import NFTDetailedView from '../buckets/main/myprofile/screens/NFTDetailedView';
+import MiniAppLanding from '../buckets/main/miniapp/screens/MiniAppLanding';
 import GlassBgScreenTest from '../buckets/test/GlassBgScreenTest';
 import InfuraTestTransactionScreen from '../buckets/test/InfuraTestTransactionScreen';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
@@ -33,10 +33,16 @@ import IndexCoopTransactionModal from '../dapps/indexfunds/products/indexcoopfun
 import AddCollTransactionModal from '../dapps/liquity/products/borrowfromliquity/AddCollTransactionModal';
 import PaybackLiquityTransactionModal from '../dapps/liquity/products/borrowfromliquity/PaybackLiquityTransactionModal';
 import PTDepositWithdrawTransactionModal from '../dapps/pooltogether/products/lotterypooltogether/PTDepositWithdrawTransactionModal';
-import TipsAppLandingScreen from '../buckets/tips/screens/TipsAppLandingScreen';
-import BrandLandingScreen from '../buckets/brand/screens/BrandLandingScreen';
+import TipsAppLandingScreen from '../dapps/tips/screens/TipsAppLandingScreen';
+import BrandLandingScreen from '../buckets/main/brand/screens/BrandLandingScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
-import TipViewModal from '../buckets/tips/components/TipViewModal';
+import TipViewModal from '../dapps/tips/components/TipViewModal';
+import NFTDAppLanding from '../dapps/nftdapp/screens/NFTDAppLanding';
+import SecretScreen from '../buckets/main/brand/screens/SecretScreen';
+import StakeLiquidityFirstSolTransactionModal from '../dapps/firstsoldex/products/stakeliquidityfirstsoldex/StakeLiquidityFirstSolTransactionModal';
+import SendReceiveLandingScreen from '../dapps/sendandreceive/screens/SendReceiveLandingScreen';
+import SimpleEthereumTxnScreen from '../buckets/main/transactions/screens/SimpleEthereumTxnScreen';
+import Swap0xTxnScreen from '../buckets/main/transactions/screens/Swap0xTxnScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -203,6 +209,50 @@ function HomeAndAppsStack() {
           })}
         />
         <HomeAndAppMain.Screen
+          name="NFTDAppLanding"
+          component={NFTDAppLanding}
+          sharedElements={(route, otherRoute, showing) => {
+            const {app_details} = route.params;
+            return [`item.${app_details.app_name}.app_icon`];
+          }}
+          options={({route}) => ({
+            gestureEnabled: true,
+            headerShown: false,
+            headerStyle: {
+              backgroundColor: themeHere.colors.off_background,
+            },
+            headerTintColor: 'transparent',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+              ...themeHere.text.title_2,
+              color: themeHere.colors.foreground,
+            },
+            // headerTransparent: true,
+            headerTitle: route.params.app_details.name,
+            headerRight: () => (
+              <Pressable
+                style={{
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 50,
+                  height: 50,
+                  borderRadius: 25,
+                }}
+                onPress={() => navigation.goBack()}>
+                <Iconly name="CloseSquareBold" color={'#FFFFFF'} size={30} />
+              </Pressable>
+            ),
+            headerLeft: () => <View />,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            gestureDirection: 'vertical',
+            headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
+            transitionSpec: {
+              open: config,
+              close: config,
+            },
+          })}
+        />
+        <HomeAndAppMain.Screen
           name="TipsAppLandingScreen"
           component={TipsAppLandingScreen}
           sharedElements={(route, otherRoute, showing) => {
@@ -245,6 +295,86 @@ function HomeAndAppsStack() {
               close: config,
             },
           })}
+        />
+        {/*<HomeAndAppMain.Screen*/}
+        {/*  name="SendReceiveLandingScreen"*/}
+        {/*  component={SendReceiveLandingScreen}*/}
+        {/*  sharedElements={(route, otherRoute, showing) => {*/}
+        {/*    const {app_details} = route.params;*/}
+        {/*    return [`item.${app_details.app_name}.app_icon`];*/}
+        {/*  }}*/}
+        {/*  options={({route}) => ({*/}
+        {/*    gestureEnabled: true,*/}
+        {/*    headerShown: false,*/}
+        {/*    headerStyle: {*/}
+        {/*      backgroundColor: themeHere.colors.off_background,*/}
+        {/*    },*/}
+        {/*    headerTintColor: 'transparent',*/}
+        {/*    headerTitleStyle: {*/}
+        {/*      fontWeight: 'bold',*/}
+        {/*      ...themeHere.text.title_2,*/}
+        {/*      color: themeHere.colors.foreground,*/}
+        {/*    },*/}
+        {/*    // headerTransparent: true,*/}
+        {/*    headerTitle: route.params.app_details.name,*/}
+        {/*    headerRight: () => (*/}
+        {/*      <Pressable*/}
+        {/*        style={{*/}
+        {/*          alignItems: 'center',*/}
+        {/*          justifyContent: 'center',*/}
+        {/*          width: 50,*/}
+        {/*          height: 50,*/}
+        {/*          borderRadius: 25,*/}
+        {/*        }}*/}
+        {/*        onPress={() => navigation.goBack()}>*/}
+        {/*        <Iconly name="CloseSquareBold" color={'#FFFFFF'} size={30} />*/}
+        {/*      </Pressable>*/}
+        {/*    ),*/}
+        {/*    headerLeft: () => <View />,*/}
+        {/*    cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,*/}
+        {/*    gestureDirection: 'vertical',*/}
+        {/*    headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,*/}
+        {/*    transitionSpec: {*/}
+        {/*      open: config,*/}
+        {/*      close: config,*/}
+        {/*    },*/}
+        {/*  })}*/}
+        {/*/>*/}
+        <HomeAndAppMain.Screen
+          name="SendReceiveLandingScreen"
+          component={SendReceiveLandingScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="SimpleEthereumTxnScreen"
+          component={SimpleEthereumTxnScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="Swap0xTxnScreen"
+          component={Swap0xTxnScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
         />
         <HomeAndAppMain.Screen
           name="TrendingTokensProductDetailsModal"
@@ -309,6 +439,18 @@ function HomeAndAppsStack() {
         <HomeAndAppMain.Screen
           name="StakeToEarnUniSwapTransactionModal"
           component={StakeToEarnUniSwapTransactionModal}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <HomeAndAppMain.Screen
+          name="StakeLiquidityFirstSolTransactionModal"
+          component={StakeLiquidityFirstSolTransactionModal}
           options={{
             headerShown: false,
             gestureEnabled: true,
@@ -436,6 +578,18 @@ function MainStack() {
         <StackMain.Screen
           name="BrandLandingScreen"
           component={BrandLandingScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="SecretScreen"
+          component={SecretScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,

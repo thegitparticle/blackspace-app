@@ -1,4 +1,10 @@
 {
   "name": "soupapp",
-  "displayName": "soupapp"
+  "displayName": "soupapp",
+  "expo": {
+    "name": "soupapp",
+    "displayName": "soupapp",
+    "scheme": "blackspace",
+    "slug": "soupapp"
+  }
 }

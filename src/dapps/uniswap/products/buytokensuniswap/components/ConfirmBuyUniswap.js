@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "react-native-elements";
-import EmojiIcon from "../../../../../bits/EmojiIcon";
-import { useNavigation } from "@react-navigation/native";
-import useEthFiatPrice from "../../../../../helpers/useGetEthFiatPrice";
-import _ from "lodash";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../theme/ButterTheme';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
+import EmojiIcon from '../../../../../bits/EmojiIcon';
+import {useNavigation} from '@react-navigation/native';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -168,13 +171,22 @@ function ConfirmBuyUniswap(props) {
         </View>
       );
     } else if (renderContext === 'WalletHasAmount') {
+      // } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'confirm buy'}
             type={'solid'}
             onPress={() => {
-              props.ChangeBody();
+              navigation.navigate('Swap0xTxnScreen', {
+                Token0Coin: props.Token0Coin,
+                Token1Coin: props.Token1Coin,
+                Token0Amount: props.Token0Amount,
+                Token1Amount: props.Token1Amount,
+                Token1Fiat: props.Token1Fiat,
+                Amount: props.Amount,
+                MemeCoinSwap: false,
+              });
             }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}

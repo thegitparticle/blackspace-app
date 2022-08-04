@@ -1,12 +1,12 @@
 // StakeToEarnUniSwapTransactionModal
-import React, { useState } from "react";
-import { Appearance, Dimensions, StyleSheet, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../theme/ButterTheme";
-import { connect } from "react-redux";
-import ModalGoBackHeader from "../../../../bits/ModalGoBackHeader";
-import TransactionOngoingStakeUniSwap from "./components/TransactionOngoingStakeUniSwap";
-import ConfirmStakeUniSwap from "./components/ConfirmStakeUniSwap";
-import EnterAmountStakeUniSwap from "./components/EnterAmountStakeUniSwap";
+import React, {useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, View} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {connect} from 'react-redux';
+import ModalGoBackHeader from '../../../../bits/ModalGoBackHeader';
+import TransactionOngoingStakeUniSwap from './components/TransactionOngoingStakeUniSwap';
+import ConfirmStakeUniSwap from './components/ConfirmStakeUniSwap';
+import EnterAmountStakeUniSwap from './components/EnterAmountStakeUniSwap';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

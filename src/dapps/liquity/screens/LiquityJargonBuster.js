@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, Linking } from "react-native";
-import { ScrollView, Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import StoryThumbnail from "../../../bits/jargonbuster/StoryThumbnail";
-import Spacer from "../../../bits/Spacer";
-import { Bounceable } from "rn-bounceable";
-import { Icon } from "react-native-elements";
-import axios from "axios";
-import { Bars } from "react-native-loader";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, Linking} from 'react-native';
+import {ScrollView, Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import StoryThumbnail from '../../../bits/jargonbuster/StoryThumbnail';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import {Bounceable} from 'rn-bounceable';
+import {Icon} from 'react-native-elements';
+import axios from 'axios';
+import {Bars} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -155,7 +155,7 @@ function LiquityJargonBuster(props) {
             }}>
             {jargonBusterContent.content}
           </Text>
-          <Spacer height={30} />
+          <SpacerVertical height={30} />
           <View sx={{height: 150}}>
             <ScrollView
               horizontal={true}
@@ -165,9 +165,9 @@ function LiquityJargonBuster(props) {
               ))}
             </ScrollView>
           </View>
-          <Spacer height={30} />
+          <SpacerVertical height={30} />
           <RenderLinks />
-          <Spacer height={30} />
+          <SpacerVertical height={30} />
         </View>
       );
     } else {
@@ -181,7 +181,7 @@ function LiquityJargonBuster(props) {
               width: windowWidth,
               alignItems: 'center',
             }}>
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
             <Text
               variant="subhead_medium"
               sx={{
@@ -194,7 +194,7 @@ function LiquityJargonBuster(props) {
               }}>
               Jargon Buster could not be loaded, try again!
             </Text>
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
           </View>
         );
       } else {
@@ -207,9 +207,9 @@ function LiquityJargonBuster(props) {
               width: windowWidth,
               alignItems: 'center',
             }}>
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
             <Bars size={10} color="#FDAAFF" />
-            <Spacer height={30} />
+            <SpacerVertical height={30} />
           </View>
         );
       }

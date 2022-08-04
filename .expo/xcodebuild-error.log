@@ -1,0 +1,6 @@
+** BUILD FAILED **
+
+
+The following build commands failed:
+	Ld /Users/san/Library/Developer/Xcode/DerivedData/soupapp-gtdohnngoediszaokjivpdctrlcd/Build/Products/Debug-iphonesimulator/soupapp.app/soupapp normal (in target 'soupapp' from project 'soupapp')
+(1 failure)

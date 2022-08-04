@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
 import {
   ButterThemeDark,
@@ -8,7 +8,10 @@ import LinearGradient from 'react-native-linear-gradient';
 import {Button} from 'react-native-elements';
 import EmojiIcon from '../../../../../bits/EmojiIcon';
 import {useNavigation} from '@react-navigation/native';
-import useEthFiatPrice from '../../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
+import InfoIcon from '../../../../../bits/InfoIcon';
+import use0xSwapQuote from '../../../../uniswap/helpers/use0xSwapQuote';
+import _ from 'lodash';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -26,16 +29,22 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
           ChangeBody={changeBodyToConfirmBuy}
           State={state_here}
 
+          SPELL
+ LOG  https://assets.coingecko.com/coins/images/15861/small/abracadabra-3.png?1622544862
+ LOG  spell-token
+ LOG  0x090185f2135308bad17527004364ebcc2d37e5f6
+ LOG  {"usd": 0.0032926, "usd_24h_change": 4.952892607409285, "usd_24h_vol": 42907940.84729687, "usd_market_cap": 290925483.2472708}
+ LOG  100000
+ LOG  [Function changeBodyToTransaction]
+
  */
 
 function ConfirmBuyTrendingMemeCoins(props) {
   const navigation = useNavigation();
   const {loadingEth, priceEth} = useEthFiatPrice();
 
+  // All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
   const [renderContext, setRenderContext] = useState('Checking');
-  /*
-  All render states: Checking | WalletHasAmount | WalletHasNoETHButERCs | NoAmount
-   */
 
   let ethBalanceInWallet =
     Number(props.State.MyProfileReducer.myProfileDetails.eth_balance) *
@@ -43,11 +52,6 @@ function ConfirmBuyTrendingMemeCoins(props) {
 
   // convert needed amount to ETH, take 10% premium (for gas) and calculate the needed math below
   function checkIfWalletHasBalance() {
-    // console.log(Number(props.AmountToBuy));
-    // console.log(Number(props.TokenDetails.usd));
-    // console.log(Number(ethBalanceInWallet));
-    // console.log(Number(priceEth));
-
     if (
       Number(props.AmountToBuy) * Number(props.TokenDetails.usd) * 1.1 <
       Number(ethBalanceInWallet) * Number(priceEth)
@@ -64,6 +68,31 @@ function ConfirmBuyTrendingMemeCoins(props) {
       }
     }
   }
+
+  // until the api from server adds decimals field to tokens use this default value
+  let decimals = 18;
+
+  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0.
+  // const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+  //   use0xSwapQuote('ETH', props.ContractAddress, props.AmountToBuy, decimals, props.State.WDeetsReducer.wdeets.wallet_address,);
+
+  // Fetching swap quote from 0x. Buytoken - token1 and sell - token0 - ON TESTNET
+  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+    use0xSwapQuote(
+      'ETH',
+      'DAI',
+      props.AmountToBuy,
+      decimals,
+      props.State.WDeetsReducer.wdeets.wallet_address,
+    );
+
+  let ethTokenObject = {
+    name: 'Ethereum',
+    symbol: 'ETH',
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/large/ethereum.png?1595348880',
+    contractAddress: '0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2',
+  };
 
   useEffect(() => {
     checkIfWalletHasBalance();
@@ -128,6 +157,142 @@ function ConfirmBuyTrendingMemeCoins(props) {
     }
   }
 
+  const RenderOrderInfo = useMemo(
+    () =>
+      function RenderOrderInfo() {
+        function GasPriceTextComponent() {
+          if (quoteDetails0x !== null) {
+            return (
+              <Text style={{color: themeHere.colors.foreground}}>
+                ~${' '}
+                {Number(
+                  Number(quoteDetails0x.gas) *
+                    Number(quoteDetails0x.gasPrice) *
+                    Number(priceEth) *
+                    10 ** -18,
+                ).toFixed(2)}
+              </Text>
+            );
+          } else {
+            return (
+              <Text style={{color: themeHere.colors.foreground}}>~$ 0</Text>
+            );
+          }
+        }
+
+        if (quoteDetails0x) {
+          return (
+            <View style={styles.order_info_view}>
+              <View
+                style={{
+                  ...styles.order_info_block_view,
+                  justifyContent: 'center',
+                  marginBottom: 40,
+                }}>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    1 {props.Symbol} = {Number(quoteDetails0x.price).toFixed(6)}{' '}
+                    ETH
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>you get</Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    {props.AmountToBuy} {props.Symbol}
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>by paying</Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    {Number(
+                      quoteDetails0x.orders[0].takerAmount * 10 ** -18,
+                    ).toFixed(2)}{' '}
+                    ETH
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <Text style={styles.order_info_title_text}>
+                  by paying (in $)
+                </Text>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    ${' '}
+                    {Number(
+                      Number(quoteDetails0x.orders[0].takerAmount * 10 ** -18) *
+                        Number(priceEth),
+                    )
+                      .toFixed(0)
+                      .replace(/\B(?=(\d{3})+(?!\d))/g, ',')}
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.order_info_title_text}>
+                    minimum you get
+                  </Text>
+                  <InfoIcon
+                    size={10}
+                    information={
+                      'crypto markets are volatile. During certain times of the day, the price changes very quickly. So, you might get little fewer or more tokens than what is shown. This is least you would get if at all the price changes.'
+                    }
+                    height={150}
+                  />
+                </View>
+                <Text style={styles.order_info_value_text}>
+                  <Text style={{color: themeHere.colors.foreground}}>
+                    {Number(props.AmountToBuy) -
+                      Number(
+                        Number(props.AmountToBuy) *
+                          ((Number(quoteDetails0x.guaranteedPrice) -
+                            Number(quoteDetails0x.price)) /
+                            Number(quoteDetails0x.price)),
+                      ).toFixed(2)}{' '}
+                    {props.Symbol}
+                  </Text>
+                </Text>
+              </View>
+              <View style={styles.order_info_block_view}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                  }}>
+                  <Text style={styles.order_info_title_text}>
+                    Ethereum Gas Fees
+                  </Text>
+                  <InfoIcon
+                    size={10}
+                    information={
+                      'transaction fees taken for this transaction to be executed on the Ethereum blockchain'
+                    }
+                    height={70}
+                  />
+                </View>
+                <Text style={styles.order_info_value_text}>
+                  <GasPriceTextComponent />
+                </Text>
+              </View>
+            </View>
+          );
+        } else {
+          return <View />;
+        }
+      },
+    [quoteDetails0x],
+  );
+
   function ButtonBlock() {
     if (renderContext === 'Checking') {
       return (
@@ -146,13 +311,26 @@ function ConfirmBuyTrendingMemeCoins(props) {
           />
         </View>
       );
-    } else if (renderContext === 'WalletHasAmount') {
+      // } else if (renderContext === 'WalletHasAmount') {
+    } else if (renderContext === 'NoAmount') {
       return (
         <View style={styles.button_block_view}>
           <Button
             title={'confirm buy'}
             type={'solid'}
-            onPress={() => props.ChangeBody()}
+            onPress={() => {
+              navigation.navigate('Swap0xTxnScreen', {
+                Token0Coin: ethTokenObject,
+                Token1Coin: _.merge(props.TokenDetails, {
+                  address: props.ContractAddress,
+                }),
+                Token0Amount: '',
+                Token1Amount: props.AmountToBuy,
+                Token1Fiat: '',
+                Amount: '',
+                MemeCoinSwap: true,
+              });
+            }}
             containerStyle={styles.next_button_container}
             buttonStyle={styles.next_button_style}
             titleStyle={styles.next_button_title}
@@ -210,8 +388,8 @@ function ConfirmBuyTrendingMemeCoins(props) {
 
   return (
     <View style={styles.parent_view}>
-      <View />
       <MainBlock />
+      <RenderOrderInfo />
       <ButtonBlock />
     </View>
   );
@@ -235,17 +413,17 @@ const styles = StyleSheet.create({
     color: themeHere.colors.foreground,
   },
   text_highlighted: {
-    ...themeHere.text.header,
+    ...themeHere.text.subhead_medium,
     color: themeHere.colors.foreground,
     marginVertical: 30,
-    maxWidth: windowWidth * 0.7,
+    maxWidth: windowWidth * 0.8,
     textAlign: 'center',
   },
   text_not_highlighted: {
     ...themeHere.text.body_medium,
     color: themeHere.colors.foreground + '75',
     marginVertical: 30,
-    maxWidth: windowWidth * 0.7,
+    maxWidth: windowWidth * 0.8,
     textAlign: 'center',
   },
   unsupported_coins_context_suggestions_view: {
@@ -273,5 +451,26 @@ const styles = StyleSheet.create({
   next_button_title: {
     ...themeHere.text.body_medium,
     color: 'white',
+  },
+  order_info_view: {
+    flexDirection: 'column',
+    marginBottom: 20,
+    marginTop: 20,
+    alignItems: 'center',
+  },
+  order_info_block_view: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginVertical: 10,
+    marginHorizontal: 20,
+    width: windowWidth - 80,
+  },
+  order_info_title_text: {
+    ...themeHere.text.body,
+    color: themeHere.colors.foreground + '50',
+  },
+  order_info_value_text: {
+    ...themeHere.text.body_medium,
+    color: themeHere.colors.foreground + '50',
   },
 });

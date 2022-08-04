@@ -144,6 +144,10 @@ export const dripsytheme = makeTheme({
       fontFamily: 'GothamRounded-BookItalic',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
+    caption_medium: {
+      fontFamily: 'GothamRounded-Medium',
+      fontSize: windowHeight > 770 ? 11 : 10,
+    },
     caption: {
       fontFamily: 'GothamRounded-Book',
       fontSize: windowHeight > 770 ? 11 : 10,

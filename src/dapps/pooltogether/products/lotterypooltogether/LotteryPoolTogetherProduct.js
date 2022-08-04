@@ -19,7 +19,7 @@ import {useNavigation} from '@react-navigation/native';
 import {BigNumber, ethers} from 'ethers';
 import {mainnet} from '@pooltogether/v4-pool-data';
 import {PrizePoolNetwork, User} from '@pooltogether/v4-client-js';
-import useEthFiatPrice from '../../../../helpers/useGetEthFiatPrice';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 import {useGasCostEstimate} from '../../helpers/useGasCostEstimate';
 
 const windowHeight = Dimensions.get('window').height;
@@ -48,12 +48,12 @@ function LotteryPoolTogetherProduct() {
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
   );
 
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
+  // let wallet = new ethers.Wallet(
+  //   state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  // );
+  // let walletSigner = wallet.connect(prov);
 
-  let user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
+  // let user = new User(prizePool.prizePoolMetadata, walletSigner, prizePool);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
 

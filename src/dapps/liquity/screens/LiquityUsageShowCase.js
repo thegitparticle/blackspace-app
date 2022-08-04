@@ -1,20 +1,25 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, TextInput, TouchableOpacity } from "react-native";
-import { Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import { SquircleView } from "react-native-figma-squircle";
-import { SquircleCard, StyledFastImage25 } from "../../../theme/DripsyTheme";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "react-native-elements";
-import { useNavigation } from "@react-navigation/native";
-import FastImage from "react-native-fast-image";
-import Spacer from "../../../bits/Spacer";
-import useEthFiatPrice from "../../../helpers/useGetEthFiatPrice";
-import { EthersLiquity } from "@liquity/lib-ethers";
-import { ethers } from "ethers";
-import { connect } from "react-redux";
-import useLUSDFiatPrice from "../helpers/useLUSDFiatPrice";
-import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  TextInput,
+  TouchableOpacity,
+} from 'react-native';
+import {Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import {SquircleView} from 'react-native-figma-squircle';
+import {SquircleCard, StyledFastImage25} from '../../../theme/DripsyTheme';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
+import {useNavigation} from '@react-navigation/native';
+import FastImage from 'react-native-fast-image';
+import SpacerVertical from '../../../bits/SpacerVertical';
+import useEthFiatPrice from '../../../helpers/useEthFiatPrice';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import {ethers} from 'ethers';
+import {connect} from 'react-redux';
+import useLUSDFiatPrice from '../helpers/useLUSDFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -41,16 +46,16 @@ what to track?
 let state_here = {};
 
 const prov = new ethers.providers.JsonRpcProvider(
-  'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+  'https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
 );
 
 function LiquityUsageShowCase() {
   const navigation = useNavigation();
   let walletAddress = state_here.WDeetsReducer.wdeets.wallet_address;
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
+  // let wallet = new ethers.Wallet(
+  //   state_here.WDeetsReducer.wdeets.wallet_privateKey,
+  // );
+  // let walletSigner = wallet.connect(prov);
 
   const {loadingEth, priceEth} = useEthFiatPrice();
   const {loadingPriceLUSD, priceLUSD} = useLUSDFiatPrice();
@@ -63,17 +68,19 @@ function LiquityUsageShowCase() {
 
   useEffect(() => {
     (async () => {
-      setLiquity(await EthersLiquity.connect(walletSigner));
+      setLiquity(
+        await EthersLiquity.connect(prov).then(lqy =>
+          lqy
+            .getTrove('0x86c2101320f906A8FC9FA8c99788b1fac0767893')
+            .then(trove => {
+              setTrove(trove);
+              // console.log(trove);
+              // console.log(ethers.utils.formatEther(trove.debt._bigNumber));
+            }),
+        ),
+      );
     })();
   }, []);
-
-  useEffect(() => {
-    (async () => {
-      let troves = await liquity.getTrove(walletAddress);
-      setTrove(troves);
-      console.log(ethers.utils.formatEther(troves.debt._bigNumber));
-    })();
-  }, [liquity]);
 
   function DebtCard() {
     return (
@@ -81,7 +88,7 @@ function LiquityUsageShowCase() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '50',
         }}>
         <Text
           variant="header_bold"
@@ -168,7 +175,7 @@ function LiquityUsageShowCase() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '50',
         }}>
         <Text
           variant="header_bold"
@@ -314,9 +321,9 @@ function LiquityUsageShowCase() {
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <Spacer height={20} />
+          <SpacerVertical height={40} />
           <DebtCard />
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           <View>
             <Button
               title={'payback debt'}
@@ -343,7 +350,7 @@ function LiquityUsageShowCase() {
             />
           </View>
           <CollateralCard />
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           <View>
             <Button
               title={'add collateral'}

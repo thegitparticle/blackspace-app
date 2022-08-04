@@ -1,12 +1,12 @@
-import React, { useEffect } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../theme/ButterTheme";
-import LeverageEthProduct from "../products/leverageeth/LeverageEthProduct";
-import BorrowDaiProduct from "../products/borrowdai/BorrowDaiProduct";
-import Carousel from "react-native-snap-carousel";
-import { SquircleView } from "react-native-figma-squircle";
-import GetMakerDAOVaultInfo from "../helpers/GetMakerDAOVaultInfo";
-import { connect } from "react-redux";
+import React, {useEffect} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {ButterThemeDark, ButterThemeLight} from '../../../theme/ButterTheme';
+import LeverageEthProduct from '../products/leverageeth/LeverageEthProduct';
+import BorrowDaiProduct from '../products/borrowdai/BorrowDaiProduct';
+import Carousel from 'react-native-snap-carousel';
+import {SquircleView} from 'react-native-figma-squircle';
+import GetMakerDAOVaultInfo from '../helpers/GetMakerDAOVaultInfo';
+import {connect} from 'react-redux';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

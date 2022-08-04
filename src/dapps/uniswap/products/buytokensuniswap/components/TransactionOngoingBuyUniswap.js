@@ -1,57 +1,110 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
-import { ethers } from "ethers/src.ts";
-import LottieView from "lottie-react-native";
-import ExecuteASwap from "../../../helpers/ExecuteASwap";
-import axios from "axios";
-import { useNavigation } from "@react-navigation/native";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../theme/ButterTheme';
+import {ethers} from 'ethers/src.ts';
+import LottieView from 'lottie-react-native';
+import ExecuteASwap from '../../../helpers/ExecuteASwap';
+import axios from 'axios';
+import {useNavigation} from '@react-navigation/native';
+import use0xSwapQuote from '../../../helpers/use0xSwapQuote';
+import Web3 from 'web3';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
 const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
+/*
+Token0Coin={token0Coin}
+          Token1Coin={token1Coin}
+          Token0Amount={token0Amount}
+          Token1Amount={token1Amount}
+          Token1Fiat={token1Fiat}
+          ChangeBody={changeBodyToTransaction}
+          State={state_here}
+          Amount={amount}
+          walletReducer={state_here.WDeetsReducer.wdeets}
+          lpDetails={lpDetails}
+ */
+
 const prov = new ethers.providers.JsonRpcProvider(
   'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
+const provTest = new ethers.providers.JsonRpcProvider(
+  'https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
+);
+
+// const web3 = new Web3(
+//   new Web3.providers.HttpProvider(
+//     `https://mainnet.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
+//   ),
+// );
+
+const web3 = new Web3(
+  new Web3.providers.HttpProvider(
+    `https://ropsten.infura.io/v3/a2d69eb319254260ab3cef34410256ca`,
+  ),
 );
 
 function TransactionOngoingBuyUniswap(props) {
   const navigation = useNavigation();
 
-  let wallet = new ethers.Wallet(
-    props.State.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
-
   const [renderContext, setRenderContext] = useState('TransactionHappening');
   // All render states: TransactionHappening | TransactionSuccess | TransactionError
 
-  const [txHash, setTxHash] = useState(null);
+  // until the api from server adds decimals field to tokens use this default value
+  let decimals = 18;
 
-  function changeTxHash(hash) {
-    setTxHash(hash);
+  async function Swap() {
+    // WEB3 JS
+    // Creating a signing account from a private key
+    const signer = web3.eth.accounts.privateKeyToAccount(
+      props.State.WDeetsReducer.wdeets.wallet_privateKey,
+    );
+    web3.eth.accounts.wallet.add(signer);
+
+    let sellToken =
+      props.Token0Coin.symbol === 'ETH'
+        ? 'ETH'
+        : props.Token0Coin.contractAddress;
+
+    let buyToken =
+      props.Token1Coin.symbol === 'ETH' ? 'ETH' : props.Token1Coin.address;
+
+    // Fetch quote from 0x API
+    const response = await fetch(
+      `https://ropsten.api.0x.org/swap/v1/quote?sellToken=${sellToken}&buyToken=${buyToken}&buyAmount=${
+        Number(props.Token1Amount) * 10 ** Number(decimals)
+      }&takerAddress=${props.walletReducer.wallet_address}`,
+    );
+    const quote = await response.json();
+
+    // web3 js signing transactions
+
+    let signedTx = await web3.eth.accounts
+      .signTransaction(quote, signer.privateKey)
+      .catch(e => console.log(e));
+
+    // web3 js transaction sending
+    web3.eth
+      .sendSignedTransaction(signedTx.rawTransaction)
+      .then(txhash => {
+        console.log(txhash);
+        alert('Swap sent! Tokens will appear in a minute.');
+      })
+      .catch(e => console.log(e));
   }
 
   useEffect(() => {
-    ExecuteASwap(
-      props.Token0Amount,
-      props.Token1Amount,
-      props.Token0Coin,
-      props.Token1Coin,
-      props.lpDetails,
-      props.walletReducer.wallet_address,
-      props.walletReducer.wallet_privateKey,
-      changeTxHash,
-    );
-  }, []);
-
-  useEffect(() => {
-    console.log(txHash + 'tx hash via callback function');
+    Swap();
     setTimeout(() => {
       navigation.goBack();
     }, 60000);
-  }, [txHash]);
+  }, []);
 
   useEffect(() => {
     axios

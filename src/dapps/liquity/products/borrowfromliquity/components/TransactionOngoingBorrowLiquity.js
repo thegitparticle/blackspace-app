@@ -1,10 +1,13 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, StyleSheet, Text, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
-import LottieView from "lottie-react-native";
-import { ethers } from "ethers/src.ts/index";
-import { EthersLiquity } from "@liquity/lib-ethers";
-import axios from "axios";
+import React, {useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../theme/ButterTheme';
+import LottieView from 'lottie-react-native';
+import {ethers} from 'ethers/src.ts/index';
+import {EthersLiquity} from '@liquity/lib-ethers';
+import axios from 'axios';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

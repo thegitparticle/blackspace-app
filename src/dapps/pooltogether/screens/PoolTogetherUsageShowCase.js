@@ -8,11 +8,12 @@ import {ethers} from 'ethers';
 import {connect} from 'react-redux';
 import {SquircleCard, StyledFastImage25} from '../../../theme/DripsyTheme';
 import FastImage from 'react-native-fast-image';
-import Spacer from '../../../bits/Spacer';
+import SpacerVertical from '../../../bits/SpacerVertical';
 import {Button} from 'react-native-elements';
 import LinearGradient from 'react-native-linear-gradient';
 import {useNavigation} from '@react-navigation/native';
 import {Bars} from 'react-native-loader';
+import {msToS} from '@pooltogether/utilities';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -41,17 +42,15 @@ function PoolTogetherUsageShowCase() {
 
   const navigation = useNavigation();
 
-  let walletAddress = state_here.WDeetsReducer.wdeets.wallet_address;
-  let wallet = new ethers.Wallet(
-    state_here.WDeetsReducer.wdeets.wallet_privateKey,
-  );
-  let walletSigner = wallet.connect(prov);
+  const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
 
   const PrizePoolNtk = useMemo(
     () => new PrizePoolNetwork(providers, mainnet),
     [],
   );
 
+  // this Prize Pool is a read-only deployment. It's for managing deposits, withdrawals and delegation.
+  // pass chainID and prizePoolAddress
   const prizePool = PrizePoolNtk.getPrizePool(
     1,
     '0xd89a09084555a7D0ABe7B111b1f78DFEdDd638Be',
@@ -62,20 +61,41 @@ function PoolTogetherUsageShowCase() {
   //   '0xb9a179DcA5a7bf5f8B9E088437B3A85ebB495eFe',
   // );
 
+  // async function SetupDrawAndPrizeDistribution() {
+  //   const draw = await prizeDistributor.getNewestDraw();
+  //   const prizeDistribution = await prizeDistributor.getNewestDraw();
+  //
+  //   const currentTimestampSeconds = msToS(Date.now());
+  //   const drawTimestampSeconds = draw.timestamp.toNumber();
+  //   const drawExpirationTimestampSeconds =
+  //     prizeDistribution.expiryDuration + drawTimestampSeconds;
+  //   const isExpired = drawExpirationTimestampSeconds <= currentTimestampSeconds;
+  //
+  //   const drawResults = await prizeDistributor.getUsersDrawResultsForDrawId(
+  //     wallet_address,
+  //     draw.drawId,
+  //     prizeDistribution.maxPicksPerUser,
+  //   );
+  //
+  //   const prizesWon = drawResults.totalValue;
+  //
+  //   console.log(prizesWon);
+  // }
+
   useEffect(() => {
     (async function () {
       const balances = await prizePool
-        .getUsersTicketBalance('0x1F28F10176F89F4E9985873B84d14e75751BB3D1')
+        .getUsersPrizePoolBalances('0x2105F6e1F3cE782316ae57D1ff85085583BD7374')
         .catch(e => console.log(e));
-
-      setPtBalance(balances);
+      setPtBalance(balances.ticket);
     })().catch(console.error);
   }, [PrizePoolNtk]);
 
   // useEffect(() => {
   //   (async function () {
-  //     const drawIds = await PrizePoolNtk.getBeaconChainDrawIds();
-  //     setDrawIds(drawIds);
+  //     // const drawIds = await PrizePoolNtk.getBeaconChainDrawIds();
+  //     // setDrawIds(drawIds);
+  //     await SetupDrawAndPrizeDistribution();
   //   })().catch(console.error);
   // }, [PrizePoolNtk]);
 
@@ -111,7 +131,7 @@ function PoolTogetherUsageShowCase() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '50',
         }}>
         <Text
           variant="header_bold"
@@ -191,7 +211,7 @@ function PoolTogetherUsageShowCase() {
         squircleParams={{
           cornerSmoothing: 1,
           cornerRadius: 15,
-          fillColor: themeHere.colors.mid_ground + '25',
+          fillColor: themeHere.colors.mid_ground + '50',
         }}>
         <Text
           variant="header_bold"
@@ -269,17 +289,17 @@ function PoolTogetherUsageShowCase() {
     if (ptBalance === null) {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <Spacer height={100} />
+          <SpacerVertical height={100} />
           <Bars size={10} color="#FDAAFF" />
-          <Spacer height={100} />
+          <SpacerVertical height={100} />
         </View>
       );
     } else {
       return (
         <View sx={{alignItems: 'center', justifyContent: 'center'}}>
-          <Spacer height={20} />
+          <SpacerVertical height={40} />
           <DepositsCard />
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           <View>
             <Button
               title={'withdraw deposit'}
@@ -306,7 +326,7 @@ function PoolTogetherUsageShowCase() {
             />
           </View>
           <WinningsCard />
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
           {/*<View>*/}
           {/*  <Button*/}
           {/*    title={'no winnings to claim'}*/}
@@ -324,7 +344,7 @@ function PoolTogetherUsageShowCase() {
           {/*    }}*/}
           {/*  />*/}
           {/*</View>*/}
-          <Spacer height={20} />
+          <SpacerVertical height={20} />
         </View>
       );
     }

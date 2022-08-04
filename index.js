@@ -3,6 +3,9 @@
  */
 
 import 'react-native-gesture-handler';
+import 'react-native-url-polyfill/auto';
+import {Buffer} from 'buffer';
+global.Buffer = global.Buffer || Buffer;
 import './shim.js';
 import crypto from 'crypto';
 import {AppRegistry} from 'react-native';

@@ -1,13 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Appearance, Dimensions, Keyboard, StyleSheet, Text, TextInput, View } from "react-native";
-import { ButterThemeDark, ButterThemeLight } from "../../../../../theme/ButterTheme";
-import LinearGradient from "react-native-linear-gradient";
-import { Button } from "react-native-elements";
-import { SquircleView } from "react-native-figma-squircle";
-import FastImage from "react-native-fast-image";
-import { Modal, ModalContent, ScaleAnimation } from "react-native-modals";
-import Spacer from "../../../../../bits/Spacer";
-import useEthFiatPrice from "../../../../../helpers/useGetEthFiatPrice";
+import React, {useEffect, useState} from 'react';
+import {
+  Appearance,
+  Dimensions,
+  Keyboard,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
+} from 'react-native';
+import {
+  ButterThemeDark,
+  ButterThemeLight,
+} from '../../../../../theme/ButterTheme';
+import LinearGradient from 'react-native-linear-gradient';
+import {Button} from 'react-native-elements';
+import {SquircleView} from 'react-native-figma-squircle';
+import FastImage from 'react-native-fast-image';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import SpacerVertical from '../../../../../bits/SpacerVertical';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -189,7 +200,7 @@ function EnterAmountStakeUniSwap(props) {
                 </Text>
               </Text>
             </View>
-            <Spacer height={20} />
+            <SpacerVertical height={20} />
             <View style={styles.order_info_block_view}>
               <Text style={styles.order_info_title_text}>
                 {props.LPStakeDetails.token1.symbol} amount
@@ -213,7 +224,7 @@ function EnterAmountStakeUniSwap(props) {
                 </Text>
               </Text>
             </View>
-            <Spacer height={20} />
+            <SpacerVertical height={20} />
             <View style={styles.order_info_block_view}>
               <Text style={styles.order_info_title_text}>total amount</Text>
               <Text style={styles.order_info_value_text}>
@@ -241,7 +252,7 @@ function EnterAmountStakeUniSwap(props) {
                 </Text>
               </Text>
             </View>
-            <Spacer height={20} />
+            <SpacerVertical height={20} />
             <Button
               title={'confirm staking'}
               type={'solid'}

@@ -1,21 +1,21 @@
-import React, { useState } from "react";
-import { Appearance, Dimensions } from "react-native";
-import { Pressable, Text, View } from "dripsy";
-import { ButterThemeDark, ButterThemeLight } from "../../theme/ButterTheme";
-import { StyledFastImage60 } from "../../theme/DripsyTheme";
-import FastImage from "react-native-fast-image";
-import Spacer from "../Spacer";
-import { Bounceable } from "rn-bounceable";
-import { Overlay } from "react-native-elements";
-import Iconly from "../../miscsetups/customfonts/Iconly";
-import { useNavigation } from "@react-navigation/native";
-import { getStatusBarHeight } from "react-native-status-bar-height";
-import { Bars } from "react-native-loader";
+import React, {useState} from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {Pressable, Text, View} from 'dripsy';
+import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
+import {StyledFastImage60} from '../../theme/DripsyTheme';
+import FastImage from 'react-native-fast-image';
+import SpacerVertical from '../SpacerVertical';
+import {Bounceable} from 'rn-bounceable';
+import {Overlay} from 'react-native-elements';
+import Iconly from '../../miscsetups/customfonts/Iconly';
+import {useNavigation} from '@react-navigation/native';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {Bars} from 'react-native-loader';
 
-const windowHeight = Dimensions.get("window").height;
-const windowWidth = Dimensions.get("window").width;
+const windowHeight = Dimensions.get('window').height;
+const windowWidth = Dimensions.get('window').width;
 const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === "dark" ? ButterThemeDark : ButterThemeLight;
+const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function StoryThumbnail(props) {
   // props - {story} object - {thumbnail_image, title, image_links -> list of story image links}
@@ -40,7 +40,7 @@ function StoryThumbnail(props) {
         sx={{
           width: windowWidth,
           height: windowHeight,
-          backgroundColor: "background",
+          backgroundColor: 'background',
           marginLeft: -10,
           marginTop: -10,
         }}>
@@ -48,35 +48,35 @@ function StoryThumbnail(props) {
           sx={{
             width: windowWidth,
             height: windowHeight,
-            position: "absolute",
-            alignItems: "center",
-            justifyContent: "center",
+            position: 'absolute',
+            alignItems: 'center',
+            justifyContent: 'center',
           }}>
           <Bars
             size={10}
             color="#FDAAFF"
             style={{
-              justifySelf: "center",
-              alignSelf: "center",
+              justifySelf: 'center',
+              alignSelf: 'center',
             }}
           />
         </View>
         <FastImage
-          style={{ width: windowWidth, height: windowHeight }}
+          style={{width: windowWidth, height: windowHeight}}
           source={{
             uri: props.story.image_links[currentStoryIndex],
             priority: FastImage.priority.high,
           }}
-          loadingIndicatorSource={require("../../../assets/icloud_icon.png")}
+          loadingIndicatorSource={require('../../../assets/icloud_icon.png')}
           resizeMode={FastImage.resizeMode.contain}>
           <View
             sx={{
               width: windowWidth,
-              flexDirection: "row-reverse",
+              flexDirection: 'row-reverse',
               marginTop: getStatusBarHeight(),
             }}>
             <Bounceable onPress={() => toggleOverlay()}>
-              <View sx={{ marginHorizontal: 10 }}>
+              <View sx={{marginHorizontal: 10}}>
                 <Iconly
                   name="CloseSquareBold"
                   color={themeHere.colors.foreground}
@@ -89,15 +89,15 @@ function StoryThumbnail(props) {
             sx={{
               width: windowWidth,
               height: windowHeight,
-              flexDirection: "row",
-              justifyContent: "space-between",
+              flexDirection: 'row',
+              justifyContent: 'space-between',
               marginTop: getStatusBarHeight(),
             }}>
             <Pressable
               sx={{
                 width: windowWidth * 0.2,
                 height: windowHeight,
-                flexDirection: "row",
+                flexDirection: 'row',
                 marginTop: getStatusBarHeight(),
               }}
               onPress={() => {
@@ -110,7 +110,7 @@ function StoryThumbnail(props) {
               sx={{
                 width: windowWidth * 0.2,
                 height: windowHeight,
-                flexDirection: "row",
+                flexDirection: 'row',
                 marginTop: getStatusBarHeight(),
               }}
               onPress={() => {
@@ -133,10 +133,10 @@ function StoryThumbnail(props) {
         }}>
         <View
           sx={{
-            marginVertical: "$2",
-            flexDirection: "column",
-            alignItems: "center",
-            padding: "$4",
+            marginVertical: '$2',
+            flexDirection: 'column',
+            alignItems: 'center',
+            padding: '$4',
             width: 100,
             height: 150,
           }}>
@@ -145,14 +145,14 @@ function StoryThumbnail(props) {
               uri: props.story.thumbnail_image,
               priority: FastImage.priority.high,
             }}
-            loadingIndicatorSource={require("../../../assets/icloud_icon.png")}
+            loadingIndicatorSource={require('../../../assets/icloud_icon.png')}
             resizeMode={FastImage.resizeMode.contain}
-            sx={{ borderWidth: 2.5, borderColor: themeHere.colors.blue }}
+            sx={{borderWidth: 2.5, borderColor: themeHere.colors.blue}}
           />
-          <Spacer height={10} />
+          <SpacerVertical height={10} />
           <Text
             variant="body_medium"
-            sx={{ textAlign: "center", color: "foreground" }}>
+            sx={{textAlign: 'center', color: 'foreground'}}>
             {props.story.title}
           </Text>
         </View>
