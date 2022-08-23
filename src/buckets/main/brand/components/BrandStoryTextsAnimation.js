@@ -1,10 +1,9 @@
+import {Image} from 'dripsy';
+import {MotiView} from 'moti';
 import React, {useEffect} from 'react';
 import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {MotiView} from 'moti';
-import {Image} from 'dripsy';
-import {useNavigation} from '@react-navigation/native';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

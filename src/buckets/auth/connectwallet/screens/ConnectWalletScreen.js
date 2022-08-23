@@ -1,3 +1,6 @@
+import '@ethersproject/shims';
+import axios from 'axios';
+import LottieView from 'lottie-react-native';
 import React, {useEffect, useState} from 'react';
 import {
   Appearance,
@@ -7,27 +10,13 @@ import {
   StatusBar,
   StyleSheet,
   Text,
-  TextInput,
-  TouchableOpacity,
   View,
 } from 'react-native';
-import {ADD_WDEETS} from '../../../../redux/types';
 import {connect} from 'react-redux';
-import '@ethersproject/shims';
-import {ethers} from 'ethers/src.ts/index';
-import {AddWDeets} from '../../../../redux/appcore/WDeetsActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {Bounceable} from 'rn-bounceable';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {Bars} from 'react-native-loader';
-import axios from 'axios';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import {Amplitude} from '@amplitude/react-native';
-import {SquircleView} from 'react-native-figma-squircle';
-import SquircleGlassButton from '../../../../bits/SquircleGlassButton';
-import {BlurView} from '@react-native-community/blur';
-import MaskedView from '@react-native-masked-view/masked-view';
-import LottieView from 'lottie-react-native';
+import {AddWDeets} from '../../../../redux/appcore/WDeetsActions';
+import {ADD_WDEETS} from '../../../../redux/types';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

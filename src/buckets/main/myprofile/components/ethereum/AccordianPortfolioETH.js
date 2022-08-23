@@ -1,22 +1,22 @@
+import {useNavigation} from '@react-navigation/native';
+import {Image, Text, useSx, View} from 'dripsy';
+import {BigNumber, ethers} from 'ethers';
+import _ from 'lodash';
 import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {SvgUri} from 'react-native-svg';
+import {ExpandableSection} from 'react-native-ui-lib';
+import {connect} from 'react-redux';
+import {Bounceable} from 'rn-bounceable';
+import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
+import useMaticFiatPrice from '../../../../../helpers/useMaticFiatPrice';
+import Iconly from '../../../../../miscsetups/customfonts/Iconly';
 import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import Iconly from '../../../../../miscsetups/customfonts/Iconly';
-import FastImage from 'react-native-fast-image';
-import {useNavigation} from '@react-navigation/native';
-import {Image, Text, useSx, View} from 'dripsy';
 import {StyledFastImage25} from '../../../../../theme/DripsyTheme';
-import {Bounceable} from 'rn-bounceable';
-import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
-import {ExpandableSection} from 'react-native-ui-lib';
-import _ from 'lodash';
-import {SvgUri} from 'react-native-svg';
-import {BigNumber, ethers} from 'ethers';
-import useMaticFiatPrice from '../../../../../helpers/useMaticFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

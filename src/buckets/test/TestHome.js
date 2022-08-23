@@ -1,10 +1,10 @@
+import {useNavigation} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 import {TouchableOpacity} from 'react-native-gesture-handler';
-import {useNavigation} from '@react-navigation/native';
 import {connect} from 'react-redux';
 import {AddUserDetails} from '../../redux/appcore/UserDetailsActions';
+import {ButterThemeDark, ButterThemeLight} from '../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

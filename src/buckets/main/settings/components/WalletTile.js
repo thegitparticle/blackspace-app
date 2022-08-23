@@ -1,9 +1,9 @@
+import {Image, Text, View} from 'dripsy';
 import React, {useState} from 'react';
 import {Appearance, Dimensions, TouchableOpacity} from 'react-native';
-import {Image, Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

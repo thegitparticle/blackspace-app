@@ -7,17 +7,17 @@ import {
   Text,
   View,
 } from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import MakerDaoUsageShowCase from '../../../../dapps/makerdao/screens/MakerDaoUsageShowCase';
-import CompoundFinanceUsageShowCase from '../../../../dapps/compoundfinance/screens/CompoundFinanceUsageShowCase';
-import UniswapUsageShowCase from '../../../../dapps/uniswap/screens/UniswapUsageShowCase';
-import MemeCoinsUsageShowCase from '../../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
-import LiquityUsageShowCase from '../../../../dapps/liquity/screens/LiquityUsageShowCase';
-import PoolTogetherUsageShowCase from '../../../../dapps/pooltogether/screens/PoolTogetherUsageShowCase';
-import IndexFundsUsageShowCase from '../../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
 import SpacerVertical from '../../../../bits/SpacerVertical';
-import WormholeBridgeUsageShowCase from '../../../../dapps/wormholebridge/screens/WormholeBridgeUsageShowCase';
+import CompoundFinanceUsageShowCase from '../../../../dapps/compoundfinance/screens/CompoundFinanceUsageShowCase';
 import FirstSolDexUsageShowCase from '../../../../dapps/firstsoldex/screens/FirstSolDexUsageShowCase';
+import IndexFundsUsageShowCase from '../../../../dapps/indexfunds/screens/IndexFundsUsageShowCase';
+import LiquityUsageShowCase from '../../../../dapps/liquity/screens/LiquityUsageShowCase';
+import MakerDaoUsageShowCase from '../../../../dapps/makerdao/screens/MakerDaoUsageShowCase';
+import MemeCoinsUsageShowCase from '../../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
+import PoolTogetherUsageShowCase from '../../../../dapps/pooltogether/screens/PoolTogetherUsageShowCase';
+import UniswapUsageShowCase from '../../../../dapps/uniswap/screens/UniswapUsageShowCase';
+import WormholeBridgeUsageShowCase from '../../../../dapps/wormholebridge/screens/WormholeBridgeUsageShowCase';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,3 +1,4 @@
+import {View} from 'dripsy';
 import React from 'react';
 import {
   Appearance,
@@ -7,14 +8,12 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import {LOGIN} from '../../../../redux/types';
-import {connect} from 'react-redux';
-import CreateWalletPart from '../components/CreateWalletPart';
-import ImportWalletPart from '../components/ImportWalletPart';
-import {View} from 'dripsy';
 import {Divider} from 'react-native-elements';
+import {connect} from 'react-redux';
+import {LOGIN} from '../../../../redux/types';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import ConnectWalletPart from '../components/ConnectWalletPart';
+import CreateWalletPart from '../components/CreateWalletPart';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

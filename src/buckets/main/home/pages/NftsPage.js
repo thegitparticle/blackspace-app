@@ -1,10 +1,8 @@
 import React, {useCallback, useState} from 'react';
-import {Appearance, Dimensions, RefreshControl, StyleSheet} from 'react-native';
-import {View, Text} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {Appearance, Dimensions, RefreshControl} from 'react-native';
+import {FlatGrid} from 'react-native-super-grid';
 import SpacerVertical from '../../../../bits/SpacerVertical';
-import {FlatGrid, SectionGrid} from 'react-native-super-grid';
-import MyAppThumbnail from '../components/MyAppThumbnail';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import NFTDAppThumbnail from '../components/NFTDAppThumbnail';
 
 const windowHeight = Dimensions.get('window').height;

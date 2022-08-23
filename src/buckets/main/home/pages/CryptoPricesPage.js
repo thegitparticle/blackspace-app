@@ -1,11 +1,11 @@
+import {View} from 'dripsy';
 import React, {useCallback, useEffect, useState} from 'react';
 import {Appearance, Dimensions, RefreshControl, ScrollView} from 'react-native';
-import {View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {connect} from 'react-redux';
-import {GetMarketPrices} from '../../../../redux/appcore/MarketPricesActions';
-import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
 import SpacerVertical from '../../../../bits/SpacerVertical';
+import {GetMarketPrices} from '../../../../redux/appcore/MarketPricesActions';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import MarketPriceCryptoTile from '../components/MarketPriceCryptoTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,15 +1,15 @@
+import {Text, useSx, View} from 'dripsy';
+import LottieView from 'lottie-react-native';
 import React, {useEffect, useMemo, useState} from 'react';
 import {Appearance, Dimensions} from 'react-native';
+import FastImage from 'react-native-fast-image';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import HeaderMiniAppV2 from '../../../../bits/HeaderMiniAppV2';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import RenderAppBluePrintHelper from '../helpers/RenderAppBluePrintHelper';
-import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import RenderAppInUseHelper from '../helpers/RenderAppInUseHelper';
-import LottieView from 'lottie-react-native';
-import {Text, useSx, View} from 'dripsy';
-import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import FastImage from 'react-native-fast-image';
-import HeaderMiniAppV2 from '../../../../bits/HeaderMiniAppV2';
+import RenderAppJargonBusterHelper from '../helpers/RenderAppJargonBusterHelper';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

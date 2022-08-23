@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {
   Appearance,
@@ -6,20 +7,18 @@ import {
   StyleSheet,
   Text,
 } from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import MyAppThumbnail from '../components/MyAppThumbnail';
-import {GetMyApps} from '../../../../redux/appcore/MyAppsActions';
-import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
-import {GetDiscoverApps} from '../../../../redux/appcore/DiscoverAppsActions';
 import {SectionGrid} from 'react-native-super-grid';
-import {GetMarketPrices} from '../../../../redux/appcore/MarketPricesActions';
+import {connect} from 'react-redux';
 import SpacerVertical from '../../../../bits/SpacerVertical';
+import {GetDiscoverApps} from '../../../../redux/appcore/DiscoverAppsActions';
+import {GetMarketPrices} from '../../../../redux/appcore/MarketPricesActions';
+import {GetMyApps} from '../../../../redux/appcore/MyAppsActions';
 import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenListActions';
-import _ from 'lodash';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
+import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
+import MyAppThumbnail from '../components/MyAppThumbnail';
 import SupportAppThumbnail from '../components/SupportAppThumbnail';
-import SendReceiveLandingScreen from '../../../../dapps/sendandreceive/screens/SendReceiveLandingScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

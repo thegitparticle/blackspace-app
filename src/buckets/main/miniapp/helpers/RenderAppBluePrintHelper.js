@@ -7,17 +7,17 @@ import {
   Text,
   View,
 } from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import MakerDaoBluePrint from '../../../../dapps/makerdao/screens/MakerDaoBluePrint';
-import CompoundFinanceBluePrint from '../../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint';
-import UniswapBluePrint from '../../../../dapps/uniswap/screens/UniswapBluePrint';
-import MemeCoinsAppBluePrint from '../../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint';
-import LiquityBluePrint from '../../../../dapps/liquity/screens/LiquityBluePrint';
-import PoolTogetherBluePrint from '../../../../dapps/pooltogether/screens/PoolTogetherBluePrint';
-import IndexFundsBluePrint from '../../../../dapps/indexfunds/screens/IndexFundsBluePrint';
 import SpacerVertical from '../../../../bits/SpacerVertical';
-import WormholeBridgeBluePrint from '../../../../dapps/wormholebridge/screens/WormholeBridgeBluePrint';
+import CompoundFinanceBluePrint from '../../../../dapps/compoundfinance/screens/CompoundFinanceBluePrint';
 import FirstSolDexBluePrint from '../../../../dapps/firstsoldex/screens/FirstSolDexBluePrint';
+import IndexFundsBluePrint from '../../../../dapps/indexfunds/screens/IndexFundsBluePrint';
+import LiquityBluePrint from '../../../../dapps/liquity/screens/LiquityBluePrint';
+import MakerDaoBluePrint from '../../../../dapps/makerdao/screens/MakerDaoBluePrint';
+import MemeCoinsAppBluePrint from '../../../../dapps/memecoinsapp/screens/MemeCoinsAppBluePrint';
+import PoolTogetherBluePrint from '../../../../dapps/pooltogether/screens/PoolTogetherBluePrint';
+import UniswapBluePrint from '../../../../dapps/uniswap/screens/UniswapBluePrint';
+import WormholeBridgeBluePrint from '../../../../dapps/wormholebridge/screens/WormholeBridgeBluePrint';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

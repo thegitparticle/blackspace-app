@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   Appearance,
@@ -8,12 +9,11 @@ import {
   Text,
   View,
 } from 'react-native';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import WalletTile from '../components/WalletTile';
 import AppTile from '../components/AppTile';
 import MiscTile from '../components/MiscTile';
-import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import {useNavigation} from '@react-navigation/native';
+import WalletTile from '../components/WalletTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

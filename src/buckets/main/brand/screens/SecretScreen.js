@@ -1,17 +1,15 @@
+import {Text, View} from 'dripsy';
 import React, {useState} from 'react';
 import {
   Appearance,
   Dimensions,
   ImageBackground,
-  TouchableOpacity,
   TextInput,
+  TouchableOpacity,
 } from 'react-native';
-import {Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import BrandStoryTextsAnimation from '../components/BrandStoryTextsAnimation';
-import {Input, Icon} from 'react-native-elements';
 import {connect} from 'react-redux';
 import {ChangeSecretSettings} from '../../../../redux/appcore/SecretSettingsActions';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

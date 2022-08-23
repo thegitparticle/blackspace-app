@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react';
-import {StyleSheet, Dimensions, Appearance} from 'react-native';
-import {View, Text} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import {Text, View} from 'dripsy';
 import {ethers} from 'ethers';
+import React, {useEffect} from 'react';
+import {Appearance, Dimensions} from 'react-native';
+import {connect} from 'react-redux';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

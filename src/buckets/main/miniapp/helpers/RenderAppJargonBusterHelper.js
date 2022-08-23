@@ -7,19 +7,17 @@ import {
   Text,
   View,
 } from 'react-native';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import MakerDaoJargonBuster from '../../../../dapps/makerdao/screens/MakerDaoJargonBuster';
-import CompoundFinanceJargonBuster from '../../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
-import UniswapJargonBuster from '../../../../dapps/uniswap/screens/UniswapJargonBuster';
-import MemeCoinsJargonBuster from '../../../../dapps/memecoinsapp/screens/MemeCoinsJargonBuster';
-import LiquityJargonBuster from '../../../../dapps/liquity/screens/LiquityJargonBuster';
-import PoolTogetherJargonBuster from '../../../../dapps/pooltogether/screens/PoolTogetherJargonBuster';
-import IndexFundsJargonBuster from '../../../../dapps/indexfunds/screens/IndexFundsJargonBuster';
 import SpacerVertical from '../../../../bits/SpacerVertical';
-import WormholeBridgeJargonBuster from '../../../../dapps/wormholebridge/screens/WormholeBridgeJargonBuster';
+import CompoundFinanceJargonBuster from '../../../../dapps/compoundfinance/screens/CompoundFinanceJargonBuster';
 import FirstSolDexJargonBuster from '../../../../dapps/firstsoldex/screens/FirstSolDexJargonBuster';
-import UniswapUsageShowCase from '../../../../dapps/uniswap/screens/UniswapUsageShowCase';
+import IndexFundsJargonBuster from '../../../../dapps/indexfunds/screens/IndexFundsJargonBuster';
+import LiquityJargonBuster from '../../../../dapps/liquity/screens/LiquityJargonBuster';
+import MakerDaoJargonBuster from '../../../../dapps/makerdao/screens/MakerDaoJargonBuster';
 import MemeCoinsUsageShowCase from '../../../../dapps/memecoinsapp/screens/MemeCoinsUsageShowCase';
+import PoolTogetherJargonBuster from '../../../../dapps/pooltogether/screens/PoolTogetherJargonBuster';
+import UniswapUsageShowCase from '../../../../dapps/uniswap/screens/UniswapUsageShowCase';
+import WormholeBridgeJargonBuster from '../../../../dapps/wormholebridge/screens/WormholeBridgeJargonBuster';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

@@ -1,19 +1,17 @@
+import {useNavigation} from '@react-navigation/native';
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {Text, useSx, View} from 'dripsy';
-import {Bounceable} from 'rn-bounceable';
-import SquircleGlassButton from '../../../../../bits/SquircleGlassButton';
-import SpacerVertical from '../../../../../bits/SpacerVertical';
-import Animated from 'react-native-reanimated';
-import {Appearance, Dimensions, RefreshControl} from 'react-native';
-import MainDetailsETH from '../ethereum/MainDetailsETH';
 import React, {useCallback, useState} from 'react';
+import {Appearance, Dimensions, RefreshControl} from 'react-native';
+import {Bars} from 'react-native-loader';
+import Animated from 'react-native-reanimated';
+import {connect} from 'react-redux';
+import SpacerVertical from '../../../../../bits/SpacerVertical';
 import {
   ButterThemeDark,
   ButterThemeLight,
 } from '../../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import {useWalletConnect} from '@walletconnect/react-native-dapp';
-import {Bars} from 'react-native-loader';
+import MainDetailsETH from '../ethereum/MainDetailsETH';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

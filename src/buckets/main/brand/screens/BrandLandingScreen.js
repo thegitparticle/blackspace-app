@@ -1,3 +1,7 @@
+import {useNavigation} from '@react-navigation/native';
+import {useWalletConnect} from '@walletconnect/react-native-dapp';
+import {View} from 'dripsy';
+import {ethers} from 'ethers/src.ts';
 import React, {useEffect} from 'react';
 import {
   Appearance,
@@ -5,16 +9,8 @@ import {
   ImageBackground,
   TouchableOpacity,
 } from 'react-native';
-import {View} from 'dripsy';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import BrandStoryTextsAnimation from '../components/BrandStoryTextsAnimation';
-import {useNavigation} from '@react-navigation/native';
-import WalletConnectProvider, {
-  useWalletConnect,
-} from '@walletconnect/react-native-dapp';
-import {ethers} from 'ethers/src.ts';
-import {EthersLiquity} from '@liquity/lib-ethers';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;

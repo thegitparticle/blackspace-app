@@ -1,9 +1,9 @@
+import {Image, Text, View} from 'dripsy';
 import React from 'react';
 import {Appearance, Dimensions, Linking, TouchableOpacity} from 'react-native';
-import {Image, Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {connect} from 'react-redux';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
