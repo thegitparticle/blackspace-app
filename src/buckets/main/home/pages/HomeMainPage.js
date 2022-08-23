@@ -1,24 +1,12 @@
 import _ from 'lodash';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {
-  Appearance,
-  Dimensions,
-  RefreshControl,
-  StyleSheet,
-  Text,
-} from 'react-native';
-import {SectionGrid} from 'react-native-super-grid';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Appearance, Dimensions, StyleSheet, Text} from 'react-native';
 import {connect} from 'react-redux';
-import SpacerVertical from '../../../../bits/SpacerVertical';
 import {GetDiscoverApps} from '../../../../redux/appcore/DiscoverAppsActions';
 import {GetMarketPrices} from '../../../../redux/appcore/MarketPricesActions';
 import {GetMyApps} from '../../../../redux/appcore/MyAppsActions';
 import {GetUniswapTokenList} from '../../../../redux/dapps/uniswap/UniswapTokenListActions';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import DefaultAppThumbnail from '../components/DefaultAppThumbnail';
-import DiscoverAppThumbnail from '../components/DiscoverAppThumbnail';
-import MyAppThumbnail from '../components/MyAppThumbnail';
-import SupportAppThumbnail from '../components/SupportAppThumbnail';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -127,56 +115,10 @@ function HomeMainPage({dispatch}) {
     dispatch(GetUniswapTokenList());
   }, [refreshing]);
 
-  const DATA = [
-    {
-      title: 'MY APP SUITE',
-      data: my_apps,
-    },
-    {
-      title: 'DISCOVER',
-      data: discover_apps,
-    },
-  ];
-
-  const ThumbnailItem = useMemo(
-    () =>
-      function ThumbnailItem({item, section}) {
-        if (section.title === 'MY APP SUITE') {
-          if (item.name === 'Tips' || item.name === 'Send/Receive') {
-            return <DefaultAppThumbnail app_details={item} />;
-          } else if (item.name === 'Support') {
-            return <SupportAppThumbnail />;
-          } else {
-            return <MyAppThumbnail app_details={item} />;
-          }
-        } else {
-          return <DiscoverAppThumbnail app_details={item} />;
-        }
-      },
-    [],
-  );
-
   return (
-    <SectionGrid
-      itemDimension={100}
-      sections={DATA}
-      renderItem={({item, section}) => (
-        <ThumbnailItem item={item} section={section} />
-      )}
-      renderSectionHeader={({section: {title}}) => (
-        <Text style={styles.title_text}>{title}</Text>
-      )}
-      showsVerticalScrollIndicator={false}
-      ListFooterComponent={<SpacerVertical height={75} />}
-      spacing={20}
-      refreshControl={
-        <RefreshControl
-          refreshing={refreshing}
-          onRefresh={onRefresh}
-          tintColor={themeHere.colors.foreground}
-        />
-      }
-    />
+    <View variant="layout.full_screen_transparent">
+      <Text>home page</Text>
+    </View>
   );
 }
 

@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
 import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import LinearGradient from 'react-native-linear-gradient';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {connect} from 'react-redux';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import CryptoPricesPage from '../pages/CryptoPricesPage';
-import HomeMainPage from '../pages/HomeMainPage';
 import HeaderOnHome from '../components/HeaderOnHome';
-import LinearGradient from 'react-native-linear-gradient';
-import NftsPage from '../pages/NftsPage';
+import CryptoPricesPage from '../pages/CryptoPricesPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -17,8 +15,6 @@ const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
-  console.log(state_here.SecretSettingsReducer.secretsettings + ' gogog');
-
   let secretSettings = state_here.SecretSettingsReducer.secretsettings;
 
   // const renderScene = SceneMap({
@@ -30,11 +26,11 @@ function HomeLandingScreen({dispatch, navigation}) {
   const renderScene =
     secretSettings === true
       ? SceneMap({
-          first: HomeMainPage,
-          second: NftsPage,
+          first: CryptoPricesPage,
+          second: CryptoPricesPage,
           third: CryptoPricesPage,
         })
-      : SceneMap({first: HomeMainPage, second: CryptoPricesPage});
+      : SceneMap({first: CryptoPricesPage, second: CryptoPricesPage});
 
   const [index, setIndex] = useState(0);
 
