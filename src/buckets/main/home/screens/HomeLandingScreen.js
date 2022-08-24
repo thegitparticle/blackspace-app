@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import HeaderOnHome from '../components/HeaderOnHome';
 import CryptoPricesPage from '../pages/CryptoPricesPage';
+import {useSx} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -15,36 +16,21 @@ const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 let state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
-  let secretSettings = state_here.SecretSettingsReducer.secretsettings;
+  const sxCustom = useSx();
 
-  // const renderScene = SceneMap({
-  //   first: HomeMainPage,
-  //   second: NftsPage,
-  //   third: CryptoPricesPage,
-  // });
-
-  const renderScene =
-    secretSettings === true
-      ? SceneMap({
-          first: CryptoPricesPage,
-          second: CryptoPricesPage,
-          third: CryptoPricesPage,
-        })
-      : SceneMap({first: CryptoPricesPage, second: CryptoPricesPage});
+  const renderScene = SceneMap({
+    first: CryptoPricesPage,
+    second: CryptoPricesPage,
+    third: CryptoPricesPage,
+  });
 
   const [index, setIndex] = useState(0);
 
-  const [routes] =
-    secretSettings === true
-      ? React.useState([
-          {key: 'first', title: 'Home'},
-          {key: 'second', title: 'NFTs'},
-          {key: 'third', title: 'Prices'},
-        ])
-      : React.useState([
-          {key: 'first', title: 'Home'},
-          {key: 'second', title: 'Prices'},
-        ]);
+  const [routes] = useState([
+    {key: 'first', title: 'Home'},
+    {key: 'second', title: 'NFTs'},
+    {key: 'third', title: 'Prices'},
+  ]);
 
   function renderLabel({route, focused}) {
     if (route.title === 'Prices') {
@@ -95,8 +81,30 @@ function HomeLandingScreen({dispatch, navigation}) {
   const renderTabBar = props => (
     <TabBar
       {...props}
-      indicatorStyle={styles.tab_bar_indicator}
-      style={styles.tab_bar}
+      indicatorStyle={sxCustom({
+        width: 0,
+      })}
+      style={sxCustom({
+        backgroundColor: themeHere.colors.off_background,
+        position: 'absolute',
+        bottom: 0,
+        color: '#000',
+        height: 60,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        width: windowWidth * 0.7,
+        marginBottom: windowHeight * 0.05,
+        borderRadius: 30,
+        borderTopWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+      })}
       renderLabel={renderLabel}
       tabStyle={{backgroundColor: 'transparent'}}
     />
