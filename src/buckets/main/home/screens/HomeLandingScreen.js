@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
-import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
+import {Appearance, Dimensions, StyleSheet} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {connect} from 'react-redux';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import HeaderOnHome from '../components/HeaderOnHome';
 import CryptoPricesPage from '../pages/CryptoPricesPage';
-import {useSx} from 'dripsy';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {Text, useSx, View} from 'dripsy';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,50 +29,74 @@ function HomeLandingScreen({dispatch, navigation}) {
 
   const [routes] = useState([
     {key: 'first', title: 'Home'},
-    {key: 'second', title: 'NFTs'},
-    {key: 'third', title: 'Prices'},
+    {key: 'second', title: 'Farms'},
+    {key: 'third', title: 'Save'},
   ]);
 
   function renderLabel({route, focused}) {
-    if (route.title === 'Prices') {
+    if (route.title === 'Home') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>Prices</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly
+              name="HomeBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>Prices</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly
+              name="HomeBold"
+              color={themeHere.colors.foreground + '50'}
+              size={25}
+            />
           </View>
         );
       }
-    } else if (route.title === 'Home') {
+    } else if (route.title === 'Farms') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>Home</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly
+              name="Filter2Bold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>Home</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly
+              name="Filter2Bold"
+              color={themeHere.colors.foreground + '50'}
+              size={25}
+            />
           </View>
         );
       }
     } else {
       if (focused) {
         return (
-          <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>NFTs</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly
+              name="DiscountBold"
+              color={themeHere.colors.foreground}
+              size={25}
+            />
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>NFTs</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly
+              name="DiscountBold"
+              color={themeHere.colors.foreground + '50'}
+              size={25}
+            />
           </View>
         );
       }
