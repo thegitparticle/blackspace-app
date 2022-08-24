@@ -1,52 +1,30 @@
 import {makeTheme, styled} from 'dripsy';
 import {Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
-import {SquircleView} from 'react-native-figma-squircle';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
 
 export const dripsytheme = makeTheme({
   colors: {
-    dark: '#090909',
-    off_dark: '#171717',
-    mid_gray: '#323232',
-    off_light: '#F1F4F9',
-    light: '#FFFFFF',
-    background: '#090909',
-    off_background: '#171717',
-    mid_ground: '#323232',
-    off_foreground: '#F1F4F9',
-    foreground: '#FFFFFF',
-    success_green: '#13CE66',
-    success_green_light: '#29EB7F',
-    success_green_dark: '#0F9F4F',
-    danger_red: '#EC193E',
-    danger_red_light: '#F04C68',
-    danger_red_dark: '#C31030',
-    icon: '#F1F4F9',
-    icon_background: '#353535',
-    red: '#FF3E41',
-    red_light: '#FF8182',
-    red_dark: '#FF0106',
-    blue: '#1FB6FF',
-    blue_light: '#85D7FF',
-    blue_dark: '#009EEB',
-    purple: '#7E5BEF',
-    purple_light: '#A389F4',
-    purple_dark: '#592DEA',
-    yellow: '#FFC82C',
-    yellow_light: '#FFD55F',
-    yellow_dark: '#F8B700',
-    pink: '#FF49DB',
-    pink_light: '#FF7CE5',
-    pink_dark: '#FF16D1',
-    orange: '#FF7849',
-    orange_light: '#FF9E7C',
-    orange_dark: '#FF5216',
-    turquoise: '#3DC8BF',
-    special_gray: '#272D2D',
-    neon_blue: '#6874E8',
+    layout_1: '#FAFAFA',
+    layout_2: '#EAEAEA',
+    layout_3: '#333333',
+    layout_4: '#191919',
+    layout_5: '#131313',
+    success_1: '#4FEEC6',
+    success_2: '#1DE9B6',
+    success_3: '#13C295',
+    danger_1: '#EC6C69',
+    danger_2: '#E53935',
+    danger_3: '#CB1E1A',
+    warning_1: '#FFE583',
+    warning_2: '#FFD740',
+    warning_3: '#FFCA03',
+    brand_blue: '#009EEB',
+    brand_purple: '#592DEA',
+    brand_pink: '#FF16D1',
+    brand_orange: '#FF5216',
   },
 
   space: {
@@ -64,105 +42,45 @@ export const dripsytheme = makeTheme({
     $10: 50,
   },
   text: {
-    title_large: {
-      fontFamily: 'GothamRounded-Bold',
+    title_thick: {
+      fontFamily: 'KumbhSans-ExtraBold',
       fontSize: windowHeight > 770 ? 30 : 28,
     },
-    title_large_i: {
-      fontFamily: 'GothamRounded-BoldItalic',
+    title: {
+      fontFamily: 'KumbhSans-SemiBold',
       fontSize: windowHeight > 770 ? 30 : 28,
     },
-    title_1: {
-      fontFamily: 'GothamRounded-Bold',
-      fontSize: windowHeight > 770 ? 25 : 24,
-    },
-    title_1_i: {
-      fontFamily: 'GothamRounded-BoldItalic',
-      fontSize: windowHeight > 770 ? 25 : 24,
-    },
-    title_2: {
-      fontFamily: 'GothamRounded-Bold',
+    heading_thick: {
+      fontFamily: 'KumbhSans-Bold',
       fontSize: windowHeight > 770 ? 21 : 20,
     },
-    title_2_i: {
-      fontFamily: 'GothamRounded-BoldItalic',
+    heading: {
+      fontFamily: 'KumbhSans-Medium',
       fontSize: windowHeight > 770 ? 21 : 20,
     },
-    title_3: {
-      fontFamily: 'GothamRounded-Bold',
-      fontSize: windowHeight > 770 ? 19 : 18,
-    },
-    title_3_i: {
-      fontFamily: 'GothamRounded-BoldItalic',
-      fontSize: windowHeight > 770 ? 19 : 18,
-    },
-    header_bold: {
-      fontFamily: 'GothamRounded-Bold',
-      fontSize: windowHeight > 770 ? 17 : 16,
-    },
-    header: {
-      fontFamily: 'GothamRounded-Medium',
-      fontSize: windowHeight > 770 ? 17 : 16,
-    },
-    header_i: {
-      fontFamily: 'GothamRounded-MediumItalic',
-      fontSize: windowHeight > 770 ? 17 : 16,
-    },
-    subhead_bold: {
-      fontFamily: 'GothamRounded-Bold',
+    body_thick: {
+      fontFamily: 'KumbhSans-Bold',
       fontSize: windowHeight > 770 ? 15 : 14,
-    },
-    subhead_medium: {
-      fontFamily: 'GothamRounded-Medium',
-      fontSize: windowHeight > 770 ? 15 : 14,
-    },
-    subhead_medium_i: {
-      fontFamily: 'GothamRounded-MediumItalic',
-      fontSize: windowHeight > 770 ? 15 : 14,
-    },
-    subhead: {
-      fontFamily: 'GothamRounded-Book',
-      fontSize: windowHeight > 770 ? 15 : 14,
-    },
-    subhead_i: {
-      fontFamily: 'GothamRounded-BookItalic',
-      fontSize: windowHeight > 770 ? 15 : 14,
-    },
-    body_medium: {
-      fontFamily: 'GothamRounded-Medium',
-      fontSize: windowHeight > 770 ? 13 : 12,
-    },
-    body_medium_i: {
-      fontFamily: 'GothamRounded-MediumItalic',
-      fontSize: windowHeight > 770 ? 13 : 12,
     },
     body: {
-      fontFamily: 'GothamRounded-Book',
+      fontFamily: 'KumbhSans-Medium',
+      fontSize: windowHeight > 770 ? 15 : 14,
+    },
+    text_thick: {
+      fontFamily: 'KumbhSans-Medium',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
-    body_i: {
-      fontFamily: 'GothamRounded-BookItalic',
+    text: {
+      fontFamily: 'KumbhSans-Regular',
       fontSize: windowHeight > 770 ? 13 : 12,
     },
-    caption_medium: {
-      fontFamily: 'GothamRounded-Medium',
+    caption_thick: {
+      fontFamily: 'KumbhSans-Regular',
       fontSize: windowHeight > 770 ? 11 : 10,
     },
     caption: {
-      fontFamily: 'GothamRounded-Book',
+      fontFamily: 'KumbhSans-Light',
       fontSize: windowHeight > 770 ? 11 : 10,
-    },
-    caption_i: {
-      fontFamily: 'GothamRounded-BookItalic',
-      fontSize: windowHeight > 770 ? 11 : 10,
-    },
-    smallest: {
-      fontFamily: 'GothamRounded-Book',
-      fontSize: windowHeight > 770 ? 9 : 8,
-    },
-    smallest_i: {
-      fontFamily: 'GothamRounded-BookItalic',
-      fontSize: windowHeight > 770 ? 9 : 8,
     },
   },
   layout: {
@@ -170,7 +88,7 @@ export const dripsytheme = makeTheme({
     full_screen: {
       width: windowWidth,
       flex: 1,
-      backgroundColor: 'background',
+      backgroundColor: 'layout_5',
     },
     full_screen_transparent: {
       width: windowWidth,
@@ -188,14 +106,11 @@ export const dripsytheme = makeTheme({
     sub_view_40_margin: {
       width: windowWidth - 80,
     },
-    sub_view_50_margin: {
-      width: windowWidth - 100,
-    },
 
     // popups and modals
     info_popup: {
-      backgroundColor: 'off_background',
-      borderColor: 'off_background',
+      backgroundColor: 'layout_4',
+      borderColor: 'layout_4',
       justifyContent: 'center',
       alignItems: 'center',
       width: windowWidth - 40,
@@ -209,7 +124,7 @@ export const dripsytheme = makeTheme({
       height: 40,
       borderRadius: 20,
       paddingHorizontal: 20,
-      backgroundColor: 'off_background',
+      backgroundColor: 'layout_4',
     },
 
     // for icons wrapped in <View />
@@ -221,28 +136,6 @@ export const dripsytheme = makeTheme({
       justifyContent: 'center',
     },
   },
-
-  // for <Image />
-  images: {
-    full_screen: {
-      width: windowWidth,
-      height: windowHeight,
-    },
-    half_screen: {
-      width: windowWidth,
-      height: windowHeight * 0.5,
-    },
-    small_icon_25_round: {
-      width: 25,
-      height: 25,
-      borderRadius: 12.5,
-    },
-    small_icon_30_round: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
-    },
-  },
 });
 
 // Images
@@ -252,37 +145,37 @@ export const StylesFastImageFullScreen = styled(FastImage)({
   height: windowHeight,
 });
 
-export const StyledFastImage60 = styled(FastImage)({
+export const StylesFastImageHalfScreen = styled(FastImage)({
+  width: windowWidth,
+  height: windowHeight * 0.5,
+});
+
+export const StyledCircleFastImage60 = styled(FastImage)({
   width: 60,
   height: 60,
   borderRadius: 30,
 });
 
-export const StyledFastImage50 = styled(FastImage)({
+export const StyledCircleFastImage50 = styled(FastImage)({
   width: 50,
   height: 50,
   borderRadius: 25,
 });
 
-export const StyledFastImage35 = styled(FastImage)({
+export const StyledCircleFastImage35 = styled(FastImage)({
   width: 35,
   height: 35,
   borderRadius: 17.5,
 });
 
-export const StyledFastImage30 = styled(FastImage)({
+export const StyledCirlceFastImage30 = styled(FastImage)({
   width: 30,
   height: 30,
   borderRadius: 15,
 });
 
-export const StyledFastImage25 = styled(FastImage)({
+export const StyledCircleFastImage25 = styled(FastImage)({
   width: 25,
   height: 25,
   borderRadius: 12.5,
-});
-
-// Squircles - Cards, Tiles
-export const SquircleCard = styled(SquircleView)({
-  width: windowWidth - 40,
 });
