@@ -8,6 +8,7 @@ import HeaderOnHome from '../components/HeaderOnHome';
 import CryptoPricesPage from '../pages/CryptoPricesPage';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {Text, useSx, View} from 'dripsy';
+import DummyPage from '../pages/DummyPage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,9 +21,9 @@ function HomeLandingScreen({dispatch, navigation}) {
   const sxCustom = useSx();
 
   const renderScene = SceneMap({
-    first: CryptoPricesPage,
-    second: CryptoPricesPage,
-    third: CryptoPricesPage,
+    first: DummyPage,
+    second: DummyPage,
+    third: DummyPage,
   });
 
   const [index, setIndex] = useState(0);

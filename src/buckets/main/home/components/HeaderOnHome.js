@@ -85,7 +85,8 @@ function HeaderOnHome() {
         style={{
           paddingVertical: 10,
           paddingHorizontal: 20,
-        }}></Pressable>
+        }}
+      />
     );
   }
 
@@ -102,8 +103,8 @@ function HeaderOnHome() {
             }}
             variant="layout.sub_view_0_margin">
             <HeaderLeft />
-            <HeaderMiddle />
-            <HeaderRight />
+            {/* <HeaderMiddle /> */}
+            {/* <HeaderRight /> */}
           </View>
         );
       },
