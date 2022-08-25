@@ -7,9 +7,9 @@ import {connect} from 'react-redux';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {dripsytheme} from '../../../../theme/DripsyTheme';
 import HeaderOnHome from '../components/HeaderOnHome';
-import FarmsPage from '../pages/FarmsPage';
+import FarmsPage from '../../farms/FarmsPage';
 import HomePage from '../pages/HomePage';
-import SavePage from '../pages/SavePage';
+import SavePage from '../../save/SavePage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -20,9 +20,9 @@ function HomeLandingScreen({dispatch, navigation}) {
   const sxCustom = useSx();
 
   const renderScene = SceneMap({
-    first: HomePage,
+    first: SavePage,
     second: FarmsPage,
-    third: SavePage,
+    third: HomePage,
   });
 
   const [index, setIndex] = useState(0);

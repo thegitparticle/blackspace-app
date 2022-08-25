@@ -22,8 +22,10 @@ function SavePage({dispatch}) {
 
   return (
     <View variant="layout.full_screen_transparent">
-      <Text variant="heading_thick" sx={{color: 'layout_1'}}>
-        save page
+      <Text
+        variant="heading_thick"
+        sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+        PoS Staking
       </Text>
     </View>
   );
