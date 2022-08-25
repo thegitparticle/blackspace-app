@@ -169,7 +169,7 @@ export const StyledCircleFastImage35 = styled(FastImage)({
   borderRadius: 17.5,
 });
 
-export const StyledCirlceFastImage30 = styled(FastImage)({
+export const StyledCircleFastImage30 = styled(FastImage)({
   width: 30,
   height: 30,
   borderRadius: 15,

@@ -1,19 +1,18 @@
+import {useSx, View} from 'dripsy';
 import React, {useState} from 'react';
-import {Appearance, Dimensions, StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
 import {connect} from 'react-redux';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import HeaderOnHome from '../components/HeaderOnHome';
-import CryptoPricesPage from '../pages/CryptoPricesPage';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import {Text, useSx, View} from 'dripsy';
-import DummyPage from '../pages/DummyPage';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
+import HeaderOnHome from '../components/HeaderOnHome';
+import FarmsPage from '../pages/FarmsPage';
+import HomePage from '../pages/HomePage';
+import SavePage from '../pages/SavePage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
@@ -21,9 +20,9 @@ function HomeLandingScreen({dispatch, navigation}) {
   const sxCustom = useSx();
 
   const renderScene = SceneMap({
-    first: DummyPage,
-    second: DummyPage,
-    third: DummyPage,
+    first: HomePage,
+    second: FarmsPage,
+    third: SavePage,
   });
 
   const [index, setIndex] = useState(0);
@@ -39,21 +38,13 @@ function HomeLandingScreen({dispatch, navigation}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Iconly
-              name="HomeBold"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
+            <Iconly name="HomeBold" color={'#FAFAFA'} size={25} />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Iconly
-              name="HomeBold"
-              color={themeHere.colors.foreground + '50'}
-              size={25}
-            />
+            <Iconly name="HomeBold" color={'#FAFAFA50'} size={25} />
           </View>
         );
       }
@@ -61,21 +52,13 @@ function HomeLandingScreen({dispatch, navigation}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Iconly
-              name="Filter2Bold"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
+            <Iconly name="Filter2Bold" color={'#FAFAFA'} size={25} />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Iconly
-              name="Filter2Bold"
-              color={themeHere.colors.foreground + '50'}
-              size={25}
-            />
+            <Iconly name="Filter2Bold" color={'#FAFAFA50'} size={25} />
           </View>
         );
       }
@@ -83,21 +66,13 @@ function HomeLandingScreen({dispatch, navigation}) {
       if (focused) {
         return (
           <View variant="layout.tab_label_chip">
-            <Iconly
-              name="DiscountBold"
-              color={themeHere.colors.foreground}
-              size={25}
-            />
+            <Iconly name="DiscountBold" color={'#FAFAFA'} size={25} />
           </View>
         );
       } else {
         return (
           <View variant="layout.tab_label_chip">
-            <Iconly
-              name="DiscountBold"
-              color={themeHere.colors.foreground + '50'}
-              size={25}
-            />
+            <Iconly name="DiscountBold" color={'#FAFAFA50'} size={25} />
           </View>
         );
       }
@@ -111,7 +86,7 @@ function HomeLandingScreen({dispatch, navigation}) {
         width: 0,
       })}
       style={sxCustom({
-        backgroundColor: themeHere.colors.off_background,
+        backgroundColor: 'layout_4',
         position: 'absolute',
         bottom: 0,
         color: '#000',
@@ -139,11 +114,11 @@ function HomeLandingScreen({dispatch, navigation}) {
   return (
     <LinearGradient
       colors={[
-        themeHere.colors.off_background,
-        themeHere.colors.background,
-        themeHere.colors.background,
+        dripsytheme.colors.layout_4,
+        dripsytheme.colors.layout_5,
+        dripsytheme.colors.layout_5,
       ]}
-      style={styles.parent_view}>
+      style={{flex: 1}}>
       <HeaderOnHome />
       <TabView
         navigationState={{index, routes}}
@@ -162,46 +137,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(HomeLandingScreen);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    flex: 1,
-    backgroundColor: themeHere.colors.background,
-  },
-  tab_bar: {
-    backgroundColor: 'transparent',
-    height: 75,
-    alignSelf: 'center',
-    width: windowWidth,
-    borderRadius: 30,
-    borderTopWidth: 0,
-    justifyContent: 'center',
-  },
-  tab_bar_indicator: {
-    width: 0,
-  },
-  tab_label_view_focused: {
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: themeHere.colors.mid_ground + '75',
-    borderRadius: 20,
-    width: 100,
-  },
-  tab_label_view_unfocused: {
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: themeHere.colors.mid_ground + '75',
-    borderRadius: 20,
-    width: 100,
-  },
-  tab_label_text_focused: {
-    ...themeHere.text.subhead_bold,
-    color: themeHere.colors.red,
-  },
-  tab_label_text_unfocused: {
-    ...themeHere.text.subhead_bold,
-    color: themeHere.colors.foreground,
-  },
-});
