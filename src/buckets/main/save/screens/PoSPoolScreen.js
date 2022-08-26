@@ -1,6 +1,6 @@
 import {Text, View} from 'dripsy';
 import React, {useCallback, useState} from 'react';
-import {Dimensions, RefreshControl} from 'react-native';
+import {Dimensions, RefreshControl, TextInput} from 'react-native';
 import {SquircleView} from 'react-native-figma-squircle';
 import {connect} from 'react-redux';
 import {
@@ -79,58 +79,137 @@ function PoSPoolScreen({route}) {
     );
   }
 
-  function StakeComponent() {}
+  function RenderDetail({title, value, highlight}) {
+    // title - string, value - string, highlight - boolean
+    return (
+      <View
+        sx={{
+          width: windowWidth - 80,
+          flexDirection: 'row',
+          justifyContent: 'space-between',
+          marginVertical: '$2',
+          alignItems: 'center',
+        }}>
+        <Text
+          variant="body"
+          sx={{color: 'layout_2', marginVertical: '$1', opacity: 0.75}}>
+          {title}
+        </Text>
+        <Text
+          variant="body_thick"
+          sx={{color: highlight ? 'success_2' : 'layout_2'}}>
+          {value}
+        </Text>
+      </View>
+    );
+  }
+
+  function StakeComponent() {
+    const [amountStake, setAmountStake] = useState('');
+
+    return (
+      <SquircleView
+        style={sxCustom({
+          width: windowWidth - 40,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          alignSelf: 'center',
+          marginVertical: '$2',
+        })}
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: dripsytheme.colors.layout_4,
+        }}>
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 80,
+            height: 50,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: '$3',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: dripsytheme.colors.layout_1 + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            value={amountStake}
+            style={sxCustom({
+              backgroundColor: 'transparent',
+              ...dripsytheme.text.body_thick,
+              color: dripsytheme.colors.foreground,
+              width: windowWidth - 80,
+              height: 50,
+              alignSelf: 'center',
+              textAlign: 'left',
+              paddingHorizontal: '$4',
+            })}
+            placeholder={'how much ETH do you wanna stake?'}
+            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+          />
+        </SquircleView>
+        <RenderDetail
+          title={'you will get'}
+          value={poolData.total_staked_amount_usd}
+        />
+        <RenderDetail
+          title={'exchange rate'}
+          value={poolData.total_staked_amount_usd}
+        />
+        <RenderDetail
+          title={'transaction fee'}
+          value={poolData.total_staked_amount_usd}
+        />
+      </SquircleView>
+    );
+  }
 
   function PoolDetails() {
-    function RenderDetail({title, value, highlight}) {
-      // title - string, value - string, highlight - boolean
-      return (
-        <View
-          sx={{
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            marginVertical: '$2',
-            alignItems: 'center',
-          }}>
-          <Text
-            variant="body"
-            sx={{color: 'layout_2', marginVertical: '$1', opacity: 0.75}}>
-            {title}
-          </Text>
-          <Text
-            variant="body_thick"
-            sx={{color: highlight ? 'success_2' : 'layout_2'}}>
-            {value}
-          </Text>
-        </View>
-      );
-    }
-
     return (
       <View
         variant={'layout.sub_view_20_margin'}
         sx={{alignSelf: 'center', marginVertical: '$4'}}>
-        <RenderDetail
-          title={'Annual % Rate'}
-          value={poolData.interest_rate}
-          highlight={true}
-        />
-        <RenderDetail
-          title={'Total staked via Lido'}
-          value={poolData.total_staked_amount_usd}
-        />
-        <RenderDetail
-          title={'Total staked via Lido ($USD)'}
-          value={poolData.total_staked_amount_usd}
-        />
-        <RenderDetail
-          title={'Stakers'}
-          value={poolData.total_staked_amount_usd}
-        />
-        <RenderDetail
-          title={'Reward Fee (%)'}
-          value={poolData.total_staked_amount_usd}
-        />
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            marginVertical: '$2',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: dripsytheme.colors.layout_4,
+          }}>
+          <RenderDetail
+            title={'Annual % Rate'}
+            value={poolData.interest_rate}
+            highlight={true}
+          />
+          <RenderDetail
+            title={'Total staked via Lido'}
+            value={poolData.total_staked_amount_usd}
+          />
+          <RenderDetail
+            title={'Total staked via Lido ($USD)'}
+            value={poolData.total_staked_amount_usd}
+          />
+          <RenderDetail
+            title={'Stakers'}
+            value={poolData.total_staked_amount_usd}
+          />
+          <RenderDetail
+            title={'Reward Fee (%)'}
+            value={poolData.total_staked_amount_usd}
+          />
+        </SquircleView>
       </View>
     );
   }
@@ -215,6 +294,7 @@ function PoSPoolScreen({route}) {
             tintColor={dripsytheme.colors.layout_1}
           />
         }>
+        <StakeComponent />
         <PoolDetails />
         <FAQs />
         <SpacerVertical height={60} />
