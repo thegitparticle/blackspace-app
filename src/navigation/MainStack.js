@@ -20,6 +20,7 @@ import IDAppTestLanding from '../buckets/test/instadapptest/IDAppTestLanding';
 import LogNetworkCalls from '../buckets/test/LogNetworkCalls';
 import TestHome from '../buckets/test/TestHome';
 import TransactionScreen from '../buckets/test/TransactionScreen';
+import PoSPoolScreen from '../buckets/main/save/screens/PoSPoolScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
@@ -224,6 +225,18 @@ function MainStack() {
         <StackMain.Screen
           name="SettingsStack"
           component={SettingsStack}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="PoSPoolScreen"
+          component={PoSPoolScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,
