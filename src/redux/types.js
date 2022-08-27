@@ -10,3 +10,7 @@ export const ADD_MYNFTS = 'ADD_MYNFTS';
 
 // secret settings
 export const ADD_SECRETSETTINGS = 'ADD_SECRETSETTINGS';
+
+// on chain
+export const ADD_HOMORAV2FARMS = 'ADD_HOMORAV2FARMS';
+export const ADD_HOMORAV2APYS = 'ADD_HOMORAV2APYS';

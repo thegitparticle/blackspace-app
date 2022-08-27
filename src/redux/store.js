@@ -13,6 +13,9 @@ import SecretSettingsReducer from './appcore/SecretSettingsReducer';
 import UserDetailsReducer from './appcore/UserDetailsReducer';
 import WDeetsReducer from './appcore/WDeetsReducer';
 
+import HomoraAPYsReducer from './onchain/HomoraAPYsReducer';
+import HomoraFarmsReducer from './onchain/HomoraFarmsReducer';
+
 export const persistConfigAuth = {
   key: 'auth_here',
   storage: AsyncStorage,
@@ -58,6 +61,16 @@ export const persistConfigSecretSettings = {
   storage: AsyncStorage,
 };
 
+export const persistConfigHomoraFarms = {
+  key: 'homora_farms',
+  storage: AsyncStorage,
+};
+
+export const persistConfigHomoraAPYs = {
+  key: 'homora_apys',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
@@ -85,6 +98,13 @@ const rootReducer = combineReducers({
     persistConfigSecretSettings,
     SecretSettingsReducer,
   ),
+
+  HomoraFarmsReducer: persistReducer(
+    persistConfigHomoraFarms,
+    HomoraFarmsReducer,
+  ),
+
+  HomoraAPYsReducer: persistReducer(persistConfigHomoraAPYs, HomoraAPYsReducer),
 });
 
 export const storehere = createStore(rootReducer, applyMiddleware(thunk));

@@ -16,16 +16,15 @@ const windowWidth = Dimensions.get('window').width;
 
 let state_here = {};
 
-function PoSPoolThumbnailComponent({poolData}) {
-  // props - PoolData
+function FarmThumbnailComponent({farmData}) {
   const sxCustom = useSx();
   const navigation = useNavigation();
 
   return (
     <Bounceable
       onPress={() =>
-        navigation.navigate('PoSPoolScreen', {
-          poolData: poolData,
+        navigation.navigate('PoSfarmScreen', {
+          farmData: farmData,
         })
       }>
       <SquircleView
@@ -48,7 +47,9 @@ function PoSPoolThumbnailComponent({poolData}) {
           <View sx={{flexDirection: 'row'}}>
             <StyledCircleFastImage25
               source={{
-                uri: poolData.pool_logo,
+                uri:
+                  'https://homora-v2.alphaventuredao.io/' +
+                  farmData.exchange.logo,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
@@ -57,13 +58,15 @@ function PoSPoolThumbnailComponent({poolData}) {
             <Text
               variant="body_thick"
               sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-              {poolData.pool_name} - {poolData.token_symbol}
+              {farmData.name}
             </Text>
           </View>
           <View sx={{flexDirection: 'row'}}>
             <StyledCircleFastImage25
               source={{
-                uri: poolData.protocol_logo,
+                uri:
+                  'https://homora-v2.alphaventuredao.io/' +
+                  farmData.exchange.logo,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
@@ -72,7 +75,7 @@ function PoSPoolThumbnailComponent({poolData}) {
             <Text
               variant="text"
               sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-              {poolData.protocol_name}
+              {farmData.exchange.name}
             </Text>
           </View>
         </View>
@@ -90,7 +93,7 @@ function PoSPoolThumbnailComponent({poolData}) {
               Pool TVL
             </Text>
             <Text variant="body" sx={{color: 'layout_1'}}>
-              {poolData.total_staked_amount_usd}
+              {farmData.type}
             </Text>
           </View>
           <View sx={{flexDirection: 'column'}}>
@@ -100,7 +103,7 @@ function PoSPoolThumbnailComponent({poolData}) {
               APY % up to
             </Text>
             <Text variant="body" sx={{color: 'success_2'}}>
-              {poolData.interest_rate}
+              {farmData.wTokenType}
             </Text>
           </View>
         </View>
@@ -114,4 +117,4 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(PoSPoolThumbnailComponent);
+export default connect(mapStateToProps)(FarmThumbnailComponent);
