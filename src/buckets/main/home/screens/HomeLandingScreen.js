@@ -114,7 +114,7 @@ function HomeLandingScreen({dispatch, navigation}) {
   return (
     <LinearGradient
       colors={[
-        dripsytheme.colors.layout_4,
+        dripsytheme.colors.layout_5,
         dripsytheme.colors.layout_5,
         dripsytheme.colors.layout_5,
       ]}
