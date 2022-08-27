@@ -14,6 +14,7 @@ import {
   dripsytheme,
   StyledCircleFastImage50,
 } from '../../../../theme/DripsyTheme';
+import {FarmsFaqs} from '../FarmsData';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,10 +25,10 @@ const wait = timeout => {
 
 let state_here = {};
 
-function PoSPoolScreen({route}) {
+function FarmPoolScreen({route}) {
   const sxCustom = useSx();
   const navigation = useNavigation();
-  const {poolData} = route.params;
+  const {farmData} = route.params;
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -54,7 +55,9 @@ function PoSPoolScreen({route}) {
           }}>
           <StyledCircleFastImage50
             source={{
-              uri: poolData.pool_logo,
+              uri:
+                'https://homora-v2.alphaventuredao.io/' +
+                farmData.exchange.logo,
               priority: FastImage.priority.normal,
             }}
             resizeMode={FastImage.resizeMode.contain}
@@ -63,7 +66,7 @@ function PoSPoolScreen({route}) {
           <Text
             variant="heading_thick"
             sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-            {poolData.pool_name} - {poolData.token_symbol}
+            {farmData.name}
           </Text>
         </View>
         <Bounceable onPress={() => navigation.goBack()}>
@@ -151,18 +154,9 @@ function PoSPoolScreen({route}) {
             placeholderTextColor={dripsytheme.colors.layout_1 + 50}
           />
         </SquircleView>
-        <RenderDetail
-          title={'you will get'}
-          value={poolData.total_staked_amount_usd}
-        />
-        <RenderDetail
-          title={'exchange rate'}
-          value={poolData.total_staked_amount_usd}
-        />
-        <RenderDetail
-          title={'transaction fee'}
-          value={poolData.total_staked_amount_usd}
-        />
+        <RenderDetail title={'you will get'} value={farmData.wTokenType} />
+        <RenderDetail title={'exchange rate'} value={farmData.wTokenType} />
+        <RenderDetail title={'transaction fee'} value={farmData.wTokenType} />
       </SquircleView>
     );
   }
@@ -188,25 +182,19 @@ function PoSPoolScreen({route}) {
           }}>
           <RenderDetail
             title={'Annual % Rate'}
-            value={poolData.interest_rate}
+            value={farmData.wTokenType}
             highlight={true}
           />
           <RenderDetail
             title={'Total staked via Lido'}
-            value={poolData.total_staked_amount_usd}
+            value={farmData.wTokenType}
           />
           <RenderDetail
             title={'Total staked via Lido ($USD)'}
-            value={poolData.total_staked_amount_usd}
+            value={farmData.wTokenType}
           />
-          <RenderDetail
-            title={'Stakers'}
-            value={poolData.total_staked_amount_usd}
-          />
-          <RenderDetail
-            title={'Reward Fee (%)'}
-            value={poolData.total_staked_amount_usd}
-          />
+          <RenderDetail title={'Stakers'} value={farmData.wTokenType} />
+          <RenderDetail title={'Reward Fee (%)'} value={farmData.wTokenType} />
         </SquircleView>
       </View>
     );
@@ -258,7 +246,7 @@ function PoSPoolScreen({route}) {
       );
     }
 
-    let faqsHere = poolData.faqs;
+    let faqsHere = FarmsFaqs;
 
     return (
       <View
@@ -306,4 +294,4 @@ const mapStateToProps = state => {
   return state_here;
 };
 
-export default connect(mapStateToProps)(PoSPoolScreen);
+export default connect(mapStateToProps)(FarmPoolScreen);

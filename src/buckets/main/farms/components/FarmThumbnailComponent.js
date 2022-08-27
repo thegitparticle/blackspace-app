@@ -23,7 +23,7 @@ function FarmThumbnailComponent({farmData}) {
   return (
     <Bounceable
       onPress={() =>
-        navigation.navigate('PoSfarmScreen', {
+        navigation.navigate('FarmPoolScreen', {
           farmData: farmData,
         })
       }>

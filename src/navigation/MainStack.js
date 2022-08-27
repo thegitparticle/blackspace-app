@@ -22,6 +22,7 @@ import TestHome from '../buckets/test/TestHome';
 import TransactionScreen from '../buckets/test/TransactionScreen';
 import PoSPoolScreen from '../buckets/main/save/screens/PoSPoolScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
+import FarmPoolScreen from '../buckets/main/farms/screens/FarmPoolScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -237,6 +238,18 @@ function MainStack() {
         <StackMain.Screen
           name="PoSPoolScreen"
           component={PoSPoolScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="FarmPoolScreen"
+          component={FarmPoolScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,
