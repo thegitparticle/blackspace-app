@@ -20,9 +20,9 @@ function HomeLandingScreen({dispatch, navigation}) {
   const sxCustom = useSx();
 
   const renderScene = SceneMap({
-    first: SavePage,
+    first: HomePage,
     second: FarmsPage,
-    third: HomePage,
+    third: SavePage,
   });
 
   const [index, setIndex] = useState(0);

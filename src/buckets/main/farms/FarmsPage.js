@@ -22,8 +22,18 @@ function FarmPage({dispatch}) {
 
   return (
     <View variant="layout.full_screen_transparent">
-      <Text variant="heading_thick" sx={{color: 'layout_1'}}>
-        farm page
+      <Text
+        variant="heading_thick"
+        sx={{color: 'layout_1', marginHorizontal: '$4', marginVertical: '$4'}}>
+        Pegged Pools
+      </Text>
+      {/* {PoSStakingPools.map((item, index) => (
+        <PoSPoolThumbnailComponent PoolData={item} />
+      ))} */}
+      <Text
+        variant="heading_thick"
+        sx={{color: 'layout_1', marginHorizontal: '$4', marginVertical: '$4'}}>
+        All Pools
       </Text>
     </View>
   );

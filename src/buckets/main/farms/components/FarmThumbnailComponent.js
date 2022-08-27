@@ -16,7 +16,7 @@ const windowWidth = Dimensions.get('window').width;
 
 let state_here = {};
 
-function PoSPoolThumbnailComponent(props) {
+function PoSPoolThumbnailComponent({poolData}) {
   // props - PoolData
   const sxCustom = useSx();
   const navigation = useNavigation();
@@ -25,7 +25,7 @@ function PoSPoolThumbnailComponent(props) {
     <Bounceable
       onPress={() =>
         navigation.navigate('PoSPoolScreen', {
-          poolData: props.PoolData,
+          poolData: poolData,
         })
       }>
       <SquircleView
@@ -45,19 +45,36 @@ function PoSPoolThumbnailComponent(props) {
         <View
           variant="layout.sub_view_40_margin"
           sx={{flexDirection: 'row', marginVertical: '$3'}}>
-          <StyledCircleFastImage25
-            source={{
-              uri: props.PoolData.pool_logo,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-            style={{backgroundColor: dripsytheme.colors.layout_1}}
-          />
-          <Text
-            variant="body_thick"
-            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-            {props.PoolData.pool_name} - {props.PoolData.token_symbol}
-          </Text>
+          <View sx={{flexDirection: 'row'}}>
+            <StyledCircleFastImage25
+              source={{
+                uri: poolData.pool_logo,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+              style={{backgroundColor: dripsytheme.colors.layout_1}}
+            />
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+              {poolData.pool_name} - {poolData.token_symbol}
+            </Text>
+          </View>
+          <View sx={{flexDirection: 'row'}}>
+            <StyledCircleFastImage25
+              source={{
+                uri: poolData.protocol_logo,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+              style={{backgroundColor: dripsytheme.colors.layout_1}}
+            />
+            <Text
+              variant="text"
+              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+              {poolData.protocol_name}
+            </Text>
+          </View>
         </View>
         <View
           variant="layout.sub_view_40_margin"
@@ -70,20 +87,20 @@ function PoSPoolThumbnailComponent(props) {
             <Text
               variant="caption"
               sx={{color: 'layout_2', marginVertical: '$1'}}>
-              total staked amount
+              Pool TVL
             </Text>
             <Text variant="body" sx={{color: 'layout_1'}}>
-              {props.PoolData.total_staked_amount_usd}
+              {poolData.total_staked_amount_usd}
             </Text>
           </View>
           <View sx={{flexDirection: 'column'}}>
             <Text
               variant="caption"
               sx={{color: 'layout_2', marginVertical: '$1'}}>
-              expected interest %
+              APY % up to
             </Text>
             <Text variant="body" sx={{color: 'success_2'}}>
-              {props.PoolData.interest_rate}
+              {poolData.interest_rate}
             </Text>
           </View>
         </View>
