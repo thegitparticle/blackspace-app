@@ -29,9 +29,9 @@ function HomePage({dispatch}) {
   }, []);
 
   function Utilities() {
-    function UtilityButton({icon, title}) {
+    function UtilityButton({icon, title, navigateTo}) {
       return (
-        <Bounceable>
+        <Bounceable onPress={() => navigation.navigate(navigateTo)}>
           <SquircleView
             style={sxCustom({
               width: (windowWidth - 60) / 2,
@@ -67,8 +67,16 @@ function HomePage({dispatch}) {
           width: windowWidth - 40,
           justifyContent: 'space-between',
         }}>
-        <UtilityButton title={'Swap'} icon={'FilterBold'} />
-        <UtilityButton title={'Prices'} icon={'ActivityBold'} />
+        <UtilityButton
+          title={'Swap'}
+          icon={'FilterBold'}
+          navigateTo={'SwapScreen'}
+        />
+        <UtilityButton
+          title={'Prices'}
+          icon={'ActivityBold'}
+          navigateTo={'PricesScreen'}
+        />
       </View>
     );
   }

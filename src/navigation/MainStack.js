@@ -23,6 +23,8 @@ import TransactionScreen from '../buckets/test/TransactionScreen';
 import PoSPoolScreen from '../buckets/main/save/screens/PoSPoolScreen';
 import {ButterThemeDark, ButterThemeLight} from '../theme/ButterTheme';
 import FarmPoolScreen from '../buckets/main/farms/screens/FarmPoolScreen';
+import SwapScreen from '../buckets/main/swap/screens/SwapScreen';
+import PricesScreen from '../buckets/main/prices/screens/PricesScreen';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -250,6 +252,30 @@ function MainStack() {
         <StackMain.Screen
           name="FarmPoolScreen"
           component={FarmPoolScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="SwapScreen"
+          component={SwapScreen}
+          options={{
+            headerShown: false,
+            gestureEnabled: true,
+            gestureDirection: 'vertical',
+            cardOverlayEnabled: true,
+            cardStyleInterpolator: CardStyleInterpolators.forVerticalIOS,
+            ...TransitionPresets.ModalPresentationIOS,
+          }}
+        />
+        <StackMain.Screen
+          name="PricesScreen"
+          component={PricesScreen}
           options={{
             headerShown: false,
             gestureEnabled: true,
