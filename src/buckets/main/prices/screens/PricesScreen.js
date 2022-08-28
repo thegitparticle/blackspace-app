@@ -1,19 +1,15 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
-import React, {useCallback, useState} from 'react';
-import {Dimensions, RefreshControl, TextInput} from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {SquircleView} from 'react-native-figma-squircle';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Dimensions, RefreshControl} from 'react-native';
 import Animated from 'react-native-reanimated';
-import {ExpandableSection} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
 import SpacerVertical from '../../../../bits/SpacerVertical';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import {
-  dripsytheme,
-  StyledCircleFastImage50,
-} from '../../../../theme/DripsyTheme';
+import {GetMarketPrices} from '../../../../redux/appcore/MarketPricesActions';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
+import PricesThumbnail from '../components/PricesThumbnail';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -24,7 +20,7 @@ const wait = timeout => {
 
 let state_here = {};
 
-function PricesScreen({route}) {
+function PricesScreen({dispatch}) {
   const sxCustom = useSx();
   const navigation = useNavigation();
 
@@ -33,6 +29,12 @@ function PricesScreen({route}) {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
+  useEffect(() => {
+    dispatch(GetMarketPrices());
+  }, [refreshing]);
+
+  let marketPrices = state_here.MarketPricesReducer.marketprices;
 
   function HeaderHere() {
     return (
@@ -68,6 +70,32 @@ function PricesScreen({route}) {
     );
   }
 
+  function RenderThumbnails() {
+    if (marketPrices.length > 1) {
+      return (
+        <View>
+          {marketPrices.map(item => (
+            <PricesThumbnail coinDetails={item} />
+          ))}
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text
+            variant="heading_thick"
+            sx={{
+              color: 'layout_1',
+              marginHorizontal: '$4',
+              marginVertical: '$2',
+            }}>
+            loading prices
+          </Text>
+        </View>
+      );
+    }
+  }
+
   return (
     <View variant="layout.full_screen">
       <HeaderHere />
@@ -80,10 +108,16 @@ function PricesScreen({route}) {
             tintColor={dripsytheme.colors.layout_1}
           />
         }>
+        <RenderThumbnails />
         <SpacerVertical height={60} />
       </Animated.ScrollView>
     </View>
   );
 }
 
-export default PricesScreen;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(PricesScreen);
