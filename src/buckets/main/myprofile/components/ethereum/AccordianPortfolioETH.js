@@ -1,9 +1,9 @@
 import {useNavigation} from '@react-navigation/native';
-import {Image, Text, useSx, View} from 'dripsy';
+import {Text, useSx, View} from 'dripsy';
 import {BigNumber, ethers} from 'ethers';
 import _ from 'lodash';
 import React, {useEffect, useState} from 'react';
-import {Appearance, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SvgUri} from 'react-native-svg';
 import {ExpandableSection} from 'react-native-ui-lib';
@@ -13,15 +13,12 @@ import useEthFiatPrice from '../../../../../helpers/useEthFiatPrice';
 import useMaticFiatPrice from '../../../../../helpers/useMaticFiatPrice';
 import Iconly from '../../../../../miscsetups/customfonts/Iconly';
 import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
-import {StyledFastImage25} from '../../../../../theme/DripsyTheme';
+  dripsytheme,
+  StyledCircleFastImage25,
+} from '../../../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
@@ -33,32 +30,18 @@ function AccordianPortfolioETH() {
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
 
   async function GetBalanceFromChainsDirectly() {
-    // const prov = new ethers.providers.JsonRpcProvider(
-    //   'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
-    // );
-
-    const provPolygon = new ethers.providers.JsonRpcProvider(
-      'https://rpc-mumbai.maticvigil.com/',
+    const prov = new ethers.providers.JsonRpcProvider(
+      'https://rinkeby.infura.io/v3/a2d69eb319254260ab3cef34410256ca',
     );
 
-    // await prov
-    //   .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
-    //   .then(result =>
-    //     console.log(
-    //       'eth balance on rinkeby ' +
-    //         ethers.utils.formatEther(
-    //           BigNumber.from(JSON.parse(result).toString()),
-    //         ),
-    //     ),
-    //   );
-
-    await provPolygon
+    await prov
       .getBalance(state_here.WDeetsReducer.wdeets.wallet_address)
       .then(result =>
-        setMaticOnPolygonBalance(
-          ethers.utils.formatEther(
-            BigNumber.from(JSON.parse(result).toString()),
-          ),
+        console.log(
+          'eth balance on rinkeby ' +
+            ethers.utils.formatEther(
+              BigNumber.from(JSON.parse(result).toString()),
+            ),
         ),
       );
   }
@@ -147,7 +130,7 @@ function AccordianPortfolioETH() {
         return (
           <Iconly
             name="ChevronDownBroken"
-            color={themeHere.colors.foreground}
+            color={dripsytheme.colors.layout_1}
             size={25}
           />
         );
@@ -155,7 +138,7 @@ function AccordianPortfolioETH() {
         return (
           <Iconly
             name="ChevronRightBroken"
-            color={themeHere.colors.foreground}
+            color={dripsytheme.colors.layout_1}
             size={25}
           />
         );
@@ -171,7 +154,7 @@ function AccordianPortfolioETH() {
           alignItems: 'center',
           alignSelf: 'center',
           justifyContent: 'space-between',
-          backgroundColor: 'off_background',
+          backgroundColor: 'layout_4',
         }}>
         <View
           sx={{
@@ -179,14 +162,14 @@ function AccordianPortfolioETH() {
             alignItems: 'center',
             justifyContent: 'flex-start',
           }}>
-          <Image
-            variant="images.small_icon_25_round"
+          <StyledCircleFastImage25
             source={section.main_icon}
+            resizeMode={FastImage.resizeMode.cover}
           />
           <Text
-            variant="subhead_medium"
+            variant="body_thick"
             sx={{
-              color: 'foreground',
+              color: 'layout_1',
               mx: '$5',
             }}>
             {section.title}
@@ -215,7 +198,7 @@ function AccordianPortfolioETH() {
             alignItems: 'center',
             justifyContent: 'flex-start',
           }}>
-          <StyledFastImage25
+          <StyledCircleFastImage25
             source={{
               uri: props.item.logoURI,
               priority: FastImage.priority.normal,
@@ -223,9 +206,9 @@ function AccordianPortfolioETH() {
             resizeMode={FastImage.resizeMode.cover}
           />
           <Text
-            variant="subhead_medium"
+            variant="body_thick"
             sx={{
-              color: 'foreground',
+              color: 'layout_1',
               mx: '$5',
             }}>
             {props.item.name}
@@ -240,7 +223,7 @@ function AccordianPortfolioETH() {
           <Text
             variant="caption"
             sx={{
-              color: 'red',
+              color: 'brand_blue',
               my: '$1',
               textAlign: 'right',
             }}>
@@ -249,7 +232,7 @@ function AccordianPortfolioETH() {
           <Text
             variant="caption"
             sx={{
-              color: 'foreground',
+              color: 'layout_1',
               my: '$1',
               opacity: 0.5,
               textAlign: 'right',
@@ -274,7 +257,7 @@ function AccordianPortfolioETH() {
           return (
             <Iconly
               name="ChevronDownBroken"
-              color={themeHere.colors.foreground}
+              color={dripsytheme.colors.layout_1}
               size={25}
             />
           );
@@ -282,7 +265,7 @@ function AccordianPortfolioETH() {
           return (
             <Iconly
               name="ChevronRightBroken"
-              color={themeHere.colors.foreground}
+              color={dripsytheme.colors.layout_1}
               size={25}
             />
           );
@@ -306,9 +289,9 @@ function AccordianPortfolioETH() {
               marginVertical: '$4',
             }}>
             <Text
-              variant="subhead_medium"
+              variant="body_thick"
               sx={{
-                color: 'foreground',
+                color: 'layout_1',
                 mx: '$5',
               }}>
               {props.item.substring(0, 20)}
@@ -320,9 +303,9 @@ function AccordianPortfolioETH() {
                 marginHorizontal: '$4',
               }}>
               <Text
-                variant="subhead_medium"
+                variant="body_thick"
                 sx={{
-                  color: 'foreground',
+                  color: 'layout_1',
                 }}>
                 {allNftsOfThisProject.length}
               </Text>
@@ -388,14 +371,14 @@ function AccordianPortfolioETH() {
                 height: windowWidth * 0.35,
                 borderRadius: 10,
                 position: 'absolute',
-                backgroundColor: 'mid_gray',
+                backgroundColor: 'layout_3',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
               <Text
                 variant="caption"
                 sx={{
-                  color: 'foreground',
+                  color: 'layout_1',
                   mx: '$5',
                 }}>
                 {props.NFTDetails.title}
@@ -429,14 +412,14 @@ function AccordianPortfolioETH() {
                 height: windowWidth * 0.35,
                 borderRadius: 10,
                 position: 'absolute',
-                backgroundColor: 'mid_gray',
+                backgroundColor: 'layout_3',
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
               <Text
                 variant="caption"
                 sx={{
-                  color: 'foreground',
+                  color: 'layout_1',
                   mx: '$5',
                 }}>
                 {props.NFTDetails.title}
@@ -480,8 +463,8 @@ function AccordianPortfolioETH() {
       sx={{
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: 'off_background',
-        shadowColor: 'mid_ground',
+        backgroundColor: 'layout_4',
+        shadowColor: 'layout_3',
         shadowOffset: {
           width: 0,
           height: 10,
@@ -501,7 +484,7 @@ function AccordianPortfolioETH() {
           <View
             variant="layout.sub_view_20_margin"
             sx={{
-              backgroundColor: 'off_background',
+              backgroundColor: 'layout_4',
               alignItems: 'center',
             }}>
             <ItemHoldingAndPrice item={item} />
@@ -517,7 +500,7 @@ function AccordianPortfolioETH() {
           <View
             variant="layout.sub_view_20_margin"
             sx={{
-              backgroundColor: 'off_background',
+              backgroundColor: 'layout_4',
               alignItems: 'center',
             }}>
             <ItemHoldingAndPrice item={item} />

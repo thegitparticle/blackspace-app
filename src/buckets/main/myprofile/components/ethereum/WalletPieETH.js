@@ -1,22 +1,18 @@
-import {Text, View} from 'dripsy';
+import {Text, useSx, View} from 'dripsy';
 import React, {useEffect, useState} from 'react';
-import {Appearance, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 import {DoubleBounce} from 'react-native-loader';
 import {connect} from 'react-redux';
 import {VictoryPie} from 'victory-native';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
 function WalletPieETH() {
+  const sxCustom = useSx();
+
   const [data, setData] = useState([]);
 
   let listTokens = state_here.MyTokenBalancesReducer.tokens;
@@ -54,9 +50,9 @@ function WalletPieETH() {
               justifyContent: 'center',
             }}>
             <Text
-              variant="header_bold"
+              variant="heading_thick"
               sx={{
-                color: 'foreground',
+                color: 'layout_1',
                 my: '$2',
               }}>
               $ {state_here.MyProfileReducer.myProfileDetails.portfolio_value}
@@ -85,14 +81,14 @@ function WalletPieETH() {
             height={windowWidth * 0.9}
             labelRadius={({innerRadius}) => innerRadius + 50}
             innerRadius={100}
-            style={{
+            style={sxCustom({
               labels: {
                 fill: 'white',
                 fontSize: 15,
                 padding: 7,
               },
               position: 'absolute',
-            }}
+            })}
           />
         </View>
       );
@@ -104,10 +100,10 @@ function WalletPieETH() {
   return (
     <View
       variant="sub_view_0_margin"
-      style={{
+      sx={{
         alignItems: 'center',
         justifyContent: 'center',
-        marginVertical: 30,
+        marginVertical: '$6',
       }}>
       <RenderPie />
     </View>

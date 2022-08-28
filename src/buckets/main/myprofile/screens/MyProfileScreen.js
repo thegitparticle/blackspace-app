@@ -2,22 +2,20 @@ import {Amplitude} from '@amplitude/react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
 import {Text, useSx, View} from 'dripsy';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Appearance, Dimensions, Pressable} from 'react-native';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Dimensions, RefreshControl} from 'react-native';
+import Animated from 'react-native-reanimated';
 import {connect} from 'react-redux';
+import {Bounceable} from 'rn-bounceable';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {GetMyNfts} from '../../../../redux/appcore/MyNFTsActions';
 import {GetMyProfileDetails} from '../../../../redux/appcore/MyProfileActions';
 import {GetTokenBalances} from '../../../../redux/appcore/MyTokenBalancesActions';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import RenderBSCWallet from '../components/bsc/RenderBSCWallet';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
 import RenderETHWallet from '../components/ethereum/RenderETHWallet';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
@@ -32,8 +30,6 @@ function MyProfileScreen({dispatch}) {
   const [refreshing, setRefreshing] = useState(false);
 
   const connector = useWalletConnect();
-
-  // console.log(state_here.UserDetailsReducer.userdetails.wallet_address);
 
   useEffect(() => {
     dispatch(GetMyProfileDetails(state_here.UserDetailsReducer.userdetails.id));
@@ -53,171 +49,62 @@ function MyProfileScreen({dispatch}) {
   function HeaderHere() {
     return (
       <View
-        style={{
+        variant="layout.sub_view_20_margin"
+        sx={{
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: windowWidth,
+          alignSelf: 'center',
           flexDirection: 'row',
-          height: 75,
+          marginVertical: '$3',
         }}>
-        <Pressable
-          style={{padding: 20}}
+        <Bounceable
           onPress={() => {
             Amplitude.getInstance().logEvent('SETTINGS_OPEN_BUTTON_CLICK');
             navigation.navigate('SettingsStack');
           }}>
           <Iconly
             name="SettingBold"
-            color={themeHere.colors.foreground}
-            size={25}
+            color={dripsytheme.colors.layout_1}
+            size={30}
           />
-        </Pressable>
-        <Text
-          style={{
-            ...themeHere.text.title_3,
-            color: themeHere.colors.foreground,
+        </Bounceable>
+        <View
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          MY WALLET
-        </Text>
-        <Pressable style={{padding: 20}} onPress={() => navigation.goBack()}>
+          <Text
+            variant="heading_thick"
+            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+            My Wallet
+          </Text>
+        </View>
+        <Bounceable onPress={() => navigation.goBack()}>
           <Iconly
-            name="ChevronDownBroken"
-            color={themeHere.colors.foreground}
-            size={25}
+            name="CloseSquareBroken"
+            color={dripsytheme.colors.layout_1}
+            size={30}
           />
-        </Pressable>
+        </Bounceable>
       </View>
     );
   }
 
-  const [index, setIndex] = useState(0);
-
-  const ETHWallet = useMemo(
-    () =>
-      function ETHWallet() {
-        return <RenderETHWallet />;
-      },
-    [],
-  );
-
-  const BSCWallet = useMemo(
-    () =>
-      function BSCWallet() {
-        return <RenderBSCWallet />;
-      },
-    [],
-  );
-
-  const renderSceneMultipleWallets = SceneMap({
-    first: ETHWallet,
-    second: BSCWallet,
-  });
-
-  const [routes] = React.useState([
-    {key: 'first', title: 'Ethereum'},
-    {key: 'second', title: 'BSC'},
-  ]);
-
-  function renderLabelMultipleWallets({route, focused}) {
-    if (route.title === 'Ethereum') {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              Ethereum
-            </Text>
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              Ethereum
-            </Text>
-          </View>
-        );
-      }
-    } else if (route.title === 'BSC') {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              BSC
-            </Text>
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              BSC
-            </Text>
-          </View>
-        );
-      }
-    } else {
-      if (focused) {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'red'}}>
-              ---
-            </Text>
-          </View>
-        );
-      } else {
-        return (
-          <View variant="layout.tab_label_chip">
-            <Text variant="subhead_bold" sx={{color: 'foreground'}}>
-              ---
-            </Text>
-          </View>
-        );
-      }
-    }
-  }
-
-  const renderTabBarMultipleWallets = props => (
-    <TabBar
-      {...props}
-      indicatorStyle={sxCustom({
-        width: 0,
-      })}
-      style={sxCustom({
-        backgroundColor: themeHere.colors.off_background,
-        position: 'absolute',
-        color: '#000',
-        height: 60,
-        justifyContent: 'center',
-        alignSelf: 'center',
-        width: windowWidth * 0.8,
-        marginBottom: windowHeight * 0.05,
-        borderRadius: 30,
-        borderTopWidth: 0,
-        shadowColor: '#000',
-        shadowOffset: {
-          width: 0,
-          height: 4,
-        },
-        shadowOpacity: 0.32,
-        shadowRadius: 5.46,
-        elevation: 9,
-      })}
-      renderLabel={renderLabelMultipleWallets}
-      tabStyle={{backgroundColor: 'transparent'}}
-    />
-  );
-
   return (
     <View variant="layout.full_screen">
       <HeaderHere />
-      <TabView
-        navigationState={{index, routes}}
-        renderTabBar={renderTabBarMultipleWallets}
-        renderScene={renderSceneMultipleWallets}
-        onIndexChange={setIndex}
-        initialLayout={{width: windowWidth}}
-        tabBarPosition="bottom"
-      />
+      <Animated.ScrollView
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl
+            refreshing={refreshing}
+            onRefresh={onRefresh}
+            tintColor={dripsytheme.colors.layout_1}
+          />
+        }>
+        <RenderETHWallet />
+      </Animated.ScrollView>
     </View>
   );
 }
