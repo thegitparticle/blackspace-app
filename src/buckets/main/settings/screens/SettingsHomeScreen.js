@@ -1,24 +1,16 @@
 import {useNavigation} from '@react-navigation/native';
+import {Text, View} from 'dripsy';
 import React from 'react';
-import {
-  Appearance,
-  Dimensions,
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import {Dimensions, ScrollView} from 'react-native';
+import {Bounceable} from 'rn-bounceable';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
 import AppTile from '../components/AppTile';
 import MiscTile from '../components/MiscTile';
 import WalletTile from '../components/WalletTile';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function SettingsHomeScreen() {
   const navigation = useNavigation();
@@ -26,40 +18,46 @@ function SettingsHomeScreen() {
   function HeaderHere() {
     return (
       <View
-        style={{
+        variant="layout.sub_view_20_margin"
+        sx={{
           alignItems: 'center',
           justifyContent: 'space-between',
-          width: windowWidth,
+          alignSelf: 'center',
           flexDirection: 'row',
-          height: 75,
+          marginVertical: '$3',
         }}>
-        <Pressable style={{padding: 20}}>
+        <Bounceable>
           <Iconly
             name="SettingBold"
-            color={themeHere.colors.foreground + '00'}
-            size={25}
+            color={dripsytheme.colors.layout_1 + '00'}
+            size={30}
           />
-        </Pressable>
-        <Text
-          style={{
-            ...themeHere.text.title_3,
-            color: themeHere.colors.foreground,
+        </Bounceable>
+        <View
+          sx={{
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
           }}>
-          SETTINGS
-        </Text>
-        <Pressable style={{padding: 20}} onPress={() => navigation.goBack()}>
+          <Text
+            variant="heading_thick"
+            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+            Settings
+          </Text>
+        </View>
+        <Bounceable onPress={() => navigation.goBack()}>
           <Iconly
-            name="ChevronDownBroken"
-            color={themeHere.colors.foreground}
-            size={25}
+            name="CloseSquareBroken"
+            color={dripsytheme.colors.layout_1}
+            size={30}
           />
-        </Pressable>
+        </Bounceable>
       </View>
     );
   }
 
   return (
-    <View style={styles.parent_view}>
+    <View variant="layout.full_screen">
       <HeaderHere />
       <ScrollView showsVerticalScrollIndicator={false}>
         <WalletTile />
@@ -72,16 +70,3 @@ function SettingsHomeScreen() {
 }
 
 export default SettingsHomeScreen;
-
-const styles = StyleSheet.create({
-  parent_view: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: themeHere.colors.dark,
-  },
-  header_text: {
-    ...themeHere.text.title_3,
-    color: 'white',
-    marginVertical: 50,
-  },
-});
