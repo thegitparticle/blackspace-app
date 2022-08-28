@@ -81,9 +81,52 @@ function HomePage({dispatch}) {
     );
   }
 
+  const livePositionsList = [];
+
+  function LivePositions() {
+    if (livePositionsList.length > 0) {
+      return (
+        <View
+          variant={'sub_view_20_margin'}
+          sx={{
+            alignSelf: 'center',
+            flexDirection: 'row',
+            width: windowWidth - 40,
+            justifyContent: 'center',
+            marginVertical: '$10',
+          }}>
+          <Text
+            variant="body_thick"
+            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+            live positions render here
+          </Text>
+        </View>
+      );
+    } else {
+      return (
+        <View
+          variant={'sub_view_20_margin'}
+          sx={{
+            alignSelf: 'center',
+            flexDirection: 'row',
+            width: windowWidth - 40,
+            justifyContent: 'center',
+            marginVertical: '$10',
+          }}>
+          <Text
+            variant="body_thick"
+            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+            You do not have any live positions!
+          </Text>
+        </View>
+      );
+    }
+  }
+
   return (
     <View variant="layout.full_screen_transparent">
       <Utilities />
+      <LivePositions />
     </View>
   );
 }
