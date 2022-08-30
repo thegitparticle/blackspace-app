@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Dimensions} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
@@ -19,6 +19,17 @@ let state_here = {};
 function FarmThumbnailComponent({farmData}) {
   const sxCustom = useSx();
   const navigation = useNavigation();
+
+  const [apy, setApy] = useState('');
+
+  useEffect(() => {
+    const allApys = state_here.HomoraAPYsReducer.homora_apys;
+    const farmKey = farmData.key;
+
+    if (farmData.key) {
+      setApy(allApys[farmKey].totalAPY);
+    }
+  }, [farmData.key]);
 
   return (
     <Bounceable
@@ -43,8 +54,13 @@ function FarmThumbnailComponent({farmData}) {
         }}>
         <View
           variant="layout.sub_view_40_margin"
-          sx={{flexDirection: 'row', marginVertical: '$3'}}>
-          <View sx={{flexDirection: 'row'}}>
+          sx={{
+            flexDirection: 'row',
+            marginVertical: '$3',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+          }}>
+          <View sx={{flexDirection: 'row', alignItems: 'center'}}>
             <StyledCircleFastImage25
               source={{
                 uri:
@@ -61,7 +77,7 @@ function FarmThumbnailComponent({farmData}) {
               {farmData.name}
             </Text>
           </View>
-          <View sx={{flexDirection: 'row'}}>
+          <View sx={{flexDirection: 'row', alignItems: 'center'}}>
             <StyledCircleFastImage25
               source={{
                 uri:
@@ -103,7 +119,7 @@ function FarmThumbnailComponent({farmData}) {
               APY % up to
             </Text>
             <Text variant="body" sx={{color: 'success_2'}}>
-              {farmData.wTokenType}
+              {apy} %
             </Text>
           </View>
         </View>

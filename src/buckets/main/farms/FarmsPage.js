@@ -4,6 +4,7 @@ import {Dimensions, RefreshControl} from 'react-native';
 import {connect} from 'react-redux';
 import {GetHomoraAPYs} from '../../../redux/onchain/HomoraAPYsActions';
 import {GetHomoraFarms} from '../../../redux/onchain/HomoraFarmsActions';
+import {GetHomoraTradingVols} from '../../../redux/onchain/HomoraTradingVolsActions';
 import {dripsytheme} from '../../../theme/DripsyTheme';
 import FarmThumbnailComponent from './components/FarmThumbnailComponent';
 
@@ -27,6 +28,7 @@ function FarmPage({dispatch}) {
   useEffect(() => {
     dispatch(GetHomoraFarms());
     dispatch(GetHomoraAPYs());
+    dispatch(GetHomoraTradingVols());
   }, [refreshing]);
 
   const homoraFarms = state_here.HomoraFarmsReducer.homora_farms;

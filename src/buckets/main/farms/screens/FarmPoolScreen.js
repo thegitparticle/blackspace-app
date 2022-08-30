@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useEffect} from 'react';
 import {Dimensions, RefreshControl, TextInput} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
@@ -35,6 +35,20 @@ function FarmPoolScreen({route}) {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
+  const [apy, setApy] = useState({});
+  const allTradingVols =
+    state_here.HomoraTradingVolsReducer.homora_trading_vols;
+
+  useEffect(() => {
+    const allApys = state_here.HomoraAPYsReducer.homora_apys;
+
+    const farmKey = farmData.key;
+
+    if (farmData.key) {
+      setApy(allApys[farmKey]);
+    }
+  }, [farmData.key]);
 
   function HeaderHere() {
     return (
@@ -181,20 +195,30 @@ function FarmPoolScreen({route}) {
             fillColor: dripsytheme.colors.layout_4,
           }}>
           <RenderDetail
-            title={'Annual % Rate'}
-            value={farmData.wTokenType}
+            title={'Total APY (%)'}
+            value={apy.totalAPY + '%'}
             highlight={true}
           />
           <RenderDetail
-            title={'Total staked via Lido'}
-            value={farmData.wTokenType}
+            title={'Trading Fee APY (%)'}
+            value={apy.tradingFeeAPY + '%'}
+            highlight={true}
           />
           <RenderDetail
-            title={'Total staked via Lido ($USD)'}
-            value={farmData.wTokenType}
+            title={'Rewards APY (%)'}
+            value={apy.farmingAPY + '%'}
+            highlight={true}
           />
-          <RenderDetail title={'Stakers'} value={farmData.wTokenType} />
-          <RenderDetail title={'Reward Fee (%)'} value={farmData.wTokenType} />
+          <RenderDetail
+            title={'Trading Volume (24h)'}
+            value={
+              '$' +
+              ' ' +
+              Number(allTradingVols[farmData.key])
+                .toFixed(0)
+                .replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+            }
+          />
         </SquircleView>
       </View>
     );
