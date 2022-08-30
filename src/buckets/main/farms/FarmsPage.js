@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {GetHomoraAPYs} from '../../../redux/onchain/HomoraAPYsActions';
 import {GetHomoraFarms} from '../../../redux/onchain/HomoraFarmsActions';
 import {GetHomoraTradingVols} from '../../../redux/onchain/HomoraTradingVolsActions';
+import {GetHomoraTokens} from '../../../redux/onchain/HomoraTokensActions';
 import {dripsytheme} from '../../../theme/DripsyTheme';
 import FarmThumbnailComponent from './components/FarmThumbnailComponent';
 
@@ -29,6 +30,7 @@ function FarmPage({dispatch}) {
     dispatch(GetHomoraFarms());
     dispatch(GetHomoraAPYs());
     dispatch(GetHomoraTradingVols());
+    dispatch(GetHomoraTokens());
   }, [refreshing]);
 
   const homoraFarms = state_here.HomoraFarmsReducer.homora_farms;

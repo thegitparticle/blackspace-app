@@ -8,6 +8,7 @@ import Animated from 'react-native-reanimated';
 import {ExpandableSection} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
+import {getUSDPriceOfTokenQuick} from '../../../../bits/GetUSDPriceOfTokenQuick';
 import SpacerVertical from '../../../../bits/SpacerVertical';
 import SquircleButton from '../../../../bits/SquircleButton';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
@@ -17,6 +18,10 @@ import {
   StyledCircleFastImage50,
 } from '../../../../theme/DripsyTheme';
 import {FarmsFaqs} from '../FarmsData';
+import _ from 'lodash';
+import useGetFiatPrice from '../../../../helpers/useGetFiatPrices';
+import useToken1FiatPrice from '../../../../helpers/useToken1FiatPrice';
+import useToken2FiatPrice from '../../../../helpers/useToken2FiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -40,18 +45,32 @@ function FarmPoolScreen({route}) {
 
   const allTradingVols =
     state_here.HomoraTradingVolsReducer.homora_trading_vols;
+  const allTokens = state_here.HomoraTokensReducer.homora_tokens;
+
+  const token1Address = farmData.tokens[0];
+  const token2Address = farmData.tokens[1];
+
+  const [token1Details, setToken1Details] = useState({});
+  const [token2Details, setToken2Details] = useState({});
 
   const [apy, setApy] = useState({});
 
   useEffect(() => {
     const allApys = state_here.HomoraAPYsReducer.homora_apys;
 
-    const farmKey = farmData.key;
-
-    if (farmData.key) {
-      setApy(allApys[farmKey]);
+    if (farmData) {
+      setApy(allApys[farmData.key]);
+      setToken1Details(allTokens[token1Address]);
+      setToken2Details(allTokens[token2Address]);
     }
   }, [farmData]);
+
+  // const {loadingToken1FiatPrice, token1FiatPrice} = useToken1FiatPrice(
+  //   token1Details.name,
+  // );
+  // const {loadingToken2FiatPrice, token2FiatPrice} = useToken2FiatPrice(
+  //   token2Details.name,
+  // );
 
   function HeaderHere() {
     return (
@@ -144,7 +163,7 @@ function FarmPoolScreen({route}) {
         <SquircleView
           style={sxCustom({
             width: windowWidth - 80,
-            height: 50,
+            height: 70,
             borderRadius: 10,
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -179,8 +198,7 @@ function FarmPoolScreen({route}) {
             <StyledCircleFastImage25
               source={{
                 uri:
-                  'https://homora-v2.alphaventuredao.io/' +
-                  farmData.exchange.logo,
+                  'https://homora-v2.alphaventuredao.io/' + token1Details.logo,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
@@ -189,14 +207,14 @@ function FarmPoolScreen({route}) {
             <Text
               variant="body_thick"
               sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-              {farmData.name}
+              {token1Details.name}
             </Text>
           </View>
         </SquircleView>
         <SquircleView
           style={sxCustom({
             width: windowWidth - 80,
-            height: 50,
+            height: 70,
             borderRadius: 10,
             flexDirection: 'row',
             justifyContent: 'space-between',
@@ -219,7 +237,7 @@ function FarmPoolScreen({route}) {
               ...dripsytheme.text.body_thick,
               color: dripsytheme.colors.layout_1,
               width: windowWidth / 2,
-              height: 50,
+              height: 75,
               alignSelf: 'center',
               textAlign: 'left',
               paddingHorizontal: '$4',
@@ -231,8 +249,7 @@ function FarmPoolScreen({route}) {
             <StyledCircleFastImage25
               source={{
                 uri:
-                  'https://homora-v2.alphaventuredao.io/' +
-                  farmData.exchange.logo,
+                  'https://homora-v2.alphaventuredao.io/' + token2Details.logo,
                 priority: FastImage.priority.normal,
               }}
               resizeMode={FastImage.resizeMode.contain}
@@ -241,7 +258,7 @@ function FarmPoolScreen({route}) {
             <Text
               variant="body_thick"
               sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-              {farmData.name}
+              {token2Details.name}
             </Text>
           </View>
         </SquircleView>
