@@ -202,12 +202,10 @@ function FarmPoolScreen({route}) {
           <RenderDetail
             title={'Trading Fee APY (%)'}
             value={apy.tradingFeeAPY + '%'}
-            highlight={true}
           />
           <RenderDetail
             title={'Rewards APY (%)'}
             value={apy.farmingAPY + '%'}
-            highlight={true}
           />
           <RenderDetail
             title={'Trading Volume (24h)'}
