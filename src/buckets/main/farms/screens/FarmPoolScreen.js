@@ -9,9 +9,11 @@ import {ExpandableSection} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
 import SpacerVertical from '../../../../bits/SpacerVertical';
+import SquircleButton from '../../../../bits/SquircleButton';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {
   dripsytheme,
+  StyledCircleFastImage25,
   StyledCircleFastImage50,
 } from '../../../../theme/DripsyTheme';
 import {FarmsFaqs} from '../FarmsData';
@@ -36,9 +38,10 @@ function FarmPoolScreen({route}) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  const [apy, setApy] = useState({});
   const allTradingVols =
     state_here.HomoraTradingVolsReducer.homora_trading_vols;
+
+  const [apy, setApy] = useState({});
 
   useEffect(() => {
     const allApys = state_here.HomoraAPYsReducer.homora_apys;
@@ -48,7 +51,7 @@ function FarmPoolScreen({route}) {
     if (farmData.key) {
       setApy(allApys[farmKey]);
     }
-  }, [farmData.key]);
+  }, [farmData]);
 
   function HeaderHere() {
     return (
@@ -120,7 +123,8 @@ function FarmPoolScreen({route}) {
   }
 
   function StakeComponent() {
-    const [amountStake, setAmountStake] = useState('');
+    const [amountStake1, setAmountStake1] = useState('');
+    const [amountStake2, setAmountStake2] = useState('');
 
     return (
       <SquircleView
@@ -142,35 +146,115 @@ function FarmPoolScreen({route}) {
             width: windowWidth - 80,
             height: 50,
             borderRadius: 10,
-            justifyContent: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignItems: 'center',
             marginVertical: '$3',
           })}
           squircleParams={{
             cornerSmoothing: 1,
-            cornerRadius: 15,
-            fillColor: dripsytheme.colors.layout_1 + '25',
+            cornerRadius: 10,
+            fillColor: dripsytheme.colors.layout_1 + '10',
           }}>
           <TextInput
             numberOfLines={1}
-            value={amountStake}
+            value={amountStake1}
+            onChange={input => setAmountStake1(input)}
+            keyboardType={'decimal-pad'}
+            onEndEditing={() => {}}
             style={sxCustom({
               backgroundColor: 'transparent',
               ...dripsytheme.text.body_thick,
-              color: dripsytheme.colors.foreground,
-              width: windowWidth - 80,
+              color: dripsytheme.colors.layout_1,
+              width: windowWidth / 2,
               height: 50,
               alignSelf: 'center',
               textAlign: 'left',
               paddingHorizontal: '$4',
             })}
-            placeholder={'how much ETH do you wanna stake?'}
+            placeholder={'0.0'}
             placeholderTextColor={dripsytheme.colors.layout_1 + 50}
           />
+          <View sx={{flexDirection: 'row', alignItems: 'center'}}>
+            <StyledCircleFastImage25
+              source={{
+                uri:
+                  'https://homora-v2.alphaventuredao.io/' +
+                  farmData.exchange.logo,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+              style={{backgroundColor: dripsytheme.colors.layout_1}}
+            />
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+              {farmData.name}
+            </Text>
+          </View>
         </SquircleView>
-        <RenderDetail title={'you will get'} value={farmData.wTokenType} />
-        <RenderDetail title={'exchange rate'} value={farmData.wTokenType} />
-        <RenderDetail title={'transaction fee'} value={farmData.wTokenType} />
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 80,
+            height: 50,
+            borderRadius: 10,
+            flexDirection: 'row',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginVertical: '$3',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 10,
+            fillColor: dripsytheme.colors.layout_1 + '10',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            value={amountStake2}
+            onChange={input => setAmountStake2(input)}
+            keyboardType={'decimal-pad'}
+            onEndEditing={() => {}}
+            style={sxCustom({
+              backgroundColor: 'transparent',
+              ...dripsytheme.text.body_thick,
+              color: dripsytheme.colors.layout_1,
+              width: windowWidth / 2,
+              height: 50,
+              alignSelf: 'center',
+              textAlign: 'left',
+              paddingHorizontal: '$4',
+            })}
+            placeholder={'0.0'}
+            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+          />
+          <View sx={{flexDirection: 'row', alignItems: 'center'}}>
+            <StyledCircleFastImage25
+              source={{
+                uri:
+                  'https://homora-v2.alphaventuredao.io/' +
+                  farmData.exchange.logo,
+                priority: FastImage.priority.normal,
+              }}
+              resizeMode={FastImage.resizeMode.contain}
+              style={{backgroundColor: dripsytheme.colors.layout_1}}
+            />
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+              {farmData.name}
+            </Text>
+          </View>
+        </SquircleView>
+        <View sx={{marginVertical: '$3'}}>
+          <SquircleButton
+            buttonColor={dripsytheme.colors.success_3}
+            width={windowWidth * 0.7}
+            height={50}
+            buttonText={'stake to earn'}
+            font={dripsytheme.text.body_thick}
+            textColor={dripsytheme.colors.layout_1}
+          />
+        </View>
       </SquircleView>
     );
   }
