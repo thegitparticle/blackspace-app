@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
 import React, {useCallback, useState, useEffect} from 'react';
-import {Dimensions, RefreshControl, TextInput} from 'react-native';
+import {Dimensions, Pressable, RefreshControl, TextInput} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
 import Animated from 'react-native-reanimated';
@@ -26,6 +26,8 @@ import useToken2FiatPrice from '../../../../helpers/useToken2FiatPrice';
 import useGetTokenBalance from '../../../../helpers/useGetTokenBalance';
 import {BigNumber, ethers} from 'ethers';
 import useGetETHBalance from '../../../../helpers/useGetETHBalance';
+import {Touchable} from 'react-native';
+import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -155,6 +157,9 @@ function FarmPoolScreen({route}) {
 
     const [showBalanceCheckPopup, setShowBalanceCheckPopup] = useState(false);
 
+    const [passedToken1BalCheck, setPassedToken1BalCheck] = useState(false);
+    const [passedToken2BalCheck, setPassedToken2BalCheck] = useState(false);
+
     function BalanceCheckPopup() {
       function Token1Balance() {
         const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
@@ -188,6 +193,7 @@ function FarmPoolScreen({route}) {
 
         if (!loadingTokenBalance) {
           if (Number(readableBalance) >= Number(amountStake1)) {
+            setPassedToken1BalCheck(true);
             return (
               <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
                 You have enough {token1Details.name} balance - {readableBalance}
@@ -242,6 +248,7 @@ function FarmPoolScreen({route}) {
 
         if (!loadingTokenBalance) {
           if (Number(readableBalance) >= Number(amountStake2)) {
+            setPassedToken2BalCheck(true);
             return (
               <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
                 You have enough {token2Details.name} balance - {readableBalance}
@@ -264,6 +271,27 @@ function FarmPoolScreen({route}) {
         }
       }
 
+      function MakeTransactionButton() {
+        if (passedToken1BalCheck && passedToken2BalCheck) {
+          return (
+            <Pressable onPress={() => console.log('make txn')}>
+              <View sx={{marginVertical: '$3'}}>
+                <SquircleButton
+                  buttonColor={dripsytheme.colors.success_3}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'confirm stake'}
+                  font={dripsytheme.text.body_thick}
+                  textColor={dripsytheme.colors.layout_1}
+                />
+              </View>
+            </Pressable>
+          );
+        } else {
+          return <View />;
+        }
+      }
+
       return (
         <View variant="layout.info_popup">
           <Text
@@ -273,6 +301,7 @@ function FarmPoolScreen({route}) {
           </Text>
           <Token1Balance />
           <Token2Balance />
+          <MakeTransactionButton />
         </View>
       );
     }
@@ -437,6 +466,8 @@ function FarmPoolScreen({route}) {
           modalAnimation={new ScaleAnimation()}
           onTouchOutside={() => {
             setShowBalanceCheckPopup(false);
+            setPassedToken1BalCheck(false);
+            setPassedToken2BalCheck(false);
           }}>
           <ModalContent>
             <BalanceCheckPopup />
