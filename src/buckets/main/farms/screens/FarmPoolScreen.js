@@ -19,9 +19,12 @@ import {
 } from '../../../../theme/DripsyTheme';
 import {FarmsFaqs} from '../FarmsData';
 import _ from 'lodash';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import useGetFiatPrice from '../../../../helpers/useGetFiatPrices';
 import useToken1FiatPrice from '../../../../helpers/useToken1FiatPrice';
 import useToken2FiatPrice from '../../../../helpers/useToken2FiatPrice';
+import useGetTokenBalance from '../../../../helpers/useGetTokenBalance';
+import {BigNumber, ethers} from 'ethers';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -145,6 +148,82 @@ function FarmPoolScreen({route}) {
     const [amountStake1, setAmountStake1] = useState('');
     const [amountStake2, setAmountStake2] = useState('');
 
+    const [showBalanceCheckPopup, setShowBalanceCheckPopup] = useState(false);
+
+    function Token1Balance() {
+      const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
+        '0x00db6f35d77770D942902ce9F5b651788455DE82',
+        '0x1E4EDE388cbc9F4b5c79681B7f94d36a11ABEBC9',
+      );
+
+      const [readableBalance, setReadableBalance] = useState(0);
+
+      useEffect(() => {
+        console.log(tokenBalance + 'tok bal');
+        if (tokenBalance) {
+          setReadableBalance(
+            ethers.utils.formatUnits(tokenBalance, token1Details.decimals),
+          );
+        }
+      }, [tokenBalance]);
+
+      return (
+        <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+          $ Tok1 Bal {readableBalance}
+        </Text>
+      );
+    }
+
+    function BalanceCheckPopup() {
+      return (
+        <View variant="layout.info_popup">
+          <Text
+            variant="heading_thick"
+            sx={{color: 'layout_1', mt: '$4', mb: '$8'}}>
+            Balance Checks
+          </Text>
+          <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+            $ US Dollar
+          </Text>
+          <Token1Balance />
+        </View>
+      );
+    }
+
+    function StakeButton() {
+      if (amountStake1.length > 0 && amountStake2.length > 0) {
+        return (
+          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
+            <View sx={{marginVertical: '$3'}}>
+              <SquircleButton
+                buttonColor={dripsytheme.colors.success_3}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'stake to earn'}
+                font={dripsytheme.text.body_thick}
+                textColor={dripsytheme.colors.layout_1}
+              />
+            </View>
+          </Bounceable>
+        );
+      } else {
+        return (
+          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
+            <View sx={{marginVertical: '$3'}}>
+              <SquircleButton
+                buttonColor={dripsytheme.colors.layout_1 + '10'}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'stake to earn'}
+                font={dripsytheme.text.body_thick}
+                textColor={dripsytheme.colors.layout_1}
+              />
+            </View>
+          </Bounceable>
+        );
+      }
+    }
+
     return (
       <SquircleView
         style={sxCustom({
@@ -262,16 +341,20 @@ function FarmPoolScreen({route}) {
             </Text>
           </View>
         </SquircleView>
-        <View sx={{marginVertical: '$3'}}>
-          <SquircleButton
-            buttonColor={dripsytheme.colors.success_3}
-            width={windowWidth * 0.7}
-            height={50}
-            buttonText={'stake to earn'}
-            font={dripsytheme.text.body_thick}
-            textColor={dripsytheme.colors.layout_1}
-          />
-        </View>
+        <StakeButton />
+        <Modal
+          visible={showBalanceCheckPopup}
+          initialValue={0}
+          useNativeDriver={true}
+          modalStyle={{backgroundColor: 'transparent'}}
+          modalAnimation={new ScaleAnimation()}
+          onTouchOutside={() => {
+            setShowBalanceCheckPopup(false);
+          }}>
+          <ModalContent>
+            <BalanceCheckPopup />
+          </ModalContent>
+        </Modal>
       </SquircleView>
     );
   }
