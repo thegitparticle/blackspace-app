@@ -196,7 +196,7 @@ function FarmPoolScreen({route}) {
             setPassedToken1BalCheck(true);
             return (
               <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You have enough {token1Details.name} balance - {readableBalance}
+                You have enough {token1Details.name} balance - {readableBalance}{' '}
               </Text>
             );
           } else {
@@ -274,7 +274,15 @@ function FarmPoolScreen({route}) {
       function MakeTransactionButton() {
         if (passedToken1BalCheck && passedToken2BalCheck) {
           return (
-            <Pressable onPress={() => console.log('make txn')}>
+            <Pressable
+              onPress={() => {
+                setShowBalanceCheckPopup(false);
+                navigation.navigate('FarmTxnScreen', {
+                  farmData: farmData,
+                  amountStake1: amountStake1,
+                  amountStake2: amountStake2,
+                });
+              }}>
               <View sx={{marginVertical: '$3'}}>
                 <SquircleButton
                   buttonColor={dripsytheme.colors.success_3}
@@ -373,7 +381,7 @@ function FarmPoolScreen({route}) {
           <TextInput
             numberOfLines={1}
             value={amountStake1}
-            onChange={input => setAmountStake1(input)}
+            onChangeText={input => setAmountStake1(input)}
             keyboardType={'decimal-pad'}
             onEndEditing={() => {}}
             style={sxCustom({
@@ -424,7 +432,7 @@ function FarmPoolScreen({route}) {
           <TextInput
             numberOfLines={1}
             value={amountStake2}
-            onChange={input => setAmountStake2(input)}
+            onChangeText={input => setAmountStake2(input)}
             keyboardType={'decimal-pad'}
             onEndEditing={() => {}}
             style={sxCustom({
