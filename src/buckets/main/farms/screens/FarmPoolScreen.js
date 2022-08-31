@@ -25,6 +25,7 @@ import useToken1FiatPrice from '../../../../helpers/useToken1FiatPrice';
 import useToken2FiatPrice from '../../../../helpers/useToken2FiatPrice';
 import useGetTokenBalance from '../../../../helpers/useGetTokenBalance';
 import {BigNumber, ethers} from 'ethers';
+import useGetETHBalance from '../../../../helpers/useGetETHBalance';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -49,6 +50,10 @@ function FarmPoolScreen({route}) {
   const allTradingVols =
     state_here.HomoraTradingVolsReducer.homora_trading_vols;
   const allTokens = state_here.HomoraTokensReducer.homora_tokens;
+  const {loadingTokenBalance, ethBalance} = useGetETHBalance(
+    // state_here.WDeetsReducer.wdeets.wallet_address,
+    '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+  );
 
   const token1Address = farmData.tokens[0];
   const token2Address = farmData.tokens[1];
@@ -150,31 +155,115 @@ function FarmPoolScreen({route}) {
 
     const [showBalanceCheckPopup, setShowBalanceCheckPopup] = useState(false);
 
-    function Token1Balance() {
-      const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
-        '0x00db6f35d77770D942902ce9F5b651788455DE82',
-        '0x1E4EDE388cbc9F4b5c79681B7f94d36a11ABEBC9',
-      );
+    function BalanceCheckPopup() {
+      function Token1Balance() {
+        const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
+          '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+          token1Address,
+        );
 
-      const [readableBalance, setReadableBalance] = useState(0);
+        const [readableBalance, setReadableBalance] = useState(0);
 
-      useEffect(() => {
-        console.log(tokenBalance + 'tok bal');
-        if (tokenBalance) {
-          setReadableBalance(
-            ethers.utils.formatUnits(tokenBalance, token1Details.decimals),
+        useEffect(() => {
+          if (tokenBalance) {
+            if (
+              String(token1Address).toUpperCase() ===
+              '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'.toUpperCase() // if wrapperETH, add to eth balance
+            ) {
+              setReadableBalance(
+                Number(
+                  ethers.utils.formatUnits(
+                    tokenBalance,
+                    token2Details.decimals,
+                  ),
+                ) + Number(ethBalance),
+              );
+            } else {
+              setReadableBalance(
+                ethers.utils.formatUnits(tokenBalance, token1Details.decimals),
+              );
+            }
+          }
+        }, [tokenBalance]);
+
+        if (!loadingTokenBalance) {
+          if (Number(readableBalance) >= Number(amountStake1)) {
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You have enough {token1Details.name} balance - {readableBalance}
+              </Text>
+            );
+          } else {
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You don't have enough {token1Details.name} balance -{' '}
+                {readableBalance}
+              </Text>
+            );
+          }
+        } else {
+          return (
+            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+              Checking {token1Details.name} balance - {readableBalance}
+            </Text>
           );
         }
-      }, [tokenBalance]);
+      }
 
-      return (
-        <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-          $ Tok1 Bal {readableBalance}
-        </Text>
-      );
-    }
+      function Token2Balance() {
+        const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
+          '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+          token2Address,
+        );
 
-    function BalanceCheckPopup() {
+        const [readableBalance, setReadableBalance] = useState(0);
+
+        useEffect(() => {
+          if (tokenBalance) {
+            if (
+              String(token2Address).toUpperCase() ===
+              '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2'.toUpperCase() // if wrapperETH, add to eth balance
+            ) {
+              setReadableBalance(
+                Number(
+                  ethers.utils.formatUnits(
+                    tokenBalance,
+                    token2Details.decimals,
+                  ),
+                ) + Number(ethBalance),
+              );
+            } else {
+              setReadableBalance(
+                ethers.utils.formatUnits(tokenBalance, token2Details.decimals),
+              );
+            }
+          }
+        }, [tokenBalance]);
+
+        if (!loadingTokenBalance) {
+          if (Number(readableBalance) >= Number(amountStake2)) {
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You have enough {token2Details.name} balance - {readableBalance}
+              </Text>
+            );
+          } else {
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You don't have enough {token2Details.name} balance -{' '}
+                {readableBalance}
+              </Text>
+            );
+          }
+        } else {
+          return (
+            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+              Checking {token2Details.name} balance - {readableBalance}
+            </Text>
+          );
+        }
+      }
+
       return (
         <View variant="layout.info_popup">
           <Text
@@ -182,10 +271,8 @@ function FarmPoolScreen({route}) {
             sx={{color: 'layout_1', mt: '$4', mb: '$8'}}>
             Balance Checks
           </Text>
-          <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-            $ US Dollar
-          </Text>
           <Token1Balance />
+          <Token2Balance />
         </View>
       );
     }

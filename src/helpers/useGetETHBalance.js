@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {Alchemy, Network} from 'alchemy-sdk';
 import Config from 'react-native-config';
-import {BigNumber} from 'ethers';
+import {BigNumber, ethers} from 'ethers';
 
 const settings = {
   apiKey: Config.ALCHEMY_MAINNET_TOKEN,
@@ -10,16 +10,14 @@ const settings = {
 
 const alchemy = new Alchemy(settings);
 
-export default function useGetTokenBalance(walletAddress, tokenAddress) {
+export default function useGetETHBalance(walletAddress) {
   const [loadingTokenBalance, setLoading] = useState(true);
-  const [tokenBalance, setTokenBalance] = useState(null);
+  const [ethBalance, setETHBalance] = useState(null);
 
   async function getBalance() {
-    const balances = await alchemy.core.getTokenBalances(walletAddress, [
-      tokenAddress,
-    ]);
+    const balances = await alchemy.core.getBalance(walletAddress);
 
-    setTokenBalance(BigNumber.from(balances.tokenBalances[0].tokenBalance));
+    setETHBalance(ethers.utils.formatEther(BigNumber.from(balances)));
     setLoading(false);
   }
 
@@ -27,5 +25,5 @@ export default function useGetTokenBalance(walletAddress, tokenAddress) {
     getBalance();
   }, []);
 
-  return {loadingTokenBalance, tokenBalance};
+  return {loadingTokenBalance, ethBalance};
 }
