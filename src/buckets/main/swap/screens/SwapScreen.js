@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useState, useMemo, useRef} from 'react';
 import {Dimensions, RefreshControl, TextInput} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
@@ -12,9 +12,13 @@ import SpacerVertical from '../../../../bits/SpacerVertical';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {
   dripsytheme,
+  StyledCircleFastImage25,
   StyledCircleFastImage50,
 } from '../../../../theme/DripsyTheme';
 import {SwapFAQs} from '../SwapData';
+import {Modalize} from 'react-native-modalize';
+import {Portal} from 'react-native-portalize';
+import list from '../../../../utils/tokenslist.json';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -28,6 +32,7 @@ let state_here = {};
 function SwapScreen({route}) {
   const sxCustom = useSx();
   const navigation = useNavigation();
+  const tokensList = list.tokens;
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -94,6 +99,22 @@ function SwapScreen({route}) {
     );
   }
 
+  const modalizePickToken0CoinRef = useRef(null);
+  const onOpenPickToken0 = () => {
+    modalizePickToken0CoinRef.current?.open();
+  };
+  const onClosePickToken0 = () => {
+    modalizePickToken0CoinRef.current?.close();
+  };
+
+  const modalizePickToken1CoinRef = useRef(null);
+  const onOpenPickToken1 = () => {
+    modalizePickToken1CoinRef.current?.open();
+  };
+  const onClosePickToken1 = () => {
+    modalizePickToken1CoinRef.current?.close();
+  };
+
   function SwapComponent() {
     const [token0Amount, setToken0Amount] = useState('');
     const [token1Amount, setToken1Amount] = useState('');
@@ -116,67 +137,131 @@ function SwapScreen({route}) {
         <SquircleView
           style={sxCustom({
             width: windowWidth - 80,
-            height: 50,
+            height: 90,
             borderRadius: 10,
-            justifyContent: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignItems: 'center',
             marginVertical: '$3',
           })}
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: dripsytheme.colors.layout_1 + '25',
+            fillColor: dripsytheme.colors.layout_1 + '10',
           }}>
-          <TextInput
-            numberOfLines={1}
-            value={token0Amount}
-            style={sxCustom({
-              backgroundColor: 'transparent',
-              ...dripsytheme.text.body_thick,
-              color: dripsytheme.colors.foreground,
-              width: windowWidth - 80,
-              height: 50,
-              alignSelf: 'center',
-              textAlign: 'left',
-              paddingHorizontal: '$4',
-            })}
-            placeholder={'how much to swap?'}
-            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
-          />
+          <View sx={{flexDirection: 'column'}}>
+            <TextInput
+              numberOfLines={1}
+              value={token0Amount}
+              onChangeText={input => setToken0Amount(input)}
+              keyboardType={'decimal-pad'}
+              onEndEditing={() => {}}
+              style={sxCustom({
+                backgroundColor: 'transparent',
+                ...dripsytheme.text.body_thick,
+                color: dripsytheme.colors.layout_1,
+                width: windowWidth / 2,
+                height: 50,
+                alignSelf: 'center',
+                textAlign: 'left',
+                paddingHorizontal: '$4',
+              })}
+              placeholder={'how much to swap?'}
+              placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+            />
+            <Text
+              variant="text"
+              sx={{
+                color: 'layout_1',
+                marginHorizontal: '$4',
+              }}>
+              $ 150
+            </Text>
+          </View>
+          <Bounceable onPress={() => onOpenPickToken0()}>
+            <View sx={{flexDirection: 'row', alignItems: 'center'}}>
+              <StyledCircleFastImage25
+                source={{
+                  uri: 'https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912',
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{backgroundColor: dripsytheme.colors.layout_1}}
+              />
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+                MATIC
+              </Text>
+            </View>
+          </Bounceable>
         </SquircleView>
         <SquircleView
           style={sxCustom({
             width: windowWidth - 80,
-            height: 50,
+            height: 90,
             borderRadius: 10,
-            justifyContent: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignItems: 'center',
             marginVertical: '$3',
           })}
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: dripsytheme.colors.layout_1 + '25',
+            fillColor: dripsytheme.colors.layout_1 + '10',
           }}>
-          <TextInput
-            numberOfLines={1}
-            value={token0Amount}
-            style={sxCustom({
-              backgroundColor: 'transparent',
-              ...dripsytheme.text.body_thick,
-              color: dripsytheme.colors.foreground,
-              width: windowWidth - 80,
-              height: 50,
-              alignSelf: 'center',
-              textAlign: 'left',
-              paddingHorizontal: '$4',
-            })}
-            placeholder={'how much you will get'}
-            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
-          />
+          <View sx={{flexDirection: 'column'}}>
+            <TextInput
+              numberOfLines={1}
+              value={token1Amount}
+              onChangeText={input => setToken1Amount(input)}
+              keyboardType={'decimal-pad'}
+              onEndEditing={() => {}}
+              style={sxCustom({
+                backgroundColor: 'transparent',
+                // backgroundColor: dripsytheme.colors.brand_orange,
+                ...dripsytheme.text.body_thick,
+                color: dripsytheme.colors.layout_1,
+                width: windowWidth / 2,
+                height: 50,
+                alignSelf: 'center',
+                textAlign: 'left',
+                paddingHorizontal: '$4',
+              })}
+              placeholder={'how much you will get'}
+              placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+            />
+            <Text
+              variant="text"
+              sx={{
+                color: 'layout_1',
+                marginHorizontal: '$4',
+              }}>
+              $ 150
+            </Text>
+          </View>
+          <Bounceable onPress={() => onOpenPickToken1()}>
+            <View sx={{flexDirection: 'row', alignItems: 'center'}}>
+              <StyledCircleFastImage25
+                source={{
+                  uri: 'https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912',
+                  priority: FastImage.priority.normal,
+                }}
+                resizeMode={FastImage.resizeMode.contain}
+                style={{backgroundColor: dripsytheme.colors.layout_1}}
+              />
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+                MATIC
+              </Text>
+            </View>
+          </Bounceable>
         </SquircleView>
         <RenderDetail title={'you will get'} value={'loading'} />
         <RenderDetail title={'exchange rate'} value={'loading'} />
+
         <RenderDetail title={'transaction fee'} value={'loading'} />
       </SquircleView>
     );
@@ -266,6 +351,48 @@ function SwapScreen({route}) {
         <FAQs />
         <SpacerVertical height={60} />
       </Animated.ScrollView>
+      <Modalize
+        ref={modalizePickToken0CoinRef}
+        modalStyle={{
+          backgroundColor: dripsytheme.colors.layout_4,
+          width: windowWidth,
+          height: windowHeight * 0.5,
+        }}
+        flatListProps={{
+          data: tokensList,
+          renderItem: item => (
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_2', marginHorizontal: '$4'}}>
+              question
+            </Text>
+          ),
+          keyExtractor: item => item.heading,
+          showsVerticalScrollIndicator: false,
+          // ListHeaderComponent: PickToken1Header(),
+        }}
+      />
+      <Modalize
+        ref={modalizePickToken1CoinRef}
+        modalStyle={{
+          backgroundColor: dripsytheme.colors.layout_4,
+          width: windowWidth,
+          height: windowHeight * 0.5,
+        }}
+        flatListProps={{
+          data: tokensList,
+          renderItem: item => (
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_2', marginHorizontal: '$4'}}>
+              question
+            </Text>
+          ),
+          keyExtractor: item => item.heading,
+          showsVerticalScrollIndicator: false,
+          // ListHeaderComponent: PickToken1Header(),
+        }}
+      />
     </View>
   );
 }
