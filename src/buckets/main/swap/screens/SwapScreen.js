@@ -34,6 +34,9 @@ function SwapScreen({route}) {
   const navigation = useNavigation();
   const tokensList = list.tokens;
 
+  const [token0PickerList, setToken0PickerList] = useState(tokensList);
+  const [token1PickerList, setToken1PickerList] = useState(tokensList);
+
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
     setRefreshing(true);
@@ -107,6 +110,110 @@ function SwapScreen({route}) {
     modalizePickToken0CoinRef.current?.close();
   };
 
+  function Token0PickerHeader() {
+    const [searchText, setSearchText] = useState('');
+
+    const filter = e => {
+      const keyword = e.nativeEvent.text;
+
+      if (keyword !== '') {
+        const results = tokensList.filter(token => {
+          return token.name.toLowerCase().startsWith(keyword.toLowerCase());
+          // Use the toLowerCase() method to make it case-insensitive
+        });
+        setToken0PickerList(results);
+      } else {
+        setToken0PickerList(tokensList);
+        // If the text field is empty, show all users
+      }
+
+      setSearchText(keyword);
+    };
+
+    return (
+      <View variant={'sub_view_20_margin'} sx={{alignSelf: 'center'}}>
+        <Text
+          variant={'heading_thick'}
+          sx={{marginVertical: '$6', textAlign: 'center', color: 'layout_1'}}>
+          search tokens
+        </Text>
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            height: 50,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: '$3',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: dripsytheme.colors.layout_3 + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            onChange={e => filter(e)}
+            value={searchText}
+            style={sxCustom({
+              backgroundColor: 'transparent',
+              ...dripsytheme.text.body_thick,
+              color: dripsytheme.colors.layout_1,
+              width: windowWidth - 40,
+              height: 50,
+              alignSelf: 'center',
+              textAlign: 'center',
+            })}
+            placeholder={'search coins'}
+            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+          />
+        </SquircleView>
+      </View>
+    );
+  }
+
+  function Token0PickerItemComponent({token}) {
+    return (
+      <Bounceable onPress={() => onClosePickToken0()}>
+        <View
+          variant="sub_view_20_margin"
+          sx={{
+            height: 100,
+            flexDirection: 'row',
+            alignSelf: 'center',
+            alignItems: 'center',
+          }}>
+          <StyledCircleFastImage25
+            source={{
+              uri: token.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <View sx={{flexDirection: 'column'}}>
+            <View sx={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+                {token.item.name}
+              </Text>
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+                {token.item.symbol}
+              </Text>
+            </View>
+            <Text
+              variant="text"
+              sx={{color: 'layout_1', marginHorizontal: '$4', opacity: 0.5}}>
+              {token.item.address}
+            </Text>
+          </View>
+        </View>
+      </Bounceable>
+    );
+  }
+
   const modalizePickToken1CoinRef = useRef(null);
   const onOpenPickToken1 = () => {
     modalizePickToken1CoinRef.current?.open();
@@ -114,6 +221,110 @@ function SwapScreen({route}) {
   const onClosePickToken1 = () => {
     modalizePickToken1CoinRef.current?.close();
   };
+
+  function Token1PickerItemComponent({token}) {
+    return (
+      <Bounceable onPress={() => onClosePickToken1()}>
+        <View
+          variant="sub_view_20_margin"
+          sx={{
+            height: 100,
+            flexDirection: 'row',
+            alignSelf: 'center',
+            alignItems: 'center',
+          }}>
+          <StyledCircleFastImage25
+            source={{
+              uri: token.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <View sx={{flexDirection: 'column'}}>
+            <View sx={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+                {token.item.name}
+              </Text>
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+                {token.item.symbol}
+              </Text>
+            </View>
+            <Text
+              variant="text"
+              sx={{color: 'layout_1', marginHorizontal: '$4', opacity: 0.5}}>
+              {token.item.address}
+            </Text>
+          </View>
+        </View>
+      </Bounceable>
+    );
+  }
+
+  function Token1PickerHeader() {
+    const [searchText, setSearchText] = useState('');
+
+    const filter = e => {
+      const keyword = e.nativeEvent.text;
+
+      if (keyword !== '') {
+        const results = tokensList.filter(token => {
+          return token.name.toLowerCase().startsWith(keyword.toLowerCase());
+          // Use the toLowerCase() method to make it case-insensitive
+        });
+        setToken1PickerList(results);
+      } else {
+        setToken1PickerList(tokensList);
+        // If the text field is empty, show all users
+      }
+
+      setSearchText(keyword);
+    };
+
+    return (
+      <View variant={'sub_view_20_margin'} sx={{alignSelf: 'center'}}>
+        <Text
+          variant={'heading_thick'}
+          sx={{marginVertical: '$6', textAlign: 'center', color: 'layout_1'}}>
+          search tokens
+        </Text>
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            height: 50,
+            borderRadius: 10,
+            justifyContent: 'center',
+            alignItems: 'center',
+            marginVertical: '$3',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: dripsytheme.colors.layout_3 + '25',
+          }}>
+          <TextInput
+            numberOfLines={1}
+            onChange={e => filter(e)}
+            value={searchText}
+            style={sxCustom({
+              backgroundColor: 'transparent',
+              ...dripsytheme.text.body_thick,
+              color: dripsytheme.colors.layout_1,
+              width: windowWidth - 40,
+              height: 50,
+              alignSelf: 'center',
+              textAlign: 'center',
+            })}
+            placeholder={'search coins'}
+            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+          />
+        </SquircleView>
+      </View>
+    );
+  }
 
   function SwapComponent() {
     const [token0Amount, setToken0Amount] = useState('');
@@ -356,20 +567,13 @@ function SwapScreen({route}) {
         modalStyle={{
           backgroundColor: dripsytheme.colors.layout_4,
           width: windowWidth,
-          height: windowHeight * 0.5,
         }}
         flatListProps={{
-          data: tokensList,
-          renderItem: item => (
-            <Text
-              variant="body_thick"
-              sx={{color: 'layout_2', marginHorizontal: '$4'}}>
-              question
-            </Text>
-          ),
+          data: token0PickerList,
+          renderItem: item => <Token0PickerItemComponent token={item} />,
           keyExtractor: item => item.heading,
           showsVerticalScrollIndicator: false,
-          // ListHeaderComponent: PickToken1Header(),
+          ListHeaderComponent: Token0PickerHeader(),
         }}
       />
       <Modalize
@@ -377,20 +581,13 @@ function SwapScreen({route}) {
         modalStyle={{
           backgroundColor: dripsytheme.colors.layout_4,
           width: windowWidth,
-          height: windowHeight * 0.5,
         }}
         flatListProps={{
-          data: tokensList,
-          renderItem: item => (
-            <Text
-              variant="body_thick"
-              sx={{color: 'layout_2', marginHorizontal: '$4'}}>
-              question
-            </Text>
-          ),
+          data: token1PickerList,
+          renderItem: item => <Token1PickerItemComponent token={item} />,
           keyExtractor: item => item.heading,
           showsVerticalScrollIndicator: false,
-          // ListHeaderComponent: PickToken1Header(),
+          ListHeaderComponent: Token1PickerHeader(),
         }}
       />
     </View>
