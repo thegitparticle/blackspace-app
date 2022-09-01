@@ -19,6 +19,11 @@ import {SwapFAQs} from '../SwapData';
 import {Modalize} from 'react-native-modalize';
 import {Portal} from 'react-native-portalize';
 import list from '../../../../utils/tokenslist.json';
+import useToken1FiatPrice from '../../../../helpers/useToken1FiatPrice';
+import useToken2FiatPrice from '../../../../helpers/useToken2FiatPrice';
+import SquircleButton from '../../../../bits/SquircleButton';
+import use0xSwapQuote from '../../../../helpers/use0xSwapQuote';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -33,6 +38,10 @@ function SwapScreen({route}) {
   const sxCustom = useSx();
   const navigation = useNavigation();
   const tokensList = list.tokens;
+
+  const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
+
+  const {loadingPriceEth, priceEth} = useEthFiatPrice();
 
   const [token0PickerList, setToken0PickerList] = useState(tokensList);
   const [token1PickerList, setToken1PickerList] = useState(tokensList);
@@ -55,6 +64,26 @@ function SwapScreen({route}) {
     name: 'USD Coin',
     symbol: 'USDC',
   });
+
+  // const {loadingToken1FiatPrice, token1FiatPrice} = useToken1FiatPrice(); // token0 / sellToken
+  // const {loadingToken2FiatPrice, token2FiatPrice} = useToken2FiatPrice(); // token1 / buyToken
+
+  const [token0FiatRate, setToken0FiatRate] = useState('2');
+  const [token1FiatRate, setToken1FiatRate] = useState('3');
+
+  // useEffect(() => {
+  //   const {loadingToken1FiatPrice, token1FiatPrice} = useToken1FiatPrice(
+  //     token0Details.symbol,
+  //   );
+  //   setToken0FiatRate(token1FiatPrice);
+  // }, [token0Details]);
+
+  // useEffect(() => {
+  //   const {loadingToken2FiatPrice, token2FiatPrice} = useToken2FiatPrice(
+  //     token1Details.symbol,
+  //   );
+  //   setToken1FiatRate(token2FiatPrice);
+  // }, [token1Details]);
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -358,6 +387,68 @@ function SwapScreen({route}) {
     const [token0Amount, setToken0Amount] = useState('');
     const [token1Amount, setToken1Amount] = useState('');
 
+    const [token0AmountFiat, setToken0AmountFiat] = useState('0');
+    const [token1AmountFiat, setToken1AmountFiat] = useState('0');
+
+    useEffect(() => {
+      if (Number(token0Amount) > 0 && Number(token0FiatRate) > 0) {
+        setToken0AmountFiat(Number(token0Amount) * Number(token0FiatRate));
+      }
+    }, [token0Amount, token0FiatRate]);
+
+    useEffect(() => {
+      if (Number(token1Amount) > 0 && Number(token1FiatRate) > 0) {
+        setToken1AmountFiat(Number(token1Amount) * Number(token1FiatRate));
+      }
+    }, [token1Amount, token1FiatRate]);
+
+    const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+      use0xSwapQuote(
+        token0Details.address,
+        token1Details.address,
+        token0Amount,
+        token0Details.decimals,
+        wallet_address,
+      );
+
+    function SwapButton() {
+      if (token0Amount.length > 0 && token1Amount.length > 0) {
+        return (
+          <Bounceable
+          // onPress={() => setShowBalanceCheckPopup(true)}
+          >
+            <View sx={{marginVertical: '$3'}}>
+              <SquircleButton
+                buttonColor={dripsytheme.colors.success_3}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'swap'}
+                font={dripsytheme.text.body_thick}
+                textColor={dripsytheme.colors.layout_1}
+              />
+            </View>
+          </Bounceable>
+        );
+      } else {
+        return (
+          <Bounceable
+          // onPress={() => setShowBalanceCheckPopup(true)}
+          >
+            <View sx={{marginVertical: '$3'}}>
+              <SquircleButton
+                buttonColor={dripsytheme.colors.layout_1 + '10'}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'swap'}
+                font={dripsytheme.text.body_thick}
+                textColor={dripsytheme.colors.layout_1}
+              />
+            </View>
+          </Bounceable>
+        );
+      }
+    }
+
     return (
       <SquircleView
         style={sxCustom({
@@ -414,7 +505,7 @@ function SwapScreen({route}) {
                 color: 'layout_1',
                 marginHorizontal: '$4',
               }}>
-              $ 150
+              $ {token0AmountFiat}
             </Text>
           </View>
           <Bounceable onPress={() => onOpenPickToken0()}>
@@ -451,7 +542,30 @@ function SwapScreen({route}) {
             fillColor: dripsytheme.colors.layout_1 + '10',
           }}>
           <View sx={{flexDirection: 'column'}}>
-            <TextInput
+            <View
+              sx={{
+                height: 50,
+                justifyContent: 'center',
+              }}>
+              <Text
+                variant={'body_thick'}
+                sx={{
+                  ...dripsytheme.text.body_thick,
+                  color: dripsytheme.colors.layout_1,
+                  width: windowWidth / 2,
+                  alignSelf: 'center',
+                  textAlign: 'left',
+                  paddingHorizontal: '$4',
+                }}>
+                {quoteDetails0x
+                  ? Number(
+                      Number(quoteDetails0x.buyAmount) *
+                        10 ** -Number(token1Details.decimals),
+                    ).toFixed(2)
+                  : '0'}
+              </Text>
+            </View>
+            {/* <TextInput
               numberOfLines={1}
               value={token1Amount}
               onChangeText={input => setToken1Amount(input)}
@@ -469,14 +583,14 @@ function SwapScreen({route}) {
               })}
               placeholder={'how much you will get'}
               placeholderTextColor={dripsytheme.colors.layout_1 + 50}
-            />
+            /> */}
             <Text
               variant="text"
               sx={{
                 color: 'layout_1',
                 marginHorizontal: '$4',
               }}>
-              $ 150
+              $ {token1AmountFiat}
             </Text>
           </View>
           <Bounceable onPress={() => onOpenPickToken1()}>
@@ -497,10 +611,26 @@ function SwapScreen({route}) {
             </View>
           </Bounceable>
         </SquircleView>
-        <RenderDetail title={'you will get'} value={'loading'} />
-        <RenderDetail title={'exchange rate'} value={'loading'} />
-
-        <RenderDetail title={'transaction fee'} value={'loading'} />
+        <RenderDetail
+          title={'exchange rate'}
+          value={
+            quoteDetails0x ? Number(quoteDetails0x.price).toFixed(2) : '- - -'
+          }
+        />
+        <RenderDetail
+          title={'transaction fee'}
+          value={
+            quoteDetails0x
+              ? Number(
+                  Number(quoteDetails0x.gasPrice) *
+                    Number(priceEth) *
+                    Number(quoteDetails0x.gas) *
+                    10 ** -18,
+                ).toFixed(2)
+              : '- - -'
+          }
+        />
+        <SwapButton />
       </SquircleView>
     );
   }
@@ -621,4 +751,9 @@ function SwapScreen({route}) {
   );
 }
 
-export default SwapScreen;
+const mapStateToProps = state => {
+  state_here = state;
+  return state_here;
+};
+
+export default connect(mapStateToProps)(SwapScreen);
