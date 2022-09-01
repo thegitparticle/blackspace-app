@@ -1,6 +1,6 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
-import React, {useCallback, useState, useMemo, useRef} from 'react';
+import React, {useCallback, useState, useMemo, useRef, useEffect} from 'react';
 import {Dimensions, RefreshControl, TextInput} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
@@ -36,6 +36,25 @@ function SwapScreen({route}) {
 
   const [token0PickerList, setToken0PickerList] = useState(tokensList);
   const [token1PickerList, setToken1PickerList] = useState(tokensList);
+
+  const [token0Details, setToken0Details] = useState({
+    address: '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+    chainId: 1,
+    decimals: 18,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/279/thumb/ethereum.png?1595348880',
+    name: 'Ethereum',
+    symbol: 'ETH',
+  });
+  const [token1Details, setToken1Details] = useState({
+    address: '0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48',
+    chainId: 1,
+    decimals: 6,
+    logoURI:
+      'https://assets.coingecko.com/coins/images/6319/thumb/USD_Coin_icon.png?1547042389',
+    name: 'USD Coin',
+    symbol: 'USDC',
+  });
 
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = useCallback(() => {
@@ -121,6 +140,7 @@ function SwapScreen({route}) {
           return token.name.toLowerCase().startsWith(keyword.toLowerCase());
           // Use the toLowerCase() method to make it case-insensitive
         });
+        console.log(results);
         setToken0PickerList(results);
       } else {
         setToken0PickerList(tokensList);
@@ -174,7 +194,11 @@ function SwapScreen({route}) {
 
   function Token0PickerItemComponent({token}) {
     return (
-      <Bounceable onPress={() => onClosePickToken0()}>
+      <Bounceable
+        onPress={() => {
+          setToken0Details(token.item);
+          onClosePickToken0();
+        }}>
         <View
           variant="sub_view_20_margin"
           sx={{
@@ -221,48 +245,6 @@ function SwapScreen({route}) {
   const onClosePickToken1 = () => {
     modalizePickToken1CoinRef.current?.close();
   };
-
-  function Token1PickerItemComponent({token}) {
-    return (
-      <Bounceable onPress={() => onClosePickToken1()}>
-        <View
-          variant="sub_view_20_margin"
-          sx={{
-            height: 100,
-            flexDirection: 'row',
-            alignSelf: 'center',
-            alignItems: 'center',
-          }}>
-          <StyledCircleFastImage25
-            source={{
-              uri: token.item.logoURI,
-              priority: FastImage.priority.normal,
-            }}
-            resizeMode={FastImage.resizeMode.contain}
-          />
-          <View sx={{flexDirection: 'column'}}>
-            <View sx={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text
-                variant="body_thick"
-                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
-                {token.item.name}
-              </Text>
-              <Text
-                variant="body_thick"
-                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
-                {token.item.symbol}
-              </Text>
-            </View>
-            <Text
-              variant="text"
-              sx={{color: 'layout_1', marginHorizontal: '$4', opacity: 0.5}}>
-              {token.item.address}
-            </Text>
-          </View>
-        </View>
-      </Bounceable>
-    );
-  }
 
   function Token1PickerHeader() {
     const [searchText, setSearchText] = useState('');
@@ -323,6 +305,52 @@ function SwapScreen({route}) {
           />
         </SquircleView>
       </View>
+    );
+  }
+
+  function Token1PickerItemComponent({token}) {
+    return (
+      <Bounceable
+        onPress={() => {
+          setToken1Details(token.item);
+          onClosePickToken1();
+        }}>
+        <View
+          variant="sub_view_20_margin"
+          sx={{
+            height: 100,
+            flexDirection: 'row',
+            alignSelf: 'center',
+            alignItems: 'center',
+          }}>
+          <StyledCircleFastImage25
+            source={{
+              uri: token.item.logoURI,
+              priority: FastImage.priority.normal,
+            }}
+            resizeMode={FastImage.resizeMode.contain}
+          />
+          <View sx={{flexDirection: 'column'}}>
+            <View sx={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+                {token.item.name}
+              </Text>
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', marginHorizontal: '$4'}}>
+                {token.item.symbol}
+              </Text>
+            </View>
+            <Text
+              variant="text"
+              sx={{color: 'layout_1', marginHorizontal: '$4', opacity: 0.5}}>
+              {token.item.address}
+            </Text>
+          </View>
+        </View>
+      </Bounceable>
     );
   }
 
@@ -393,7 +421,7 @@ function SwapScreen({route}) {
             <View sx={{flexDirection: 'row', alignItems: 'center'}}>
               <StyledCircleFastImage25
                 source={{
-                  uri: 'https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912',
+                  uri: token0Details.logoURI,
                   priority: FastImage.priority.normal,
                 }}
                 resizeMode={FastImage.resizeMode.contain}
@@ -402,7 +430,7 @@ function SwapScreen({route}) {
               <Text
                 variant="body_thick"
                 sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-                MATIC
+                {token0Details.symbol}
               </Text>
             </View>
           </Bounceable>
@@ -431,7 +459,6 @@ function SwapScreen({route}) {
               onEndEditing={() => {}}
               style={sxCustom({
                 backgroundColor: 'transparent',
-                // backgroundColor: dripsytheme.colors.brand_orange,
                 ...dripsytheme.text.body_thick,
                 color: dripsytheme.colors.layout_1,
                 width: windowWidth / 2,
@@ -456,7 +483,7 @@ function SwapScreen({route}) {
             <View sx={{flexDirection: 'row', alignItems: 'center'}}>
               <StyledCircleFastImage25
                 source={{
-                  uri: 'https://assets.coingecko.com/coins/images/4713/thumb/matic-token-icon.png?1624446912',
+                  uri: token1Details.logoURI,
                   priority: FastImage.priority.normal,
                 }}
                 resizeMode={FastImage.resizeMode.contain}
@@ -465,7 +492,7 @@ function SwapScreen({route}) {
               <Text
                 variant="body_thick"
                 sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-                MATIC
+                {token1Details.symbol}
               </Text>
             </View>
           </Bounceable>
