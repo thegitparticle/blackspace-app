@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
 import React, {useCallback, useState, useMemo, useRef, useEffect} from 'react';
-import {Dimensions, RefreshControl, TextInput} from 'react-native';
+import {Dimensions, Pressable, RefreshControl, TextInput} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
 import Animated from 'react-native-reanimated';
@@ -22,8 +22,15 @@ import list from '../../../../utils/tokenslist.json';
 import useToken1FiatPrice from '../../../../helpers/useToken1FiatPrice';
 import useToken2FiatPrice from '../../../../helpers/useToken2FiatPrice';
 import SquircleButton from '../../../../bits/SquircleButton';
-import use0xSwapQuote from '../../../../helpers/use0xSwapQuote';
+import {
+  use0xSwapQuote,
+  use0xSwapQuoteWithBalanceChecks,
+} from '../../../../helpers/use0xSwapQuote';
 import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import useGetTokenBalance from '../../../../helpers/useGetTokenBalance';
+import {ethers} from 'ethers';
+import useGetETHBalance from '../../../../helpers/useGetETHBalance';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -40,6 +47,11 @@ function SwapScreen({route}) {
   const tokensList = list.tokens;
 
   const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
+
+  const {loadingTokenBalance, ethBalance} = useGetETHBalance(
+    // wallet_address,
+    '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+  );
 
   const {loadingPriceEth, priceEth} = useEthFiatPrice();
 
@@ -414,9 +426,7 @@ function SwapScreen({route}) {
     function SwapButton() {
       if (token0Amount.length > 0 && token1Amount.length > 0) {
         return (
-          <Bounceable
-          // onPress={() => setShowBalanceCheckPopup(true)}
-          >
+          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
             <View sx={{marginVertical: '$3'}}>
               <SquircleButton
                 buttonColor={dripsytheme.colors.success_3}
@@ -431,9 +441,7 @@ function SwapScreen({route}) {
         );
       } else {
         return (
-          <Bounceable
-          // onPress={() => setShowBalanceCheckPopup(true)}
-          >
+          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
             <View sx={{marginVertical: '$3'}}>
               <SquircleButton
                 buttonColor={dripsytheme.colors.layout_1 + '10'}
@@ -447,6 +455,92 @@ function SwapScreen({route}) {
           </Bounceable>
         );
       }
+    }
+
+    const [showBalanceCheckPopup, setShowBalanceCheckPopup] = useState(false);
+
+    const [passedToken0BalCheck, setPassedToken0BalCheck] = useState(false);
+    const [passedToken1BalCheck, setPassedToken1BalCheck] = useState(false);
+
+    function BalanceCheckPopup() {
+      function Token0Balance() {
+        const {
+          loading0xSwapQuoteWithChecks,
+          quoteDetails0xWithChecks,
+          quoteDetails0xRawWithChecks,
+          quoteError0xWithChecks,
+        } = use0xSwapQuoteWithBalanceChecks(
+          token0Details.address,
+          token1Details.address,
+          token0Amount,
+          token0Details.decimals,
+          wallet_address,
+        );
+
+        if (!loading0xSwapQuoteWithChecks) {
+          if (quoteError0xWithChecks) {
+            setPassedToken0BalCheck(true);
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You have enough {token0Details.name} balance
+              </Text>
+            );
+          } else {
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You don't have enough {token0Details.name} balance
+              </Text>
+            );
+          }
+        } else {
+          return (
+            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+              Checking {token0Details.name} balance
+            </Text>
+          );
+        }
+      }
+
+      function MakeTransactionButton() {
+        if (passedToken0BalCheck) {
+          return (
+            <Pressable
+              onPress={() => {
+                setShowBalanceCheckPopup(false);
+                navigation.navigate('FarmTxnScreen', {
+                  // farmData: farmData,
+                  token0Amount: token0Amount,
+                  token1Amount: token1Amount,
+                });
+              }}>
+              <View sx={{marginVertical: '$3'}}>
+                <SquircleButton
+                  buttonColor={dripsytheme.colors.success_3}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'confirm stake'}
+                  font={dripsytheme.text.body_thick}
+                  textColor={dripsytheme.colors.layout_1}
+                />
+              </View>
+            </Pressable>
+          );
+        } else {
+          return <View />;
+        }
+      }
+
+      return (
+        <View variant="layout.info_popup">
+          <Text
+            variant="heading_thick"
+            sx={{color: 'layout_1', mt: '$4', mb: '$8'}}>
+            Balance Check
+          </Text>
+          <Token0Balance />
+          <MakeTransactionButton />
+        </View>
+      );
     }
 
     return (
@@ -631,6 +725,20 @@ function SwapScreen({route}) {
           }
         />
         <SwapButton />
+        <Modal
+          visible={showBalanceCheckPopup}
+          initialValue={0}
+          useNativeDriver={true}
+          modalStyle={{backgroundColor: 'transparent'}}
+          modalAnimation={new ScaleAnimation()}
+          onTouchOutside={() => {
+            setShowBalanceCheckPopup(false);
+            setPassedToken0BalCheck(false);
+          }}>
+          <ModalContent>
+            <BalanceCheckPopup />
+          </ModalContent>
+        </Modal>
       </SquircleView>
     );
   }

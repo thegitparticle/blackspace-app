@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Decimal from 'decimal.js';
 
-export default function use0xSwapQuote(
+export function use0xSwapQuote(
   token0,
   token1,
   sellAmount,
@@ -47,4 +47,66 @@ export default function use0xSwapQuote(
   }, [token0, token1, sellAmount]);
 
   return {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw};
+}
+
+export function use0xSwapQuoteWithBalanceChecks(
+  token0,
+  token1,
+  sellAmount,
+  token0Decimals,
+  walletAddress,
+) {
+  const [loading0xSwapQuoteWithChecks, setLoading0xSwapQuoteWithChecks] =
+    useState(true);
+
+  const [quoteDetails0xRawWithChecks, setQuoteDetails0xRawWithChecks] =
+    useState(null);
+  const [quoteDetails0xWithChecks, setQuoteDetails0xWithChecks] =
+    useState(null);
+  const [quoteError0xWithChecks, setQuoteError0xWithChecks] = useState(null);
+
+  console.log(' with checks quote ask called');
+
+  let sellAmountInBaseUnits = new Decimal(
+    Number(sellAmount) * 10 ** Number(token0Decimals),
+  ).toFixed();
+
+  const apiConfig = {
+    method: 'get',
+    url:
+      'https://api.0x.org/swap/v1/quote?buyToken=' +
+      token1 +
+      '&sellToken=' +
+      token0 +
+      '&sellAmount=' +
+      String(sellAmountInBaseUnits) +
+      '&takerAddress=' +
+      String(walletAddress),
+  };
+
+  const fetchInfo = () => {
+    axios(apiConfig)
+      .then(function (response) {
+        setQuoteDetails0xWithChecks(response.data);
+        setQuoteDetails0xRawWithChecks(response);
+        setLoading0xSwapQuoteWithChecks(false);
+        setQuoteError0xWithChecks(false);
+      })
+      .catch(function (error) {
+        console.log(error + '0x quote error');
+        setLoading0xSwapQuoteWithChecks(false);
+        setQuoteError0xWithChecks(false);
+      });
+  };
+
+  useEffect(() => {
+    fetchInfo();
+  }, [token0, token1, sellAmount]);
+
+  return {
+    loading0xSwapQuoteWithChecks,
+    quoteDetails0xWithChecks,
+    quoteDetails0xRawWithChecks,
+    quoteError0xWithChecks,
+  };
 }
