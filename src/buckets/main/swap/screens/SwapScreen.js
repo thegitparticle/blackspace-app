@@ -47,6 +47,7 @@ function SwapScreen({route}) {
   const tokensList = list.tokens;
 
   const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
+  console.log(wallet_address);
 
   const {loadingTokenBalance, ethBalance} = useGetETHBalance(
     // wallet_address,
@@ -458,25 +459,23 @@ function SwapScreen({route}) {
     }
 
     const [showBalanceCheckPopup, setShowBalanceCheckPopup] = useState(false);
-
     const [passedToken0BalCheck, setPassedToken0BalCheck] = useState(false);
-    const [passedToken1BalCheck, setPassedToken1BalCheck] = useState(false);
 
     function BalanceCheckPopup() {
-      function Token0Balance() {
-        const {
-          loading0xSwapQuoteWithChecks,
-          quoteDetails0xWithChecks,
-          quoteDetails0xRawWithChecks,
-          quoteError0xWithChecks,
-        } = use0xSwapQuoteWithBalanceChecks(
-          token0Details.address,
-          token1Details.address,
-          token0Amount,
-          token0Details.decimals,
-          wallet_address,
-        );
+      const {
+        loading0xSwapQuoteWithChecks,
+        quoteDetails0xWithChecks,
+        quoteDetails0xRawWithChecks,
+        quoteError0xWithChecks,
+      } = use0xSwapQuoteWithBalanceChecks(
+        token0Details.address,
+        token1Details.address,
+        token0Amount,
+        token0Details.decimals,
+        wallet_address,
+      );
 
+      function Token0Balance() {
         if (!loading0xSwapQuoteWithChecks) {
           if (quoteError0xWithChecks) {
             setPassedToken0BalCheck(true);
@@ -502,15 +501,13 @@ function SwapScreen({route}) {
       }
 
       function MakeTransactionButton() {
-        if (passedToken0BalCheck) {
+        if (!passedToken0BalCheck) {
           return (
             <Pressable
               onPress={() => {
                 setShowBalanceCheckPopup(false);
-                navigation.navigate('FarmTxnScreen', {
-                  // farmData: farmData,
-                  token0Amount: token0Amount,
-                  token1Amount: token1Amount,
+                navigation.navigate('SwapTxnScreen', {
+                  swapQuote: quoteDetails0xWithChecks,
                 });
               }}>
               <View sx={{marginVertical: '$3'}}>

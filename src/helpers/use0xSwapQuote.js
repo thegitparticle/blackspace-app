@@ -74,10 +74,12 @@ export function use0xSwapQuoteWithBalanceChecks(
   const apiConfig = {
     method: 'get',
     url:
-      'https://api.0x.org/swap/v1/quote?buyToken=' +
-      token1 +
+      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
+      '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
+      // token1 +
       '&sellToken=' +
-      token0 +
+      'ETH' +
+      // token0 +
       '&sellAmount=' +
       String(sellAmountInBaseUnits) +
       '&takerAddress=' +
@@ -93,7 +95,7 @@ export function use0xSwapQuoteWithBalanceChecks(
         setQuoteError0xWithChecks(false);
       })
       .catch(function (error) {
-        console.log(error + '0x quote error');
+        console.log(error + ' 0x quote with checks error');
         setLoading0xSwapQuoteWithChecks(false);
         setQuoteError0xWithChecks(false);
       });
