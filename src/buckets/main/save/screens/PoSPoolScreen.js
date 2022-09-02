@@ -9,6 +9,7 @@ import {ExpandableSection} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
 import SpacerVertical from '../../../../bits/SpacerVertical';
+import {use0xSwapQuote} from '../../../../helpers/use0xSwapQuote';
 import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {
@@ -36,7 +37,19 @@ function PoSPoolScreen({route}) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
+
   const {loadingPriceEth, priceEth} = useEthFiatPrice();
+
+  // for ETH to stETH swap on Mainnet (chainID 1) only
+  const {loading0xSwapQuote, quoteDetails0x, quoteDetails0xRaw} =
+    use0xSwapQuote(
+      '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+      '0xae7ab96520de3a18e5e111b5eaab095312d7fe84',
+      1,
+      18,
+      wallet_address,
+    );
 
   function HeaderHere() {
     return (
@@ -170,15 +183,34 @@ function PoSPoolScreen({route}) {
         </SquircleView>
         <RenderDetail
           title={'you will get'}
-          value={poolData.total_staked_amount_usd}
+          value={
+            !loading0xSwapQuote && amountStake.length < 1
+              ? '---'
+              : `${(Number(amountStake) * Number(quoteDetails0x.price)).toFixed(
+                  2,
+                )} stETH`
+          }
         />
         <RenderDetail
           title={'exchange rate'}
-          value={poolData.total_staked_amount_usd}
+          value={
+            loading0xSwapQuote
+              ? '- - -'
+              : `1 ETH = ${Number(quoteDetails0x.price).toFixed(2)} stETH`
+          }
         />
         <RenderDetail
           title={'transaction fee'}
-          value={poolData.total_staked_amount_usd}
+          value={
+            quoteDetails0x
+              ? `$ ${Number(
+                  Number(quoteDetails0x.gasPrice) *
+                    Number(priceEth) *
+                    Number(quoteDetails0x.gas) *
+                    10 ** -18,
+                ).toFixed(2)}`
+              : '- - -'
+          }
         />
       </SquircleView>
     );

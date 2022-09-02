@@ -47,7 +47,6 @@ function SwapScreen({route}) {
   const tokensList = list.tokens;
 
   const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
-  console.log(wallet_address);
 
   const {loadingTokenBalance, ethBalance} = useGetETHBalance(
     // wallet_address,
@@ -712,12 +711,12 @@ function SwapScreen({route}) {
           title={'transaction fee'}
           value={
             quoteDetails0x
-              ? Number(
+              ? `$ ${Number(
                   Number(quoteDetails0x.gasPrice) *
                     Number(priceEth) *
                     Number(quoteDetails0x.gas) *
                     10 ** -18,
-                ).toFixed(2)
+                ).toFixed(2)}`
               : '- - -'
           }
         />
