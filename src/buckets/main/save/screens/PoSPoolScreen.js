@@ -184,11 +184,11 @@ function PoSPoolScreen({route}) {
         <RenderDetail
           title={'you will get'}
           value={
-            !loading0xSwapQuote && amountStake.length < 1
-              ? '---'
-              : `${(Number(amountStake) * Number(quoteDetails0x.price)).toFixed(
+            !loading0xSwapQuote && amountStake.length > 1
+              ? `${(Number(amountStake) * Number(quoteDetails0x.price)).toFixed(
                   2,
                 )} stETH`
+              : '- - -'
           }
         />
         <RenderDetail
@@ -242,19 +242,19 @@ function PoSPoolScreen({route}) {
           />
           <RenderDetail
             title={'Total staked via Lido'}
-            value={poolData.total_staked_amount_usd}
+            value={poolData.total_staked_amount}
           />
           <RenderDetail
             title={'Total staked via Lido ($USD)'}
             value={poolData.total_staked_amount_usd}
           />
-          <RenderDetail
+          {/* <RenderDetail
             title={'Stakers'}
             value={poolData.total_staked_amount_usd}
-          />
+          /> */}
           <RenderDetail
             title={'Reward Fee (%)'}
-            value={poolData.total_staked_amount_usd}
+            value={poolData.interest_rate}
           />
         </SquircleView>
       </View>
