@@ -121,99 +121,144 @@ function PoSPoolScreen({route}) {
   function StakeComponent() {
     const [amountStake, setAmountStake] = useState('');
 
-    return (
-      <SquircleView
-        style={sxCustom({
-          width: windowWidth - 40,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          alignSelf: 'center',
-          marginVertical: '$2',
-        })}
-        squircleParams={{
-          cornerSmoothing: 1,
-          cornerRadius: 15,
-          fillColor: dripsytheme.colors.layout_4,
-        }}>
+    if (poolData.token_symbol === 'ETH') {
+      return (
         <SquircleView
           style={sxCustom({
-            width: windowWidth - 80,
-            height: 50,
-            borderRadius: 10,
-            flexDirection: 'row',
-            justifyContent: 'space-between',
+            width: windowWidth - 40,
+            flexDirection: 'column',
+            justifyContent: 'center',
             alignItems: 'center',
-            marginVertical: '$3',
+            alignSelf: 'center',
+            marginVertical: '$2',
           })}
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: dripsytheme.colors.layout_1 + '10',
+            fillColor: dripsytheme.colors.layout_4,
           }}>
-          <TextInput
-            numberOfLines={1}
-            value={amountStake}
-            onChangeText={input => setAmountStake(input)}
-            keyboardType={'decimal-pad'}
-            onEndEditing={() => {}}
+          <SquircleView
             style={sxCustom({
-              backgroundColor: 'transparent',
-              ...dripsytheme.text.body_thick,
-              color: dripsytheme.colors.layout_1,
-              width: windowWidth / 2,
+              width: windowWidth - 80,
               height: 50,
-              alignSelf: 'center',
-              textAlign: 'left',
-              paddingHorizontal: '$3',
+              borderRadius: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: '$3',
             })}
-            placeholder={'how much ETH to stake?'}
-            placeholderTextColor={dripsytheme.colors.layout_1 + 50}
-          />
-          <Text
-            variant="text"
-            sx={{
-              color: 'layout_1',
-              marginHorizontal: '$4',
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: dripsytheme.colors.layout_1 + '10',
             }}>
-            {amountStake.length > 0
-              ? '$ ' + Number(Number(amountStake) * Number(priceEth)).toFixed(2)
-              : ''}
-          </Text>
+            <TextInput
+              numberOfLines={1}
+              value={amountStake}
+              onChangeText={input => setAmountStake(input)}
+              keyboardType={'decimal-pad'}
+              onEndEditing={() => {}}
+              style={sxCustom({
+                backgroundColor: 'transparent',
+                ...dripsytheme.text.body_thick,
+                color: dripsytheme.colors.layout_1,
+                width: windowWidth / 2,
+                height: 50,
+                alignSelf: 'center',
+                textAlign: 'left',
+                paddingHorizontal: '$3',
+              })}
+              placeholder={'how much ETH to stake?'}
+              placeholderTextColor={dripsytheme.colors.layout_1 + 50}
+            />
+            <Text
+              variant="text"
+              sx={{
+                color: 'layout_1',
+                marginHorizontal: '$4',
+              }}>
+              {amountStake.length > 0
+                ? '$ ' +
+                  Number(Number(amountStake) * Number(priceEth)).toFixed(2)
+                : ''}
+            </Text>
+          </SquircleView>
+          <RenderDetail
+            title={'you will get'}
+            value={
+              !loading0xSwapQuote && amountStake.length > 1
+                ? `${(
+                    Number(amountStake) * Number(quoteDetails0x.price)
+                  ).toFixed(2)} stETH`
+                : '- - -'
+            }
+          />
+          <RenderDetail
+            title={'exchange rate'}
+            value={
+              loading0xSwapQuote
+                ? '- - -'
+                : `1 ETH = ${Number(quoteDetails0x.price).toFixed(2)} stETH`
+            }
+          />
+          <RenderDetail
+            title={'transaction fee'}
+            value={
+              quoteDetails0x
+                ? `$ ${Number(
+                    Number(quoteDetails0x.gasPrice) *
+                      Number(priceEth) *
+                      Number(quoteDetails0x.gas) *
+                      10 ** -18,
+                  ).toFixed(2)}`
+                : '- - -'
+            }
+          />
         </SquircleView>
-        <RenderDetail
-          title={'you will get'}
-          value={
-            !loading0xSwapQuote && amountStake.length > 1
-              ? `${(Number(amountStake) * Number(quoteDetails0x.price)).toFixed(
-                  2,
-                )} stETH`
-              : '- - -'
-          }
-        />
-        <RenderDetail
-          title={'exchange rate'}
-          value={
-            loading0xSwapQuote
-              ? '- - -'
-              : `1 ETH = ${Number(quoteDetails0x.price).toFixed(2)} stETH`
-          }
-        />
-        <RenderDetail
-          title={'transaction fee'}
-          value={
-            quoteDetails0x
-              ? `$ ${Number(
-                  Number(quoteDetails0x.gasPrice) *
-                    Number(priceEth) *
-                    Number(quoteDetails0x.gas) *
-                    10 ** -18,
-                ).toFixed(2)}`
-              : '- - -'
-          }
-        />
-      </SquircleView>
-    );
+      );
+    } else {
+      return (
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignSelf: 'center',
+            marginVertical: '$2',
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: dripsytheme.colors.layout_4,
+          }}>
+          <SquircleView
+            style={sxCustom({
+              width: windowWidth - 80,
+              height: 50,
+              borderRadius: 10,
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              marginVertical: '$3',
+            })}
+            squircleParams={{
+              cornerSmoothing: 1,
+              cornerRadius: 15,
+              fillColor: dripsytheme.colors.layout_1 + '10',
+            }}>
+            <Text
+              variant="text"
+              sx={{
+                color: 'layout_1',
+                marginHorizontal: '$4',
+              }}>
+              Polygon PoS Chain & staking support will be enabled soon!
+            </Text>
+          </SquircleView>
+        </SquircleView>
+      );
+    }
   }
 
   function PoolDetails() {
