@@ -1,7 +1,7 @@
 import {useNavigation} from '@react-navigation/native';
 import {Text, useSx, View} from 'dripsy';
 import React, {useCallback, useState} from 'react';
-import {Dimensions, RefreshControl, TextInput} from 'react-native';
+import {Dimensions, Pressable, RefreshControl, TextInput} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
 import Animated from 'react-native-reanimated';
@@ -9,13 +9,19 @@ import {ExpandableSection} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
 import SpacerVertical from '../../../../bits/SpacerVertical';
-import {use0xSwapQuote} from '../../../../helpers/use0xSwapQuote';
+import SquircleButton from '../../../../bits/SquircleButton';
+import {
+  use0xSwapQuote,
+  use0xSwapQuoteWithBalanceChecks,
+} from '../../../../helpers/use0xSwapQuote';
 import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {
   dripsytheme,
   StyledCircleFastImage50,
 } from '../../../../theme/DripsyTheme';
+import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import useGetETHBalance from '../../../../helpers/useGetETHBalance';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -121,6 +127,122 @@ function PoSPoolScreen({route}) {
   function StakeComponent() {
     const [amountStake, setAmountStake] = useState('');
 
+    const [showBalanceCheckPopup, setShowBalanceCheckPopup] = useState(false);
+    const [passedToken0BalCheck, setPassedToken0BalCheck] = useState(false);
+
+    function SwapButton() {
+      if (amountStake.length > 0) {
+        return (
+          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
+            <View sx={{marginVertical: '$3'}}>
+              <SquircleButton
+                buttonColor={dripsytheme.colors.success_3}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'swap'}
+                font={dripsytheme.text.body_thick}
+                textColor={dripsytheme.colors.layout_1}
+              />
+            </View>
+          </Bounceable>
+        );
+      } else {
+        return (
+          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
+            <View sx={{marginVertical: '$3'}}>
+              <SquircleButton
+                buttonColor={dripsytheme.colors.layout_1 + '10'}
+                width={windowWidth * 0.7}
+                height={50}
+                buttonText={'swap'}
+                font={dripsytheme.text.body_thick}
+                textColor={dripsytheme.colors.layout_1}
+              />
+            </View>
+          </Bounceable>
+        );
+      }
+    }
+
+    function BalanceCheckPopup() {
+      const {
+        loading0xSwapQuoteWithChecks,
+        quoteDetails0xWithChecks,
+        quoteDetails0xRawWithChecks,
+        quoteError0xWithChecks,
+      } = use0xSwapQuoteWithBalanceChecks(
+        '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee',
+        '0xae7ab96520de3a18e5e111b5eaab095312d7fe84',
+        amountStake,
+        18,
+        wallet_address,
+      );
+
+      function Token0Balance() {
+        if (!loading0xSwapQuoteWithChecks) {
+          if (quoteError0xWithChecks) {
+            setPassedToken0BalCheck(true);
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You have enough ETH balance
+              </Text>
+            );
+          } else {
+            return (
+              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+                You don't have enough ETH balance
+              </Text>
+            );
+          }
+        } else {
+          return (
+            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
+              Checking ETH balance
+            </Text>
+          );
+        }
+      }
+
+      function MakeTransactionButton() {
+        if (!passedToken0BalCheck) {
+          return (
+            <Pressable
+              onPress={() => {
+                setShowBalanceCheckPopup(false);
+                navigation.navigate('SwapTxnScreen', {
+                  swapQuote: quoteDetails0xWithChecks,
+                });
+              }}>
+              <View sx={{marginVertical: '$3'}}>
+                <SquircleButton
+                  buttonColor={dripsytheme.colors.success_3}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'confirm stake'}
+                  font={dripsytheme.text.body_thick}
+                  textColor={dripsytheme.colors.layout_1}
+                />
+              </View>
+            </Pressable>
+          );
+        } else {
+          return <View />;
+        }
+      }
+
+      return (
+        <View variant="layout.info_popup">
+          <Text
+            variant="heading_thick"
+            sx={{color: 'layout_1', mt: '$4', mb: '$8'}}>
+            Balance Check
+          </Text>
+          <Token0Balance />
+          <MakeTransactionButton />
+        </View>
+      );
+    }
+
     if (poolData.token_symbol === 'ETH') {
       return (
         <SquircleView
@@ -214,6 +336,21 @@ function PoSPoolScreen({route}) {
                 : '- - -'
             }
           />
+          <SwapButton />
+          <Modal
+            visible={showBalanceCheckPopup}
+            initialValue={0}
+            useNativeDriver={true}
+            modalStyle={{backgroundColor: 'transparent'}}
+            modalAnimation={new ScaleAnimation()}
+            onTouchOutside={() => {
+              setShowBalanceCheckPopup(false);
+              setPassedToken0BalCheck(false);
+            }}>
+            <ModalContent>
+              <BalanceCheckPopup />
+            </ModalContent>
+          </Modal>
         </SquircleView>
       );
     } else {
