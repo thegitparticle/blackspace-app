@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import Decimal from 'decimal.js';
+import {BigNumber, ethers} from 'ethers';
+import ERC20_ABI from '../utils/erc20.abi.json';
 
 export function use0xSwapQuote(
   token0,
@@ -75,16 +77,48 @@ export function use0xSwapQuoteWithBalanceChecks(
     method: 'get',
     url:
       'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
-      '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
+      '0xaD6D458402F60fD3Bd25163575031ACDce07538D' +
       // token1 +
       '&sellToken=' +
-      'ETH' +
+      '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
       // token0 +
       '&sellAmount=' +
       String(sellAmountInBaseUnits) +
       '&takerAddress=' +
       String(walletAddress),
   };
+
+  console.log(
+    'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
+      '0xaD6D458402F60fD3Bd25163575031ACDce07538D' +
+      // token1 +
+      '&sellToken=' +
+      '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
+      // token0 +
+      '&sellAmount=' +
+      String(sellAmountInBaseUnits) +
+      '&takerAddress=' +
+      String(walletAddress),
+  );
+
+  const ZERO_EX_ADDRESS = '0xdef1c0ded9bec7f1a1670819833240f027b25eff';
+
+  async function ErcTokenPermissions() {
+    // Set up a DAI allowance on the 0x contract if needed.
+    const ercToken = new ethers.Contract(ERC20_ABI, token0);
+    const currentAllowance = new BigNumber(
+      ercToken.allowance(walletAddress, ZERO_EX_ADDRESS).call(),
+    );
+    if (currentAllowance.isLessThan(String(sellAmountInBaseUnits))) {
+      await ercToken
+        .approve(ZERO_EX_ADDRESS, String(sellAmountInBaseUnits))
+        .send({from: walletAddress});
+    }
+  }
+
+  if (token0 !== '0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee') {
+    ErcTokenPermissions();
+  }
 
   const fetchInfo = () => {
     axios(apiConfig)
