@@ -9,6 +9,7 @@ import {ExpandableSection} from 'react-native-ui-lib';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
 import SpacerVertical from '../../../../bits/SpacerVertical';
+import useEthFiatPrice from '../../../../helpers/useEthFiatPrice';
 import Iconly from '../../../../miscsetups/customfonts/Iconly';
 import {
   dripsytheme,
@@ -34,6 +35,8 @@ function PoSPoolScreen({route}) {
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
   }, []);
+
+  const {loadingPriceEth, priceEth} = useEthFiatPrice();
 
   function HeaderHere() {
     return (
@@ -125,31 +128,45 @@ function PoSPoolScreen({route}) {
             width: windowWidth - 80,
             height: 50,
             borderRadius: 10,
-            justifyContent: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-between',
             alignItems: 'center',
             marginVertical: '$3',
           })}
           squircleParams={{
             cornerSmoothing: 1,
             cornerRadius: 15,
-            fillColor: dripsytheme.colors.layout_1 + '25',
+            fillColor: dripsytheme.colors.layout_1 + '10',
           }}>
           <TextInput
             numberOfLines={1}
             value={amountStake}
+            onChangeText={input => setAmountStake(input)}
+            keyboardType={'decimal-pad'}
+            onEndEditing={() => {}}
             style={sxCustom({
               backgroundColor: 'transparent',
               ...dripsytheme.text.body_thick,
-              color: dripsytheme.colors.foreground,
-              width: windowWidth - 80,
+              color: dripsytheme.colors.layout_1,
+              width: windowWidth / 2,
               height: 50,
               alignSelf: 'center',
               textAlign: 'left',
-              paddingHorizontal: '$4',
+              paddingHorizontal: '$3',
             })}
-            placeholder={'how much ETH do you wanna stake?'}
+            placeholder={'how much ETH to stake?'}
             placeholderTextColor={dripsytheme.colors.layout_1 + 50}
           />
+          <Text
+            variant="text"
+            sx={{
+              color: 'layout_1',
+              marginHorizontal: '$4',
+            }}>
+            {amountStake.length > 0
+              ? '$ ' + Number(Number(amountStake) * Number(priceEth)).toFixed(2)
+              : ''}
+          </Text>
         </SquircleView>
         <RenderDetail
           title={'you will get'}
