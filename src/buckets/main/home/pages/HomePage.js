@@ -81,52 +81,90 @@ function HomePage({dispatch}) {
     );
   }
 
-  const livePositionsList = [];
-
-  function LivePositions() {
-    if (livePositionsList.length > 0) {
-      return (
-        <View
-          variant={'sub_view_20_margin'}
+  function EmptyPositionsTile({title}) {
+    return (
+      <SquircleView
+        style={sxCustom({
+          width: windowWidth - 40,
+          flexDirection: 'column',
+          justifyContent: 'center',
+          // alignItems: 'center',
+          alignSelf: 'center',
+          marginVertical: '$2',
+        })}
+        squircleParams={{
+          cornerSmoothing: 1,
+          cornerRadius: 15,
+          fillColor: dripsytheme.colors.layout_4,
+        }}>
+        <Text
+          variant="heading_thick"
           sx={{
-            alignSelf: 'center',
-            flexDirection: 'row',
-            width: windowWidth - 40,
-            justifyContent: 'center',
-            marginVertical: '$10',
+            color: 'layout_1',
+            marginHorizontal: '$4',
+            marginVertical: '$2',
           }}>
-          <Text
-            variant="body_thick"
-            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-            live positions render here
-          </Text>
-        </View>
+          {title}
+        </Text>
+        <Text
+          variant="body_thick"
+          sx={{
+            color: 'layout_1',
+            opacity: 0.75,
+            alignSelf: 'center',
+            marginVertical: '$4',
+          }}>
+          no live positions
+        </Text>
+        <Text
+          variant="heading_thick"
+          sx={{
+            color: 'layout_1',
+            marginHorizontal: '$4',
+            marginVertical: '$2',
+          }}
+        />
+      </SquircleView>
+    );
+  }
+
+  const farmPositionsList = [];
+
+  function FarmPositions() {
+    if (farmPositionsList.length > 0) {
+      return (
+        <Text
+          variant="body_thick"
+          sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+          live positions render here
+        </Text>
       );
     } else {
+      return <EmptyPositionsTile title={'Farms'} />;
+    }
+  }
+
+  const savePositionsList = [];
+
+  function SavePositions() {
+    if (savePositionsList.length > 0) {
       return (
-        <View
-          variant={'sub_view_20_margin'}
-          sx={{
-            alignSelf: 'center',
-            flexDirection: 'row',
-            width: windowWidth - 40,
-            justifyContent: 'center',
-            marginVertical: '$10',
-          }}>
-          <Text
-            variant="body_thick"
-            sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-            You do not have any live positions!
-          </Text>
-        </View>
+        <Text
+          variant="body_thick"
+          sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+          live positions render here
+        </Text>
       );
+    } else {
+      return <EmptyPositionsTile title={'Save'} />;
     }
   }
 
   return (
     <View variant="layout.full_screen_transparent">
       <Utilities />
-      <LivePositions />
+      <FarmPositions />
+      <SavePositions />
     </View>
   );
 }
