@@ -41,7 +41,7 @@
     "domain-browser": "^1.1.1",
     "dripsy": "^3.6.0",
     "dsa-connect": "^0.5.17",
-    "ethers": "^5.5.2",
+    "ethers": "^5.7.0",
     "expo": "^45.0.0",
     "expo-constants": "~13.1.1",
     "expo-linking": "~3.1.0",
@@ -110,6 +110,7 @@
     "url": "~0.10.1",
     "victory-native": "^36.2.0",
     "vm-browserify": "0.0.4",
+    "wagmi": "^0.6.4",
     "web3": "^1.6.1"
   },
   "resolutions": {
