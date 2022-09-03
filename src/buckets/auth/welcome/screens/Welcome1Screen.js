@@ -8,10 +8,9 @@ import {
   ImageBackground,
   StatusBar,
   StyleSheet,
-  Text,
-  View,
 } from 'react-native';
 import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Text, View} from 'dripsy';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
@@ -24,6 +23,7 @@ import {Bounceable} from 'rn-bounceable';
 import SquircleGlassButton from '../../../../bits/SquircleGlassButton';
 import {LOGIN} from '../../../../redux/types';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
 import IntroTextsAnimation from '../components/IntroTextsAnimation';
 
 const windowHeight = Dimensions.get('window').height;
@@ -104,8 +104,8 @@ function Welcome1Screen({dispatch, navigation}) {
               marginHorizontal: 20,
             }}>
             <Text
-              style={{
-                ...themeHere.text.body_medium,
+              variant={'caption_thick'}
+              sx={{
                 color: 'white',
                 alignSelf: 'center',
               }}>
@@ -141,7 +141,7 @@ function Welcome1Screen({dispatch, navigation}) {
             </Animated.View>
             <Animated.View style={[animatedButton]}>
               <View
-                style={{
+                sx={{
                   marginVertical: windowHeight * 0.1,
                   alignSelf: 'center',
                 }}>
@@ -153,12 +153,12 @@ function Welcome1Screen({dispatch, navigation}) {
                     );
                   }}>
                   <SquircleGlassButton
-                    buttonColor={themeHere.colors.light}
+                    buttonColor={dripsytheme.colors.layout_4}
                     width={windowWidth * 0.7}
                     height={50}
-                    buttonText={'LFG! 🚀'}
-                    font={themeHere.text.title_3}
-                    textColor={themeHere.colors.red}
+                    buttonText={'Lets go 🚀'}
+                    font={dripsytheme.text.body_thick}
+                    textColor={dripsytheme.colors.brand_orange}
                   />
                 </Bounceable>
               </View>
