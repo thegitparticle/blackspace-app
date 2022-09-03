@@ -79,7 +79,7 @@ function IntroTextsAnimation() {
           repeatReverse: false,
         }}>
         <Text style={styles.intro_texts_style}>
-          HODLing CRYPTO IS ANTIQUATED
+          THE TREASURES OF FINANCE ARE TO BE DEMOCRATIZED
         </Text>
       </MotiView>
       <MotiView
@@ -104,7 +104,7 @@ function IntroTextsAnimation() {
           repeatReverse: false,
         }}>
         <Text style={styles.intro_texts_style}>
-          USEing CRYPTO IS THE NEW COOL
+          THEY ARE NO MORE ACCESSIBLE ONLY TO THE FEW
         </Text>
       </MotiView>
       <MotiView
@@ -128,9 +128,7 @@ function IntroTextsAnimation() {
           repeat: 0,
           repeatReverse: false,
         }}>
-        <Text style={styles.intro_texts_style}>
-          TODAY, ITS MORE EASIER THAN BEFORE WITH
-        </Text>
+        <Text style={styles.intro_texts_style}>BUT TO YOU, ALSO</Text>
       </MotiView>
       <MotiView
         from={{
