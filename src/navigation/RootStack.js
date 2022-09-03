@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import MainStack from './MainStack';
 import WelcomeStack from './WelcomeStack';
 import SplashScreen from 'react-native-splash-screen';
+import {dripsytheme} from '../theme/DripsyTheme';
 
 let state_here = {};
 
@@ -42,13 +43,17 @@ function RootStack() {
 
   if (t_or_f === true) {
     return (
-      <NavigationContainer theme={MyTheme} style={{backgroundColor: '#050505'}}>
+      <NavigationContainer
+        theme={MyTheme}
+        style={{backgroundColor: dripsytheme.colors.layout_5}}>
         <MainStack />
       </NavigationContainer>
     );
   } else {
     return (
-      <NavigationContainer theme={MyTheme} style={{backgroundColor: '#050505'}}>
+      <NavigationContainer
+        theme={MyTheme}
+        style={{backgroundColor: dripsytheme.colors.layout_5}}>
         <WelcomeStack />
       </NavigationContainer>
     );
