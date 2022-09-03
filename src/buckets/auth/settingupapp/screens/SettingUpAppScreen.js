@@ -26,89 +26,28 @@ const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
-function SettingUpAppScreen({dispatch}) {
+function SettingUpAppScreen({dispatch, route}) {
+  const {wallet_info} = route.params;
   const [apiDone, setAPIDone] = useState(false);
-  const [userId, setUserId] = useState(0);
 
   useEffect(() => {
-    const config1 = {
-      method: 'get',
-      url:
-        'https://suprblack.xyz/api/users/list/?wallet_address=' +
-        String(state_here.WDeetsReducer.wdeets.wallet_address),
-      headers: {},
+    const wallet = {
+      wallet_privateKey: null,
+      wallet_address: null,
+      wallet_phrase: null,
+      wallet_connected: false,
+      wallet_connected_name: null,
     };
-
-    axios(config1)
-      .then(function (response) {
-        setUserId(response.data[0].id);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (userId > 0) {
-      const dataJWT = JSON.stringify({
-        wallet_address: String(state_here.WDeetsReducer.wdeets.wallet_address),
-        password: '#some$#password$#that$#i$#chose$#',
-      });
-
-      const configJWT = {
-        method: 'post',
-        url: 'https://suprblack.xyz/api/auth/token/',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        data: dataJWT,
-      };
-
-      axios(configJWT)
-        .then(function (response) {
-          console.log(JSON.stringify(response.data));
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-
-      dispatch(AddUserDetails(state_here.WDeetsReducer.wdeets.wallet_address));
-      dispatch(
-        GetMyProfileDetails(
-          userId,
-          state_here.WDeetsReducer.wdeets.wallet_address,
-        ),
-      );
-      dispatch(
-        GetTokenBalances(state_here.WDeetsReducer.wdeets.wallet_address),
-      );
-      setTimeout(() => {
-        Amplitude.getInstance().logEvent('APP_SETUP_API_CALLS_FINISHED');
-        setAPIDone(true);
-      }, 7500);
-      setTimeout(() => {
-        const wallet = {
-          wallet_privateKey: null,
-          wallet_address: null,
-          wallet_phrase: null,
-          wallet_connected: false,
-          wallet_connected_name: null,
-        };
-        wallet.wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
-        wallet.wallet_privateKey =
-          state_here.WDeetsReducer.wdeets.wallet_privateKey;
-        wallet.wallet_phrase = {};
-        wallet.wallet_connected =
-          state_here.WDeetsReducer.wdeets.wallet_connected;
-        wallet.wallet_connected_name =
-          state_here.WDeetsReducer.wdeets.wallet_connected_name;
-        dispatch(AddWDeets(wallet));
-      }, 10000);
-      setTimeout(() => {
-        dispatch({type: LOGIN});
-      }, 12500);
-    }
-  }, [userId]);
+    wallet.wallet_address = wallet_info.accounts[0];
+    wallet.wallet_privateKey = '';
+    wallet.wallet_phrase = {};
+    wallet.wallet_connected = true;
+    wallet.wallet_connected_name = wallet_info.peerMeta.name;
+    dispatch(AddWDeets(wallet));
+    setTimeout(() => {
+      dispatch({type: LOGIN});
+    }, 5000);
+  }, [wallet_info]);
 
   function RenderBody() {
     if (!apiDone) {
@@ -153,17 +92,7 @@ function SettingUpAppScreen({dispatch}) {
   return (
     <View style={styles.parent_view}>
       <StatusBar barStyle="light-content" />
-      <ImageBackground
-        source={require('../../../../../assets/colors_background_2.png')}
-        resizeMode="cover"
-        style={{
-          width: windowWidth,
-          height: windowHeight,
-          alignItems: 'center',
-          justifyContent: 'center',
-        }}>
-        <RenderBody />
-      </ImageBackground>
+      <RenderBody />
     </View>
   );
 }
