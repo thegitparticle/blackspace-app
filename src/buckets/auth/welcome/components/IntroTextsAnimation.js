@@ -140,7 +140,7 @@ function IntroTextsAnimation() {
           scale: 1,
           translateY: [
             {value: 0, delay: 100, type: 'timing', duration: 100},
-            {value: -250, delay: 15000, type: 'timing', duration: 12000},
+            {value: -200, delay: 15000, type: 'timing', duration: 12000},
           ],
           opacity: [
             {value: 0, delay: 50, type: 'timing', duration: 0},
