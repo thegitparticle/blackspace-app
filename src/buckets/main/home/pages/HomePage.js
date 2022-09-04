@@ -1,5 +1,5 @@
 import {Text, View, useSx} from 'dripsy';
-import React, {useCallback, useState} from 'react';
+import React, {useCallback, useMemo, useState} from 'react';
 import {Dimensions} from 'react-native';
 import {SquircleView} from 'react-native-figma-squircle';
 import {connect} from 'react-redux';
@@ -28,58 +28,70 @@ function HomePage({dispatch}) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
-  function Utilities() {
-    function UtilityButton({icon, title, navigateTo}) {
-      return (
-        <Bounceable onPress={() => navigation.navigate(navigateTo)}>
-          <SquircleView
-            style={sxCustom({
-              width: (windowWidth - 60) / 2,
-              height: 50,
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              alignSelf: 'center',
-              marginVertical: '$2',
-            })}
-            squircleParams={{
-              cornerSmoothing: 1,
-              cornerRadius: 15,
-              fillColor: dripsytheme.colors.layout_4,
-            }}>
-            <Iconly name={icon} color={dripsytheme.colors.layout_1} size={25} />
-            <Text
-              variant="body_thick"
-              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-              {title}
-            </Text>
-          </SquircleView>
-        </Bounceable>
-      );
-    }
+  const Utilities = useMemo(
+    () =>
+      function Utilities() {
+        const UtilityButton = useMemo(
+          () =>
+            function UtilityButton({icon, title, navigateTo}) {
+              return (
+                <Bounceable onPress={() => navigation.navigate(navigateTo)}>
+                  <SquircleView
+                    style={sxCustom({
+                      width: (windowWidth - 60) / 2,
+                      height: 50,
+                      flexDirection: 'row',
+                      justifyContent: 'center',
+                      alignItems: 'center',
+                      alignSelf: 'center',
+                      marginVertical: '$2',
+                    })}
+                    squircleParams={{
+                      cornerSmoothing: 1,
+                      cornerRadius: 15,
+                      fillColor: dripsytheme.colors.layout_4,
+                    }}>
+                    <Iconly
+                      name={icon}
+                      color={dripsytheme.colors.layout_1}
+                      size={25}
+                    />
+                    <Text
+                      variant="body_thick"
+                      sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+                      {title}
+                    </Text>
+                  </SquircleView>
+                </Bounceable>
+              );
+            },
+          [],
+        );
 
-    return (
-      <View
-        variant={'sub_view_20_margin'}
-        sx={{
-          alignSelf: 'center',
-          flexDirection: 'row',
-          width: windowWidth - 40,
-          justifyContent: 'space-between',
-        }}>
-        <UtilityButton
-          title={'Swap'}
-          icon={'FilterBold'}
-          navigateTo={'SwapScreen'}
-        />
-        <UtilityButton
-          title={'Prices'}
-          icon={'ActivityBold'}
-          navigateTo={'PricesScreen'}
-        />
-      </View>
-    );
-  }
+        return (
+          <View
+            variant={'sub_view_20_margin'}
+            sx={{
+              alignSelf: 'center',
+              flexDirection: 'row',
+              width: windowWidth - 40,
+              justifyContent: 'space-between',
+            }}>
+            <UtilityButton
+              title={'Swap'}
+              icon={'FilterBold'}
+              navigateTo={'SwapScreen'}
+            />
+            <UtilityButton
+              title={'Prices'}
+              icon={'ActivityBold'}
+              navigateTo={'PricesScreen'}
+            />
+          </View>
+        );
+      },
+    [],
+  );
 
   function EmptyPositionsTile({title}) {
     return (
@@ -125,35 +137,43 @@ function HomePage({dispatch}) {
 
   const farmPositionsList = [];
 
-  function FarmPositions() {
-    if (farmPositionsList.length > 0) {
-      return (
-        <Text
-          variant="body_thick"
-          sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-          live positions render here
-        </Text>
-      );
-    } else {
-      return <EmptyPositionsTile title={'Farms'} />;
-    }
-  }
+  const FarmPositions = useMemo(
+    () =>
+      function FarmPositions() {
+        if (farmPositionsList.length > 0) {
+          return (
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+              live positions render here
+            </Text>
+          );
+        } else {
+          return <EmptyPositionsTile title={'Farms'} />;
+        }
+      },
+    [],
+  );
 
   const savePositionsList = [];
 
-  function SavePositions() {
-    if (savePositionsList.length > 0) {
-      return (
-        <Text
-          variant="body_thick"
-          sx={{color: 'layout_1', marginHorizontal: '$2'}}>
-          live positions render here
-        </Text>
-      );
-    } else {
-      return <EmptyPositionsTile title={'Save'} />;
-    }
-  }
+  const SavePositions = useMemo(
+    () =>
+      function SavePositions() {
+        if (savePositionsList.length > 0) {
+          return (
+            <Text
+              variant="body_thick"
+              sx={{color: 'layout_1', marginHorizontal: '$2'}}>
+              live positions render here
+            </Text>
+          );
+        } else {
+          return <EmptyPositionsTile title={'Save'} />;
+        }
+      },
+    [],
+  );
 
   return (
     <View variant="layout.full_screen_transparent">
