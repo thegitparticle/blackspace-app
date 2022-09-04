@@ -17,6 +17,7 @@ import HomoraAPYsReducer from './onchain/HomoraAPYsReducer';
 import HomoraFarmsReducer from './onchain/HomoraFarmsReducer';
 import HomoraTokensReducer from './onchain/HomoraTokensReducer';
 import HomoraTradingVolsReducer from './onchain/HomoraTradingVolsReducer';
+import SavePoolsReducer from './onchain/save/SavePoolsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -83,6 +84,11 @@ export const persistConfigHomoraTokens = {
   storage: AsyncStorage,
 };
 
+export const persistConfigSavePools = {
+  key: 'save_pools',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
@@ -127,6 +133,8 @@ const rootReducer = combineReducers({
     persistConfigHomoraTokens,
     HomoraTokensReducer,
   ),
+
+  SavePoolsReducer: persistReducer(persistConfigSavePools, SavePoolsReducer),
 });
 
 export const storehere = createStore(rootReducer, applyMiddleware(thunk));
