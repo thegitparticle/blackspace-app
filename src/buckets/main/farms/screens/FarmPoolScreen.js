@@ -28,6 +28,7 @@ import {BigNumber, ethers} from 'ethers';
 import useGetETHBalance from '../../../../helpers/useGetETHBalance';
 import {Touchable} from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -49,12 +50,14 @@ function FarmPoolScreen({route}) {
     wait(2000).then(() => setRefreshing(false));
   }, []);
 
+  const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
+
   const allTradingVols =
     state_here.HomoraTradingVolsReducer.homora_trading_vols;
   const allTokens = state_here.HomoraTokensReducer.homora_tokens;
   const {loadingTokenBalance, ethBalance} = useGetETHBalance(
-    // state_here.WDeetsReducer.wdeets.wallet_address,
-    '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+    wallet_address,
+    // '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
   );
 
   const token1Address = farmData.tokens[0];
@@ -163,7 +166,7 @@ function FarmPoolScreen({route}) {
     function BalanceCheckPopup() {
       function Token1Balance() {
         const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
-          '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+          wallet_address,
           token1Address,
         );
 
@@ -195,30 +198,52 @@ function FarmPoolScreen({route}) {
           if (Number(readableBalance) >= Number(amountStake1)) {
             setPassedToken1BalCheck(true);
             return (
-              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You have enough {token1Details.name} balance - {readableBalance}{' '}
-              </Text>
+              <View sx={{alignItems: 'center'}}>
+                <Iconly
+                  name="TickSquareBold"
+                  color={dripsytheme.colors.success_2}
+                  size={30}
+                />
+                <Text
+                  variant="body_thick"
+                  sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                  You have enough {token1Details.name} balance
+                </Text>
+              </View>
             );
           } else {
             return (
-              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You don't have enough {token1Details.name} balance -{' '}
-                {readableBalance}
-              </Text>
+              <View sx={{alignItems: 'center'}}>
+                <Iconly
+                  name="DangerBold"
+                  color={dripsytheme.colors.danger_2}
+                  size={30}
+                />
+                <Text
+                  variant="body_thick"
+                  sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                  You don't have enough {token1Details.name} balance
+                </Text>
+              </View>
             );
           }
         } else {
           return (
-            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-              Checking {token1Details.name} balance - {readableBalance}
-            </Text>
+            <View sx={{alignItems: 'center'}}>
+              <Bubbles size={10} color="#FFF" />
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                Checking {token1Details.name} balance
+              </Text>
+            </View>
           );
         }
       }
 
       function Token2Balance() {
         const {loadingTokenBalance, tokenBalance} = useGetTokenBalance(
-          '0x5b990C664aE7E759763ACfEC76E11c289c53Be77',
+          wallet_address,
           token2Address,
         );
 
@@ -250,23 +275,45 @@ function FarmPoolScreen({route}) {
           if (Number(readableBalance) >= Number(amountStake2)) {
             setPassedToken2BalCheck(true);
             return (
-              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You have enough {token2Details.name} balance - {readableBalance}
-              </Text>
+              <View sx={{alignItems: 'center'}}>
+                <Iconly
+                  name="TickSquareBold"
+                  color={dripsytheme.colors.success_2}
+                  size={30}
+                />
+                <Text
+                  variant="body_thick"
+                  sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                  You have enough {token2Details.name} balance
+                </Text>
+              </View>
             );
           } else {
             return (
-              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You don't have enough {token2Details.name} balance -{' '}
-                {readableBalance}
-              </Text>
+              <View sx={{alignItems: 'center'}}>
+                <Iconly
+                  name="DangerBold"
+                  color={dripsytheme.colors.danger_2}
+                  size={30}
+                />
+                <Text
+                  variant="body_thick"
+                  sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                  You don't have enough {token2Details.name} balance
+                </Text>
+              </View>
             );
           }
         } else {
           return (
-            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-              Checking {token2Details.name} balance - {readableBalance}
-            </Text>
+            <View sx={{alignItems: 'center'}}>
+              <Bubbles size={10} color="#FFF" />
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                Checking {token2Details.name} balance
+              </Text>
+            </View>
           );
         }
       }
@@ -332,7 +379,7 @@ function FarmPoolScreen({route}) {
         );
       } else {
         return (
-          <Bounceable onPress={() => setShowBalanceCheckPopup(true)}>
+          <Bounceable onPress={() => setShowBalanceCheckPopup(false)}>
             <View sx={{marginVertical: '$3'}}>
               <SquircleButton
                 buttonColor={dripsytheme.colors.layout_1 + '10'}
