@@ -228,33 +228,35 @@ export function use0xSwapQuoteWithBalanceChecks(
     Number(sellAmount) * 10 ** Number(token0Decimals),
   ).toFixed();
 
+  // ropsten testnet
+  // const apiConfig = {
+  //   method: 'get',
+  //   url:
+  //     'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
+  //     '0xaD6D458402F60fD3Bd25163575031ACDce07538D' +
+  //     // token1 +
+  //     '&sellToken=' +
+  //     '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
+  //     // token0 +
+  //     '&sellAmount=' +
+  //     String(sellAmountInBaseUnits) +
+  //     '&takerAddress=' +
+  //     String(walletAddress),
+  // };
+
+  // mainnet
   const apiConfig = {
     method: 'get',
     url:
-      'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
-      '0xaD6D458402F60fD3Bd25163575031ACDce07538D' +
-      // token1 +
+      'https://api.0x.org/swap/v1/quote?buyToken=' +
+      token1 +
       '&sellToken=' +
-      '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
-      // token0 +
+      token0 +
       '&sellAmount=' +
       String(sellAmountInBaseUnits) +
       '&takerAddress=' +
       String(walletAddress),
   };
-
-  console.log(
-    'https://ropsten.api.0x.org/swap/v1/quote?buyToken=' +
-      '0xaD6D458402F60fD3Bd25163575031ACDce07538D' +
-      // token1 +
-      '&sellToken=' +
-      '0x07865c6E87B9F70255377e024ace6630C1Eaa37F' +
-      // token0 +
-      '&sellAmount=' +
-      String(sellAmountInBaseUnits) +
-      '&takerAddress=' +
-      String(walletAddress),
-  );
 
   const ZERO_EX_ADDRESS = '0xdef1c0ded9bec7f1a1670819833240f027b25eff';
 
