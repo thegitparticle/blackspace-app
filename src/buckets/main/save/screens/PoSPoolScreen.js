@@ -22,6 +22,7 @@ import {
 } from '../../../../theme/DripsyTheme';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
 import useGetETHBalance from '../../../../helpers/useGetETHBalance';
+import {Bubbles, DoubleBounce, Bars, Pulse} from 'react-native-loader';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -183,50 +184,64 @@ function PoSPoolScreen({route}) {
           if (quoteError0xWithChecks) {
             setPassedToken0BalCheck(true);
             return (
-              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You have enough ETH balance
-              </Text>
+              <View sx={{alignItems: 'center'}}>
+                <Iconly
+                  name="TickSquareBold"
+                  color={dripsytheme.colors.success_2}
+                  size={30}
+                />
+                <Text
+                  variant="body_thick"
+                  sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                  You have enough ETH balance
+                </Text>
+                <Pressable
+                  onPress={() => {
+                    setShowBalanceCheckPopup(false);
+                    navigation.navigate('PoSTxnScreen', {
+                      swapQuote: quoteDetails0xWithChecks,
+                    });
+                  }}>
+                  <View sx={{marginVertical: '$3'}}>
+                    <SquircleButton
+                      buttonColor={dripsytheme.colors.success_3}
+                      width={windowWidth * 0.7}
+                      height={50}
+                      buttonText={'confirm stake'}
+                      font={dripsytheme.text.body_thick}
+                      textColor={dripsytheme.colors.layout_1}
+                    />
+                  </View>
+                </Pressable>
+              </View>
             );
           } else {
             return (
-              <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-                You don't have enough ETH balance
-              </Text>
+              <View sx={{alignItems: 'center'}}>
+                <Iconly
+                  name="DangerBold"
+                  color={dripsytheme.colors.danger_2}
+                  size={30}
+                />
+                <Text
+                  variant="body_thick"
+                  sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                  You don't have enough ETH balance
+                </Text>
+              </View>
             );
           }
         } else {
           return (
-            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
-              Checking ETH balance
-            </Text>
+            <View sx={{alignItems: 'center'}}>
+              <Bubbles size={10} color="#FFF" />
+              <Text
+                variant="body_thick"
+                sx={{color: 'layout_1', mb: '$4', mt: '$2'}}>
+                Checking ETH balance
+              </Text>
+            </View>
           );
-        }
-      }
-
-      function MakeTransactionButton() {
-        if (!passedToken0BalCheck) {
-          return (
-            <Pressable
-              onPress={() => {
-                setShowBalanceCheckPopup(false);
-                navigation.navigate('SwapTxnScreen', {
-                  swapQuote: quoteDetails0xWithChecks,
-                });
-              }}>
-              <View sx={{marginVertical: '$3'}}>
-                <SquircleButton
-                  buttonColor={dripsytheme.colors.success_3}
-                  width={windowWidth * 0.7}
-                  height={50}
-                  buttonText={'confirm stake'}
-                  font={dripsytheme.text.body_thick}
-                  textColor={dripsytheme.colors.layout_1}
-                />
-              </View>
-            </Pressable>
-          );
-        } else {
-          return <View />;
         }
       }
 
@@ -238,7 +253,6 @@ function PoSPoolScreen({route}) {
             Balance Check
           </Text>
           <Token0Balance />
-          <MakeTransactionButton />
         </View>
       );
     }

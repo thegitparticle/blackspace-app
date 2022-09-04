@@ -498,7 +498,7 @@ function SwapScreen({route}) {
                 <Pressable
                   onPress={() => {
                     setShowBalanceCheckPopup(false);
-                    navigation.navigate('PoSTxnScreen', {
+                    navigation.navigate('SwapTxnScreen', {
                       swapQuote: quoteDetails0xWithChecks,
                     });
                   }}>
