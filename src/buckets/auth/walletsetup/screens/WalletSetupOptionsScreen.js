@@ -40,8 +40,8 @@ function WalletSetupOptionsScreen({dispatch, navigation}) {
               .connect()
               .then(wallet_info => {
                 console.log(wallet_info);
-                navigation.navigate('ConnectWalletScreen', {
-                  walletInfo: wallet_info,
+                navigation.navigate('SettingUpAppScreen', {
+                  wallet_info: wallet_info,
                 });
               })
               .catch(e => console.log(e));
