@@ -1,5 +1,5 @@
 import {ScrollView, Text, View} from 'dripsy';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {Dimensions, RefreshControl} from 'react-native';
 import {connect} from 'react-redux';
 import {GetHomoraAPYs} from '../../../redux/onchain/HomoraAPYsActions';
@@ -8,6 +8,7 @@ import {GetHomoraTradingVols} from '../../../redux/onchain/HomoraTradingVolsActi
 import {GetHomoraTokens} from '../../../redux/onchain/HomoraTokensActions';
 import {dripsytheme} from '../../../theme/DripsyTheme';
 import FarmThumbnailComponent from './components/FarmThumbnailComponent';
+import SpacerVertical from '../../../bits/SpacerVertical';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -35,31 +36,36 @@ function FarmPage({dispatch}) {
 
   const homoraFarms = state_here.HomoraFarmsReducer.homora_farms;
 
-  function RenderFarmsThumbnails() {
-    if (homoraFarms.length > 0) {
-      return (
-        <View>
-          {homoraFarms.map((item, index) => (
-            <FarmThumbnailComponent farmData={item} />
-          ))}
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <Text
-            variant="heading_thick"
-            sx={{
-              color: 'layout_1',
-              marginHorizontal: '$4',
-              marginVertical: '$4',
-            }}>
-            no farms loaded
-          </Text>
-        </View>
-      );
-    }
-  }
+  const RenderFarmsThumbnails = useMemo(
+    () =>
+      function RenderFarmsThumbnails() {
+        if (homoraFarms.length > 0) {
+          return (
+            <View>
+              {homoraFarms.map((item, index) => (
+                <FarmThumbnailComponent farmData={item} />
+              ))}
+              <SpacerVertical height={windowHeight * 0.25} />
+            </View>
+          );
+        } else {
+          return (
+            <View>
+              <Text
+                variant="heading_thick"
+                sx={{
+                  color: 'layout_1',
+                  marginHorizontal: '$4',
+                  marginVertical: '$4',
+                }}>
+                no farms loaded
+              </Text>
+            </View>
+          );
+        }
+      },
+    [homoraFarms],
+  );
 
   return (
     <ScrollView
