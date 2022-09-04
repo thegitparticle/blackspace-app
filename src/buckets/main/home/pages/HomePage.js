@@ -83,20 +83,7 @@ function HomePage({dispatch}) {
 
   function EmptyPositionsTile({title}) {
     return (
-      <SquircleView
-        style={sxCustom({
-          width: windowWidth - 40,
-          flexDirection: 'column',
-          justifyContent: 'center',
-          // alignItems: 'center',
-          alignSelf: 'center',
-          marginVertical: '$2',
-        })}
-        squircleParams={{
-          cornerSmoothing: 1,
-          cornerRadius: 15,
-          fillColor: dripsytheme.colors.layout_4,
-        }}>
+      <View>
         <Text
           variant="heading_thick"
           sx={{
@@ -106,25 +93,33 @@ function HomePage({dispatch}) {
           }}>
           {title}
         </Text>
-        <Text
-          variant="body_thick"
-          sx={{
-            color: 'layout_1',
-            opacity: 0.75,
+        <SquircleView
+          style={sxCustom({
+            width: windowWidth - 40,
+            height: 200,
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
             alignSelf: 'center',
-            marginVertical: '$4',
-          }}>
-          no live positions
-        </Text>
-        <Text
-          variant="heading_thick"
-          sx={{
-            color: 'layout_1',
-            marginHorizontal: '$4',
             marginVertical: '$2',
-          }}
-        />
-      </SquircleView>
+          })}
+          squircleParams={{
+            cornerSmoothing: 1,
+            cornerRadius: 15,
+            fillColor: dripsytheme.colors.layout_4,
+          }}>
+          <Text
+            variant="body_thick"
+            sx={{
+              color: 'layout_1',
+              opacity: 0.75,
+              alignSelf: 'center',
+              marginVertical: '$4',
+            }}>
+            no live positions
+          </Text>
+        </SquircleView>
+      </View>
     );
   }
 
