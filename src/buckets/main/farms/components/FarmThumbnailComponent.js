@@ -26,8 +26,10 @@ function FarmThumbnailComponent({farmData}) {
     const allApys = state_here.HomoraAPYsReducer.homora_apys;
     const farmKey = farmData.key;
 
-    if (farmData.key) {
-      setApy(allApys[farmKey].totalAPY);
+    if (allApys) {
+      if (farmData.key) {
+        setApy(allApys[farmKey].totalAPY);
+      }
     }
   }, [farmData.key]);
 
