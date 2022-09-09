@@ -2164,14 +2164,14 @@
 
 "@motify/components@^0.17.1":
   version "0.17.1"
-  resolved "https://registry.npmjs.org/@motify/components/-/components-0.17.1.tgz"
+  resolved "https://registry.npmjs.org/@motify/components/-/components-0.17.1.tgz#96888fb0d5c6d41f484d98c9364764e511d83086"
   integrity sha512-nUOEuNDmnjRVFD202goOilPYtjrZGr26/VCIMnPE5Jpfs9ds/4ezIhQ75zBXd3BuCcgfMRsKrnw01/O0rdWYsg==
   dependencies:
     "@motify/core" "^0.17.1"
 
 "@motify/core@^0.17.1":
   version "0.17.1"
-  resolved "https://registry.npmjs.org/@motify/core/-/core-0.17.1.tgz"
+  resolved "https://registry.npmjs.org/@motify/core/-/core-0.17.1.tgz#1d3f0aac54ae30a636f43d069c02c8040ca67efc"
   integrity sha512-czFnaE4o0gCNS7F3u0CdSxzx72b6Yzw2LGD/e/J5DPM7KPL70qyzj5cZ8Rq1sKnUZMfgvCfxyGql21FbGdyhew==
   dependencies:
     framer-motion "^3.9.1"
@@ -7668,7 +7668,7 @@ fragment-cache@^0.2.1:
 
 framer-motion@^3.9.1:
   version "3.10.6"
-  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-3.10.6.tgz"
+  resolved "https://registry.npmjs.org/framer-motion/-/framer-motion-3.10.6.tgz#67737ef05ed0408860751d81c919770ac831b394"
   integrity sha512-OxOtKgQS4km9a8dm0IMBtNNp4f0DiHfQ/IzxKs818+Kg9V/Ve/pRUJ2dtWBb6+W4lIPNLgRSpbOwOACVj15XcQ==
   dependencies:
     framesync "5.2.0"
@@ -7681,7 +7681,7 @@ framer-motion@^3.9.1:
 
 framesync@5.2.0:
   version "5.2.0"
-  resolved "https://registry.npmjs.org/framesync/-/framesync-5.2.0.tgz"
+  resolved "https://registry.npmjs.org/framesync/-/framesync-5.2.0.tgz#f14480654cd05a6af4c72c9890cad93556841643"
   integrity sha512-dcl92w5SHc0o6pRK3//VBVNvu6WkYkiXmHG6ZIXrVzmgh0aDYMDAaoA3p3LH71JIdN5qmhDcfONFA4Lmq22tNA==
 
 freeport-async@2.0.0:
@@ -10924,7 +10924,7 @@ moment@^2.24.0:
 
 moti@^0.17.1:
   version "0.17.1"
-  resolved "https://registry.npmjs.org/moti/-/moti-0.17.1.tgz"
+  resolved "https://registry.npmjs.org/moti/-/moti-0.17.1.tgz#6c0c3c5fa76cb2cd1af86787ef5596debb87c6da"
   integrity sha512-AFpsKkiQ6GQcqbgWCuVt+Yd4guTZdO3iRBjMkV1SYcE9vTVH2JWrG5Rk3Xu6XcxJ9jDICQ5/NJj15nbAcymrYg==
   dependencies:
     "@motify/components" "^0.17.1"
@@ -11865,7 +11865,7 @@ pngjs@^5.0.0:
 
 popmotion@9.3.1:
   version "9.3.1"
-  resolved "https://registry.npmjs.org/popmotion/-/popmotion-9.3.1.tgz"
+  resolved "https://registry.npmjs.org/popmotion/-/popmotion-9.3.1.tgz#134319ed4b9b8e3ec506c99064f7b2f14bc05781"
   integrity sha512-Qozvg8rz2OGeZwWuIjqlSXqqgWto/+QL24ll8sAAc0n71KY/wvN1W4sAASxTuHv8YWdDnk9u9IdadyPo2DGvDA==
   dependencies:
     framesync "5.2.0"
@@ -14071,7 +14071,7 @@ sturdy-websocket@^0.2.1:
 
 style-value-types@4.1.1:
   version "4.1.1"
-  resolved "https://registry.npmjs.org/style-value-types/-/style-value-types-4.1.1.tgz"
+  resolved "https://registry.npmjs.org/style-value-types/-/style-value-types-4.1.1.tgz#15d08bd9bb17ac3f5d4a863bf9d5e4eb8e4f0686"
   integrity sha512-cNLrl6jk+I1T18ZI2KIp/fcqKVuykcNELDrOz7y+TYZR97xmNdN0ewupURvVFnQxVrRJv98TMBq92VMsggq3kw==
   dependencies:
     hey-listen "^1.0.8"
