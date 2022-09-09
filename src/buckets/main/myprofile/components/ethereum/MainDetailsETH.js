@@ -15,7 +15,7 @@ const windowWidth = Dimensions.get('window').width;
 let state_here = {};
 
 function MainDetailsETH() {
-  let wallet_add = state_here.UserDetailsReducer.userdetails.wallet_address;
+  let wallet_add = state_here.WDeetsReducer.wdeets.wallet_address;
   let render_wallet_string =
     wallet_add.slice(0, 4) + '...' + wallet_add.slice(-2);
 
