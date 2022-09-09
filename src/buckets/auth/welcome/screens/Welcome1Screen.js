@@ -126,43 +126,43 @@ function Welcome1Screen({dispatch, navigation}) {
         <View style={styles.bottom_block}>
           <View>{/*<BackgroundNftsAnimation />*/}</View>
           <View>
-            <Animated.View style={[animatedIntroTexts]}>
+            {/* <Animated.View style={[animatedIntroTexts]}>
               <IntroTextsAnimation />
-            </Animated.View>
-            <Animated.View style={[animatedLogoOnSkip]}>
-              <Image
-                source={require('../../../../../assets/blackSpace_logo_full.png')}
-                sx={{
-                  width: windowWidth * 0.55,
-                  height: windowWidth * 0.081,
-                  alignSelf: 'center',
-                }}
-              />
-            </Animated.View>
-            <Animated.View style={[animatedButton]}>
-              <View
-                sx={{
-                  marginVertical: windowHeight * 0.1,
-                  alignSelf: 'center',
+            </Animated.View> */}
+            {/* <Animated.View style={[animatedLogoOnSkip]}> */}
+            <Image
+              source={require('../../../../../assets/blackSpace_logo_full.png')}
+              sx={{
+                width: windowWidth * 0.55,
+                height: windowWidth * 0.081,
+                alignSelf: 'center',
+              }}
+            />
+            {/* </Animated.View> */}
+            {/* <Animated.View style={[animatedButton]}> */}
+            <View
+              sx={{
+                marginVertical: windowHeight * 0.1,
+                alignSelf: 'center',
+              }}>
+              <Bounceable
+                onPress={() => {
+                  navigation.navigate('WalletSetupOptionsScreen');
+                  Amplitude.getInstance().logEvent(
+                    'LFG_WELCOME_BUTTON_CLICKED',
+                  );
                 }}>
-                <Bounceable
-                  onPress={() => {
-                    navigation.navigate('WalletSetupOptionsScreen');
-                    Amplitude.getInstance().logEvent(
-                      'LFG_WELCOME_BUTTON_CLICKED',
-                    );
-                  }}>
-                  <SquircleGlassButton
-                    buttonColor={dripsytheme.colors.layout_4}
-                    width={windowWidth * 0.7}
-                    height={50}
-                    buttonText={'Lets go 🚀'}
-                    font={dripsytheme.text.body_thick}
-                    textColor={dripsytheme.colors.brand_orange}
-                  />
-                </Bounceable>
-              </View>
-            </Animated.View>
+                <SquircleGlassButton
+                  buttonColor={dripsytheme.colors.layout_4}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'Lets go 🚀'}
+                  font={dripsytheme.text.body_thick}
+                  textColor={dripsytheme.colors.brand_orange}
+                />
+              </Bounceable>
+            </View>
+            {/* </Animated.View> */}
           </View>
         </View>
         <SkipButton />
