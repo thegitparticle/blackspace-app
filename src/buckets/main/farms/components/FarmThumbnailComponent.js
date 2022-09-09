@@ -22,16 +22,16 @@ function FarmThumbnailComponent({farmData}) {
 
   const [apy, setApy] = useState('');
 
-  useEffect(() => {
-    const allApys = state_here.HomoraAPYsReducer.homora_apys;
-    const farmKey = farmData.key;
+  const allApys = state_here.HomoraAPYsReducer.homora_apys;
+  const farmKey = farmData.key;
 
-    if (allApys) {
+  useEffect(() => {
+    if (Object.keys(allApys).length !== 0) {
       if (farmData.key) {
         setApy(allApys[farmKey].totalAPY);
       }
     }
-  }, [farmData.key]);
+  }, [farmData.key, allApys]);
 
   return (
     <Bounceable
