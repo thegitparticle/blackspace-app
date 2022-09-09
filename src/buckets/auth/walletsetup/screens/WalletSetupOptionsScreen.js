@@ -1,22 +1,13 @@
+import {Amplitude} from '@amplitude/react-native';
 import {useWalletConnect} from '@walletconnect/react-native-dapp';
-import {View, Text, useSx} from 'dripsy';
+import {Text, useSx, View} from 'dripsy';
 import React from 'react';
-import {
-  Appearance,
-  Dimensions,
-  ImageBackground,
-  StatusBar,
-  StyleSheet,
-} from 'react-native';
-import {Divider} from 'react-native-elements';
+import {Appearance, Dimensions, ImageBackground, StatusBar} from 'react-native';
 import {connect} from 'react-redux';
 import {Bounceable} from 'rn-bounceable';
 import {LOGIN} from '../../../../redux/types';
 import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {dripsytheme} from '../../../../theme/DripsyTheme';
-import ConnectWalletPart from '../components/ConnectWalletPart';
-import CreateWalletPart from '../components/CreateWalletPart';
-import {Amplitude} from '@amplitude/react-native';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
