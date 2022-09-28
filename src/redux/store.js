@@ -1,24 +1,23 @@
-import {applyMiddleware, combineReducers, createStore} from 'redux';
-import thunk from 'redux-thunk';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {applyMiddleware, combineReducers, createStore} from 'redux';
 import {persistReducer, persistStore} from 'redux-persist';
+import thunk from 'redux-thunk';
 
 import AuthStateReducer from './appcore/AuthStateReducer';
-import MyProfileReducer from './appcore/MyProfileReducer';
-import WDeetsReducer from './appcore/WDeetsReducer';
-import MyAppsReducer from './appcore/MyAppsReducer';
-import DiscoverAppsReducer from './appcore/DiscoverAppsReducer';
 import MarketPricesReducer from './appcore/MarketPricesReducer';
-import UniswapTokenListReducer from './dapps/uniswap/UniswapTokenListReducer';
 import MyEmojiColorReducer from './appcore/MyEmojiColorReducer';
-import UserDetailsReducer from './appcore/UserDetailsReducer';
-import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
-import UniswapStakePoolsReducer from './dapps/uniswap/UniswapStakePoolsReducer';
-import AllTipsReducer from './appcore/AllTipsReducer';
-import MemeCoinsListReducer from './dapps/memecoins/MemeCoinsListReducer';
 import MyNFTsReducer from './appcore/MyNFTsReducer';
+import MyProfileReducer from './appcore/MyProfileReducer';
+import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 import SecretSettingsReducer from './appcore/SecretSettingsReducer';
-import SolWalletDetailsReducer from './appcore/SolWalletDetailsReducer';
+import UserDetailsReducer from './appcore/UserDetailsReducer';
+import WDeetsReducer from './appcore/WDeetsReducer';
+
+import HomoraAPYsReducer from './onchain/HomoraAPYsReducer';
+import HomoraFarmsReducer from './onchain/HomoraFarmsReducer';
+import HomoraTokensReducer from './onchain/HomoraTokensReducer';
+import HomoraTradingVolsReducer from './onchain/HomoraTradingVolsReducer';
+import SavePoolsReducer from './onchain/save/SavePoolsReducer';
 
 export const persistConfigAuth = {
   key: 'auth_here',
@@ -27,11 +26,6 @@ export const persistConfigAuth = {
 
 export const persistConfigWDeets = {
   key: 'w_deets',
-  storage: AsyncStorage,
-};
-
-export const persistConfigSolWalletDeets = {
-  key: 'sol_wallet_deets',
   storage: AsyncStorage,
 };
 
@@ -55,16 +49,6 @@ export const persistConfigMyNfts = {
   storage: AsyncStorage,
 };
 
-export const persistConfigMyApps = {
-  key: 'my_apps',
-  storage: AsyncStorage,
-};
-
-export const persistConfigDiscoverApps = {
-  key: 'discover_apps',
-  storage: AsyncStorage,
-};
-
 export const persistConfigMarketPrices = {
   key: 'market_prices',
   storage: AsyncStorage,
@@ -75,30 +59,33 @@ export const persistConfigMyEmojiColor = {
   storage: AsyncStorage,
 };
 
-export const persistConfigAllTips = {
-  key: 'all_tips',
-  storage: AsyncStorage,
-};
-
 export const persistConfigSecretSettings = {
   key: 'secret_settings',
   storage: AsyncStorage,
 };
 
-// dapps redux work only below
-
-export const persistConfigUniswapTokenList = {
-  key: 'uniswap_tokenlist',
+export const persistConfigHomoraFarms = {
+  key: 'homora_farms',
   storage: AsyncStorage,
 };
 
-export const persistConfigUniswapStakePools = {
-  key: 'uniswap_stakepools',
+export const persistConfigHomoraAPYs = {
+  key: 'homora_apys',
   storage: AsyncStorage,
 };
 
-export const persistConfigMemeCoinsList = {
-  key: 'memecoins_list',
+export const persistConfigHomoraTradingVols = {
+  key: 'homora_trading_vols',
+  storage: AsyncStorage,
+};
+
+export const persistConfigHomoraTokens = {
+  key: 'homora_tokens',
+  storage: AsyncStorage,
+};
+
+export const persistConfigSavePools = {
+  key: 'save_pools',
   storage: AsyncStorage,
 };
 
@@ -106,10 +93,7 @@ const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
   WDeetsReducer: persistReducer(persistConfigWDeets, WDeetsReducer),
-  SolWalletDetailsReducer: persistReducer(
-    persistConfigSolWalletDeets,
-    SolWalletDetailsReducer,
-  ),
+
   UserDetailsReducer: persistReducer(
     persistConfigUserDetails,
     UserDetailsReducer,
@@ -119,11 +103,7 @@ const rootReducer = combineReducers({
     MyTokenBalancesReducer,
   ),
   MyNFTsReducer: persistReducer(persistConfigMyTokenBalances, MyNFTsReducer),
-  MyAppsReducer: persistReducer(persistConfigMyApps, MyAppsReducer),
-  DiscoverAppsReducer: persistReducer(
-    persistConfigDiscoverApps,
-    DiscoverAppsReducer,
-  ),
+
   MarketPricesReducer: persistReducer(
     persistConfigMarketPrices,
     MarketPricesReducer,
@@ -132,27 +112,29 @@ const rootReducer = combineReducers({
     persistConfigMyEmojiColor,
     MyEmojiColorReducer,
   ),
-  AllTipsReducer: persistReducer(persistConfigAllTips, AllTipsReducer),
   SecretSettingsReducer: persistReducer(
     persistConfigSecretSettings,
     SecretSettingsReducer,
   ),
 
-  // dapps redux work only below
-
-  UniswapTokenListReducer: persistReducer(
-    persistConfigUniswapTokenList,
-    UniswapTokenListReducer,
+  HomoraFarmsReducer: persistReducer(
+    persistConfigHomoraFarms,
+    HomoraFarmsReducer,
   ),
 
-  UniswapStakePoolsReducer: persistReducer(
-    persistConfigUniswapStakePools,
-    UniswapStakePoolsReducer,
+  HomoraAPYsReducer: persistReducer(persistConfigHomoraAPYs, HomoraAPYsReducer),
+
+  HomoraTradingVolsReducer: persistReducer(
+    persistConfigHomoraTradingVols,
+    HomoraTradingVolsReducer,
   ),
-  MemeCoinsListReducer: persistReducer(
-    persistConfigMemeCoinsList,
-    MemeCoinsListReducer,
+
+  HomoraTokensReducer: persistReducer(
+    persistConfigHomoraTokens,
+    HomoraTokensReducer,
   ),
+
+  SavePoolsReducer: persistReducer(persistConfigSavePools, SavePoolsReducer),
 });
 
 export const storehere = createStore(rootReducer, applyMiddleware(thunk));

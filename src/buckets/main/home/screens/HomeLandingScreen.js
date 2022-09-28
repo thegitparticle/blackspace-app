@@ -1,95 +1,78 @@
+import {useSx, View} from 'dripsy';
 import React, {useState} from 'react';
-import {Appearance, Dimensions, StyleSheet, Text, View} from 'react-native';
-import {connect} from 'react-redux';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
-import CryptoPricesPage from '../pages/CryptoPricesPage';
-import HomeMainPage from '../pages/HomeMainPage';
-import HeaderOnHome from '../components/HeaderOnHome';
+import {Dimensions} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
-import NftsPage from '../pages/NftsPage';
+import {SceneMap, TabBar, TabView} from 'react-native-tab-view';
+import {connect} from 'react-redux';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
+import HeaderOnHome from '../components/HeaderOnHome';
+import FarmsPage from '../../farms/FarmsPage';
+import HomePage from '../pages/HomePage';
+import SavePage from '../../save/SavePage';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme == 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
 function HomeLandingScreen({dispatch, navigation}) {
-  console.log(state_here.SecretSettingsReducer.secretsettings + ' gogog');
+  const sxCustom = useSx();
 
-  let secretSettings = state_here.SecretSettingsReducer.secretsettings;
-
-  // const renderScene = SceneMap({
-  //   first: HomeMainPage,
-  //   second: NftsPage,
-  //   third: CryptoPricesPage,
-  // });
-
-  const renderScene =
-    secretSettings === true
-      ? SceneMap({
-          first: HomeMainPage,
-          second: NftsPage,
-          third: CryptoPricesPage,
-        })
-      : SceneMap({first: HomeMainPage, second: CryptoPricesPage});
+  const renderScene = SceneMap({
+    first: HomePage,
+    second: FarmsPage,
+    third: SavePage,
+  });
 
   const [index, setIndex] = useState(0);
 
-  const [routes] =
-    secretSettings === true
-      ? React.useState([
-          {key: 'first', title: 'Home'},
-          {key: 'second', title: 'NFTs'},
-          {key: 'third', title: 'Prices'},
-        ])
-      : React.useState([
-          {key: 'first', title: 'Home'},
-          {key: 'second', title: 'Prices'},
-        ]);
+  const [routes] = useState([
+    {key: 'first', title: 'Home'},
+    {key: 'second', title: 'Farms'},
+    {key: 'third', title: 'Save'},
+  ]);
 
   function renderLabel({route, focused}) {
-    if (route.title === 'Prices') {
+    if (route.title === 'Home') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>Prices</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly name="HomeBold" color={'#FAFAFA'} size={25} />
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>Prices</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly name="HomeBold" color={'#FAFAFA50'} size={25} />
           </View>
         );
       }
-    } else if (route.title === 'Home') {
+    } else if (route.title === 'Farms') {
       if (focused) {
         return (
-          <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>Home</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly name="Filter2Bold" color={'#FAFAFA'} size={25} />
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>Home</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly name="Filter2Bold" color={'#FAFAFA50'} size={25} />
           </View>
         );
       }
     } else {
       if (focused) {
         return (
-          <View style={styles.tab_label_view_focused}>
-            <Text style={styles.tab_label_text_focused}>NFTs</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly name="DiscountBold" color={'#FAFAFA'} size={25} />
           </View>
         );
       } else {
         return (
-          <View style={styles.tab_label_view_unfocused}>
-            <Text style={styles.tab_label_text_unfocused}>NFTs</Text>
+          <View variant="layout.tab_label_chip">
+            <Iconly name="DiscountBold" color={'#FAFAFA50'} size={25} />
           </View>
         );
       }
@@ -99,8 +82,30 @@ function HomeLandingScreen({dispatch, navigation}) {
   const renderTabBar = props => (
     <TabBar
       {...props}
-      indicatorStyle={styles.tab_bar_indicator}
-      style={styles.tab_bar}
+      indicatorStyle={sxCustom({
+        width: 0,
+      })}
+      style={sxCustom({
+        backgroundColor: 'layout_4',
+        position: 'absolute',
+        bottom: 0,
+        color: '#000',
+        height: 60,
+        justifyContent: 'center',
+        alignSelf: 'center',
+        width: windowWidth * 0.7,
+        marginBottom: windowHeight * 0.05,
+        borderRadius: 30,
+        borderTopWidth: 0,
+        shadowColor: '#000',
+        shadowOffset: {
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 0.32,
+        shadowRadius: 5.46,
+        elevation: 9,
+      })}
       renderLabel={renderLabel}
       tabStyle={{backgroundColor: 'transparent'}}
     />
@@ -109,11 +114,11 @@ function HomeLandingScreen({dispatch, navigation}) {
   return (
     <LinearGradient
       colors={[
-        themeHere.colors.off_background,
-        themeHere.colors.background,
-        themeHere.colors.background,
+        dripsytheme.colors.layout_5,
+        dripsytheme.colors.layout_5,
+        dripsytheme.colors.layout_5,
       ]}
-      style={styles.parent_view}>
+      style={{flex: 1}}>
       <HeaderOnHome />
       <TabView
         navigationState={{index, routes}}
@@ -132,46 +137,3 @@ const mapStateToProps = state => {
 };
 
 export default connect(mapStateToProps)(HomeLandingScreen);
-
-const styles = StyleSheet.create({
-  parent_view: {
-    flex: 1,
-    backgroundColor: themeHere.colors.background,
-  },
-  tab_bar: {
-    backgroundColor: 'transparent',
-    height: 75,
-    alignSelf: 'center',
-    width: windowWidth,
-    borderRadius: 30,
-    borderTopWidth: 0,
-    justifyContent: 'center',
-  },
-  tab_bar_indicator: {
-    width: 0,
-  },
-  tab_label_view_focused: {
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: themeHere.colors.mid_ground + '75',
-    borderRadius: 20,
-    width: 100,
-  },
-  tab_label_view_unfocused: {
-    alignItems: 'center',
-    height: 40,
-    justifyContent: 'center',
-    backgroundColor: themeHere.colors.mid_ground + '75',
-    borderRadius: 20,
-    width: 100,
-  },
-  tab_label_text_focused: {
-    ...themeHere.text.subhead_bold,
-    color: themeHere.colors.red,
-  },
-  tab_label_text_unfocused: {
-    ...themeHere.text.subhead_bold,
-    color: themeHere.colors.foreground,
-  },
-});

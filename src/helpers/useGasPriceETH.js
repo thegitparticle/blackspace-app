@@ -1,5 +1,5 @@
-import {useEffect, useState} from 'react';
 import axios from 'axios';
+import {useEffect, useState} from 'react';
 
 export const useGasPriceETH = () => {
   const [gasPriceIsFetched, setGasPriceIsFetched] = useState(false);

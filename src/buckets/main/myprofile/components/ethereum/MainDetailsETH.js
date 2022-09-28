@@ -1,35 +1,32 @@
-import React from 'react';
-import {Appearance, Dimensions, Pressable} from 'react-native';
-import {Text, View} from 'dripsy';
-import {
-  ButterThemeDark,
-  ButterThemeLight,
-} from '../../../../../theme/ButterTheme';
-import {connect} from 'react-redux';
-import FastImage from 'react-native-fast-image';
-import {Icon} from 'react-native-elements';
 import Clipboard from '@react-native-clipboard/clipboard';
-import {Bounceable} from 'rn-bounceable';
+import {Text, useSx, View} from 'dripsy';
+import React from 'react';
+import {Dimensions} from 'react-native';
+import {Icon} from 'react-native-elements';
+import FastImage from 'react-native-fast-image';
 import {showMessage} from 'react-native-flash-message';
+import {connect} from 'react-redux';
+import {Bounceable} from 'rn-bounceable';
+import {dripsytheme} from '../../../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 let state_here = {};
 
 function MainDetailsETH() {
-  let wallet_add = state_here.UserDetailsReducer.userdetails.wallet_address;
+  let wallet_add = state_here.WDeetsReducer.wdeets.wallet_address;
   let render_wallet_string =
     wallet_add.slice(0, 4) + '...' + wallet_add.slice(-2);
+
+  const sxCustom = useSx();
 
   const copyToClipboard = () => {
     Clipboard.setString(wallet_add);
     showMessage({
       message: 'wallet address copied',
       type: 'success',
-      backgroundColor: themeHere.colors.success_green,
+      backgroundColor: dripsytheme.colors.success_2,
     });
   };
 
@@ -37,7 +34,7 @@ function MainDetailsETH() {
     showMessage({
       message: 'you will soon to able to add your NFT as DP',
       type: 'success',
-      backgroundColor: themeHere.colors.blue_dark,
+      backgroundColor: dripsytheme.colors.brand_blue,
     });
   };
 
@@ -51,12 +48,12 @@ function MainDetailsETH() {
       }}>
       <Bounceable onPress={clickOnDpAction}>
         <FastImage
-          style={{
+          style={sxCustom({
             width: 100,
             height: 100,
             borderRadius: 50,
-            marginVertical: 10,
-          }}
+            marginVertical: '$2',
+          })}
           source={{
             uri: 'https://i.postimg.cc/YCL0q94W/red-icon.png',
             priority: FastImage.priority.normal,
@@ -65,14 +62,14 @@ function MainDetailsETH() {
         />
       </Bounceable>
       <Text
-        variant="subhead_medium"
+        variant="body_thick"
         sx={{
-          color: 'foreground',
+          color: 'layout_1',
           my: '$2',
         }}>
         {state_here.UserDetailsReducer.userdetails.username}
       </Text>
-      <Pressable onPress={copyToClipboard}>
+      <Bounceable onPress={copyToClipboard}>
         <View
           sx={{
             flexDirection: 'row',
@@ -81,9 +78,9 @@ function MainDetailsETH() {
             justifyContent: 'center',
           }}>
           <Text
-            variant="subhead_medium"
+            variant="body_thick"
             sx={{
-              color: 'foreground',
+              color: 'layout_1',
               opacity: 0.5,
               maxWidth: windowWidth * 0.2,
               mx: '$2',
@@ -93,11 +90,11 @@ function MainDetailsETH() {
           <Icon
             name="copy"
             type="feather"
-            color={themeHere.colors.foreground + '50'}
+            color={dripsytheme.colors.layout_1 + '50'}
             size={16}
           />
         </View>
-      </Pressable>
+      </Bounceable>
     </View>
   );
 }

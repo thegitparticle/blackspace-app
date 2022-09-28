@@ -1,10 +1,9 @@
+import {Text, useSx, View} from 'dripsy';
 import React from 'react';
 import {Appearance, Dimensions} from 'react-native';
-import {Text, useSx, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import window from '@react-navigation/native/src/__mocks__/window';
-import {SquircleView} from 'react-native-figma-squircle/src/index';
 import FastImage from 'react-native-fast-image';
+import {SquircleView} from 'react-native-figma-squircle/src/index';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {StyledFastImage30} from '../../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
@@ -54,39 +53,13 @@ function MarketPriceCryptoTile(props) {
               height: 50,
               mx: '$4',
             }}>
-            <Text variant="subhead_medium" sx={{color: 'foreground'}}>
+            <Text variant="body_thick" sx={{color: 'layout_1'}}>
               {props.coinDetails.name}
             </Text>
-            <Text
-              variant="body_medium"
-              sx={{color: 'foreground', opacity: 0.5}}>
+            <Text variant="body" sx={{color: 'layout_1', opacity: 0.5}}>
               {props.coinDetails.symbol.toUpperCase()}
             </Text>
           </View>
-        </View>
-        <View
-          sx={{
-            flexDirection: 'column',
-            justifyContent: 'space-around',
-            height: 50,
-            mx: 20,
-          }}>
-          <Text
-            variant="subhead_medium"
-            sx={{color: 'foreground', textAlign: 'right'}}>
-            ${props.coinDetails.current_price}
-          </Text>
-          <Text
-            variant="body_medium"
-            sx={{
-              textAlign: 'right',
-              color:
-                props.coinDetails.price_change_percentage_24h < 0
-                  ? 'danger_red'
-                  : 'success_green',
-            }}>
-            {props.coinDetails.price_change_percentage_24h.toFixed(2)} %
-          </Text>
         </View>
       </SquircleView>
     </View>

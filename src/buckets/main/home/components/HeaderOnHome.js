@@ -1,13 +1,13 @@
+import {Amplitude} from '@amplitude/react-native';
+import {useNavigation} from '@react-navigation/native';
+import {useSx, View} from 'dripsy';
 import React, {useMemo} from 'react';
 import {Appearance, Dimensions, Pressable} from 'react-native';
-import {Image, useSx, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 import {Header} from 'react-native-elements';
 import {connect} from 'react-redux';
-import {useNavigation} from '@react-navigation/native';
-import FastImage from 'react-native-fast-image';
-import {Amplitude} from '@amplitude/react-native';
-import {StyledFastImage35} from '../../../../theme/DripsyTheme';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {StyledCircleFastImage30} from '../../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -31,12 +31,8 @@ function HeaderOnHome() {
               );
               navigation.navigate('BrandLandingScreen');
             }}
-            style={{
-              paddingVertical: 10,
-              paddingHorizontal: 20,
-            }}>
-            <Image
-              variant="images.small_icon_30_round"
+            style={sxCustom({paddingVertical: '$2', paddingHorizontal: '$4'})}>
+            <StyledCircleFastImage30
               source={require('../../../../../assets/appicon_1024_white_bg.png')}
             />
           </Pressable>
@@ -56,23 +52,8 @@ function HeaderOnHome() {
               );
               navigation.navigate('MyProfileStack');
             }}
-            style={{paddingVertical: 10, paddingHorizontal: 20}}>
-            {/*<View*/}
-            {/*  variant="layout.round_icon_container_30"*/}
-            {/*  sx={{*/}
-            {/*    backgroundColor: state_here.MyEmojiColorReducer.details.color,*/}
-            {/*  }}>*/}
-            {/*  <Text variant="body_medium">*/}
-            {/*    {state_here.MyEmojiColorReducer.details.emoji}*/}
-            {/*  </Text>*/}
-            {/*</View>*/}
-            <StyledFastImage35
-              source={{
-                uri: 'https://i.postimg.cc/YCL0q94W/red-icon.png',
-                priority: FastImage.priority.high,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
+            style={sxCustom({paddingVertical: '$2', paddingHorizontal: '$4'})}>
+            <Iconly name="WalletBold" color={'#FAFAFA'} size={30} />
           </Pressable>
         );
       },
@@ -85,7 +66,8 @@ function HeaderOnHome() {
         style={{
           paddingVertical: 10,
           paddingHorizontal: 20,
-        }}></Pressable>
+        }}
+      />
     );
   }
 

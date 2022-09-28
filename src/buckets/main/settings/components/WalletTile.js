@@ -1,14 +1,16 @@
+import {Text, View} from 'dripsy';
 import React, {useState} from 'react';
-import {Appearance, Dimensions, TouchableOpacity} from 'react-native';
-import {Image, Text, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {Dimensions, TouchableOpacity} from 'react-native';
+import FastImage from 'react-native-fast-image';
 import {Modal, ModalContent, ScaleAnimation} from 'react-native-modals';
+import Iconly from '../../../../miscsetups/customfonts/Iconly';
+import {
+  dripsytheme,
+  StyledCircleFastImage25,
+} from '../../../../theme/DripsyTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
-const colorScheme = Appearance.getColorScheme();
-const themeHere = colorScheme === 'dark' ? ButterThemeDark : ButterThemeLight;
 
 function WalletTile() {
   const [showPopup, setShowPopup] = useState(false);
@@ -22,64 +24,28 @@ function WalletTile() {
             flexDirection: 'row',
             alignItems: 'center',
             justifyContent: 'space-between',
+            alignSelf: 'center',
           }}
-          variant="layout.sub_view_50_margin">
+          variant="layout.sub_view_40_margin">
           <View
             sx={{
               flexDirection: 'row',
               alignItems: 'center',
               justifyContent: 'flex-start',
             }}>
-            <Image
-              variant="images.small_icon_25_round"
+            <StyledCircleFastImage25
               source={require('../../../../../assets/dollar_icon.png')}
+              resizeMode={FastImage.resizeMode.cover}
             />
             <Text
               variant="subhead_medium"
-              sx={{marginHorizontal: '$5', color: 'foreground'}}>
+              sx={{marginHorizontal: '$5', color: 'layout_1'}}>
               Base Currency
             </Text>
           </View>
           <Iconly
             name="ChevronRightBold"
-            color={themeHere.colors.foreground}
-            size={25}
-          />
-        </View>
-      </TouchableOpacity>
-    );
-  }
-
-  function WalletBackup() {
-    return (
-      <TouchableOpacity>
-        <View
-          sx={{
-            height: 75,
-            flexDirection: 'row',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          }}
-          variant="layout.sub_view_50_margin">
-          <View
-            sx={{
-              flexDirection: 'row',
-              alignItems: 'center',
-              justifyContent: 'flex-start',
-            }}>
-            <Image
-              variant="images.small_icon_25_round"
-              source={require('../../../../../assets/icloud_icon.png')}
-            />
-            <Text
-              variant="subhead_medium"
-              sx={{marginHorizontal: '$5', color: 'foreground'}}>
-              iCloud Backup
-            </Text>
-          </View>
-          <Iconly
-            name="ChevronRightBold"
-            color={themeHere.colors.foreground}
+            color={dripsytheme.colors.layout_1}
             size={25}
           />
         </View>
@@ -90,18 +56,19 @@ function WalletTile() {
   return (
     <View
       sx={{
-        backgroundColor: 'off_background',
+        backgroundColor: 'layout_4',
         borderRadius: 15,
         marginBottom: '$6',
-        alignItems: 'center',
+        alignSelf: 'center',
       }}
       variant="layout.sub_view_20_margin">
       <Text
-        variant="subhead_medium"
+        variant="body_thick"
         sx={{
           paddingVertical: '$5',
-          color: 'foreground',
+          color: 'layout_1',
           opacity: 0.25,
+          alignSelf: 'center',
         }}>
         WALLET
       </Text>
@@ -118,21 +85,21 @@ function WalletTile() {
         <ModalContent>
           <View variant="layout.info_popup">
             <Text
-              variant="header_bold"
-              sx={{color: 'foreground', mt: '$4', mb: '$8'}}>
+              variant="heading_thick"
+              sx={{color: 'layout_1', mt: '$4', mb: '$8'}}>
               Base Currency
             </Text>
-            <Text variant="subhead_medium" sx={{color: 'foreground', mb: '$4'}}>
+            <Text variant="body_thick" sx={{color: 'layout_1', mb: '$4'}}>
               $ US Dollar
             </Text>
             <Text
               variant="subhead_medium"
-              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              sx={{color: 'layout_1', mb: '$4', opacity: 0.5}}>
               ₹ Indian Rupee (coming soon)
             </Text>
             <Text
               variant="subhead_medium"
-              sx={{color: 'foreground', mb: '$4', opacity: 0.5}}>
+              sx={{color: 'layout_1', mb: '$4', opacity: 0.5}}>
               € Euro (coming soon)
             </Text>
           </View>

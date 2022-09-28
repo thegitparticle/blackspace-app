@@ -1,3 +1,6 @@
+import {Amplitude} from '@amplitude/react-native';
+import {BlurView} from '@react-native-community/blur';
+import {Image} from 'dripsy';
 import React, {useEffect} from 'react';
 import {
   Appearance,
@@ -5,27 +8,23 @@ import {
   ImageBackground,
   StatusBar,
   StyleSheet,
-  Text,
-  View,
 } from 'react-native';
-import {LOGIN} from '../../../../redux/types';
-import {connect} from 'react-redux';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import window from '@react-navigation/native/src/__mocks__/window';
-import IntroTextsAnimation from '../components/IntroTextsAnimation';
+import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
+import {Text, View} from 'dripsy';
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {Bounceable} from 'rn-bounceable';
-import {Amplitude} from '@amplitude/react-native';
-import SquircleGlassButton from '../../../../bits/SquircleGlassButton';
-import {BlurView} from '@react-native-community/blur';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
-import ReactNativeHapticFeedback from 'react-native-haptic-feedback';
-import {Image} from 'dripsy';
+import {connect} from 'react-redux';
+import {Bounceable} from 'rn-bounceable';
+import SquircleGlassButton from '../../../../bits/SquircleGlassButton';
+import {LOGIN} from '../../../../redux/types';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
+import {dripsytheme} from '../../../../theme/DripsyTheme';
+import IntroTextsAnimation from '../components/IntroTextsAnimation';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -105,8 +104,8 @@ function Welcome1Screen({dispatch, navigation}) {
               marginHorizontal: 20,
             }}>
             <Text
-              style={{
-                ...themeHere.text.body_medium,
+              variant={'caption_thick'}
+              sx={{
                 color: 'white',
                 alignSelf: 'center',
               }}>
@@ -127,43 +126,43 @@ function Welcome1Screen({dispatch, navigation}) {
         <View style={styles.bottom_block}>
           <View>{/*<BackgroundNftsAnimation />*/}</View>
           <View>
-            <Animated.View style={[animatedIntroTexts]}>
+            {/* <Animated.View style={[animatedIntroTexts]}>
               <IntroTextsAnimation />
-            </Animated.View>
-            <Animated.View style={[animatedLogoOnSkip]}>
-              <Image
-                source={require('../../../../../assets/blackSpace_logo_full.png')}
-                sx={{
-                  width: windowWidth * 0.55,
-                  height: windowWidth * 0.081,
-                  alignSelf: 'center',
-                }}
-              />
-            </Animated.View>
-            <Animated.View style={[animatedButton]}>
-              <View
-                style={{
-                  marginVertical: windowHeight * 0.1,
-                  alignSelf: 'center',
+            </Animated.View> */}
+            {/* <Animated.View style={[animatedLogoOnSkip]}> */}
+            <Image
+              source={require('../../../../../assets/blackSpace_logo_full.png')}
+              sx={{
+                width: windowWidth * 0.55,
+                height: windowWidth * 0.081,
+                alignSelf: 'center',
+              }}
+            />
+            {/* </Animated.View> */}
+            {/* <Animated.View style={[animatedButton]}> */}
+            <View
+              sx={{
+                marginVertical: windowHeight * 0.1,
+                alignSelf: 'center',
+              }}>
+              <Bounceable
+                onPress={() => {
+                  navigation.navigate('WalletSetupOptionsScreen');
+                  Amplitude.getInstance().logEvent(
+                    'LFG_WELCOME_BUTTON_CLICKED',
+                  );
                 }}>
-                <Bounceable
-                  onPress={() => {
-                    navigation.navigate('WalletSetupOptionsScreen');
-                    Amplitude.getInstance().logEvent(
-                      'LFG_WELCOME_BUTTON_CLICKED',
-                    );
-                  }}>
-                  <SquircleGlassButton
-                    buttonColor={themeHere.colors.light}
-                    width={windowWidth * 0.7}
-                    height={50}
-                    buttonText={'LFG! 🚀'}
-                    font={themeHere.text.title_3}
-                    textColor={themeHere.colors.red}
-                  />
-                </Bounceable>
-              </View>
-            </Animated.View>
+                <SquircleGlassButton
+                  buttonColor={dripsytheme.colors.layout_4}
+                  width={windowWidth * 0.7}
+                  height={50}
+                  buttonText={'Lets go 🚀'}
+                  font={dripsytheme.text.body_thick}
+                  textColor={dripsytheme.colors.brand_orange}
+                />
+              </Bounceable>
+            </View>
+            {/* </Animated.View> */}
           </View>
         </View>
         <SkipButton />

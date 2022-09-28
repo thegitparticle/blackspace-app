@@ -1,18 +1,18 @@
+import {BlurView} from '@react-native-community/blur';
+import MaskedView from '@react-native-masked-view/masked-view';
+import {Text, useSx, View} from 'dripsy';
 import React, {useEffect, useState} from 'react';
 import {Appearance, Dimensions, StyleSheet} from 'react-native';
-import {Text, useSx, View} from 'dripsy';
-import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
-import FastImage from 'react-native-fast-image';
-import {Bounceable} from 'rn-bounceable';
 import CrispChat, {
   setSessionString,
   setTokenId,
   setUserNickname,
 } from 'react-native-crisp-chat-sdk';
-import {connect} from 'react-redux';
+import FastImage from 'react-native-fast-image';
 import {SquircleView} from 'react-native-figma-squircle';
-import {BlurView} from '@react-native-community/blur';
-import MaskedView from '@react-native-masked-view/masked-view';
+import {connect} from 'react-redux';
+import {Bounceable} from 'rn-bounceable';
+import {ButterThemeDark, ButterThemeLight} from '../../../../theme/ButterTheme';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
