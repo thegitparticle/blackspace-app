@@ -9,6 +9,7 @@ import {GetHomoraTokens} from '../../../redux/onchain/HomoraTokensActions';
 import {dripsytheme} from '../../../theme/DripsyTheme';
 import FarmThumbnailComponent from './components/FarmThumbnailComponent';
 import SpacerVertical from '../../../bits/SpacerVertical';
+import {GetFarmFaqs} from '../../../redux/onchain/farms/FarmFAQActions';
 
 const windowHeight = Dimensions.get('window').height;
 const windowWidth = Dimensions.get('window').width;
@@ -32,6 +33,7 @@ function FarmPage({dispatch}) {
     dispatch(GetHomoraAPYs());
     dispatch(GetHomoraTradingVols());
     dispatch(GetHomoraTokens());
+    dispatch(GetFarmFaqs());
   }, [refreshing]);
 
   const homoraFarms = state_here.HomoraFarmsReducer.homora_farms;

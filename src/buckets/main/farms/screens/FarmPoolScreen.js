@@ -52,6 +52,8 @@ function FarmPoolScreen({route}) {
 
   const wallet_address = state_here.WDeetsReducer.wdeets.wallet_address;
 
+  const farmfaqs = state_here.FarmFAQReducer.farm_faqs;
+
   const allTradingVols =
     state_here.HomoraTradingVolsReducer.homora_trading_vols;
   const allTokens = state_here.HomoraTokensReducer.homora_tokens;
@@ -625,7 +627,33 @@ function FarmPoolScreen({route}) {
       );
     }
 
-    let faqsHere = FarmsFaqs;
+    function RenderFAQsList() {
+      if (farmfaqs.length > 0) {
+        return (
+          <View>
+            {farmfaqs.map((item, index) => (
+              <RenderFAQ question={item.question} answer={item.answer} />
+            ))}
+          </View>
+        );
+      } else {
+        return (
+          <View>
+            <Text
+              variant="text_thick"
+              sx={{
+                color: 'layout_2',
+                marginHorizontal: '$4',
+                marginVertical: '$2',
+                textAlign: 'center',
+                alignSelf: 'center',
+              }}>
+              No FAQs available
+            </Text>
+          </View>
+        );
+      }
+    }
 
     return (
       <View
@@ -640,9 +668,7 @@ function FarmPoolScreen({route}) {
           }}>
           FAQs
         </Text>
-        {faqsHere.map((item, index) => (
-          <RenderFAQ question={item.question} answer={item.answer} />
-        ))}
+        <RenderFAQsList />
       </View>
     );
   }

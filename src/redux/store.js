@@ -12,6 +12,7 @@ import MyTokenBalancesReducer from './appcore/MyTokenBalancesReducer';
 import SecretSettingsReducer from './appcore/SecretSettingsReducer';
 import UserDetailsReducer from './appcore/UserDetailsReducer';
 import WDeetsReducer from './appcore/WDeetsReducer';
+import FarmFAQReducer from './onchain/farms/FarmFAQReducer';
 
 import HomoraAPYsReducer from './onchain/HomoraAPYsReducer';
 import HomoraFarmsReducer from './onchain/HomoraFarmsReducer';
@@ -89,6 +90,11 @@ export const persistConfigSavePools = {
   storage: AsyncStorage,
 };
 
+export const persistConfigFarmFAQs = {
+  key: 'farm_faqs',
+  storage: AsyncStorage,
+};
+
 const rootReducer = combineReducers({
   AuthStateReducer: persistReducer(persistConfigAuth, AuthStateReducer),
   MyProfileReducer: persistReducer(persistConfigMyProfile, MyProfileReducer),
@@ -135,6 +141,8 @@ const rootReducer = combineReducers({
   ),
 
   SavePoolsReducer: persistReducer(persistConfigSavePools, SavePoolsReducer),
+
+  FarmFAQReducer: persistReducer(persistConfigFarmFAQs, FarmFAQReducer),
 });
 
 export const storehere = createStore(rootReducer, applyMiddleware(thunk));
