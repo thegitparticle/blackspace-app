@@ -628,7 +628,7 @@ function FarmPoolScreen({route}) {
     }
 
     function RenderFAQsList() {
-      if (farmfaqs.length > 0) {
+      if (farmfaqs && farmfaqs.length > 0) {
         return (
           <View>
             {farmfaqs.map((item, index) => (
