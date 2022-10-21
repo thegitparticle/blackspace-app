@@ -28,7 +28,10 @@ function FarmThumbnailComponent({farmData}) {
   useEffect(() => {
     if (Object.keys(allApys).length !== 0) {
       if (farmData.key) {
-        setApy(allApys[farmKey].totalAPY);
+        console.log(allApys[farmKey]);
+        if (allApys[farmKey]) {
+          setApy(allApys[farmKey].totalAPY);
+        }
       }
     }
   }, [farmData.key, allApys]);
