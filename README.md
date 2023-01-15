@@ -1,11 +1,10 @@
-# BlackSpace - soupapp
+# BlackSpace
 
-### Branches
+Simplest way to trade on defi from your smartphone. Enter into positions, provide liquidity, manage yield farms all from your phone with enhanced security and native UI and UX (not cluttered web-apps). Currently supports top defi protocols on the Ethereum Mainnet.
 
-1. v1_changes_1 : March, 2022 - first time Super App Concept app store push version. 
-2. bombay : May-July, 2022 - super app concept - but with external wallet (ETH - WalletConnect and Phantom) integration and Solana mini apps support.
-3. bombay_archive : August, 2022 - the super app concept app archived.
-4. cali : starting in Aug '22. Yield farming, Defi only BlackSpace concept.
+[Website](https://www.blackspace.cool/) | [App Store](https://apps.apple.com/us/app/blackspace-use-crypto/id1611233669)
+
+For the previous Super-Dapp edition of BlackSpace - [check this branch](https://github.com/thegitparticle/soupapp/tree/bombay_archive)
 
 ##### to run bombay, follow the below steps
 1. clone the branch's repo
