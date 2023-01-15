@@ -6,7 +6,7 @@ Simplest way to trade on defi from your smartphone. Enter into positions, provid
 
 For the previous Super-Dapp edition of BlackSpace - [check this branch](https://github.com/thegitparticle/soupapp/tree/bombay_archive)
 
-##### to run bombay, follow the below steps
+##### to run, follow the below steps
 1. clone the branch's repo
 2. `yarn`
 3. `npx pod-install ios`
